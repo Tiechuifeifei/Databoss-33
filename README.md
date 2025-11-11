@@ -55,7 +55,7 @@ The system allows users to register, list items, create auctions, and place bids
 ---
 
 ```
-## 📂 Folder Structure
+## Folder Structure
 
 The project follows a modular structure separating backend (PHP logic), database scripts, frontend assets, and documentation.  
 Each group is responsible for a clear subset of folders as indicated below.
