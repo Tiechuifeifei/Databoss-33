@@ -1,7 +1,6 @@
 # Databoss-33
 This is our **UCL Database Auction Project**, developed using **HTML + PHP + MySQL**.  
-The system allows users to register, list items, create auctions, and place bids online.
-
+The system allows users to register, list items, create auctions, and place bids online.asdasd
 ---
 
 ## Group Division
