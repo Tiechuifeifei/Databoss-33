@@ -26,19 +26,19 @@ The system allows users to register, list items, create auctions, and place bids
 |  | View All Bids for Auction | Show all bids of one auction sorted by amount/time. | SQL SELECT ORDER BY | Leo & Mekial |
 |  | Display Highest Bid | Query and show current highest bid dynamically on auction detail page. | SQL MAX() | Leo & Mekial |
 |  | Bid Validation | Reject bids lower than current highest; prevent self-bidding by seller. | PHP Logic | Leo & Mekial |
-| **Item** | Add New Item | Seller adds item with title, description, category, and image URL. | SQL INSERT | Yufei & Irene |
-|  | Edit Item | Seller modifies item info before auction starts. | SQL UPDATE | Yufei & Irene |
-|  | Delete Item | Seller removes item (only if not under auction). | SQL DELETE | Yufei & Irene |
-|  | Browse Items | List all items with image preview and category filter. | SQL SELECT | Yufei & Irene |
-|  | Item Details | Show full item info and link to its auction & bids. | SQL SELECT JOIN | Yufei & Irene |
-| **Auction** | Create Auction | Seller sets start_price, start_time, end_time; link item_id to auction_id. | SQL INSERT | Yufei & Irene |
-|  | Update Auction Status | Automatically close auctions past end_time (“active” → “closed”). | SQL UPDATE + PHP Cron | Yufei & Irene |
-|  | View Active Auctions | Display all auctions currently active with countdown timers. | SQL SELECT WHERE status='active' | Yufei & Irene |
-|  | Auction Result | Determine winner (highest bidder) when auction closes. | SQL SELECT MAX(bid_amount) | Yufei & Irene |
+| **Item** | Add New Item | Seller adds item with title, description, category, and image URL. | SQL INSERT | Irene |
+|  | Edit Item | Seller modifies item info before auction starts. | SQL UPDATE | Irene |
+|  | Delete Item | Seller removes item (only if not under auction). | SQL DELETE | Irene |
+|  | Browse Items | List all items with image preview and category filter. | SQL SELECT | Irene |
+|  | Item Details | Show full item info and link to its auction & bids. | SQL SELECT JOIN | Irene |
+| **Auction** | Create Auction | Seller sets start_price, start_time, end_time; link item_id to auction_id. | SQL INSERT | Yufei |
+|  | Update Auction Status | Automatically close auctions past end_time (“active” → “closed”). | SQL UPDATE + PHP Cron | Yufei |
+|  | View Active Auctions | Display all auctions currently active with countdown timers. | SQL SELECT WHERE status='active' | Yufei |
+|  | Auction Result | Determine winner (highest bidder) when auction closes. | SQL SELECT MAX(bid_amount) | Yufei & |
 | **Watchlist** | Add to Watchlist | Save an item or auction for later viewing. | SQL INSERT | Leo & Mekial |
 |  | View Watchlist | List user’s saved items with links to detail pages. | SQL SELECT JOIN | Leo & Mekial |
-| **Images** | Upload Image | Allow seller to attach multiple images to each item. | File Upload + SQL INSERT | Yufei & Irene |
-|  | Display Image | Retrieve and show item images in item detail page. | SQL SELECT | Yufei & Irene |
+| **Images** | Upload Image | Allow seller to attach multiple images to each item. | File Upload + SQL INSERT | Irene |
+|  | Display Image | Retrieve and show item images in item detail page. | SQL SELECT | Irene |
 
 
 ---
