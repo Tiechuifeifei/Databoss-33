@@ -34,7 +34,7 @@ The system allows users to register, list items, create auctions, and place bids
 | **Auction** | Create Auction | Seller sets start_price, start_time, end_time; link item_id to auction_id. | SQL INSERT | Yufei |
 |  | Update Auction Status | Automatically close auctions past end_time (“active” → “closed”). | SQL UPDATE + PHP Cron | Yufei |
 |  | View Active Auctions | Display all auctions currently active with countdown timers. | SQL SELECT WHERE status='active' | Yufei |
-|  | Auction Result | Determine winner (highest bidder) when auction closes. | SQL SELECT MAX(bid_amount) | Yufei & |
+|  | Auction Result | Determine winner (highest bidder) when auction closes. | SQL SELECT MAX(bid_amount) | Yufei |
 | **Watchlist** | Add to Watchlist | Save an item or auction for later viewing. | SQL INSERT | Leo & Mekial |
 |  | View Watchlist | List user’s saved items with links to detail pages. | SQL SELECT JOIN | Leo & Mekial |
 | **Images** | Upload Image | Allow seller to attach multiple images to each item. | File Upload + SQL INSERT | Irene |
