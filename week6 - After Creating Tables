@@ -1,0 +1,22 @@
+## Development Workflow
+
+### After Creating the Database Tables
+
+1. **Validate table structure**  
+   Confirm primary keys, foreign keys, and necessary fields for Auctions, Bids, Items, Users, and Watchlist.
+
+2. **Check business logic compatibility**  
+   Ensure the schema supports required functions such as creating auctions, placing bids, updating current price, ending auctions, and watchlist operations.
+
+3. **Set up backend database connection**  
+   Create `db.php` and implement commonly used SQL query functions.
+
+4. **Implement auction features**  
+   - browse.php (listing items and auctions)  
+   - item.php (show item details and bid history)  
+   - place_bid.php (processing bids)  
+   - create_auction.php (seller creates auctions)
+
+5. **Test the end-to-end flow**  
+   User → Item upload → Auction creation → Bidding → Auction automatically ends.
+
