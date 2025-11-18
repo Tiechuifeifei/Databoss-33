@@ -1,0 +1,44 @@
+1. Create new auctions 创建
+Validate the item
+Insert new auction records
+Update item status listed
+====== items and auctions
+检查 item 是否存在
+插入 Auctions 表
+更新 itemStatus = 'listed'
+2. Retrieve auction details 显示auction信息
+Combine information from Auctions + Items + Users + Bids
+Provide data for auction detail pages
+==== auctions，items， users和bids
+join这几个表
+3. Update auction status automatically 更新状态
+scheduled/active/ended/sold based on timestamps
+==== auctions 根据时间做更新
+4. Determine the auction winner 确定winner
+Fetch highest valid bid from the Bids table
+Update final price and auction status
+Mark item as sold
+==== auctions,bids,items
+查询最高 bid（从 Bids）
+更新 auctionStatus = “ended/ sold”
+写入 winnerUserId（如果你有这个字段）
+itemStatus = sold
+5. List all active auctions 展示拍卖页面
+Used in Browse Listings page
+Supports filters (keyword, category, sort options)
+==== auctions,items
+支持：
+keyword
+category
+sort by endTime / price
+6. Retrieve current auction price 
+Highest bid OR starting price
+==== bids, auctions
+显示当前价格（最高 bid > startPrice）
+
+7. Seller functions -- 
+Retrieve all auctions created by a specific seller
+
+8. getUserAuctions(userId)
+用途：卖家中心，查看自己开的拍卖
+涉及表：Auctions, Items
