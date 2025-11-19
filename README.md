@@ -37,7 +37,7 @@ The system allows users to register, list items, create auctions, and place bids
 |  | View Active Auctions | Display all auctions currently active with countdown timers. | SQL SELECT WHERE status='active' | Yufei |
 |  | Auction Result | Determine winner (highest bidder) when auction closes. | SQL SELECT MAX(bid_amount) | Yufei |
 |  | found the highest bid price and update| cron -- lecture 7|lecture 7|Yufei|
-|  | schedule automatically | lecture 7 | Yufei| 
+|  | schedule automatically | lecture 7 | lecture 7 | Yufei| 
 | **Watchlist** | Add to Watchlist | Save an item or auction for later viewing. | SQL INSERT | Leo & Mekial |
 |  | View Watchlist | List user’s saved items with links to detail pages. | SQL SELECT JOIN | Leo & Mekial |
 | **Images** | Upload Image | Allow seller to attach multiple images to each item. | File Upload + SQL INSERT | Yufei & Irene |
