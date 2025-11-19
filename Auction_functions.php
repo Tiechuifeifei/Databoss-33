@@ -21,7 +21,7 @@ function createAuction($itemId, $startPrice, $reservePrice, $startTime, $endTime
         $startTime, 
         $endTime
     );
-
+    
     $stmt->execute();
     return $stmt->insert_id;   // mysqli 的 lastInsertId
 }
