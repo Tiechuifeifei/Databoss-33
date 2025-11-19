@@ -1,4 +1,4 @@
-1. Create new auctions 创建
+1. Create new auctions 创建 ===》和 item create的function是直接相关的
 Validate the item
 Insert new auction records
 Update item status listed
@@ -42,3 +42,16 @@ Retrieve all auctions created by a specific seller
 8. getUserAuctions(userId)
 用途：卖家中心，查看自己开的拍卖
 涉及表：Auctions, Items
+
+
+我需要test新写的4和5还有更新
+写browse和check_auction 还有list
+
+
+
+在 browse / listing 页面“每次加载”时：
+closeAuctionIfEnded($auctionId);
+在 cron job（每 5 分钟）运行：
+foreach (all auctions) {
+    closeAuctionIfEnded($auctionId);
+}

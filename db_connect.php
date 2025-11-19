@@ -1,4 +1,7 @@
 <?php
+
+date_default_timezone_set("Europe/London");
+
 $host = 'localhost';
 $dbname = 'auction_website';   // 数据库名称 name
 $username = 'root';

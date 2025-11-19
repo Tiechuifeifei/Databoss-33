@@ -1,6 +1,6 @@
 <?php
-require_once("../db_connect.php");   
-require_once(__DIR__ . '/../utilities.php');
+require_once("db_connect.php");   
+require_once(__DIR__ . '/utilities.php');
 
 //  AUCTION FUNCTIONS
 
@@ -19,7 +19,7 @@ function createAuction($itemId, $startPrice, $reservePrice, $startTime, $endTime
         $startPrice, 
         $reservePrice, 
         $startTime, 
-        $endTime,
+        $endTime
     );
 
     $stmt->execute();
@@ -99,20 +99,32 @@ function getActiveAuctions() {
 
 // 4. 更新 auction 当前价格（被 bid 模块调用）
 // call from bid module
-// bid team should notice this one is hard, you need to find out the highest bidprice and give the id to auction. 
-function updateAuctionWinningBid($auctionId, $bidId) {
+function getCurrentHighestPrice($auctionId) {
     global $conn;
 
-    $sql = "
-        UPDATE auctions
-        SET winningBidId = ?
-        WHERE auctionId = ?
-    ";
+    $sql = "SELECT MAX(bidPrice) AS highestPrice
+            FROM bids
+            WHERE auctionId = ?";
 
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("ii", $bidId, $auctionId);
+    $stmt->bind_param("i", $auctionId);
+    $stmt->execute();
+    $result = $stmt->get_result()->fetch_assoc();
 
-    return $stmt->execute();  // true 或 false
+    // 如果没人出价，返回起拍价 if no bid, then go back to the start price 
+    if ($result['highestPrice'] === null) {
+
+        // 查起拍价 serch for the startprice
+        $sql2 = "SELECT startPrice FROM auctions WHERE auctionId = ?";
+        $stmt2 = $conn->prepare($sql2);
+        $stmt2->bind_param("i", $auctionId);
+        $stmt2->execute();
+        $starting = $stmt2->get_result()->fetch_assoc();
+
+        return $starting['startPrice'];
+    }
+
+    return $result['highestPrice'];
 }
 
 // update auctionstatus automatically 
@@ -174,8 +186,8 @@ function refreshAuctionStatus($auctionId) {
 }
 
 
-//6. get the remaining time: call utilities.php
-// 6. 获取某个 auction 的剩余时间（返回格式化后的字符串）
+// 6. get the remaining time: call utilities.php
+// 获取某个 auction 的剩余时间（返回格式化后的字符串）
 // interact with utilities.php
 function getRemainingTime($auctionId) {
     global $conn;
@@ -201,12 +213,12 @@ function getRemainingTime($auctionId) {
 
     // 否则计算剩余时间
     $interval = $now->diff($end_time);
-    return display_time_remaining($interval);  // 来自 utilities.php 的格式化函数
+    return display_time_remaining($interval);  // 来自 utilities.php
 }
 
 
 
-// 7 获取某个用户创建的所有拍卖（用于“我的拍卖”）
+// 7. 获取某个用户创建的所有拍卖（用于“我的拍卖”）
 // call from item
 
 function getAuctionsByUser($userId) {
@@ -240,5 +252,60 @@ function getAuctionsByUser($userId) {
 
     return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
 }
+
+//8. endAuctions -- update the auction when it ends
+function endAuction($auctionId) {
+    global $conn;
+
+    // 1. find the highest bidid and price
+    $sql = "SELECT bidId, bidPrice
+            FROM bids
+            WHERE auctionId = ?
+            ORDER BY bidPrice DESC
+            LIMIT 1";
+
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("i", $auctionId);
+    $stmt->execute();
+    $highestBid = $stmt->get_result()->fetch_assoc();
+
+    if ($highestBid) {
+        // 2. update the auction.soldPrice + winningBidId
+        $sql2 = "UPDATE auctions
+                SET soldPrice = ?, winningBidId = ?
+                WHERE auctionId = ?";
+        $stmt2 = $conn->prepare($sql2);
+        $stmt2->bind_param("dii",
+            $highestBid['bidPrice'],
+            $highestBid['bidId'],
+            $auctionId
+        );
+        $stmt2->execute();
+    } else {
+        // no bid（soldPrice = null）
+        $sql3 = "UPDATE auctions
+                SET soldPrice = NULL, winningBidId = NULL
+                WHERE auctionId = ?";
+        $stmt3 = $conn->prepare($sql3);
+        $stmt3->bind_param("i", $auctionId);
+        $stmt3->execute();
+    }
+}
+
+// 9. Close auction only if ended
+function closeAuctionIfEnded($auctionId) {
+
+    // Step 1: refresh auction status (this already checks time)
+    $ended = refreshAuctionStatus($auctionId);
+
+    // Step 2: if ended, calculate soldPrice + winningBidId
+    if ($ended) {
+        endAuction($auctionId);
+        return "Auction closed (ended).";
+    }
+
+    return "Auction still active.";
+}
+
 
 ?>
