@@ -19,14 +19,19 @@ The system allows users to register, list items, create auctions, and place bids
 ## Function Overview (Detailed)
 | Module | Function | Description | Involves | Owner |
 |---------|-----------|--------------|-----------|--------|
-| **User** | Register | Create new user accounts; validate unique username & email; hash passwords before storing. | PHP Form + SQL INSERT | Leo & Mekial |
-|  | Login / Logout | Authenticate user credentials; start or destroy PHP session. | PHP Session + SQL SELECT | Leo & Mekial |
-|  | Edit Profile | Update user info (email, password, etc.) with validation. | SQL UPDATE | Leo & Mekial |
-|  | View My Auctions | Display all auctions where user is the seller. | SQL SELECT JOIN | Leo & Mekial |
-| **Bid** | Place Bid | Submit bid amount; check if higher than current max; record bidder_id, auction_id, bid_time. | SQL INSERT + Validation | Leo & Mekial |
-|  | View All Bids for Auction | Show all bids of one auction sorted by amount/time. | SQL SELECT ORDER BY | Leo & Mekial |
-|  | Display Highest Bid | Query and show current highest bid dynamically on auction detail page. | SQL MAX() | Leo & Mekial |
-|  | Bid Validation | Reject bids lower than current highest; prevent self-bidding by seller. | PHP Logic | Leo & Mekial |
+| **User** | Register | Create new user accounts; validate unique email; password ≥ 6 characters; hash passwords. | PHP Form + SQL INSERT | Leo & Mekial |
+|  | Login / Logout | Authenticate user credentials; manage PHP session. | PHP Session + SQL SELECT | Leo & Mekial |
+|  | Edit Profile | Update user info (email, password). | SQL UPDATE | Leo & Mekial |
+|  | View My Auctions | Display auctions the user created (as seller). | SQL SELECT JOIN | Leo & Mekial |
+|  | View My Bids (New) | Show all bids made by the user. | SQL SELECT JOIN bids + auctions | Leo & Mekial |
+|  | Promote to Seller (New) | Default role = buyer; clicking “Sell” updates role to seller. | PHP Logic | Leo & Mekial |
+| **Bid** | Place Bid | Submit bid; validate amount; record buyerId + auctionId + bidTime. | SQL INSERT + Validation | Leo & Mekial |
+|  | View All Bids for Auction | List bids for a specific auction. | SQL SELECT ORDER BY | Leo & Mekial |
+|  | Display Highest Bid | Query current highest bid dynamically. | SQL MAX() | Leo & Mekial |
+|  | Basic Bid Validation | Reject low bids; ensure auction is active. | PHP Logic | Leo & Mekial |
+|  | My Bids (New) | getBidsByUser(userId) for buyer dashboard. | SQL SELECT JOIN | Leo |
+|  | Bids On My Auctions (New) | Seller views bids on auctions they created. | SQL JOIN auctions + items | Leo |
+|  | Advanced Validation (New) | buyer ≠ seller; current time < endTime; reserve price logic. | PHP Logic | Leo & Mekial |
 | **Item** | Add New Item | Seller adds item with title, description, category, and image URL. | SQL INSERT | Yufei & Irene |
 |  | Edit Item | Seller modifies item info before auction starts. | SQL UPDATE | Yufei & Irene |
 |  | Delete Item | Seller removes item (only if not under auction). | SQL DELETE | Yufei & Irene |
@@ -40,6 +45,7 @@ The system allows users to register, list items, create auctions, and place bids
 |  | schedule automatically | lecture 7 | lecture 7 | Yufei| 
 | **Watchlist** | Add to Watchlist | Save an item or auction for later viewing. | SQL INSERT | Leo & Mekial |
 |  | View Watchlist | List user’s saved items with links to detail pages. | SQL SELECT JOIN | Leo & Mekial |
+| **Watchlist** | Remove from Watchlist (New) | Remove saved auction from watchlist. | SQL DELETE | Leo & Mekial |
 | **Images** | Upload Image | Allow seller to attach multiple images to each item. | File Upload + SQL INSERT | Yufei & Irene |
 |  | Display Image | Retrieve and show item images in item detail page. | SQL SELECT | Yufei & Irene |
 
@@ -52,7 +58,8 @@ The system allows users to register, list items, create auctions, and place bids
 |------|------|---------------|
 | **Week 6** | database schema | ERD Diagram + SQL tables |
 | **Week 7** | Add sample data and test PHP–SQL connection &Implement core features (User, Bid, Item, Auction)  | Test dataset + db_connect.php |
-| **Week 8** | Implement core features (User, Bid, Item, Auction) & frontend design| CRUD pages + backend logic |
+| **Week 8** | Implement core features (User, Bid, Item, Auction) & frontend design| CRUD pages + backend logic |Implement additional User/Bid features: My Bids, Promote to Seller, Remove Watchlist, Advanced Bid Validation.
+
 | **Week 9** | Integration & final testing | Full system + presentation report |
 
 ---
@@ -96,6 +103,8 @@ Frontend (HTML/CSS/JS) → Backend (PHP) → Database (MySQL).
 ### Summary
 > Both groups are **full-stack** within their modules.  
 > The project emphasizes backend logic (PHP + MySQL) with interactive frontend components for a complete user experience.
+> Additional functions (My Bids, Promote to Seller, Advanced Bid Validation, Remove Watchlist) are included to strengthen backend logic and improve user experience.
+> 
 
 ## Folder Structure
 
@@ -122,6 +131,9 @@ auction-website/
 │   │   ├── bid_history.php              # Display user's bidding history
 │   │   ├── view_bids.php                # Show all bids under a specific auction
 │   │   ├── watchlist.php                # Add or remove items from user watchlist
+│   │   ├── my_bids.php                    # Display all bids user has placed
+│   │   ├── remove_watchlist.php           # Remove item/auction from watchlist
+│   │   ├── promote_to_seller.php          # Convert buyer → seller
 │   │   ├── notifications.php            # Display user notifications (outbid, won auction, etc.)
 │   │   └── update_notification_status.php # Mark notifications as read
 │   │
