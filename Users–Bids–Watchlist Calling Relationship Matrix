@@ -1,0 +1,13 @@
+| From Module | To Module | Reason for Call                             | Example Function                | Required? |
+| ----------- | --------- | ------------------------------------------- | ------------------------------- | --------- |
+| Users       | Bids      | Support “My Bids” page                      | `getBidsByUser(userId)`         | Yes       |
+| Users       | Bids      | Show seller-side bid history                | `getBidsOnMyAuctions(sellerId)` | Optional  |
+| Bids        | Users     | Validate buyer (not bidding own auction)    | `getUserById()`                 | Yes       |
+| Bids        | Users     | Display buyer username in bid list          | `getUserById()`                 | Optional  |
+| Users       | Watchlist | Add auction to watchlist                    | `addToWatchlist()`              | Yes       |
+| Users       | Watchlist | View watchlist                              | `getWatchlistByUser()`          | Yes       |
+| Users       | Watchlist | Remove from watchlist                       | `removeFromWatchlist()`         | Yes       |
+| Watchlist   | Auctions  | Need auction info for display               | `getAuctionById()`              | Yes       |
+| Bids        | Auctions  | Update winningBidId after valid bid         | `updateWinningBidId()`          | Optional  |
+| Auctions    | Users     | Display seller info                         | `getUserById()`                 | Optional  |
+| Auctions    | Bids      | Auction detail needs bid list & highest bid | `getHighestBid()`               | Yes       |
