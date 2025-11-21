@@ -1,0 +1,10 @@
+createItem - itemId 供 createAuction 使用
+getItemById	- 	浏览 / auction 用
+getItemsBySeller	- “我的 items”
+getItemsByCategory - 需要 将来home page 要 Browse by category
+updateItem	- 修改 item
+withdrawItem（或 updateStatus）	- 和 auction withdraw 对应 
+deleteItem	-------- 这个需要吗？	有 Image FK，一般不用删除
+getItemImages	- 已经做了？ 与 Images 卷起来做	Browse 用
+addImageToItem	已经做了	你们 ERD 有这个表
+setPrimaryImage	已经做了	is_primary = 1
