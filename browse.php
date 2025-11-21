@@ -1,5 +1,13 @@
 <?php include_once("header.php")?>
 <?php require("utilities.php")?>
+<?php 
+require_once("Auction_functions.php");
+require_once("db_connect.php");
+require_once("Auction_functions.php");
+require_once("item_functions.php");
+require_once("image_functions.php");
+ ?>
+
 
 <div class="container">
 

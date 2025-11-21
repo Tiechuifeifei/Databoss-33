@@ -94,16 +94,26 @@ function getActiveAuctions() {
             a.auctionEndTime,
             a.auctionStatus,
             a.startPrice,
-            a.soldPrice,
-            a.winningBidId,
             a.reservedPrice,
+            a.winningBidId,
             i.itemName,
             i.itemDescription,
             i.categoryId,
-            i.sellerId
+            i.sellerId,
+
+            -- 当前最高出价（如果没有出价，则用 startPrice）
+            COALESCE(MAX(b.bidPrice), a.startPrice) AS currentPrice,
+
+            -- 出价数量
+            COUNT(b.bidId) AS numBids
+
         FROM auctions a
         JOIN items i ON a.itemId = i.itemId
+        LEFT JOIN bids b ON a.auctionId = b.auctionId
+
         WHERE a.auctionStatus IN ('scheduled', 'running')
+
+        GROUP BY a.auctionId
         ORDER BY a.auctionStartTime ASC
     ";
 
@@ -111,9 +121,9 @@ function getActiveAuctions() {
     $stmt->execute();
     $result = $stmt->get_result();
 
-    // 返回 array of associative arrays
     return $result->fetch_all(MYSQLI_ASSOC);
 }
+
 
 // 4. 更新 auction 当前价格（被 bid 模块调用）
 // call from bid module
