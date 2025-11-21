@@ -37,7 +37,7 @@ The system allows users to register, list items, create auctions, and place bids
 |  | Auction Result | Determine winner (highest bidder) when auction closes. | SQL SELECT MAX(bid_amount) | Yufei & Irene |
 | **Watchlist** | Add to Watchlist | Save an item or auction for later viewing. | SQL INSERT | Leo & Mekial |
 |  | View Watchlist | List user’s saved items with links to detail pages. | SQL SELECT JOIN | Leo & Mekial |
-| **Images** | Upload Image | Allow seller to attach multiple images to each item. | File Upload + SQL INSERT | Yufei & Irene |
+| **Images** | Upload Image | Allow seller to attach multiple images to each item. | File Upload + SQL INSERT | Yufei |
 |  | Display Image | Retrieve and show item images in item detail page. | SQL SELECT | Yufei & Irene |
 
 
