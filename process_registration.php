@@ -12,20 +12,21 @@ function back_with_msg(string $msg) {
     exit;
 }
 
-$userUsername = trim($_POST['userUsername'] ?? '');
-$userRole = trim($_POST['userRole'] ?? '');
-$userEmail = trim($_POST['userEmail'] ?? '');
-$userPassword = $_POST['userPassword'] ?? '';
+$userUsername             = trim($_POST['userUsername'] ?? '');
+$userEmail                = trim($_POST['userEmail'] ?? '');
+$userPassword             = $_POST['userPassword'] ?? '';
 $userPasswordConfirmation = $_POST['userPasswordConfirmation'] ?? '';
-$userPhoneNumber = trim($_POST['userPhoneNumber'] ?? '');
-$userDob = $_POST['userDob'] ?? '';
-$userHouseNo = trim($_POST['userHouseNo'] ?? '');
-$userStreet = trim($_POST['userStreet'] ?? '');
-$userCity = trim($_POST['userCity'] ?? '');
-$userPostcode = trim($_POST['userPostcode'] ?? '');
+$userPhoneNumber          = trim($_POST['userPhoneNumber'] ?? '');
+$userDob                  = $_POST['userDob'] ?? '';
+$userHouseNo              = trim($_POST['userHouseNo'] ?? '');
+$userStreet               = trim($_POST['userStreet'] ?? '');
+$userCity                 = trim($_POST['userCity'] ?? '');
+$userPostcode             = trim($_POST['userPostcode'] ?? '');
+
+// everyone is a buyer by default
+$userRole = 'buyer';
 
 if ($userUsername === '') back_with_msg('Username is required.');
-if (!in_array($userRole, ['buyer', 'seller'], true)) back_with_msg('Please select a role.');
 if (!filter_var($userEmail, FILTER_VALIDATE_EMAIL)) back_with_msg('Invalid email format.');
 if ($userPassword === '' || $userPasswordConfirmation === '') back_with_msg('Password is required.');
 if ($userPassword !== $userPasswordConfirmation) back_with_msg('Passwords do not match.');
@@ -42,6 +43,7 @@ try {
 
 $db = get_db_connection();
 
+// Email uniqueness
 $stmt = $db->prepare("SELECT userId FROM users WHERE userEmail = ? LIMIT 1");
 $stmt->bind_param('s', $userEmail);
 $stmt->execute();
@@ -52,6 +54,7 @@ if ($res && $res->num_rows > 0) {
 }
 $stmt->close();
 
+// Username uniqueness
 $stmt = $db->prepare("SELECT userId FROM users WHERE userUsername = ? LIMIT 1");
 $stmt->bind_param('s', $userUsername);
 $stmt->execute();
@@ -65,10 +68,25 @@ $stmt->close();
 $hash = password_hash($userPassword, PASSWORD_DEFAULT);
 
 $stmt = $db->prepare("
-    INSERT INTO users (userUsername, userEmail, userPassword, userRole, userPhoneNumber, userDob, userHouseNo, userStreet, userCity, userPostcode)
+    INSERT INTO users (
+        userUsername, userEmail, userPassword, userRole,
+        userPhoneNumber, userDob, userHouseNo, userStreet, userCity, userPostcode
+    )
     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
 ");
-$stmt->bind_param('ssssssssss', $userUsername, $userEmail, $hash, $userRole, $userPhoneNumber, $userDob, $userHouseNo, $userStreet, $userCity, $userPostcode);
+$stmt->bind_param(
+    'ssssssssss',
+    $userUsername,
+    $userEmail,
+    $hash,
+    $userRole,
+    $userPhoneNumber,
+    $userDob,
+    $userHouseNo,
+    $userStreet,
+    $userCity,
+    $userPostcode
+);
 
 if (!$stmt->execute()) {
     back_with_msg('Failed to register: ' . $db->error);
@@ -77,9 +95,9 @@ if (!$stmt->execute()) {
 $userId = $stmt->insert_id;
 $stmt->close();
 
-$_SESSION['userId'] = $userId;
+$_SESSION['userId']       = $userId;
 $_SESSION['userUsername'] = $userUsername;
-$_SESSION['userRole'] = $userRole;
+$_SESSION['userRole']     = $userRole;
 
 header('Location: browse.php');
 exit;

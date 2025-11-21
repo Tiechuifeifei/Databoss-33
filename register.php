@@ -6,22 +6,6 @@
 <!-- Registration form -->
 <form method="POST" action="process_registration.php">
 
-  <!-- Account type -->
-  <div class="form-group row">
-    <label for="accountType" class="col-sm-2 col-form-label text-right">Registering as a:</label>
-    <div class="col-sm-10">
-      <div class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" name="userRole" id="accountBuyer" value="buyer" checked>
-        <label class="form-check-label" for="accountBuyer">Buyer</label>
-      </div>
-      <div class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" name="userRole" id="accountSeller" value="seller">
-        <label class="form-check-label" for="accountSeller">Seller</label>
-      </div>
-      <small class="form-text-inline text-muted"><span class="text-danger">* Required.</span></small>
-    </div>
-  </div>
-
   <!-- Username -->
   <div class="form-group row">
     <label for="username" class="col-sm-2 col-form-label text-right">Username</label>
@@ -51,6 +35,13 @@
   </div>
 </div>
 
+<div class="form-group row">
+  <label for="passwordConfirmation" class="col-sm-2 col-form-label text-right">Repeat password</label>
+  <div class="col-sm-10">
+    <input type="password" class="form-control" id="passwordConfirmation" name="userPasswordConfirmation" placeholder="Enter password again" required>
+    <small class="form-text text-muted"><span class="text-danger">* Required.</span></small>
+  </div>
+</div>
 
   <!-- Phone Number -->
   <div class="form-group row">
