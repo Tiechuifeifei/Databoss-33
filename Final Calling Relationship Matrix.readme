@@ -1,0 +1,12 @@
+| Caller      | Callee  | Relationship | Reason                                   |
+| ----------- | ------- | ------------ | ---------------------------------------- |
+| **Item**    | User    | ✔            | Items belong to users (sellers)          |
+| Item        | Auction | ❌            | Item does not manage auctions            |
+| Item        | Bid     | ❌            | No need                                  |
+| **Auction** | Item    | ✔            | Needs to validate and update item status |
+| **Auction** | User    | ✔            | Needs seller & winner info               |
+| Auction     | Bid     | Read-only    | Displays highest bid & history           |
+| **Bid**     | Auction | ✔            | Must check auction rules & status        |
+| **Bid**     | User    | ✔            | Records buyer info                       |
+| Bid         | Item    | ❌            | Not needed                               |
+| **User**    | Others  | ❌            | User is a base module                    |
