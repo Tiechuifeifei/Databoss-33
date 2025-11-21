@@ -9,7 +9,3 @@ CREATE TABLE `bids` (
   KEY `idx_bids_buyer` (`buyerId`),
   CONSTRAINT `fk_bids_buyer` FOREIGN KEY (`buyerId`) REFERENCES `users` (`id`) ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
-
-
-

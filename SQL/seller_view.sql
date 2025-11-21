@@ -1,4 +1,4 @@
 CREATE VIEW `sellers` AS
-SELECT `users`.`id` AS `sellerId`
+SELECT `users`.`userId` AS `sellerId`
 FROM `users`
-WHERE `users`.`role` = 'seller';
+WHERE `users`.`userRole` = 'seller';
