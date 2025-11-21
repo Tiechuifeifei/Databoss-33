@@ -13,7 +13,7 @@ require_once("db_connect.php");
 | - 4. delete image 
 | - 5. update image 
 | - 6. getPrimaryImage($itemId) ---- 这个listing的时候要用！！
-| - 7. count images 限制最多3张
+| - 7. count images 限制最多3张（max 3 pics)
 |---------------------------------------------------------------------------
 */
 
