@@ -1,11 +1,35 @@
 <?php
 require_once("db_connect.php");   
 
-//function1: upload image
+/*
+|--------------------------------------------------------------------------
+| Image FUNCTIONS
+|--------------------------------------------------------------------------
+| This file contains all Image-related backend logic:
+| - 1. upload image 第一个
+| - 2.1 getimage 
+| - 2.2 getimageid 
+| - 3. set primary image
+| - 4. delete image 
+| - 5. update image 
+| - 6. getPrimaryImage($itemId) ---- 这个listing的时候要用！！
+| - 7. count images 限制最多3张
+|---------------------------------------------------------------------------
+*/
+
+
+//1: upload image
 
 function uploadImage($itemId, $imageUrl, $isPrimary = 0) {
     global $conn;
 
+    // Step 0: 限制最大 3 张
+    $currentCount = countImagesByItemId($itemId);
+    if ($currentCount >= 3) {
+        return "MAX_LIMIT_REACHED";   // 标记超过上限
+    }
+
+    // Step 1: 正常插入
     $sql = "INSERT INTO images (itemId, imageUrl, isPrimary)
             VALUES (?, ?, ?)";
 
@@ -19,7 +43,8 @@ function uploadImage($itemId, $imageUrl, $isPrimary = 0) {
     }
 }
 
-//function2: get image
+
+//2.1 get image
 function getImagesByItemId($itemId) {
     global $conn;
 
@@ -35,7 +60,21 @@ function getImagesByItemId($itemId) {
     return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
 }
 
-// set primary image
+// 2.2 getimageid 
+
+function getImageById($imageId) {
+    global $conn;
+
+    $sql = "SELECT * FROM images WHERE imageId = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("i", $imageId);
+    $stmt->execute();
+
+    return $stmt->get_result()->fetch_assoc();
+}
+
+
+// 3. set primary image
 function setPrimaryImage($imageId, $itemId) {
     global $conn;
 
@@ -53,7 +92,7 @@ function setPrimaryImage($imageId, $itemId) {
     return $stmt2->execute();
 }
 
-// delete image 
+// 4. delete image 
 function deleteImage($imageId) {
     global $conn;
 
@@ -63,5 +102,42 @@ function deleteImage($imageId) {
 
     return $stmt->execute();
 }
+
+// 5. change photo
+
+function updateImageUrl($imageId, $newUrl) {
+    global $conn;
+
+    $sql = "UPDATE images SET imageUrl = ? WHERE imageId = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("si", $newUrl, $imageId);
+
+    return $stmt->execute();
+}
+
+// 6. getPrimaryImage($itemId)
+function getPrimaryImage($itemId) {
+    global $conn;
+
+    $sql = "SELECT imageUrl FROM images WHERE itemId = ? AND isPrimary = 1 LIMIT 1";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("i", $itemId);
+    $stmt->execute();
+
+    return $stmt->get_result()->fetch_assoc();
+}
+
+// 7. count image 
+function countImagesByItemId($itemId) {
+    global $conn;
+
+    $sql = "SELECT COUNT(*) AS total FROM images WHERE itemId = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("i", $itemId);
+    $stmt->execute();
+
+    return $stmt->get_result()->fetch_assoc()['total'];
+}
+
 
 ?>
