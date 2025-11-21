@@ -7,5 +7,9 @@ CREATE TABLE `bids` (
   PRIMARY KEY (`bidId`),
   KEY `idx_bids_auction` (`auctionId`),
   KEY `idx_bids_buyer` (`buyerId`),
-  CONSTRAINT `fk_bids_buyer` FOREIGN KEY (`buyerId`) REFERENCES `users` (`id`) ON UPDATE CASCADE
+
+  CONSTRAINT `fk_bids_buyer`
+    FOREIGN KEY (`buyerId`)
+    REFERENCES `users` (`userId`)
+    ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
