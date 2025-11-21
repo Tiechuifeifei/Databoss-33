@@ -16,8 +16,9 @@ function back($msg, $code = 302, $where = null) {
     }
 }
 
-$email = trim($_POST['email'] ?? '');
-$pass  = (string)($_POST['password'] ?? '');
+// NEW: read using correct POST names
+$email = trim($_POST['userEmail'] ?? '');
+$pass  = (string)($_POST['userPassword'] ?? '');
 $redirect = $_POST['redirect'] ?? ($_SERVER['HTTP_REFERER'] ?? 'browse.php');
 
 if ($email === '' || $pass === '') {
@@ -26,11 +27,16 @@ if ($email === '' || $pass === '') {
 
 $db = get_db_connection();
 
-// Updated query to match new column names
+// UPDATED query to match new user table schema
 $stmt = $db->prepare("
-    SELECT id, username, email, password_hash, role
+    SELECT 
+        userId,
+        userUsername,
+        userEmail,
+        userPassword,
+        userRole
     FROM users
-    WHERE email = ?
+    WHERE userEmail = ?
     LIMIT 1
 ");
 $stmt->bind_param('s', $email);
@@ -43,15 +49,15 @@ if (!$user) {
     back('Account not found.', 302, $redirect);
 }
 
-// Verify password
-if (!password_verify($pass, $user['password_hash'])) {
+// Verify password using the renamed 'userPassword'
+if (!password_verify($pass, $user['userPassword'])) {
     back('Wrong password.', 302, $redirect);
 }
 
-// Login success: set session keys
-$_SESSION['userId']   = (int)$user['id'];
-$_SESSION['username'] = $user['username'] ?: 'User';
-$_SESSION['role']     = $user['role'] ?: 'buyer';
+// Login success: correct session keys
+$_SESSION['userId']        = (int)$user['userId'];
+$_SESSION['userUsername']  = $user['userUsername'] ?: 'User';
+$_SESSION['userRole']      = $user['userRole'] ?: 'buyer';
 
 // Redirect back
 if (!headers_sent()) {

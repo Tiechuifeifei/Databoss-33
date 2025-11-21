@@ -11,11 +11,11 @@
     <label for="accountType" class="col-sm-2 col-form-label text-right">Registering as a:</label>
     <div class="col-sm-10">
       <div class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" name="accountType" id="accountBuyer" value="buyer" checked>
+        <input class="form-check-input" type="radio" name="userRole" id="accountBuyer" value="buyer" checked>
         <label class="form-check-label" for="accountBuyer">Buyer</label>
       </div>
       <div class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" name="accountType" id="accountSeller" value="seller">
+        <input class="form-check-input" type="radio" name="userRole" id="accountSeller" value="seller">
         <label class="form-check-label" for="accountSeller">Seller</label>
       </div>
       <small class="form-text-inline text-muted"><span class="text-danger">* Required.</span></small>
@@ -26,7 +26,7 @@
   <div class="form-group row">
     <label for="username" class="col-sm-2 col-form-label text-right">Username</label>
     <div class="col-sm-10">
-      <input type="text" class="form-control" id="username" name="username" placeholder="Choose a username" required>
+      <input type="text" class="form-control" id="username" name="userUsername" placeholder="Choose a username" required>
       <small class="form-text text-muted"><span class="text-danger">* Required.</span></small>
     </div>
   </div>
@@ -35,7 +35,7 @@
   <div class="form-group row">
     <label for="email" class="col-sm-2 col-form-label text-right">Email</label>
     <div class="col-sm-10">
-      <input type="email" class="form-control" id="email" name="email" placeholder="Email" required>
+      <input type="email" class="form-control" id="email" name="userEmail" placeholder="Email" required>
       <small class="form-text text-muted"><span class="text-danger">* Required.</span></small>
     </div>
   </div>
@@ -44,14 +44,14 @@
   <div class="form-group row">
     <label for="password" class="col-sm-2 col-form-label text-right">Password</label>
     <div class="col-sm-10">
-      <input type="password" class="form-control" id="password" name="password" placeholder="Password" required>
+      <input type="password" class="form-control" id="password" name="userPassword" placeholder="Password" required>
       <small class="form-text text-muted"><span class="text-danger">* Required.</span></small>
     </div>
   </div>
   <div class="form-group row">
     <label for="passwordConfirmation" class="col-sm-2 col-form-label text-right">Repeat password</label>
     <div class="col-sm-10">
-      <input type="password" class="form-control" id="passwordConfirmation" name="passwordConfirmation" placeholder="Enter password again" required>
+      <input type="password" class="form-control" id="passwordConfirmation" name="userPasswordConfirmation" placeholder="Enter password again" required>
       <small class="form-text text-muted"><span class="text-danger">* Required.</span></small>
     </div>
   </div>
@@ -60,7 +60,7 @@
   <div class="form-group row">
     <label for="phoneNumber" class="col-sm-2 col-form-label text-right">Phone Number</label>
     <div class="col-sm-10">
-      <input type="text" class="form-control" id="phoneNumber" name="phoneNumber" placeholder="Phone Number" required>
+      <input type="text" class="form-control" id="phoneNumber" name="userPhoneNumber" placeholder="Phone Number" required>
       <small class="form-text text-muted"><span class="text-danger">* Required.</span></small>
     </div>
   </div>
@@ -69,7 +69,7 @@
   <div class="form-group row">
     <label for="dob" class="col-sm-2 col-form-label text-right">Date Of Birth</label>
     <div class="col-sm-10">
-      <input type="date" class="form-control" id="dob" name="dob" placeholder="Select your date of birth" required>
+      <input type="date" class="form-control" id="dob" name="userDob" placeholder="Select your date of birth" required>
       <small class="form-text text-muted"><span class="text-danger">* Required.</span></small>
     </div>
   </div>
@@ -78,7 +78,7 @@
   <div class="form-group row">
     <label for="houseNo" class="col-sm-2 col-form-label text-right">House Number</label>
     <div class="col-sm-10">
-      <input type="text" class="form-control" id="houseNo" name="houseNo" placeholder="House Number" required>
+      <input type="text" class="form-control" id="houseNo" name="userHouseNo" placeholder="House Number" required>
       <small class="form-text text-muted"><span class="text-danger">* Required.</span></small>
     </div>
   </div>
@@ -87,7 +87,7 @@
   <div class="form-group row">
     <label for="street" class="col-sm-2 col-form-label text-right">Street</label>
     <div class="col-sm-10">
-      <input type="text" class="form-control" id="street" name="street" placeholder="Street" required>
+      <input type="text" class="form-control" id="street" name="userStreet" placeholder="Street" required>
       <small class="form-text text-muted"><span class="text-danger">* Required.</span></small>
     </div>
   </div>
@@ -96,7 +96,7 @@
   <div class="form-group row">
     <label for="city" class="col-sm-2 col-form-label text-right">City</label>
     <div class="col-sm-10">
-      <input type="text" class="form-control" id="city" name="city" placeholder="City" required>
+      <input type="text" class="form-control" id="city" name="userCity" placeholder="City" required>
       <small class="form-text text-muted"><span class="text-danger">* Required.</span></small>
     </div>
   </div>
@@ -105,7 +105,7 @@
   <div class="form-group row">
     <label for="postcode" class="col-sm-2 col-form-label text-right">Postcode</label>
     <div class="col-sm-10">
-      <input type="text" class="form-control" id="postcode" name="postcode" placeholder="Postcode" required>
+      <input type="text" class="form-control" id="postcode" name="userPostcode" placeholder="Postcode" required>
       <small class="form-text text-muted"><span class="text-danger">* Required.</span></small>
     </div>
   </div>

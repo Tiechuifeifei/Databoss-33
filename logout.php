@@ -1,32 +1,24 @@
 <?php
 if (session_status() === PHP_SESSION_NONE) { session_start(); }
-require_once __DIR__ . '/utilities.php';
 
-$currentUrl = $_SERVER['REQUEST_URI'] ?? 'browse.php';
-include_once __DIR__ . '/header.php';
-?>
+// Clear all user-related session keys
+unset($_SESSION['userId']);
+unset($_SESSION['userUsername']);
+unset($_SESSION['userRole']);
 
-<div class="container my-5" style="max-width:560px;">
-  <h3 class="mb-4">Login</h3>
-  <form method="POST" action="login_result.php">
-    <input type="hidden" name="redirect" value="<?= h($currentUrl) ?>">
+// Optional: clear all session data
+$_SESSION = [];
 
-    <div class="form-group">
-      <label for="pageLoginEmail">Email</label>
-      <input type="email" class="form-control" id="pageLoginEmail" name="email" placeholder="Email" required>
-    </div>
+if (ini_get("session.use_cookies")) {
+    $params = session_get_cookie_params();
+    setcookie(session_name(), '', time() - 42000,
+        $params["path"], $params["domain"],
+        $params["secure"], $params["httponly"]
+    );
+}
 
-    <div class="form-group">
-      <label for="pageLoginPassword">Password</label>
-      <input type="password" class="form-control" id="pageLoginPassword" name="password" placeholder="Password" required>
-    </div>
+session_destroy();
 
-    <button type="submit" class="btn btn-primary btn-block">Sign in</button>
-  </form>
-
-  <div class="text-center mt-3">
-    or <a href="register.php">create an account</a>
-  </div>
-</div>
-
-<?php include_once __DIR__ . '/footer.php'; ?>
+// Redirect to homepage (browse)
+header("Location: browse.php");
+exit;

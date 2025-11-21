@@ -1,11 +1,7 @@
 <?php
 require_once __DIR__ . '/utilities.php';
-
 if (session_status() === PHP_SESSION_NONE) { session_start(); }
 
-/**
- * Helper to display an error and exit
- */
 function back_with_msg(string $msg) {
     include_once __DIR__ . '/header.php';
     echo '<div class="container my-4" style="max-width:860px;">';
@@ -16,30 +12,27 @@ function back_with_msg(string $msg) {
     exit;
 }
 
-// ---- Collect POST data ----
-$username = trim($_POST['username'] ?? '');
-$role = trim($_POST['accountType'] ?? '');
-$email = trim($_POST['email'] ?? '');
-$password = $_POST['password'] ?? '';
-$passwordConfirmation = $_POST['passwordConfirmation'] ?? '';
-$phone = trim($_POST['phoneNumber'] ?? '');
-$dob = $_POST['dob'] ?? '';
-$house = trim($_POST['houseNo'] ?? '');
-$street = trim($_POST['street'] ?? '');
-$city = trim($_POST['city'] ?? '');
-$postcode = trim($_POST['postcode'] ?? '');
+$userUsername = trim($_POST['userUsername'] ?? '');
+$userRole = trim($_POST['userRole'] ?? '');
+$userEmail = trim($_POST['userEmail'] ?? '');
+$userPassword = $_POST['userPassword'] ?? '';
+$userPasswordConfirmation = $_POST['userPasswordConfirmation'] ?? '';
+$userPhoneNumber = trim($_POST['userPhoneNumber'] ?? '');
+$userDob = $_POST['userDob'] ?? '';
+$userHouseNo = trim($_POST['userHouseNo'] ?? '');
+$userStreet = trim($_POST['userStreet'] ?? '');
+$userCity = trim($_POST['userCity'] ?? '');
+$userPostcode = trim($_POST['userPostcode'] ?? '');
 
-// ---- Validation ----
-if ($username === '') back_with_msg('Username is required.');
-if (!in_array($role, ['buyer', 'seller'], true)) back_with_msg('Please select a role.');
-if (!filter_var($email, FILTER_VALIDATE_EMAIL)) back_with_msg('Invalid email format.');
-if ($password === '' || $passwordConfirmation === '') back_with_msg('Password is required.');
-if ($password !== $passwordConfirmation) back_with_msg('Passwords do not match.');
-if (strlen($password) < 6) back_with_msg('Password must be at least 6 characters.');
+if ($userUsername === '') back_with_msg('Username is required.');
+if (!in_array($userRole, ['buyer', 'seller'], true)) back_with_msg('Please select a role.');
+if (!filter_var($userEmail, FILTER_VALIDATE_EMAIL)) back_with_msg('Invalid email format.');
+if ($userPassword === '' || $userPasswordConfirmation === '') back_with_msg('Password is required.');
+if ($userPassword !== $userPasswordConfirmation) back_with_msg('Passwords do not match.');
+if (strlen($userPassword) < 6) back_with_msg('Password must be at least 6 characters.');
 
-// Age check
 try {
-    $birthDate = new DateTime($dob);
+    $birthDate = new DateTime($userDob);
     $today = new DateTime();
     $age = $today->diff($birthDate)->y;
     if ($age < 18) back_with_msg('You must be at least 18 years old.');
@@ -47,12 +40,10 @@ try {
     back_with_msg('Invalid date of birth.');
 }
 
-// ---- DB connection ----
 $db = get_db_connection();
 
-// Check email uniqueness
-$stmt = $db->prepare("SELECT id FROM users WHERE email = ? LIMIT 1");
-$stmt->bind_param('s', $email);
+$stmt = $db->prepare("SELECT userId FROM users WHERE userEmail = ? LIMIT 1");
+$stmt->bind_param('s', $userEmail);
 $stmt->execute();
 $res = $stmt->get_result();
 if ($res && $res->num_rows > 0) {
@@ -61,9 +52,8 @@ if ($res && $res->num_rows > 0) {
 }
 $stmt->close();
 
-// Check username uniqueness
-$stmt = $db->prepare("SELECT id FROM users WHERE username = ? LIMIT 1");
-$stmt->bind_param('s', $username);
+$stmt = $db->prepare("SELECT userId FROM users WHERE userUsername = ? LIMIT 1");
+$stmt->bind_param('s', $userUsername);
 $stmt->execute();
 $res = $stmt->get_result();
 if ($res && $res->num_rows > 0) {
@@ -72,14 +62,13 @@ if ($res && $res->num_rows > 0) {
 }
 $stmt->close();
 
-// ---- Insert user ----
-$hash = password_hash($password, PASSWORD_DEFAULT);
+$hash = password_hash($userPassword, PASSWORD_DEFAULT);
 
 $stmt = $db->prepare("
-    INSERT INTO users (username, email, password_hash, role, phone_number, dob, house_no, street, city, postcode)
+    INSERT INTO users (userUsername, userEmail, userPassword, userRole, userPhoneNumber, userDob, userHouseNo, userStreet, userCity, userPostcode)
     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
 ");
-$stmt->bind_param('ssssssssss', $username, $email, $hash, $role, $phone, $dob, $house, $street, $city, $postcode);
+$stmt->bind_param('ssssssssss', $userUsername, $userEmail, $hash, $userRole, $userPhoneNumber, $userDob, $userHouseNo, $userStreet, $userCity, $userPostcode);
 
 if (!$stmt->execute()) {
     back_with_msg('Failed to register: ' . $db->error);
@@ -88,11 +77,9 @@ if (!$stmt->execute()) {
 $userId = $stmt->insert_id;
 $stmt->close();
 
-// ---- Auto login ----
 $_SESSION['userId'] = $userId;
-$_SESSION['username'] = $username;
-$_SESSION['role'] = $role;
+$_SESSION['userUsername'] = $userUsername;
+$_SESSION['userRole'] = $userRole;
 
-// Redirect to browse page
 header('Location: browse.php');
 exit;

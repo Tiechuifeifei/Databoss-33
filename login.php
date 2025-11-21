@@ -2,21 +2,27 @@
 if (session_status() === PHP_SESSION_NONE) { session_start(); }
 require_once __DIR__ . '/utilities.php';
 
-// Collect POST data
-$email = $_POST['email'] ?? '';
-$password = $_POST['password'] ?? '';
-$redirect = $_POST['redirect'] ?? 'browse.php';
+$email    = $_POST['userEmail']    ?? '';
+$password = $_POST['userPassword'] ?? '';
+$redirect = $_POST['redirect']     ?? 'browse.php';
 
-// Basic validation
 if (!filter_var($email, FILTER_VALIDATE_EMAIL) || $password === '') {
     die('Invalid login credentials.');
 }
 
-// Connect to DB
 $db = get_db_connection();
 
-// Look up user by email
-$stmt = $db->prepare("SELECT id, username, email, password_hash, role FROM users WHERE email = ? LIMIT 1");
+$stmt = $db->prepare("
+    SELECT 
+        userId,
+        userUsername,
+        userEmail,
+        userPassword,
+        userRole
+    FROM users
+    WHERE userEmail = ?
+    LIMIT 1
+");
 $stmt->bind_param('s', $email);
 $stmt->execute();
 $result = $stmt->get_result();
@@ -29,16 +35,13 @@ if (!$result || $result->num_rows === 0) {
 $user = $result->fetch_assoc();
 $stmt->close();
 
-// Verify password
-if (!password_verify($password, $user['password_hash'])) {
+if (!password_verify($password, $user['userPassword'])) {
     die('Incorrect password.');
 }
 
-// Login success — set session
-$_SESSION['userId'] = $user['id'];
-$_SESSION['username'] = $user['username'];
-$_SESSION['role'] = $user['role'];
+$_SESSION['userId']        = $user['userId'];
+$_SESSION['userUsername']  = $user['userUsername'];
+$_SESSION['userRole']      = $user['userRole'];
 
-// Redirect
 header("Location: $redirect");
 exit;

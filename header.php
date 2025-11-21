@@ -32,7 +32,8 @@ $currentUrl = $_SERVER['REQUEST_URI'] ?? 'browse.php';
   <ul class="navbar-nav ml-auto">
     <li class="nav-item d-flex align-items-center">
 <?php if (!empty($_SESSION['userId'])): ?>
-      <span class="nav-link">Hi, <?= h($_SESSION['username'] ?? 'User') ?></span>
+      <!-- Renamed username → userUsername -->
+      <span class="nav-link">Hi, <?= h($_SESSION['userUsername'] ?? 'User') ?></span>
       <a class="nav-link" href="logout.php">Logout</a>
 <?php else: ?>
       <!-- 保持原来用 Modal 登录，同时补上 Register 链接 -->
@@ -49,7 +50,6 @@ $currentUrl = $_SERVER['REQUEST_URI'] ?? 'browse.php';
     <li class="nav-item mx-1"><a class="nav-link" href="browse.php">Browse</a></li>
 
 <?php if (!empty($_SESSION['userId'])): ?>
-    <!-- 登录后先都显示（等你们在 login_result.php 正式写入 role 后再细分） -->
     <li class="nav-item mx-1"><a class="nav-link" href="mybids.php">My Bids</a></li>
     <li class="nav-item mx-1"><a class="nav-link" href="mylistings.php">My Listings</a></li>
     <li class="nav-item ml-3"><a class="nav-link btn border-light" href="create_auction.php">+ Create auction</a></li>
@@ -57,7 +57,7 @@ $currentUrl = $_SERVER['REQUEST_URI'] ?? 'browse.php';
   </ul>
 </nav>
 
-<!-- Login 模态框（保留你们原样，只补“name”与隐藏重定向） -->
+<!-- Login 模态框 -->
 <div class="modal fade" id="loginModal">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -69,18 +69,22 @@ $currentUrl = $_SERVER['REQUEST_URI'] ?? 'browse.php';
       <div class="modal-body">
         <form method="POST" action="login_result.php">
           <input type="hidden" name="redirect" value="<?= h($currentUrl) ?>">
+
           <div class="form-group">
             <label for="loginEmail">Email</label>
-            <!-- ★ 关键：补 name="email" -->
-            <input type="email" class="form-control" id="loginEmail" name="email" placeholder="Email" required>
+            <!-- email → userEmail -->
+            <input type="email" class="form-control" id="loginEmail" name="userEmail" placeholder="Email" required>
           </div>
+
           <div class="form-group">
             <label for="loginPassword">Password</label>
-            <!-- ★ 关键：补 name="password" -->
-            <input type="password" class="form-control" id="loginPassword" name="password" placeholder="Password" required>
+            <!-- password → userPassword -->
+            <input type="password" class="form-control" id="loginPassword" name="userPassword" placeholder="Password" required>
           </div>
+
           <button type="submit" class="btn btn-primary form-control">Sign in</button>
         </form>
+
         <div class="text-center">or <a href="register.php">create an account</a></div>
       </div>
 
