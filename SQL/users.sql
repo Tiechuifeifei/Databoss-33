@@ -1,6 +1,6 @@
 CREATE TABLE `users` (
     `userId` INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    `userUsername` VARCHAR(30) UNIQUE NOT NULL,
+    `userName` VARCHAR(30) UNIQUE NOT NULL,
     `userEmail` VARCHAR(50) UNIQUE NOT NULL,
     `userPassword` VARCHAR(255) NOT NULL,
     `userRole` ENUM('buyer','seller') NOT NULL DEFAULT 'buyer',
