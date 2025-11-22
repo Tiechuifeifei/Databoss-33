@@ -23,11 +23,11 @@ The system allows users to register, list items, create auctions, and place bids
 |  | Login / Logout | Authenticate user credentials; manage PHP session. | PHP Session + SQL SELECT | Mekial |
 |  | Edit Profile | Update user info (email, password). | SQL UPDATE | Mekial |
 |  | View My Auctions | Display auctions the user created (as seller). | SQL SELECT JOIN | Mekial |
-| **Bid** | getHighestBidForAuction($auctionId) | Check the highest bid for one specific auction; return null if no bids exist. | SQL SELECT MAX(bidPrice) | Leo |
-|  | getBidsByAuctionId($auctionId) | “Auction’s view” — list all bids placed on a specific auction. | SQL SELECT ORDER BY bidTime DESC | Leo |
-|  | getBidsByUser($userId) | “Buyer’s view” — display all bids placed by the current user (“My Bids”). | SQL SELECT WHERE buyerId | Leo |
-|  | placeBid($buyerId, $auctionId, $bidAmount) | Allow a buyer to place a new bid; validate amount and auction status before inserting. | SQL INSERT + PHP Validation | Leo |
-|  | viewBidsOnMyAuctions($sellerId) | “Seller’s view” — view all bids placed on auctions created by the current user. | SQL SELECT WHERE sellerId | Leo |
+| **Bid** | Get Highest Bid for an Auction | Retrieve the highest bid for a specific auction; return NULL if no bids exist. | SQL SELECT MAX(bidPrice) | Leo |
+|  | Get All Bids for an Auction | “Auction’s view” — list all bids placed on a specific auction. | SQL SELECT ORDER BY bidTime DESC | Leo |
+|  | Get Bids by User | “Buyer’s view” — display all bids placed by the current user (“My Bids”). | SQL SELECT WHERE buyerId = ? | Leo |
+|  | Place Bid | Allow a buyer to submit a bid; validate amount and auction status before inserting. | SQL INSERT + PHP validation | Leo |
+|  | View Bids on My Auctions | “Seller’s view” — view all bids placed on auctions created by the current user. | SQL SELECT JOIN (filter by sellerId) | Leo |
 | **Item** | Add New Item | Seller adds item with title, description, category, and image URL. | SQL INSERT | Yufei & Irene |
 |  | Edit Item | Seller modifies item info before auction starts. | SQL UPDATE | Yufei & Irene |
 |  | Delete Item | Seller removes item (only if not under auction). | SQL DELETE | Yufei & Irene |
