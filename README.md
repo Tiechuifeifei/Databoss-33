@@ -109,70 +109,52 @@ Each group is responsible for a clear subset of folders as indicated below.
 ```
 auction-website/
 │
-├── database/                            # Database layer (SQL scripts and connection)
-│   ├── auction_db_schema.sql            # Defines all tables (users, items, auctions, bids, watchlist, notifications)
-│   ├── sample_data.sql                  # Sample dataset for testing and demo
-│   ├── triggers.sql                     # Optional triggers for automatic updates (e.g. auction close)
-│   └── db_connect.php                   # PHP connection file to MySQL (used by all other scripts)
+├── database/                            # Database layer
+│   ├── auction_schema.sql               # Defines tables (users, items, auctions, bids, watchlist)
+│   ├── sample_data.sql                  # Optional test data
+│   └── db_connect.php                   # Shared DB connection
 │
-├── php/                                 # Backend logic (PHP code)
+├── php/                                 # Backend logic
 │   │
-│   ├── user/                            # (Leo & Mekial) User and Bid modules
-│   │   ├── register.php                 # Register new users (validation + password hashing)
-│   │   ├── login.php                    # User login authentication
-│   │   ├── logout.php                   # Logout and destroy PHP session
-│   │   ├── profile.php                  # View or edit user details
-│   │   ├── place_bid.php                # Place a bid on an active auction
-│   │   ├── bid_history.php              # Display user's bidding history
-│   │   ├── view_bids.php                # Show all bids under a specific auction
-│   │   ├── watchlist.php                # Add or remove items from user watchlist
-│   │   ├── remove_watchlist.php           # Remove item/auction from watchlist
-│   │   ├── notifications.php            # Display user notifications (outbid, won auction, etc.)
-│   │   └── update_notification_status.php # Mark notifications as read
+│   ├── users/                           # User module (Register / Login / Profile)
+│   │   ├── register.php                 # Create new user accounts
+│   │   ├── login.php                    # User authentication + session start
+│   │   ├── logout.php                   # Destroy session
+│   │   └── profile.php                  # View or edit user details
 │   │
-│   ├── auction/                         # (Yufei & Irene) Item and Auction modules
-│   │   ├── add_item.php                 # Seller adds new item (title, description, category, image)
-│   │   ├── edit_item.php                # Seller edits item details before auction starts
-│   │   ├── delete_item.php              # Delete item if auction not active
-│   │   ├── create_auction.php           # Start auction for selected item
-│   │   ├── auction_list.php             # Show all ongoing auctions
-│   │   ├── item_detail.php              # Display item info + current bids + countdown timer
-│   │   ├── update_status.php            # Automatically close expired auctions
-│   │   ├── winner_notification.php      # Send notification to highest bidder after auction ends
-│   │   ├── search_filter.php            # Filter auctions by category, keyword, or price range
-│   │   └── upload_image.php             # Handle image uploads for items
+│   ├── bids/                            # Bid module (Leo)
+│   │   ├── bids_functions.php           # Core backend functions:
+│   │   │                                   # - Get highest bid
+│   │   │                                   # - Get bids for auction
+│   │   │                                   # - Get bids by user
+│   │   │                                   # - Place bid
+│   │   │                                   # - View bids on my auctions
+│   │   ├── place_bid.php                # Handle bid submission (POST)
+│   │   ├── view_bids.php                # Display bids for a specific auction
+│   │   └── my_bids.php                  # “Buyer’s view” — all bids by current user
 │   │
-│   ├── shared/                          # Common resources shared by all pages
-│   │   ├── header.php                   # Navigation bar and page header
-│   │   ├── footer.php                   # Common footer section
-│   │   ├── utils.php                    # Helper functions (e.g. format price, check login)
-│   │   └── auth_check.php               # Middleware: restrict access to logged-in users
+│   ├── watchlist/                       # Watchlist module (Leo & Mekial)
+│   │   ├── watchlist_funcs.php          # Backend functions:
+│   │   │                                   # - add_to_watchlist
+│   │   │                                   # - view_watchlist
+│   │   │                                   # - remove_from_watchlist
+│   │   ├── watchlist.php                 # View user watchlist
+│   │   └── remove_watchlist.php          # Remove auction from watchlist
+│   │
+│   ├── shared/                          # Common helpers
+│   │   ├── header.php                   # Navigation bar
+│   │   ├── footer.php                   # Footer section
+│   │   └── utilities.php                # Shared helper functions (e.g., auth checks)
 │
-├── css/                                 # Frontend styling
-│   ├── style.css                        # Global stylesheet
-│   ├── auction.css                      # Auction and item detail pages
-│   └── user.css                         # Login/register/profile pages
+├── css/
+│   └── style.css                        # Global styling
 │
-├── js/                                  # Frontend scripts
-│   ├── main.js                          # Core JavaScript (validation, dynamic updates)
-│   ├── countdown.js                     # Countdown timer for active auctions
-│   ├── watchlist.js                     # Add/remove watchlist functionality via AJAX
-│   └── notifications.js                 # Real-time notification refresh (AJAX polling)
+├── js/
+│   └── main.js                          # Basic frontend scripts (optional)
 │
-├── images/                              # Image storage
-│   ├── sample_items/                    # Example item images for demo
-│   └── uploads/                         # User-uploaded item images
+├── images/
+│   └── uploads/                         # Item images (if applicable)
 │
-├── docs/                                # Project documentation
-│   ├── ERD_diagram.png                  # Entity-Relationship Diagram
-│   ├── ROADMAP.md                       # Project plan and weekly milestones
-│   ├── function_table.md                # Detailed function descriptions (extended)
-│   ├── schema_explanation.pdf           # Explanation of database relationships
-│   └── final_report.docx                # Coursework report draft
-│
-├── index.php                            # Homepage displaying active auctions
-├── about.php                            # About / project introduction page
-├── contact.php                          # (Optional) Contact form or info page
-├── config.php                           # Configuration constants (DB credentials, paths)
-└── README.md                            # Project overview, feature list, and team division
-```
+├── index.php                            # Homepage — list active auctions
+└── README.md                            # Project overview + function tables
+
