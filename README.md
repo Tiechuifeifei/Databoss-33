@@ -19,14 +19,16 @@ The system allows users to register, list items, create auctions, and place bids
 ## Function Overview (Detailed)
 | Module | Function | Description | Involves | Owner |
 |---------|-----------|--------------|-----------|--------|
-| **User** | Register | Create new user accounts; validate unique email; password ≥ 6 characters; hash passwords. | PHP Form + SQL INSERT | Leo & Mekial |
-|  | Login / Logout | Authenticate user credentials; manage PHP session. | PHP Session + SQL SELECT | Leo & Mekial |
-|  | Edit Profile | Update user info (email, password). | SQL UPDATE | Leo & Mekial |
-|  | View My Auctions | Display auctions the user created (as seller). | SQL SELECT JOIN | Leo & Mekial |
-| **Bid** | Place Bid | Submit bid; validate amount; record buyerId + auctionId + bidTime. | SQL INSERT + Validation | Leo & Mekial |
-|  | View All Bids for Auction | List bids for a specific auction. | SQL SELECT ORDER BY | Leo & Mekial |
-|  | Display Highest Bid | Query current highest bid dynamically. | SQL MAX() | Leo & Mekial |
-|  | Basic Bid Validation | Reject low bids; ensure auction is active. | PHP Logic | Leo & Mekial |
+| **User** | Register | Create new user accounts; validate unique email; password ≥ 6 characters; hash passwords. | PHP Form + SQL INSERT | Mekial |
+|  | Login / Logout | Authenticate user credentials; manage PHP session. | PHP Session + SQL SELECT | Mekial |
+|  | Edit Profile | Update user info (email, password). | SQL UPDATE | Mekial |
+|  | View My Auctions | Display auctions the user created (as seller). | SQL SELECT JOIN | Mekial |
+| **Bid** | Function | Description | Involves | Owner |
+|  | getHighestBidForAuction($auctionId) | Check the highest bid for one specific auction; return null if no bids exist. | SQL SELECT MAX(bidPrice) | Leo |
+|  | getBidsByAuctionId($auctionId) | “Auction’s view” — list all bids placed on a specific auction. | SQL SELECT ORDER BY bidTime DESC | Leo |
+|  | getBidsByUser($userId) | “Buyer’s view” — display all bids placed by the current user (“My Bids”). | SQL SELECT WHERE buyerId | Leo |
+|  | placeBid($buyerId, $auctionId, $bidAmount) | Allow a buyer to place a new bid; validate amount and auction status before inserting. | SQL INSERT + PHP Validation | Leo |
+|  | viewBidsOnMyAuctions($sellerId) | “Seller’s view” — view all bids placed on auctions created by the current user. | SQL SELECT WHERE sellerId | Leo |
 | **Item** | Add New Item | Seller adds item with title, description, category, and image URL. | SQL INSERT | Yufei & Irene |
 |  | Edit Item | Seller modifies item info before auction starts. | SQL UPDATE | Yufei & Irene |
 |  | Delete Item | Seller removes item (only if not under auction). | SQL DELETE | Yufei & Irene |
@@ -38,9 +40,9 @@ The system allows users to register, list items, create auctions, and place bids
 |  | Auction Result | Determine winner (highest bidder) when auction closes. | SQL SELECT MAX(bid_amount) | Yufei |
 |  | found the highest bid price and update| cron -- lecture 7|lecture 7|Yufei|
 |  | schedule automatically | lecture 7 | lecture 7 | Yufei| 
-| **Watchlist** | Add to Watchlist | Save an item or auction for later viewing. | SQL INSERT | Leo & Mekial |
-|  | View Watchlist | List user’s saved items with links to detail pages. | SQL SELECT JOIN | Leo & Mekial |
-|  | Remove from Watchlist (New) | Remove saved auction from watchlist. | SQL DELETE | Leo & Mekial |
+| **Watchlist** | Add to Watchlist | Save an item or auction for later viewing. | SQL INSERT | Leo |
+|  | View Watchlist | List user’s saved items with links to detail pages. | SQL SELECT JOIN | Leo |
+|  | Remove from Watchlist (New) | Remove saved auction from watchlist. | SQL DELETE | Leo |
 | **Images** | Upload Image | Allow seller to attach multiple images to each item. | File Upload + SQL INSERT | Yufei & Irene |
 |  | Display Image | Retrieve and show item images in item detail page. | SQL SELECT | Yufei & Irene |
 
