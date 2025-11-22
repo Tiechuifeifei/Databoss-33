@@ -25,7 +25,6 @@ if (session_status() === PHP_SESSION_NONE) {
 // ************************************************************************************
 // 1. Add to watchlist —— 加关注
 // ************************************************************************************
-// 注意这个功能我返回的是简单的 "success" / "fail"
 function addToWatchlist($userId, $auctionId) {
 
     // 1. connect db 连接数据库
@@ -63,7 +62,6 @@ function addToWatchlist($userId, $auctionId) {
 // ************************************************************************************
 // 2. View watchlist —— 查看关注列表
 // ************************************************************************************
-// 注意这个功能我返回的是 JSON，前端直接解析渲染就行了
 function viewWatchlistByUser($userId)
 {
     // 1. connect the db 连接数据库
@@ -97,7 +95,7 @@ function viewWatchlistByUser($userId)
 // 3. prepare statement 预处理语句
     $stmt = $db->prepare($sql);
     if ($stmt === false) {
-        // 失败就简单返回空列表（跟你 AJAX 版保持一致的风格）
+        // 失败就简单返回空列表
         return [];
     }
 
@@ -143,7 +141,6 @@ function removeFromWatchlist($userId, $auctionId)
 // 3. prepare statement 预处理语句
     $stmt = $db->prepare($sql);
     if ($stmt === false) {
-        // 你原来是 echo "fail"，这里为了统一风格我返回字符串
         return "fail";
     }
 
@@ -164,4 +161,5 @@ function removeFromWatchlist($userId, $auctionId)
 // 如果 functionname 根本匹配不了就返回 fail
 // ************************************************************************************
 ?>
+
 
