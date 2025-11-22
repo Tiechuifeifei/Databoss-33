@@ -15,7 +15,7 @@ $db = get_db_connection();
 $stmt = $db->prepare("
     SELECT 
         userId,
-        userUsername,
+        userName,
         userEmail,
         userPassword,
         userRole
@@ -40,7 +40,7 @@ if (!password_verify($password, $user['userPassword'])) {
 }
 
 $_SESSION['userId']        = $user['userId'];
-$_SESSION['userUsername']  = $user['userUsername'];
+$_SESSION['userName']  = $user['userName'];
 $_SESSION['userRole']      = $user['userRole'];
 
 header("Location: $redirect");

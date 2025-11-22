@@ -31,7 +31,7 @@ $db = get_db_connection();
 $stmt = $db->prepare("
     SELECT 
         userId,
-        userUsername,
+        userName,
         userEmail,
         userPassword,
         userRole
@@ -56,7 +56,7 @@ if (!password_verify($pass, $user['userPassword'])) {
 
 // Login success: correct session keys
 $_SESSION['userId']        = (int)$user['userId'];
-$_SESSION['userUsername']  = $user['userUsername'] ?: 'User';
+$_SESSION['userName']  = $user['userName'] ?: 'User';
 $_SESSION['userRole']      = $user['userRole'] ?: 'buyer';
 
 // Redirect back

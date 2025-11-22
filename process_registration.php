@@ -12,7 +12,7 @@ function back_with_msg(string $msg) {
     exit;
 }
 
-$userUsername             = trim($_POST['userUsername'] ?? '');
+$userName             = trim($_POST['userName'] ?? '');
 $userEmail                = trim($_POST['userEmail'] ?? '');
 $userPassword             = $_POST['userPassword'] ?? '';
 $userPasswordConfirmation = $_POST['userPasswordConfirmation'] ?? '';
@@ -26,7 +26,7 @@ $userPostcode             = trim($_POST['userPostcode'] ?? '');
 // everyone is a buyer by default
 $userRole = 'buyer';
 
-if ($userUsername === '') back_with_msg('Username is required.');
+if ($userName === '') back_with_msg('Username is required.');
 if (!filter_var($userEmail, FILTER_VALIDATE_EMAIL)) back_with_msg('Invalid email format.');
 if ($userPassword === '' || $userPasswordConfirmation === '') back_with_msg('Password is required.');
 if ($userPassword !== $userPasswordConfirmation) back_with_msg('Passwords do not match.');
@@ -55,8 +55,8 @@ if ($res && $res->num_rows > 0) {
 $stmt->close();
 
 // Username uniqueness
-$stmt = $db->prepare("SELECT userId FROM users WHERE userUsername = ? LIMIT 1");
-$stmt->bind_param('s', $userUsername);
+$stmt = $db->prepare("SELECT userId FROM users WHERE userName = ? LIMIT 1");
+$stmt->bind_param('s', $userName);
 $stmt->execute();
 $res = $stmt->get_result();
 if ($res && $res->num_rows > 0) {
@@ -69,14 +69,14 @@ $hash = password_hash($userPassword, PASSWORD_DEFAULT);
 
 $stmt = $db->prepare("
     INSERT INTO users (
-        userUsername, userEmail, userPassword, userRole,
+        userName, userEmail, userPassword, userRole,
         userPhoneNumber, userDob, userHouseNo, userStreet, userCity, userPostcode
     )
     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
 ");
 $stmt->bind_param(
     'ssssssssss',
-    $userUsername,
+    $userName,
     $userEmail,
     $hash,
     $userRole,
@@ -96,7 +96,7 @@ $userId = $stmt->insert_id;
 $stmt->close();
 
 $_SESSION['userId']       = $userId;
-$_SESSION['userUsername'] = $userUsername;
+$_SESSION['userName'] = $userName;
 $_SESSION['userRole']     = $userRole;
 
 header('Location: browse.php');

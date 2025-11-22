@@ -3,7 +3,7 @@ if (session_status() === PHP_SESSION_NONE) { session_start(); }
 
 // Clear all user-related session keys
 unset($_SESSION['userId']);
-unset($_SESSION['userUsername']);
+unset($_SESSION['userName']);
 unset($_SESSION['userRole']);
 
 // Optional: clear all session data

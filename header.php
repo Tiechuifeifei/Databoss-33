@@ -32,8 +32,8 @@ $currentUrl = $_SERVER['REQUEST_URI'] ?? 'browse.php';
   <ul class="navbar-nav ml-auto">
     <li class="nav-item d-flex align-items-center">
 <?php if (!empty($_SESSION['userId'])): ?>
-      <!-- Renamed username → userUsername -->
-      <span class="nav-link">Hi, <?= h($_SESSION['userUsername'] ?? 'User') ?></span>
+      <!-- Renamed username → userName -->
+      <span class="nav-link">Hi, <?= h($_SESSION['userName'] ?? 'User') ?></span>
       <a class="nav-link" href="logout.php">Logout</a>
 <?php else: ?>
       <!-- 保持原来用 Modal 登录，同时补上 Register 链接 -->
