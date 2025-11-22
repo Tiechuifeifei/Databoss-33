@@ -7,13 +7,13 @@ require_once 'utilities.php';
 // 1. getHighestBidForAuction($auctionId): 
 //    To check the highest bid for one specific auction.
 // 2. getBidsByAuctionId($auctionId): 
-//    To check one auction's all bids.
+//    “auction's view" - a user to check one auction's all bids.
 // 3. getBidsByUser($userId): 
-//    "buyer's view" - basically "My Bids", a user(buyer) to check all his/her bids.
+//    "buyer's view" - basically "all my bids", a user(buyer) to check all his/her bids.
 // 4. placeBid($buyerId, $auctionId, $bidAmount): 
 //    A user(buyer) to place a bid on an item in an auction.
 // 5. viewBidsOnMyAuctions($sellerId):
-//    "seller's view" - a user(seller) can view all bids that are placed on his/her auctions.  
+//    "seller's view" - a user(seller) can view all bids that are placed on his/her auction/auctions.  
 //
 //
 // what’s in the bids table:
@@ -87,7 +87,7 @@ function getHighestBidForAuction($auctionId)
 
 // ******************************************
 // 2. getBidsByAuctionId($auctionId)
-//    to check one auction's all bids.
+//    “auction's view” - to check one auction's all bids.
 //
 // How it works:
 // - Input an auctionId, and then output all the bids belonging to this auctionId;
