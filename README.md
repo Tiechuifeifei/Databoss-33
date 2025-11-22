@@ -23,8 +23,7 @@ The system allows users to register, list items, create auctions, and place bids
 |  | Login / Logout | Authenticate user credentials; manage PHP session. | PHP Session + SQL SELECT | Mekial |
 |  | Edit Profile | Update user info (email, password). | SQL UPDATE | Mekial |
 |  | View My Auctions | Display auctions the user created (as seller). | SQL SELECT JOIN | Mekial |
-| **Bid** | Function | Description | Involves | Owner |
-|  | getHighestBidForAuction($auctionId) | Check the highest bid for one specific auction; return null if no bids exist. | SQL SELECT MAX(bidPrice) | Leo |
+| **Bid** | getHighestBidForAuction($auctionId) | Check the highest bid for one specific auction; return null if no bids exist. | SQL SELECT MAX(bidPrice) | Leo |
 |  | getBidsByAuctionId($auctionId) | “Auction’s view” — list all bids placed on a specific auction. | SQL SELECT ORDER BY bidTime DESC | Leo |
 |  | getBidsByUser($userId) | “Buyer’s view” — display all bids placed by the current user (“My Bids”). | SQL SELECT WHERE buyerId | Leo |
 |  | placeBid($buyerId, $auctionId, $bidAmount) | Allow a buyer to place a new bid; validate amount and auction status before inserting. | SQL INSERT + PHP Validation | Leo |
