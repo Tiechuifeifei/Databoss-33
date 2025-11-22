@@ -1,19 +1,19 @@
 <?php
 require_once 'utilities.php';
-// ******************************************
+// ******************************************************************************************************************************
 // bids_functions.php
-// ******************************************
+// ******************************************************************************************************************************
 // This part has 5 major functions, names are as follow:
-// 1. getHighestBidForAuction($auctionId): 
+// 1. Get Highest Bid For Auction: 
 //    To check the highest bid for one specific auction.
-// 2. getBidsByAuctionId($auctionId): 
-//    “auction's view" - a user to check one auction's all bids.
-// 3. getBidsByUser($userId): 
-//    "buyer's view" - basically "all my bids", a user(buyer) to check all his/her bids.
-// 4. placeBid($buyerId, $auctionId, $bidAmount): 
+// 2. Get Bids By Auction: 
+//    “Auction's View" - to check all bid/bids in an auction.
+// 3. Get Bids By User: 
+//    "Buyer's View" - basically "all my bids", a user(buyer) to check all his/her bid/bids.
+// 4. Place Bid: 
 //    A user(buyer) to place a bid on an item in an auction.
-// 5. viewBidsOnMyAuctions($sellerId):
-//    "seller's view" - a user(seller) can view all bids that are placed on his/her auction/auctions.  
+// 5. View Bids On My Auctions:
+//    "Seller's View" - a user(seller) can view all bids that are placed on his/her auction/auctions.  
 //
 //
 // what’s in the bids table:
@@ -22,19 +22,19 @@ require_once 'utilities.php';
 // - buyerId    int
 // - bidPrice   decimal(10,2)
 // - bidTime    datetime
-// ******************************************
+// ******************************************************************************************************************************
 
 
 
 
-// ******************************************
-// 1. getHighestBidForAuction($auctionId):
-//    to check the highest bid for one specific auction.
+// ******************************************************************************************************************************
+// 1. Get Highest Bid For Auction: 
+//    To check the highest bid for one specific auction.
 //
 // How it works:
 // - Input auctionId, output the highest bid row for that auctionId.
 // - If there is no bid, then return null.
-// ******************************************
+// ******************************************************************************************************************************
 
 function getHighestBidForAuction($auctionId)
 {
@@ -85,9 +85,9 @@ function getHighestBidForAuction($auctionId)
 
 
 
-// ******************************************
-// 2. getBidsByAuctionId($auctionId)
-//    “auction's view” - to check one auction's all bids.
+// ******************************************************************************************************************************
+// 2. Get Bids By Auction: 
+//    “Auction's View" - to check all bid/bids in an auction.
 //
 // How it works:
 // - Input an auctionId, and then output all the bids belonging to this auctionId;
@@ -96,7 +96,7 @@ function getHighestBidForAuction($auctionId)
 // 
 // @param int $auctionId
 // @return array
-// ******************************************
+// ******************************************************************************************************************************
 
 function getBidsByAuctionId($auctionId)
 {
@@ -148,15 +148,15 @@ function getBidsByAuctionId($auctionId)
 
 
 
-// ******************************************
-// 3. getBidsByUser($userId):
-//    "buyer's view" - basically "My Bids", a user(buyer) to check all his/her bids.
+// ******************************************************************************************************************************
+// 3. Get Bids By User: 
+//    "Buyer's View" - basically "all my bids", a user(buyer) to check all his/her bid/bids.
 //
 // How it works:
 // - Input userId, output all bids placed by this user/buyer for the item in the auction.
 // - If the user has no bids, then return an empty array.
 // - Also can get the itemName from items table, auction info from auctions table.
-// ******************************************
+// ******************************************************************************************************************************
 
 function getBidsByUser($userId)
 {
@@ -215,9 +215,9 @@ function getBidsByUser($userId)
 
 
 
-// ******************************************
-// 4. placeBid($buyerId, $auctionId, $bidAmount): 
-//    a user(buyer) to place a bid on an item in an auction.
+// ******************************************************************************************************************************
+// 4. Place Bid: 
+//    A user(buyer) to place a bid on an item in an auction.
 //
 // How it works:
 // - Validate the bid price (> 0).
@@ -232,7 +232,7 @@ function getBidsByUser($userId)
 // "success" => true/false,
 // "message" => "message to be shown for user"
 // "bidId" => ID of the new bid, only exists when success = true]
-// ******************************************
+// ******************************************************************************************************************************
 
 function placeBid($buyerId, $auctionId, $bidPrice)
 {
@@ -376,9 +376,9 @@ function placeBid($buyerId, $auctionId, $bidPrice)
 
 
 
-// ******************************************
-// 5. viewBidsOnMyAuctions($sellerId):
-//    "seller's view" - a user(seller) can view all bids that are placed on his/her auctions.  
+// ******************************************************************************************************************************
+// 5. View Bids On My Auctions:
+//    "Seller's View" - a user(seller) can view all bids that are placed on his/her auction/auctions.  
 //
 // How it works:
 // - Input sellerId, output all bids were placed on this seller's auctions.
@@ -387,7 +387,7 @@ function placeBid($buyerId, $auctionId, $bidPrice)
 //
 // @param INT $sellerId   ID of the seller (currently logged-in user as seller).
 // @return ARRAY $bids.   Each line is a single bid info including the info from bids table, auctions table, items table, users table(buyer).
-// ******************************************
+// ******************************************************************************************************************************
 
 function viewBidsOnMyAuctions($sellerId)
 {
