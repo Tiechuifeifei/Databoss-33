@@ -99,8 +99,7 @@ function getHighestBidForAuction($auctionId)
 
 function getBidsByAuctionId($auctionId)
 {
-// 1. build the connection with database, first step for every function.
-// 跟数据库建立连接
+// 1. build the connection with database. 跟数据库建立连接
     $db = get_db_connection();
 
 // 2. write SQL query 写 SQL
@@ -289,8 +288,7 @@ $sqlAuction = "
     $auctionStatus    = $auctionRow["auctionStatus"] ?? null; 
 // 如果有auctionStatus，就用！如果没有status，那就用null!
 // "??"是null合并运算符号：if the value on left side not exist or is null, then use the value on right side.
-// 这个地方其实就是=== if (isset($auctionRow["auctionStatus"])) {$auctionStatus = $auctionRow["auctionStatus"];} 
-// else {$auctionStatus = null;}
+// 这个地方其实就是=== if (isset($auctionRow["auctionStatus"])) {$auctionStatus = $auctionRow["auctionStatus"];} else {$auctionStatus = null;}
     $nowTimestamp     = time();
 
     // 3.1 Seller cannot bid on his/her own auction
@@ -337,7 +335,7 @@ $sqlAuction = "
 // 4. Check the current highest bid price 检查当前最高出价
     $currentHighest = getHighestBidForAuction($auctionId);
 
-    // --- First bid rule: no existing bids (首次出价规则) ---
+    // First time bid rule: must higher than the start price set by seller 首次出价规则：必须高于卖家设置的起拍价
 if ($currentHighest === null) {
     if ($startPrice > 0 && $bidPrice < $startPrice) {
         return [
@@ -363,7 +361,7 @@ if ($currentHighest === null) {
     }
 
     // 4.2 Minimum increase for bid 最小的加价幅度
-    $minIncrease = 5.00;  // 可按需要调整
+    $minIncrease = 5.00;  // can be a difference number
     if ($bidPrice < $currentHighestPrice + $minIncrease) {
         return [
             "success" => false,
@@ -371,7 +369,6 @@ if ($currentHighest === null) {
         ];
     }
 }
-
     
 // 5. Insert the new bid into bids table 把新的出价插入导入bids表
     $sql = "
@@ -411,7 +408,7 @@ if ($currentHighest === null) {
 // insert_id means get the lastest ID of the last insert operation, doesn't mean insert an ID etc.
     $newBidId = $db -> insert_id;
     
-// 10. close statement 关闭语句 (must write close BEFORE return!)
+// 10. close statement 关闭语句 (MUST write close BEFORE return!)
     $stmt -> close();
 
 // 11. return the array 返回数组
