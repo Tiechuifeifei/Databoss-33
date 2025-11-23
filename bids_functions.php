@@ -38,7 +38,7 @@ require_once 'utilities.php';
 
 function getHighestBidForAuction($auctionId)
 {
-// 1. build the connection with database, $db 是变量名，后面是函数。
+// 1. build the connection with database, $db是变量名，后面是函数。
     $db = get_db_connection();
 
 // 2. write the SQL query
@@ -49,7 +49,6 @@ function getHighestBidForAuction($auctionId)
         ORDER BY b.bidPrice DESC, b.bidTime ASC
         LIMIT 1
     ";
-    // remember to use ";" at the end!!!
 
 // 3. prepare SQL 预处理 SQL
     $stmt = $db -> prepare($sql);
@@ -100,8 +99,8 @@ function getHighestBidForAuction($auctionId)
 
 function getBidsByAuctionId($auctionId)
 {
-// 1. build the connection with database! first step for every function!! Don't forget!
-// 跟数据库建立连接 不要忘！！
+// 1. build the connection with database, first step for every function.
+// 跟数据库建立连接
     $db = get_db_connection();
 
 // 2. write SQL query 写 SQL
@@ -246,15 +245,15 @@ function placeBid($buyerId, $auctionId, $bidPrice)
 // 2. Build the connection with db 连接数据库
     $db = get_db_connection();
 
-// 3. Check auction info (sellerId & endTime) 检查拍卖的基本信息：卖家是谁、是否已经结束
+// 3. Check auction info(existence) (sellerId & endTime & startPrice) 先去检查这场拍卖的基本信息：卖家是谁、是否已经结束、（无人出价的话）卖家所设置的起始价。
 $sqlAuction = "
-    SELECT sellerId, auctionStartTime, auctionEndTime, auctionStatus
+    SELECT sellerId, auctionStartTime, auctionEndTime, auctionStatus, startPrice
     FROM auctions
     WHERE auctionId = ?
     LIMIT 1
 ";
-
-
+    // Order: prepare()生语句 → bind_param()绑参数 → execute()执行语句
+    // Pre-check auction's existence, return message if not.提前检查下这个auction存在不，不存在就return提示。
     $stmtAuction = $db -> prepare($sqlAuction);
     if ($stmtAuction === false) {
         return [
@@ -278,6 +277,11 @@ $sqlAuction = "
             "message" => "This auction does not exist."
         ];
     }
+
+    // checking the auction's existence first before checking the start bid price.先检查拍卖是不是存在，再去拿起拍价
+    $startPrice = isset($auctionRow["startPrice"]) 
+                  ? (float)$auctionRow["startPrice"] 
+                  : 0.0;
 
     $sellerId         = (int)$auctionRow["sellerId"];
     $auctionStartTime = $auctionRow["auctionStartTime"];
@@ -332,6 +336,16 @@ $sqlAuction = "
 
 // 4. Check the current highest bid price 检查当前最高出价
     $currentHighest = getHighestBidForAuction($auctionId);
+
+    // --- First bid rule: no existing bids (首次出价规则) ---
+if ($currentHighest === null) {
+    if ($startPrice > 0 && $bidPrice < $startPrice) {
+        return [
+            "success" => false,
+            "message" => "Your first bid must be at least the start price (£" . number_format($startPrice, 2) . ")."
+        ];
+    }
+}
 
     // currentHighest is not null → compare new bid with highest bid
     // 如果currentHighest === null：说明目前还没有任何出价，
