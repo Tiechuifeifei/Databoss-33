@@ -1,0 +1,50 @@
+// ******************************************************************************************************************************
+// bids_functions.php
+// ******************************************************************************************************************************
+// Core Functions (5 total):
+//
+// 1. Get Highest Bid For Auction
+//    Returns the highest bid row for a specific auction (or null if no bids).
+//
+// 2. Get Bids By Auction
+//    "Auction's View" – lists all bids for a given auction, including buyer's userName.
+//
+// 3. Get Bids By User
+//    "Buyer's View" – lists all bids placed by a given user, with related item & auction info.
+//
+// 4. Place Bid
+//    Allows a buyer to place a bid on an auction item, with multiple validation checks.
+//    Returns a structured array: ["success" => true/false, "message" => "...", "bidId" => ...]
+//
+// 5. View Bids On My Auctions
+//    "Seller's View" – lists all bids placed on the auctions created by the current seller.
+//
+// Validation Rules Implemented:
+//
+// 1. Auction existence check:
+//   Bidding is blocked if the auction does not exist.
+//
+// 2. Prevent self-bidding:
+//   Sellers cannot place bids on their own auctions.
+//
+// 3. Auction status checks:
+//   Rejects bids on cancelled, not-yet-started, or already-ended auctions.
+//
+// 4. Minimum bid requirement (no existing bids):
+//   The first bid must be at least the start price set by the seller.
+//
+// 5. Minimum bid requirement (with existing bids):
+//   Any new bid must be at least £5.00 higher than the current highest bid.
+//
+// 6. Basic input validation:
+//   Rejects bid amounts less than or equal to £0.00 (non-numeric values are also rejected after type conversion).
+//
+// 7. Basic anti-spam rule:
+//   The current highest bidder cannot place another bid on the same auction.
+// ******************************************************************************************************************************
+// Notes
+//
+// 1. All functions return arrays for testing and integration.
+//
+// 2. Error messages follow a consistent "success" and "message" format.
+// ******************************************************************************************************************************
