@@ -3,19 +3,46 @@ require_once 'utilities.php';
 // ******************************************************************************************************************************
 // bids_functions.php
 // ******************************************************************************************************************************
-// This part has 5 major functions, names are as follow:
-// 1. Get Highest Bid For Auction: 
-//    To check the highest bid for one specific auction.
-// 2. Get Bids By Auction: 
-//    “Auction's View" - to check all bid/bids in an auction.
-// 3. Get Bids By User: 
-//    "Buyer's View" - basically "all my bids", a user(buyer) to check all his/her bid/bids.
-// 4. Place Bid: 
-//    A user(buyer) to place a bid on an item in an auction.
-// 5. View Bids On My Auctions:
-//    "Seller's View" - a user(seller) can view all bids that are placed on his/her auction/auctions.  
+// Core Functions (5 total):
+// 1. Get Highest Bid For Auction
+//    Returns the highest bid row for a specific auction (or null if no bids).
+//
+// 2. Get Bids By Auction
+//    "Auction's View" – lists all bids for a given auction, including buyer's userName.
+//
+// 3. Get Bids By User
+//    "Buyer's View" – lists all bids placed by a given user, with related item & auction info.
+//
+// 4. Place Bid
+//    Allows a buyer to place a bid on an auction item, with multiple validation checks.
+//    Returns a structured array: ["success" => true/false, "message" => "...", "bidId" => ...]
+//
+// 5. View Bids On My Auctions
+//    "Seller's View" – lists all bids placed on the auctions created by the current seller.
 //
 //
+// Validation Rules Implemented:
+// - Auction existence check:
+//   Bidding is blocked if the auction does not exist.
+//
+// - Prevent self-bidding:
+//   Sellers cannot place bids on their own auctions.
+//
+// - Auction status checks:
+//   Rejects bids on cancelled, not-yet-started, or already-ended auctions.
+//
+// - Minimum bid requirement (no existing bids):
+//   The first bid must be at least the start price set by the seller.
+//
+// - Minimum bid requirement (with existing bids):
+//   Any new bid must be at least £5.00 higher than the current highest bid.
+//
+// - Basic input validation:
+//   Rejects bid amounts less than or equal to £0.00 (non-numeric values are also rejected after type conversion).
+//
+// - Basic anti-spam rule:
+//   The current highest bidder cannot place another bid on the same auction.
+// ******************************************************************************************************************************
 // what’s in the bids table:
 // - bidId      int
 // - auctionId  int
