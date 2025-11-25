@@ -114,6 +114,8 @@
      JOIN categories c ON i.categoryId=c.categoryId
      WHERE 1=1";
 
+     $base_sql .= "AND a.auctionStatus NOT IN ('ended', 'cancelled')";
+
      // This is keyword search sql query
      if ($keyword !==""){
       $safe_kw = "%" . $conn->real_escape_string($keyword) . "%";
@@ -140,15 +142,16 @@
 
   // This is for order query
   $sql_item = "SELECT
-    i.itemId,
+    i.itemId
     i.itemName,
     i.itemDescription,
+    a.auctionId
     a.auctionEndTime,
     a.startPrice,
     im.imageUrl,
     COUNT(b.bidId) AS num_bids
     " . $base_sql . "
-    GROUP BY i.itemId";
+    GROUP BY a.auctionId";
   
   if ($ordering ==="pricelow"){
     $sql_item .= " ORDER BY a.startPrice ASC";
@@ -179,14 +182,15 @@
 <!--This is for printing the list group-->
   <?php 
   while ($row = mysqli_fetch_assoc($result_item)) {
-    $item_id = $row["itemId"];
+    $itemId = $row["itemId"];
+    $auction_id = $row["auctionId"];
     $title = $row["itemName"];
     $desc = $row["itemDescription"];
-    $price = $row["startPrice"];
+    $price = getHighestBidForAuction($row["auctionId"]);
     $num_bids = $row["num_bids"];
     $end_time = new DateTime($row["auctionEndTime"]);
 
-    print_listing_li($item_id, $title, $desc, $price, $num_bids, $end_time);
+    print_listing_li($auctionId, $title, $desc, $price, $num_bids, $end_time);
   }
   ?>
 
