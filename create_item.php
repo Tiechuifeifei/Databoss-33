@@ -1,16 +1,22 @@
 <?php
+if (session_status() === PHP_SESSION_NONE) session_start();
+?>
+
+<?php
 require_once("db_connect.php");
 require_once("image_functions.php");
 
-// ---------- Step A: 如果item已经创建（带itemId） ----------
+// 如果item已经创建（带itemId） if the item has already been created
 $itemId = isset($_GET["itemId"]) ? intval($_GET["itemId"]) : null;
 
-// ---------- Step B: 第一次提交（创建item，不含图片） ----------
+// 第一次提交（创建item，不含图片） first time creation
 if ($_SERVER["REQUEST_METHOD"] === "POST" && !$itemId) {
-
+    if (!isset($_SESSION['userId'])) {
+        die("Please log in before creating an item.");
+    }
     $itemName = $_POST["itemName"];
     $itemDescription = $_POST["itemDescription"];
-    $sellerId = 1; 
+    $sellerId = $_SESSION["userId"]; 
     $categoryId = $_POST["categoryId"];
     $itemCondition = $_POST["itemCondition"];
 
@@ -65,14 +71,14 @@ if (isset($_POST["uploadImage"]) && $itemId) {
 }
 
 // 删除图片
-// 这里将来可以写成只要是auction开始之前都可以删除图片
+// 这里将来可以写成只要是auction开始之前都可以删除图片  place holder: write the images could be changed before the auction in the future if I have capacity 
 if (isset($_GET["deleteImage"]) && $itemId) {
     deleteImage($_GET["deleteImage"]);
     header("Location: create_item.php?itemId=$itemId");
     exit();
 }
 
-// 设为主图
+// set the primary photo
 if (isset($_GET["setPrimary"]) && $itemId) {
     setPrimaryImage($_GET["setPrimary"], $itemId);
     header("Location: create_item.php?itemId=$itemId");

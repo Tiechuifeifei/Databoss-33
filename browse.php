@@ -1,11 +1,10 @@
 <?php include_once("header.php")?>
-<?php require("utilities.php")?>
 <?php 
 require_once("Auction_functions.php");
 require_once("db_connect.php");
 require_once("Auction_functions.php");
-require_once("item_functions.php");
-require_once("image_functions.php");
+require_once("Item_function.php");
+require_once("Image_functions.php");
  ?>
 
 
@@ -14,7 +13,7 @@ require_once("image_functions.php");
 <h2 class="my-3">Browse listings</h2>
 
 <div id="searchSpecs">
-<!-- When this form is submitted, this PHP page is what processes it.
+<!-- PROFESSOR'S COMMENTS: When this form is submitted, this PHP page is what processes it.
      Search/sort specs are passed to this page through parameters in the URL
      (GET method of passing data to a page). -->
 <form method="get" action="browse.php">
@@ -28,7 +27,9 @@ require_once("image_functions.php");
               <i class="fa fa-search"></i>
             </span>
           </div>
-          <input type="text" class="form-control border-left-0" id="keyword" placeholder="Search for anything">
+<!--Text input for keyword search, add value="<!php ... ?> -->
+          <input type="text" class="form-control border-left-0" id="keyword" name="keyword" placeholder="Search for anything"
+          value="<?php echo isset($_GET['keyword']) ? htmlspecialchars($_GET['keyword']) : ''; ?>">
         </div>
       </div>
     </div>
@@ -37,19 +38,35 @@ require_once("image_functions.php");
         <label for="cat" class="sr-only">Search within:</label>
         <select class="form-control" id="cat">
           <option selected value="all">All categories</option>
-          <option value="fill">Fill me in</option>
-          <option value="with">with options</option>
-          <option value="populated">populated from a database?</option>
+<!--This is for category filter, show category names in browse page-->
+          <?php 
+          $sql="SELECT * FROM categories";
+          $result=mysqli_query($conn,$sql);
+          while ($row = mysqli_fetch_assoc($result)) {
+          echo '<option value="' . $row['categoryId'] . '">'
+            . htmlspecialchars($row['categoryName']) .
+            '</option>';
+          }
+          ?>
         </select>
       </div>
     </div>
     <div class="col-md-3 pr-0">
       <div class="form-inline">
         <label class="mx-2" for="order_by">Sort by:</label>
-        <select class="form-control" id="order_by">
-          <option selected value="pricelow">Price (low to high)</option>
-          <option value="pricehigh">Price (high to low)</option>
-          <option value="date">Soonest expiry</option>
+        <!--Add name="order_by" -->
+        <select class="form-control" id="order_by" name="order_by">
+        <!--Add price(low to high) order-->
+          <option value="pricelow"
+          <?php echo (!isset($_GET['order_by']) || $_GET['order_by']=="pricelow") ? "selected" : ""; ?>> 
+            Price (low to high)</option>
+        <!--Add price (high to low) order-->
+          <option value="pricehigh"
+          <?php echo (isset($_GET['order_by']) && $_GET['order_by']=="pricehigh") ? "selected" : ""; ?>>
+          Price (high to low)</option>
+        <!--Add date order-->
+          <option value="date" <?php echo (isset($_GET['order_by']) && $_GET['order_by']=="date") ? "selected" : ""; ?>>
+            Soonest expiry</option>
         </select>
       </div>
     </div>
@@ -64,23 +81,25 @@ require_once("image_functions.php");
 </div>
 
 <?php
-  // Retrieve these from the URL
+  // Deal with keywords search situations(if user haven't enter anything)
   if (!isset($_GET['keyword'])) {
-    // TODO: Define behavior if a keyword has not been specified.
+    $keyword = "";
   }
   else {
     $keyword = $_GET['keyword'];
   }
 
+// Deal with category filter situations
   if (!isset($_GET['cat'])) {
-    // TODO: Define behavior if a category has not been specified.
+    $category="all";
   }
   else {
     $category = $_GET['cat'];
   }
   
+// Deal with order_by situations, default order is by date
   if (!isset($_GET['order_by'])) {
-    // TODO: Define behavior if an order_by value has not been specified.
+    $ordering = "date";
   }
   else {
     $ordering = $_GET['order_by'];
@@ -93,57 +112,100 @@ require_once("image_functions.php");
     $curr_page = $_GET['page'];
   }
 
-  /* TODO: Use above values to construct a query. Use this query to 
-     retrieve data from the database. (If there is no form data entered,
-     decide on appropriate default value/default query to make. */
+ // This is base sql to make foundamental sql
+     $base_sql = "
+     FROM items i
+     JOIN auctions a ON i.itemId=a.itemId
+     LEFT JOIN bids b ON a.auctionId=b.auctionId
+     JOIN images im ON i.itemId=im.itemId AND im.isPrimary =1
+     JOIN categories c ON i.categoryId=c.categoryId
+     WHERE 1=1";
+
+     // This is keyword search sql query
+     if ($keyword !==""){
+      $safe_kw = "%" . $conn->real_escape_string($keyword) . "%";
+      $base_sql .= " AND (i.itemName LIKE '$safe_kw' OR i.itemDescription LIKE '$safe_kw')";
+     }
+
+     // This is category filter sql query
+     if ($category !== "all") {
+      $base_sql .= " AND i.categoryId= ".intval($category);
+     }
   
-  /* For the purposes of pagination, it would also be helpful to know the
+  /* PROFESSOR'S COMMENTS: For the purposes of pagination, it would also be helpful to know the
      total number of results that satisfy the above query */
-  $num_results = 96; // TODO: Calculate me for real
+    
+  // This is for counting numbers of items in single page
+  $sql_count = "SELECT COUNT(*) AS total " . $base_sql;
+  $count_result = mysqli_query($conn, $sql_count);
+  $row_count = mysqli_fetch_assoc($count_result);
+  $num_results = (int)$row_count['total'];
   $results_per_page = 10;
-  $max_page = ceil($num_results / $results_per_page);
+  $max_page = max(1,ceil($num_results / $results_per_page));
+  $curr_page = max(1, min((int)$curr_page, $max_page));
+  $offset = ($curr_page - 1) * $results_per_page;
+
+  // This is for order query
+  $sql_item = "SELECT
+    i.itemId,
+    i.itemName,
+    i.itemDescription,
+    a.auctionEndTime,
+    a.startPrice,
+    im.imageUrl,
+    COUNT(b.bidId) AS num_bids
+    " . $base_sql . "
+    GROUP BY i.itemId";
+  
+  if ($ordering ==="pricelow"){
+    $sql_item .= " ORDER BY a.startPrice ASC";
+  } 
+  elseif ($ordering === "pricehigh"){
+    $sql_item .= " ORDER BY a.startPrice DESC";
+  }
+  else {
+    $sql_item .= " ORDER BY a.auctionEndTime";
+  }
+
+  $sql_item .= " LIMIT $results_per_page OFFSET $offset";
+  $result_item = mysqli_query($conn, $sql_item);
+  if (!$result_item){
+    die("SQL error:" . mysqli_error($conn) ."<br>Query was: " . $sql_item);
+  };
 ?>
 
 <div class="container mt-5">
-
-<!-- TODO: If result set is empty, print an informative message. Otherwise... -->
+<!-- This is for printing text to notify there is no result found -->
+  <?php
+  if ($num_results == 0) {
+    echo "<div>No Listing Found</div>";
+  }
+  ?>
 
 <ul class="list-group">
+<!--This is for printing the list group-->
+  <?php 
+  while ($row = mysqli_fetch_assoc($result_item)) {
+    $item_id = $row["itemId"];
+    $title = $row["itemName"];
+    $desc = $row["itemDescription"];
+    $price = $row["startPrice"];
+    $num_bids = $row["num_bids"];
+    $end_time = new DateTime($row["auctionEndTime"]);
 
-<!-- TODO: Use a while loop to print a list item for each auction listing
-     retrieved from the query -->
-
-<?php
-  // Demonstration of what listings will look like using dummy data.
-  $item_id = "87021";
-  $title = "Dummy title";
-  $description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum eget rutrum ipsum. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Phasellus feugiat, ipsum vel egestas elementum, sem mi vestibulum eros, et facilisis dui nisi eget metus. In non elit felis. Ut lacus sem, pulvinar ultricies pretium sed, viverra ac sapien. Vivamus condimentum aliquam rutrum. Phasellus iaculis faucibus pellentesque. Sed sem urna, maximus vitae cursus id, malesuada nec lectus. Vestibulum scelerisque vulputate elit ut laoreet. Praesent vitae orci sed metus varius posuere sagittis non mi.";
-  $current_price = 30;
-  $num_bids = 1;
-  $end_date = new DateTime('2020-09-16T11:00:00');
-  
-  // This uses a function defined in utilities.php
-  print_listing_li($item_id, $title, $description, $current_price, $num_bids, $end_date);
-  
-  $item_id = "516";
-  $title = "Different title";
-  $description = "Very short description.";
-  $current_price = 13.50;
-  $num_bids = 3;
-  $end_date = new DateTime('2020-11-02T00:00:00');
-  
-  print_listing_li($item_id, $title, $description, $current_price, $num_bids, $end_date);
-?>
+    print_listing_li($item_id, $title, $desc, $price, $num_bids, $end_time);
+  }
+  ?>
 
 </ul>
 
-<!-- Pagination for results listings -->
+<!--PROFESSOR'S COMMENTS: Pagination for results listings -->
 <nav aria-label="Search results pages" class="mt-5">
   <ul class="pagination justify-content-center">
   
 <?php
 
-  // Copy any currently-set GET variables to the URL.
+  // PROFESSOR'S COMMENT: Copy any currently-set GET variables to the URL.
   $querystring = "";
   foreach ($_GET as $key => $value) {
     if ($key != "page") {
@@ -168,17 +230,17 @@ require_once("image_functions.php");
     
   for ($i = $low_page; $i <= $high_page; $i++) {
     if ($i == $curr_page) {
-      // Highlight the link
+      // PROFESSOR'S COMMENTS: Highlight the link
       echo('
     <li class="page-item active">');
     }
     else {
-      // Non-highlighted link
+      // PROFESSOR'S COMMENTS: Non-highlighted link
       echo('
     <li class="page-item">');
     }
     
-    // Do this in any case
+    //PROFESSOR'S COMMENTS: Do this in any case
     echo('
       <a class="page-link" href="browse.php?' . $querystring . 'page=' . $i . '">' . $i . '</a>
     </li>');

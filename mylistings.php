@@ -1,24 +1,79 @@
-<?php include_once("header.php")?>
-<?php require("utilities.php")?>
-
-<div class="container">
-
-<h2 class="my-3">My listings</h2>
-
 <?php
-  // This page is for showing a user the auction listings they've made.
-  // It will be pretty similar to browse.php, except there is no search bar.
-  // This can be started after browse.php is working with a database.
-  // Feel free to extract out useful functions from browse.php and put them in
-  // the shared "utilities.php" where they can be shared by multiple files.
-  
-  
-  // TODO: Check user's credentials (cookie/session).
-  
-  // TODO: Perform a query to pull up their auctions.
-  
-  // TODO: Loop through results and print them out as list items.
-  
+require_once __DIR__ . '/utilities.php';
+if (session_status() === PHP_SESSION_NONE) { session_start(); }
+
+$userId = $_SESSION['userId'] ?? null;
+include __DIR__ . '/header.php';
+
+if (!$userId) {
+    echo '<div class="container mt-4"><div class="alert alert-warning">Please log in to view your listings.</div></div>';
+    include __DIR__ . '/footer.php';
+    exit;
+}
+
+$db = get_db_connection();
+
+// Join auctions with items to get item names
+// YH DEBUG: sellerID is in item table, not in auction table.
+$sql = "
+    SELECT 
+        a.auctionId,
+        a.itemId,
+        i.itemName,
+        a.auctionStatus,
+        a.auctionEndTime,
+        a.startPrice,
+        COALESCE(
+            (SELECT MAX(b.bidPrice) FROM bids b WHERE b.auctionId = a.auctionId),
+            a.startPrice
+        ) AS topPrice
+    FROM auctions a
+    JOIN items i ON i.itemId = a.itemId
+    WHERE i.sellerId = ?
+    ORDER BY a.auctionId DESC
+";
+$stmt = $db->prepare($sql);
+$stmt->bind_param('i', $userId);
+$stmt->execute();
+$rs = $stmt->get_result();
 ?>
 
-<?php include_once("footer.php")?>
+<!-- YH DEBUG: we need to use auctionID in the mylisting page instead of itemID -->
+<div class="container mt-4">
+    <h3>My listings</h3>
+    <?php if ($rs->num_rows === 0): ?>
+        <div class="alert alert-info mt-3">You haven’t created any auctions yet.</div>
+    <?php else: ?>
+        <ul class="list-group mt-3">
+            <?php while ($row = $rs->fetch_assoc()): ?>
+                <?php
+                    $auctionId = (int)$row['auctionId'];
+                    $itemId    = (int)$row['itemId'];
+                    $itemName  = h($row['itemName']);
+                    $status    = (string)$row['auctionStatus'];
+                    $endTime   = new DateTime($row['auctionEndTime']);
+                    $start     = (float)$row['startPrice'];
+                    $topPrice  = (float)$row['topPrice'];
+                ?>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <div>
+                        <a href="listing.php?auctionId=<?=$auctionId?>">#<?=$auctionId?> — <?=$itemName?></a><br>
+                        <small>
+                            Start £<?=number_format($start, 2)?> ·
+                            Current £<?=number_format($topPrice, 2)?> ·
+                            Status: <?=h($status)?> ·
+                            Ends: <?=$endTime->format('Y-m-d H:i')?>
+                        </small>
+                    </div>
+                    <div>
+                        <a class="btn btn-sm btn-outline-secondary" href="listing.php?auctionId=<?=$auctionId?>">Open</a>
+                    </div>
+                </li>
+            <?php endwhile; ?>
+        </ul>
+    <?php endif; ?>
+</div>
+
+<?php
+$stmt->close();
+include __DIR__ . '/footer.php';

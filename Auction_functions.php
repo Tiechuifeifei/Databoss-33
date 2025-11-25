@@ -1,5 +1,6 @@
 <?php
 require_once("db_connect.php");   
+require_once("Item_function.php");   
 require_once(__DIR__ . '/utilities.php');
 
 /*
@@ -17,6 +18,7 @@ require_once(__DIR__ . '/utilities.php');
 | - 8. endAuctions - update the auction when it ends
 | - 9. Close auction only if ended
 | - 10. cancel auction 
+| - 11. update status
 |---------------------------------------------------------------------------
 */
 
@@ -376,5 +378,6 @@ function cancelAuction($auctionId, $itemId) {
 
     return $stmt2->execute();
 }
+
 
 ?>

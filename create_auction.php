@@ -1,7 +1,7 @@
 <?php include_once("header.php") ?>
 
 <?php
-// 从 URL 获取上一步传来的 itemId
+// 从URL获取上一步传来的itemId
 if (!isset($_GET["itemId"])) {
     echo "<div class='alert alert-danger'>No item selected for auction.</div>";
     exit();
