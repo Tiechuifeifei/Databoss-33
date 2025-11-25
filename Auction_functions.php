@@ -102,11 +102,7 @@ function getActiveAuctions() {
             i.itemDescription,
             i.categoryId,
             i.sellerId,
-
-            -- 当前最高出价（如果没有出价，则用 startPrice）
             COALESCE(MAX(b.bidPrice), a.startPrice) AS currentPrice,
-
-            -- 出价数量
             COUNT(b.bidId) AS numBids
 
         FROM auctions a
@@ -127,7 +123,7 @@ function getActiveAuctions() {
 }
 
 
-// 4. 更新 auction 当前价格（被 bid 模块调用）
+// 4. 更新auction当前价格（被bid模块调用）
 // call from bid module
 function getCurrentHighestPrice($auctionId) {
     global $conn;
@@ -141,10 +137,10 @@ function getCurrentHighestPrice($auctionId) {
     $stmt->execute();
     $result = $stmt->get_result()->fetch_assoc();
 
-    // 如果没人出价，返回起拍价 if no bid, then go back to the start price 
+    // 如果没人出价，返回起拍价 if there is no bid, then go back to the start price 
     if ($result['highestPrice'] === null) {
 
-        // 查起拍价 serch for the startprice
+        // 查起拍价serch for the startprice
         $sql2 = "SELECT startPrice FROM auctions WHERE auctionId = ?";
         $stmt2 = $conn->prepare($sql2);
         $stmt2->bind_param("i", $auctionId);
@@ -158,7 +154,7 @@ function getCurrentHighestPrice($auctionId) {
 }
 
 // update auctionstatus automatically 
-// 5. 自动根据时间刷新 auction 状态，并返回是否已经结束
+// 5. 自动根据时间刷新auction状态，并返回是否已经结束
 function refreshAuctionStatus($auctionId) {
     global $conn;
 
@@ -219,7 +215,7 @@ function refreshAuctionStatus($auctionId) {
 
 
 // 6. get the remaining time: call utilities.php
-// 获取某个 auction 的剩余时间（返回格式化后的字符串）
+// 获取某个auction的剩余时间
 // interact with utilities.php
 function getRemainingTime($auctionId) {
     global $conn;
@@ -238,14 +234,14 @@ function getRemainingTime($auctionId) {
     $end_time = new DateTime($row['auctionEndTime']);
     $now = new DateTime();
 
-    // 如果已经结束
+    // if ended 
     if ($now >= $end_time) {
         return "Auction ended";
     }
 
-    // 否则计算剩余时间
+    // count the remaining time
     $interval = $now->diff($end_time);
-    return display_time_remaining($interval);  // 来自 utilities.php
+    return display_time_remaining($interval);  // from utilities.php
 }
 
 

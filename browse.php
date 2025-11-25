@@ -146,11 +146,14 @@ require_once("Image_functions.php");
   $offset = ($curr_page - 1) * $results_per_page;
 
   // This is for order query
+  // YH DEBUG: we use auctionId instead of itemId
+
   $sql_item = "SELECT
     i.itemId,
     i.itemName,
     i.itemDescription,
-    a.auctionEndTime,
+    a.auctionId,
+    a.auctionEndTime, 
     a.startPrice,
     im.imageUrl,
     COUNT(b.bidId) AS num_bids
@@ -187,13 +190,14 @@ require_once("Image_functions.php");
   <?php 
   while ($row = mysqli_fetch_assoc($result_item)) {
     $item_id = $row["itemId"];
+    $auction_id = $row["auctionId"];   // YH DEBUG: we present by using auctionId instead of itemId
     $title = $row["itemName"];
     $desc = $row["itemDescription"];
     $price = $row["startPrice"];
     $num_bids = $row["num_bids"];
     $end_time = new DateTime($row["auctionEndTime"]);
 
-    print_listing_li($item_id, $title, $desc, $price, $num_bids, $end_time);
+    print_listing_li($auction_id, $title, $desc, $price, $num_bids, $end_time); // YH DEBUG: we use auctionId instead of itemId
   }
   ?>
 
