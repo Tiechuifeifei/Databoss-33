@@ -1,0 +1,7 @@
+Automatic Auction Time Refresh (Cron Job)
+This feature works locally.
+How to enable the cron task：
+1. Please enter below in the terminal:
+crontab -e
+2. add following line to run the update every 5 mins
+*/5 * * * * /usr/bin/php /PATH/TO/PROJECT/refresh_all_auctions.php
