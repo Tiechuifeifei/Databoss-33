@@ -1,165 +1,207 @@
 <?php
-require_once("Auction_functions.php");
-require_once("db_connect.php");
-session_start();
-?>
-
-<?php
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-include_once("header.php");
 require_once("utilities.php");
+require_once("Auction_functions.php");
+require_once("image_functions.php");
+require_once("bid_functions.php");
+session_start();
 
-// YH DEBUG: to make it consistant, we should use auctionId instead of itemId
 $auctionId = $_GET['auctionId'] ?? null;
+$itemId    = $_GET['item_id'] ?? null;
+
+if (!$auctionId && $itemId) {
+    $auction = getAuctionByItemId($itemId);
+    if ($auction) {
+        $auctionId = $auction['auctionId'];
+    }
+}
 
 if (!$auctionId) {
     echo "<p>Invalid auctionId.</p>";
     exit;
 }
-// refresh the auction status
+
+// refresh auction status
 refreshAuctionStatus($auctionId);
 
-// get the details of the auction
+// get auction info
 $auction = getAuctionById($auctionId);
-
 if (!$auction) {
-    echo '<p class="text-danger">Auction not found.</p>';
+    echo "<p>Auction not found.</p>";
     exit;
 }
 
-$itemId = $auction['itemId']; 
+// YH: add the start_time for scheduled auction
+$itemId      = $auction['itemId'];
+$startPrice  = (float)$auction['startPrice'];
+$endTime     = new DateTime($auction['auctionEndTime']);
+$now         = new DateTime();
+$start_time = new DateTime($auction['auctionStartTime']);
 
-$db = get_db_connection();
+// images
+$primaryImage = getPrimaryImage($itemId);
+$allImages    = getImagesByItemId($itemId);
 
-// YH DEBUG: to make it consistant, we should use auctionId instead of itemId
-// YH DEBUG: sellerId comes from item table not auction table
-$sql = "
-  SELECT 
-    i.itemId,
-    i.itemName,
-    i.itemDescription,
-    a.auctionId,
-    a.startPrice,
-    a.auctionStatus,
-    a.auctionStartTime,
-    a.auctionEndTime,
-    i.sellerId,
-    COALESCE((SELECT MAX(b.bidPrice) FROM bids b WHERE b.auctionId = a.auctionId), a.startPrice) AS currentPrice,
-    (SELECT COUNT(*) FROM bids b2 WHERE b2.auctionId = a.auctionId) AS numBids
-FROM items i
-JOIN auctions a ON a.itemId = i.itemId
-WHERE i.itemId = ?
-LIMIT 1
-";
-$stmt = $db->prepare($sql);
-if (!$stmt) {
-  echo "<div class='container mt-4 text-danger'>Prepare failed: ".htmlspecialchars($db->error)."</div>";
-  include_once("footer.php"); exit();
-}
-$stmt->bind_param("i", $itemId);
-$stmt->execute();
-$res = $stmt->get_result();
-$row = $res ? $res->fetch_assoc() : null;
-$stmt->close();
+// get bid info
+$highestBid = getHighestBidForAuction($auctionId);
+$bidHistory = getBidsByAuctionId($auctionId);
 
-if (!$row) {
-  echo "<div class='container mt-4 text-danger'>Auction not found for item_id=".htmlspecialchars($itemId)."</div>";
-  include_once("footer.php"); exit();
-}
+$currentPrice = $highestBid ? (float)$highestBid['bidPrice'] : $startPrice;
 
-$title         = $row['itemName'];
-$description   = $row['itemDescription'];
-$currentPrice  = (float)$row['currentPrice'];
-$numBids       = (int)$row['numBids'];
-$endTime       = new DateTime($row['auctionEndTime']);
-$auctionId     = (int)$row['auctionId'];
+// header
+include_once("header.php");
 
-$now = new DateTime();
-$timeRemaining = '';
+// time remaining
+$timeRemaining = "";
 if ($now < $endTime) {
-  $timeToEnd = date_diff($now, $endTime);
-  $timeRemaining = ' (in ' . display_time_remaining($timeToEnd) . ')';
+    $interval = $now->diff($endTime);
+    $timeRemaining = " (in " . display_time_remaining($interval) . ")";
 }
-
-// watchlist 
-$hasSession = true;
-$watching   = false;
 ?>
 
-<div class="container">
+<div class="container mt-4">
 
-  <div class="row"><!-- Row #1 title + watch -->
-    <div class="col-sm-8">
-      <h2 class="my-3"><?php echo htmlspecialchars($title); ?></h2>
-    </div>
-    <div class="col-sm-4 align-self-center">
-      <?php if ($now < $endTime): ?>
-        <div id="watch_nowatch" <?php if ($hasSession && $watching) echo('style="display: none"');?> >
-          <button type="button" class="btn btn-outline-secondary btn-sm" onclick="addToWatchlist()">+ Add to watchlist</button>
-        </div>
-        <div id="watch_watching" <?php if (!$hasSession || !$watching) echo('style="display: none"');?> >
-          <button type="button" class="btn btn-success btn-sm" disabled>Watching</button>
-          <button type="button" class="btn btn-danger btn-sm" onclick="removeFromWatchlist()">Remove watch</button>
-        </div>
-      <?php endif; ?>
-    </div>
-  </div>
+<?php
+require_once 'watchlist_funcs.php';
 
-  <div class="row"><!-- Row #2 description + bidding -->
-    <div class="col-sm-8">
-      <div class="itemDescription">
-        <?php echo nl2br(htmlspecialchars($description)); ?>
-      </div>
-    </div>
+$userId = $_SESSION['userId'] ?? null;
+$isWatching = $userId ? isInWatchlist($userId, $auction['auctionId']) : false;
+?>
 
-    <div class="col-sm-4">
-      <p>
-      <?php if ($now > $endTime): ?>
-        This auction ended <?php echo(date_format($endTime, 'j M H:i')) ?>
-      <?php else: ?>
-        Auction ends <?php echo(date_format($endTime, 'j M H:i') . $timeRemaining) ?></p>
-        <p class="lead">Current bid: £<?php echo number_format($currentPrice, 2) ?></p>
-
-        <form method="POST" action="place_bid.php">
-          <div class="input-group">
-            <div class="input-group-prepend">
-              <span class="input-group-text">£</span>
-            </div>
-            <input type="number" class="form-control" id="bid" name="bid_amount" step="0.01" min="0" required>
-            <input type="hidden" name="auction_id" value="<?php echo $auctionId; ?>">
-          </div>
-          <button type="submit" class="btn btn-primary form-control mt-2">Place bid</button>
-        </form>
-      <?php endif; ?>
-    </div>
-  </div>
+<div>
+    <?php if (!$userId): ?>
+        <a href="login.php" class="btn btn-outline-primary btn-sm">
+            Login to watch
+        </a>
+    <?php elseif (!$isWatching): ?>
+        <a href="watchlist_add.php?auctionId=<?= $auction['auctionId'] ?>" 
+           class="btn btn-outline-success btn-sm">
+            ♡ Add to Watchlist
+        </a>
+    <?php else: ?>
+        <a href="watchlist_remove.php?auctionId=<?= $auction['auctionId'] ?>" 
+           class="btn btn-danger btn-sm">
+            ♥ Remove
+        </a>
+    <?php endif; ?>
 </div>
 
-<?php include_once("footer.php"); ?>
 
-<script>
-// watchlist
-function addToWatchlist() {
-  $.ajax('watchlist_funcs.php', {
-    type: "POST",
-    data: {functionname: 'add_to_watchlist', arguments: [<?php echo $itemId;?>]},
-    success: function (obj) {
-      var t = (obj || '').trim();
-      if (t === 'success') { $("#watch_nowatch").hide(); $("#watch_watching").show(); }
-    }
-  });
-}
-function removeFromWatchlist() {
-  $.ajax('watchlist_funcs.php', {
-    type: "POST",
-    data: {functionname: 'remove_from_watchlist', arguments: [<?php echo $itemId;?>]},
-    success: function (obj) {
-      var t = (obj || '').trim();
-      if (t === 'success') { $("#watch_watching").hide(); $("#watch_nowatch").show(); }
-    }
-  });
-}
-</script>
+  <!-- Success / Error message -->
+  <?php if (isset($_GET['success'])): ?>
+      <div class="alert alert-success"><?= h($_GET['success']) ?></div>
+  <?php endif; ?>
+
+  <?php if (isset($_GET['error'])): ?>
+      <div class="alert alert-danger"><?= h($_GET['error']) ?></div>
+  <?php endif; ?>
+
+  <h3><?= h($auction['itemName']) ?></h3>
+
+  <div class="row mt-3">
+
+    <!-- LEFT SIDE -->
+    <div class="col-md-8">
+
+      <?php if (!empty($primaryImage)): ?>
+          <img src="<?= h($primaryImage['imageUrl']) ?>" style="max-width: 300px; border-radius: 6px;">
+      <?php endif; ?>
+
+      <div class="d-flex gap-2 my-3">
+        <?php foreach ($allImages as $img): ?>
+            <img src="<?= h($img['imageUrl']) ?>" style="max-width: 120px; border-radius: 4px;">
+        <?php endforeach; ?>
+      </div>
+
+      <h5>Description:</h5>
+      <p><?= nl2br(h($auction['itemDescription'])) ?></p>
+
+      <h5>Bid History:</h5>
+      <?php if (empty($bidHistory)): ?>
+          <p>No bids yet. Be the first!</p>
+      <?php else: ?>
+          <table class="table table-sm table-bordered">
+            <tr><th>Bidder</th><th>Amount</th><th>Time</th></tr>
+            <?php foreach ($bidHistory as $bid): ?>
+                <tr>
+                  <td><?= h($bid['buyerName']) ?></td>
+                  <td>£<?= number_format($bid['bidPrice'], 2) ?></td>
+                  <td><?= h($bid['bidTime']) ?></td>
+                </tr>
+            <?php endforeach; ?>
+          </table>
+      <?php endif; ?>
+
+    </div>
+
+<!-- RIGHT SIDE: BIDDING PANEL -->
+<div class="col-md-4">
+
+    <?php 
+    $status = $auction['auctionStatus'];
+    ?>
+
+    <!--  Auction ended -->
+    <?php if ($status === 'ended'): ?>
+
+        <div class="alert alert-secondary">
+            <strong>This auction has ended.</strong>
+        </div>
+
+        <?php if ($highestBid): ?>
+            <p>Winner: User <?= h($highestBid['buyerId']) ?></p>
+            <p>Final Price: £<?= number_format($highestBid['bidPrice'],2) ?></p>
+        <?php else: ?>
+            <p>No bids were placed.</p>
+        <?php endif; ?>
+
+    <!-- YH DEBUG: Auction NOT STARTED (scheduled) -->
+    <?php elseif ($status === 'scheduled'): ?>
+
+        <div class="alert alert-info">
+            <strong>This auction has not started yet.</strong><br>
+            Starts on: <?= $start_time->format('j M H:i') ?><br>
+            (in <?= $now->diff($start_time)->format('%ad %hh %im') ?>)
+        </div>
+
+        <p class="lead">Starting Price: £<?= number_format($startPrice,2) ?></p>
+
+        <!-- no bid form -->
+        <p class="text-muted">Bidding will open once the auction starts.</p>
+
+    <!-- Auction is running -->
+    <?php elseif ($status === 'running'): ?>
+
+        <p class="text-muted">
+            Auction ends <?= $endTime->format('j M H:i') ?>
+            (in <?= display_time_remaining($now->diff($endTime)) ?>)
+        </p>
+
+        <p class="lead">Current bid: £<?= number_format($currentPrice,2) ?></p>
+
+        <?php if (isset($_SESSION['userId']) && $_SESSION['userId'] == $auction['sellerId']): ?>
+
+            <p class="text-warning">You are the seller and cannot bid.</p>
+
+        <?php else: ?>
+
+            <form method="POST" action="place_bid.php">
+                <input type="hidden" name="auctionId" value="<?= $auctionId ?>">
+                <div class="input-group">
+                    <span class="input-group-text">£</span>
+                    <input type="number" name="bidPrice" class="form-control" step="0.01" min="0" required>
+                </div>
+                <button class="btn btn-primary mt-2">Place bid</button>
+            </form>
+
+        <?php endif; ?>
+
+    <?php endif; ?>
+
+</div>
+
+
+<?php include_once("footer.php"); ?>

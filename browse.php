@@ -1,11 +1,17 @@
-<?php include_once("header.php")?>
 <?php 
-require_once("Auction_functions.php");
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
+include_once("header.php");
+
+require_once("utilities.php");
 require_once("db_connect.php");
 require_once("Auction_functions.php");
 require_once("Item_function.php");
 require_once("Image_functions.php");
- ?>
+require_once("bid_functions.php");
+?>
 
 
 <div class="container">
@@ -36,7 +42,7 @@ require_once("Image_functions.php");
     <div class="col-md-3 pr-0">
       <div class="form-group">
         <label for="cat" class="sr-only">Search within:</label>
-        <select class="form-control" id="cat">
+        <select class="form-control" id="cat" name = "cat">
           <option selected value="all">All categories</option>
 <!--This is for category filter, show category names in browse page-->
           <?php 
@@ -121,6 +127,8 @@ require_once("Image_functions.php");
      JOIN categories c ON i.categoryId=c.categoryId
      WHERE 1=1";
 
+     $base_sql .= " AND a.auctionStatus IN ('scheduled', 'running')";
+
      // This is keyword search sql query
      if ($keyword !==""){
       $safe_kw = "%" . $conn->real_escape_string($keyword) . "%";
@@ -148,26 +156,32 @@ require_once("Image_functions.php");
   // This is for order query
   // YH DEBUG: we use auctionId instead of itemId
 
-  $sql_item = "SELECT
-    i.itemId,
-    i.itemName,
-    i.itemDescription,
-    a.auctionId,
-    a.auctionEndTime, 
-    a.startPrice,
-    im.imageUrl,
-    COUNT(b.bidId) AS num_bids
-    " . $base_sql . "
-    GROUP BY i.itemId";
+  $sql_item = "
+  SELECT
+      i.itemId,
+      i.itemName,
+      i.itemDescription,
+      a.auctionId,
+      a.auctionEndTime,
+      a.auctionStatus,
+      a.auctionStartTime,
+      a.startPrice,
+      im.imageUrl,
+      COUNT(b.bidId) AS num_bids,
+      IFNULL(MAX(b.bidPrice), a.startPrice) AS max_bid
+  " 
+  . $base_sql .
+  "
+  GROUP BY i.itemId
+  ";
   
-  if ($ordering ==="pricelow"){
-    $sql_item .= " ORDER BY a.startPrice ASC";
-  } 
-  elseif ($ordering === "pricehigh"){
-    $sql_item .= " ORDER BY a.startPrice DESC";
-  }
-  else {
-    $sql_item .= " ORDER BY a.auctionEndTime";
+  
+  if ($ordering === "pricelow") {
+      $sql_item .= " ORDER BY max_bid ASC";
+  } elseif ($ordering === "pricehigh") {
+      $sql_item .= " ORDER BY max_bid DESC";
+  } else {
+      $sql_item .= " ORDER BY a.auctionEndTime ASC";
   }
 
   $sql_item .= " LIMIT $results_per_page OFFSET $offset";
@@ -197,7 +211,21 @@ require_once("Image_functions.php");
     $num_bids = $row["num_bids"];
     $end_time = new DateTime($row["auctionEndTime"]);
 
-    print_listing_li($auction_id, $title, $desc, $price, $num_bids, $end_time); // YH DEBUG: we use auctionId instead of itemId
+    $start_time = new DateTime($row["auctionStartTime"]);
+    $end_time   = new DateTime($row["auctionEndTime"]);
+    $status     = $row["auctionStatus"];
+    print_listing_li(
+      $auction_id,
+      $title,
+      $desc,
+      $price,
+      $num_bids,
+      $end_time,
+      $start_time,
+      $status
+    );
+ // YH DEBUG: we use auctionId instead of itemId
+ // YH: display differently among different auction status
   }
   ?>
 

@@ -35,33 +35,50 @@ function display_time_remaining(DateInterval $interval): string {
     }
 }
 
-/** Render listing item */
-function print_listing_li($item_id, $title, $desc, $price, $num_bids, $end_time): void {
+// Render listing item
+// YH DEBUG: We should use auctionId instead of userID
+// YH DEBUG: auctionId not auction_id
+function print_listing_li($auctionId, $title, $desc, $price, $num_bids, $endTime, $startTime, $status)
+{
+    $now = new DateTime();
 
-    if (!($end_time instanceof DateTime)) {
-        $end_time = new DateTime($end_time);
+    // Compute status text
+    if ($status === 'scheduled') {
+
+        $interval = $now->diff($startTime);
+        $time_text = "Starts in " . display_time_remaining($interval);
+
+        $badge = "<span class='badge bg-info text-dark'>Not started</span>";
+
+    } elseif ($status === 'running') {
+
+        $interval = $now->diff($endTime);
+        $time_text = display_time_remaining($interval) . " remaining";
+
+        $badge = "<span class='badge bg-success'>Running</span>";
+
+    } else { // ended
+        $time_text = "Auction ended";
+        $badge = "<span class='badge bg-secondary'>Ended</span>";
     }
 
-    $desc_short = strlen($desc) > 250 ? substr($desc, 0, 250) . '...' : $desc;
-    $bid_label = ((int)$num_bids === 1) ? ' bid' : ' bids';
+    echo "
+    <li class='list-group-item'>
+      <div class='d-flex justify-content-between'>
 
-    $now = new DateTime();
-    $time_remaining = ($now > $end_time)
-        ? 'This auction has ended'
-        : display_time_remaining(date_diff($now, $end_time)) . ' remaining';
+        <div>
+          <a href='listing.php?auctionId=$auctionId' class='fw-bold'>$title</a><br>
+          <small class='text-muted'>$desc</small><br>
+          $badge
+        </div>
 
-    echo '
-    <li class="list-group-item d-flex justify-content-between">
-        <div class="p-2 mr-5">
-            <h5>
-                <a href="listing.php?item_id=' . (int)$item_id . '">' . h($title) . '</a>
-            </h5>'
-            . h($desc_short) .
-        '</div>
+        <div class='text-end'>
+          <strong>£" . number_format($price, 2) . "</strong><br>
+          <small>$num_bids " . ($num_bids == 1 ? "bid" : "bids") . "</small><br>
+          <small class='text-muted'>$time_text</small>
+        </div>
 
-        <div class="text-center text-nowrap">
-            <span style="font-size: 1.5em">£' . number_format((float)$price, 2) . '</span><br/>'
-            . (int)$num_bids . $bid_label . '<br/>' . h($time_remaining) .
-        '</div>
-    </li>';
+      </div>
+    </li>
+    ";
 }

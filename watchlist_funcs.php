@@ -160,5 +160,34 @@ function removeFromWatchlist($userId, $auctionId)
 // ************************************************************************************
 // 如果 functionname 根本匹配不了就返回 fail
 // ************************************************************************************
+
+
+// YH: Check if auction is in user's watchlist 
+function isInWatchlist($userId, $auctionId)
+{
+    $db = get_db_connection();
+
+    $sql = "
+        SELECT watchId 
+        FROM watchlist
+        WHERE userId = ? AND auctionId = ?
+        LIMIT 1
+    ";
+
+    $stmt = $db->prepare($sql);
+    if ($stmt === false) {
+        return false;
+    }
+
+    $stmt->bind_param("ii", $userId, $auctionId);
+    $stmt->execute();
+
+    $result = $stmt->get_result();
+    $exists = ($result->num_rows > 0);
+
+    $stmt->close();
+    return $exists;
+}
+
 ?>
 

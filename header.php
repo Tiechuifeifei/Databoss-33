@@ -1,8 +1,4 @@
 <?php
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
-
 require_once __DIR__ . '/utilities.php';
 
 $currentUrl = $_SERVER['REQUEST_URI'] ?? 'browse.php';
@@ -54,16 +50,34 @@ $currentUrl = $_SERVER['REQUEST_URI'] ?? 'browse.php';
 <!-- 第二条深色导航：功能菜单（外观不改） -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <ul class="navbar-nav align-middle">
-    <li class="nav-item mx-1"><a class="nav-link" href="browse.php">Browse</a></li>
+
+    <li class="nav-item mx-1">
+      <a class="nav-link" href="browse.php">Browse</a>
+    </li>
 
 <?php if (!empty($_SESSION['userId'])): ?>
-    <li class="nav-item mx-1"><a class="nav-link" href="mybids.php">My Bids</a></li>
-    <li class="nav-item mx-1"><a class="nav-link" href="mylistings.php">My Listings</a></li>
-<!-- YH DEBUG: create item before create auction-->
-    <li class="nav-item ml-3"><a class="nav-link btn border-light" href="create_item.php">+ Create auction</a></li>
+
+    <li class="nav-item mx-1">
+      <a class="nav-link" href="mybids.php">My Bids</a>
+    </li>
+
+    <li class="nav-item mx-1">
+      <a class="nav-link" href="profile.php">My Profile</a>
+    </li>
+
+    <li class="nav-item mx-1">
+      <a class="nav-link" href="mylistings.php">My Listings</a>
+    </li>
+
+    <li class="nav-item ml-3">
+      <a class="nav-link btn border-light" href="create_item.php">+ Create auction</a>
+    </li>
+
 <?php endif; ?>
+
   </ul>
 </nav>
+
 
 <!-- Login 模态框 -->
 <!-- YH DEBUG: I DEBUGGED THE BELOW CODE TO SHOW THE LOGIN ERROR MESSAGE-->

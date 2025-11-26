@@ -18,7 +18,8 @@ require_once(__DIR__ . '/utilities.php');
 | - 8. endAuctions - update the auction when it ends
 | - 9. Close auction only if ended
 | - 10. cancel auction 
-| - 11. update status
+| - 11. update status ???? could be deleted?
+| - 12. get acution by itemid
 |---------------------------------------------------------------------------
 */
 
@@ -375,5 +376,13 @@ function cancelAuction($auctionId, $itemId) {
     return $stmt2->execute();
 }
 
-
+//12. get auction by itemId
+function getAuctionByItemId($itemId) {
+    global $conn;
+    $sql = "SELECT * FROM auctions WHERE itemId = ? LIMIT 1";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("i", $itemId);
+    $stmt->execute();
+    return $stmt->get_result()->fetch_assoc();
+}
 ?>
