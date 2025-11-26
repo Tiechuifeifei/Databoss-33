@@ -96,7 +96,7 @@ $watchlist = viewWatchlistByUser($userId);
     <?php foreach ($bids as $b): ?>
         <div class="card p-3 mb-2">
             <h5><?= h($b['itemName']) ?></h5>
-            <p>Your Bid: £<?= h($b['bidAmount']) ?></p>
+            <p>Your Bid: £<?= h($b['bidPrice']) ?></p>
             <p>Status: <strong><?= h($b['auctionStatus']) ?></strong></p>
 
             <?php if ($b['auctionStatus'] === 'ended'): ?>

@@ -2,15 +2,14 @@
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
-
-include_once("header.php");
-
-require_once("utilities.php");
 require_once("db_connect.php");
+require_once("utilities.php");
 require_once("Auction_functions.php");
 require_once("Item_function.php");
 require_once("Image_functions.php");
 require_once("bid_functions.php");
+include_once("header.php");
+refreshAllAuctions();
 ?>
 
 
@@ -49,6 +48,7 @@ require_once("bid_functions.php");
           $sql="SELECT * FROM categories";
           $result=mysqli_query($conn,$sql);
           while ($row = mysqli_fetch_assoc($result)) {
+            refreshAuctionStatus($row['auctionId']);
           echo '<option value="' . $row['categoryId'] . '">'
             . htmlspecialchars($row['categoryName']) .
             '</option>';
@@ -203,6 +203,7 @@ require_once("bid_functions.php");
 <!--This is for printing the list group-->
   <?php 
   while ($row = mysqli_fetch_assoc($result_item)) {
+    refreshAuctionStatus($row['auctionId']);
     $auction_id = $row["auctionId"];   
     $title = $row["itemName"];
     $desc = $row["itemDescription"];

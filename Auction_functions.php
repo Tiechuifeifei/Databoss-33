@@ -10,16 +10,17 @@ require_once(__DIR__ . '/utilities.php');
 | This file contains all auction-related backend logic:
 | - 1. create a new auction 
 | - 2. get the auction details
-| - 3. search for the active auction - browse 用！！！
+| - 3. search for the active auction -for browse ！！！
 | - 4. get the current highest price - for bid!!!
-| - 5. update auctionstatus automatically - 时间自动更新 update 
-| - 6. get the remaining time - call utilities.php --- 
-| - 7. 获取某个用户创建的所有拍卖 - for item
+| - 5. update auctionstatus automatically 
+| - 6. get the remaining time - call utilities.php 
+| - 7. all listing - for item
 | - 8. endAuctions - update the auction when it ends
 | - 9. Close auction only if ended
 | - 10. cancel auction 
 | - 11. update status ???? could be deleted?
 | - 12. get acution by itemid
+| - 13. refresh all auctions - call 5
 |---------------------------------------------------------------------------
 */
 
@@ -385,4 +386,17 @@ function getAuctionByItemId($itemId) {
     $stmt->execute();
     return $stmt->get_result()->fetch_assoc();
 }
+
+//13. refresh all auctions
+function refreshAllAuctions() {
+    global $conn;
+
+    $sql = "SELECT auctionId FROM auctions";
+    $result = $conn->query($sql);
+
+    while ($row = $result->fetch_assoc()) {
+        refreshAuctionStatus($row['auctionId']);
+    }
+}
+
 ?>
