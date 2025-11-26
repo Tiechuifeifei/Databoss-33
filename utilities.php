@@ -39,47 +39,56 @@ function display_time_remaining(DateInterval $interval): string {
 // YH DEBUG: We should use auctionId instead of userID
 // YH DEBUG: auctionId not auction_id
 // YH DEBUG: seperate scheduled/ running and ended auctions
-function print_listing_li($auctionId, $title, $desc, $price, $num_bids, $endTime, $startTime, $status)
+function print_listing_li($auctionId, $title, $desc, $price, $num_bids, $endTime, $startTime, $status, $winnerName)
 {
     $now = new DateTime();
 
-    // Compute status text
+    // Determine status text + badge
     if ($status === 'scheduled') {
 
         $interval = $now->diff($startTime);
         $time_text = "Starts in " . display_time_remaining($interval);
-
         $badge = "<span class='badge bg-info text-dark'>Not started</span>";
 
     } elseif ($status === 'running') {
 
         $interval = $now->diff($endTime);
         $time_text = display_time_remaining($interval) . " remaining";
-
         $badge = "<span class='badge bg-success'>Running</span>";
 
     } else { // ended
+
         $time_text = "Auction ended";
         $badge = "<span class='badge bg-secondary'>Ended</span>";
     }
 
-    echo "
-    <li class='list-group-item'>
-      <div class='d-flex justify-content-between'>
+    echo "<li class='list-group-item'>
+            <div class='d-flex justify-content-between'>
 
-        <div>
-          <a href='listing.php?auctionId=$auctionId' class='fw-bold'>$title</a><br>
-          <small class='text-muted'>$desc</small><br>
-          $badge
-        </div>
+                <!-- LEFT -->
+                <div>
+                    <a href='listing.php?auctionId=$auctionId' class='fw-bold'>$title</a><br>
+                    <small class='text-muted'>$desc</small><br>
+                    $badge
+                </div>
 
-        <div class='text-end'>
-          <strong>£" . number_format($price, 2) . "</strong><br>
-          <small>$num_bids " . ($num_bids == 1 ? "bid" : "bids") . "</small><br>
-          <small class='text-muted'>$time_text</small>
-        </div>
+                <!-- RIGHT -->
+                <div class='text-end'>
+                    <strong>£" . number_format($price, 2) . "</strong><br>
+                    <small>$num_bids " . ($num_bids == 1 ? "bid" : "bids") . "</small><br>
+                    <small class='text-muted'>$time_text</small><br>";
 
-      </div>
-    </li>
-    ";
+                    // ⭐ NEW: only show winner if auction ended
+                    if ($status === 'ended') {
+                        if ($winnerName) {
+                            echo "<small><strong>Winner:</strong> " . htmlspecialchars($winnerName) . "</small>";
+                        } else {
+                            echo "<small><strong>No bids were placed</strong></small>";
+                        }
+                    }
+
+    echo       "</div>
+
+            </div>
+          </li>";
 }

@@ -127,7 +127,7 @@ require_once("bid_functions.php");
      JOIN categories c ON i.categoryId=c.categoryId
      WHERE 1=1";
 
-     $base_sql .= " AND a.auctionStatus IN ('scheduled', 'running')";
+     $base_sql .= " AND a.auctionStatus IN ('scheduled', 'running', 'ended')";
 
      // This is keyword search sql query
      if ($keyword !==""){
@@ -203,17 +203,33 @@ require_once("bid_functions.php");
 <!--This is for printing the list group-->
   <?php 
   while ($row = mysqli_fetch_assoc($result_item)) {
-    $item_id = $row["itemId"];
-    $auction_id = $row["auctionId"];   // YH DEBUG: we present by using auctionId instead of itemId
+    $auction_id = $row["auctionId"];   
     $title = $row["itemName"];
     $desc = $row["itemDescription"];
-    $price = $row["startPrice"];
+    
+
+    //find the highest bid
+    $highestBid = getHighestBidForAuction($auction_id);
+
+    // find the final price 
+    $price = $highestBid ? $highestBid['bidPrice'] : $row["startPrice"];
+
+    // find the winner
+    $winnerName = null;
+    if ($highestBid) {
+        $winnerId = $highestBid['buyerId'];
+        $db = get_db_connection();
+        $stmt = $db->prepare("SELECT userName FROM users WHERE userId = ?");
+        $stmt->bind_param("i", $winnerId);
+        $stmt->execute();
+        $winnerRow = $stmt->get_result()->fetch_assoc();
+        $winnerName = $winnerRow['userName'] ?? null;
+    }
+
     $num_bids = $row["num_bids"];
     $end_time = new DateTime($row["auctionEndTime"]);
-
     $start_time = new DateTime($row["auctionStartTime"]);
-    $end_time   = new DateTime($row["auctionEndTime"]);
-    $status     = $row["auctionStatus"];
+    $status = $row["auctionStatus"];
     print_listing_li(
       $auction_id,
       $title,
@@ -222,11 +238,14 @@ require_once("bid_functions.php");
       $num_bids,
       $end_time,
       $start_time,
-      $status
-    );
- // YH DEBUG: we use auctionId instead of itemId
- // YH: display differently among different auction status
-  }
+      $status,
+      $winnerName
+  );
+  
+}
+// YH DEBUG: we use auctionId instead of itemId
+// YH: display differently among different auction status
+
   ?>
 
 </ul>
