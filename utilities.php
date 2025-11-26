@@ -1,64 +1,85 @@
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors', '1');
 
-// display_time_remaining:
-// Helper function to help figure out what time to display
-function display_time_remaining($interval) {
+// Get database connection //
+function get_db_connection(): mysqli {
+    $host = 'localhost';
+    $user = 'root';
+    $pass = '';
+    $dbName = 'auction_website'; // modular DB
 
+
+    $db = new mysqli($host, $user, $pass, $dbName);
+    if ($db->connect_errno) {
+        die('DB connect error: ' . $db->connect_error);
+    }
+
+    $db->set_charset('utf8mb4');
+    return $db;
+}
+
+// Escape HTML //
+function h(?string $s): string {
+    return htmlspecialchars($s ?? '', ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
+}
+
+/** Time remaining helper */
+function display_time_remaining(DateInterval $interval): string {
     if ($interval->days == 0 && $interval->h == 0) {
-      // Less than one hour remaining: print mins + seconds:
-      $time_remaining = $interval->format('%im %Ss');
+        return $interval->format('%im %Ss');
+    } elseif ($interval->days == 0) {
+        return $interval->format('%hh %im');
+    } else {
+        return $interval->format('%ad %hh');
     }
-    else if ($interval->days == 0) {
-      // Less than one day remaining: print hrs + mins:
-      $time_remaining = $interval->format('%hh %im');
-    }
-    else {
-      // At least one day remaining: print days + hrs:
-      $time_remaining = $interval->format('%ad %hh');
-    }
-
-  return $time_remaining;
-
 }
 
-// print_listing_li:
-// This function prints an HTML <li> element containing an auction listing
-function print_listing_li($item_id, $title, $desc, $price, $num_bids, $end_time)
+// Render listing item
+// YH DEBUG: We should use auctionId instead of userID
+// YH DEBUG: auctionId not auction_id
+// YH DEBUG: seperate scheduled/ running and ended auctions
+function print_listing_li($auctionId, $title, $desc, $price, $num_bids, $endTime, $startTime, $status)
 {
-  // Truncate long descriptions
-  if (strlen($desc) > 250) {
-    $desc_shortened = substr($desc, 0, 250) . '...';
-  }
-  else {
-    $desc_shortened = $desc;
-  }
-  
-  // Fix language of bid vs. bids
-  if ($num_bids == 1) {
-    $bid = ' bid';
-  }
-  else {
-    $bid = ' bids';
-  }
-  
-  // Calculate time to auction end
-  $now = new DateTime();
-  if ($now > $end_time) {
-    $time_remaining = 'This auction has ended';
-  }
-  else {
-    // Get interval:
-    $time_to_end = date_diff($now, $end_time);
-    $time_remaining = display_time_remaining($time_to_end) . ' remaining';
-  }
-  
-  // Print HTML
-  echo('
-    <li class="list-group-item d-flex justify-content-between">
-    <div class="p-2 mr-5"><h5><a href="listing.php?item_id=' . $item_id . '">' . $title . '</a></h5>' . $desc_shortened . '</div>
-    <div class="text-center text-nowrap"><span style="font-size: 1.5em">£' . number_format($price, 2) . '</span><br/>' . $num_bids . $bid . '<br/>' . $time_remaining . '</div>
-  </li>'
-  );
-}
+    $now = new DateTime();
 
-?>
+    // Compute status text
+    if ($status === 'scheduled') {
+
+        $interval = $now->diff($startTime);
+        $time_text = "Starts in " . display_time_remaining($interval);
+
+        $badge = "<span class='badge bg-info text-dark'>Not started</span>";
+
+    } elseif ($status === 'running') {
+
+        $interval = $now->diff($endTime);
+        $time_text = display_time_remaining($interval) . " remaining";
+
+        $badge = "<span class='badge bg-success'>Running</span>";
+
+    } else { // ended
+        $time_text = "Auction ended";
+        $badge = "<span class='badge bg-secondary'>Ended</span>";
+    }
+
+    echo "
+    <li class='list-group-item'>
+      <div class='d-flex justify-content-between'>
+
+        <div>
+          <a href='listing.php?auctionId=$auctionId' class='fw-bold'>$title</a><br>
+          <small class='text-muted'>$desc</small><br>
+          $badge
+        </div>
+
+        <div class='text-end'>
+          <strong>£" . number_format($price, 2) . "</strong><br>
+          <small>$num_bids " . ($num_bids == 1 ? "bid" : "bids") . "</small><br>
+          <small class='text-muted'>$time_text</small>
+        </div>
+
+      </div>
+    </li>
+    ";
+}

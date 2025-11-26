@@ -1,18 +1,18 @@
 <?php
-require_once("../Auction_functions.php");
 require_once("../db_connect.php");
+require_once("../Auction_functions.php");
 
-// Enable error reporting
 mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
-
-// -------- TEST getActiveAuctions() --------
 
 echo "<h2>Testing getActiveAuctions()</h2>";
 
-$activeAuctions = getActiveAuctions();
+$results = getActiveAuctions();
+
+if (empty($results)) {
+    echo "❗ No active auctions found OR query not working.\n";
+} else {
+    echo "✔ getActiveAuctions() returned " . count($results) . " rows.\n\n";
+}
 
 echo "<pre>";
-var_dump($activeAuctions);
-echo "</pre>";
-
-?>
+print_r($results);

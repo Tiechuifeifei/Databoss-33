@@ -1,6 +1,27 @@
 <?php
 require_once("db_connect.php");   
+require_once("Item_function.php");   
 require_once(__DIR__ . '/utilities.php');
+
+/*
+|--------------------------------------------------------------------------
+| Auction FUNCTIONS
+|--------------------------------------------------------------------------
+| This file contains all auction-related backend logic:
+| - 1. create a new auction 
+| - 2. get the auction details
+| - 3. search for the active auction - browse 用！！！
+| - 4. get the current highest price - for bid!!!
+| - 5. update auctionstatus automatically - 时间自动更新 update 
+| - 6. get the remaining time - call utilities.php --- 
+| - 7. 获取某个用户创建的所有拍卖 - for item
+| - 8. endAuctions - update the auction when it ends
+| - 9. Close auction only if ended
+| - 10. cancel auction 
+| - 11. update status ???? could be deleted?
+| - 12. get acution by itemid
+|---------------------------------------------------------------------------
+*/
 
 //  AUCTION FUNCTIONS
 
@@ -76,16 +97,22 @@ function getActiveAuctions() {
             a.auctionEndTime,
             a.auctionStatus,
             a.startPrice,
-            a.soldPrice,
-            a.winningBidId,
             a.reservedPrice,
+            a.winningBidId,
             i.itemName,
             i.itemDescription,
             i.categoryId,
-            i.sellerId
+            i.sellerId,
+            COALESCE(MAX(b.bidPrice), a.startPrice) AS currentPrice,
+            COUNT(b.bidId) AS numBids
+
         FROM auctions a
         JOIN items i ON a.itemId = i.itemId
+        LEFT JOIN bids b ON a.auctionId = b.auctionId
+
         WHERE a.auctionStatus IN ('scheduled', 'running')
+
+        GROUP BY a.auctionId
         ORDER BY a.auctionStartTime ASC
     ";
 
@@ -93,11 +120,11 @@ function getActiveAuctions() {
     $stmt->execute();
     $result = $stmt->get_result();
 
-    // 返回 array of associative arrays
     return $result->fetch_all(MYSQLI_ASSOC);
 }
 
-// 4. 更新 auction 当前价格（被 bid 模块调用）
+
+// 4. 更新auction当前价格（被bid模块调用）
 // call from bid module
 function getCurrentHighestPrice($auctionId) {
     global $conn;
@@ -111,10 +138,10 @@ function getCurrentHighestPrice($auctionId) {
     $stmt->execute();
     $result = $stmt->get_result()->fetch_assoc();
 
-    // 如果没人出价，返回起拍价 if no bid, then go back to the start price 
+    // 如果没人出价，返回起拍价 if there is no bid, then go back to the start price 
     if ($result['highestPrice'] === null) {
 
-        // 查起拍价 serch for the startprice
+        // 查起拍价serch for the startprice
         $sql2 = "SELECT startPrice FROM auctions WHERE auctionId = ?";
         $stmt2 = $conn->prepare($sql2);
         $stmt2->bind_param("i", $auctionId);
@@ -128,13 +155,13 @@ function getCurrentHighestPrice($auctionId) {
 }
 
 // update auctionstatus automatically 
-// 5. 自动根据时间刷新 auction 状态，并返回是否已经结束
+// 5. 自动根据时间刷新auction状态，并返回是否已经结束
 function refreshAuctionStatus($auctionId) {
     global $conn;
 
-    //Query times + current status
+    // 1. Get timeline + current status + itemId
     $sql = "
-        SELECT auctionStartTime, auctionEndTime, auctionStatus
+        SELECT auctionStartTime, auctionEndTime, auctionStatus, itemId
         FROM auctions
         WHERE auctionId = ?
     ";
@@ -144,50 +171,52 @@ function refreshAuctionStatus($auctionId) {
     $result = $stmt->get_result();
 
     if ($result->num_rows === 0) {
-        return false; // Auction not found
+        return false;
     }
 
     $row = $result->fetch_assoc();
+    $itemId = $row['itemId'];
 
-    // cancelled auctions are treated as ended
+    // Cancelled = ended (no further updates)
     if ($row['auctionStatus'] === 'cancelled') {
         return true;
     }
 
-    // Compare with system time
+    // Compare current time with start & end
     $now   = new DateTime();
     $start = new DateTime($row['auctionStartTime']);
     $end   = new DateTime($row['auctionEndTime']);
 
     if ($now < $start) {
         $newStatus = "scheduled";
+        // item should remain inactive
+        updateItemStatus($itemId, "inactive");
     } 
     else if ($now >= $start && $now < $end) {
         $newStatus = "running";
+        // item should be active
+        updateItemStatus($itemId, "active");
     } 
     else {
         $newStatus = "ended";
+        // item status will be set in endAuction()
     }
 
-    // Update DB if status changed (BUT DON'T RETURN HERE!)
+    // Update auction if changed
     if ($newStatus !== $row['auctionStatus']) {
-        $updateSql = "
-            UPDATE auctions
-            SET auctionStatus = ?
-            WHERE auctionId = ?
-        ";
+        $updateSql = "UPDATE auctions SET auctionStatus = ? WHERE auctionId = ?";
         $updateStmt = $conn->prepare($updateSql);
         $updateStmt->bind_param("si", $newStatus, $auctionId);
         $updateStmt->execute();
     }
 
-    // Always return correct "is ended?" boolean
     return ($newStatus === "ended" || $newStatus === "cancelled");
 }
 
 
+
 // 6. get the remaining time: call utilities.php
-// 获取某个 auction 的剩余时间（返回格式化后的字符串）
+// 获取某个auction的剩余时间
 // interact with utilities.php
 function getRemainingTime($auctionId) {
     global $conn;
@@ -206,14 +235,14 @@ function getRemainingTime($auctionId) {
     $end_time = new DateTime($row['auctionEndTime']);
     $now = new DateTime();
 
-    // 如果已经结束
+    // if ended 
     if ($now >= $end_time) {
         return "Auction ended";
     }
 
-    // 否则计算剩余时间
+    // count the remaining time
     $interval = $now->diff($end_time);
-    return display_time_remaining($interval);  // 来自 utilities.php
+    return display_time_remaining($interval);  // from utilities.php
 }
 
 
@@ -257,7 +286,7 @@ function getAuctionsByUser($userId) {
 function endAuction($auctionId) {
     global $conn;
 
-    // 1. find the highest bidid and price
+    // 1. Get highest bid (id + price)
     $sql = "SELECT bidId, bidPrice
             FROM bids
             WHERE auctionId = ?
@@ -269,8 +298,15 @@ function endAuction($auctionId) {
     $stmt->execute();
     $highestBid = $stmt->get_result()->fetch_assoc();
 
+    // Get itemId for status update
+    $sql_item = "SELECT itemId FROM auctions WHERE auctionId = ?";
+    $stmt_item = $conn->prepare($sql_item);
+    $stmt_item->bind_param("i", $auctionId);
+    $stmt_item->execute();
+    $itemId = $stmt_item->get_result()->fetch_assoc()['itemId'];
+
     if ($highestBid) {
-        // 2. update the auction.soldPrice + winningBidId
+        // 2. Update sold price
         $sql2 = "UPDATE auctions
                 SET soldPrice = ?, winningBidId = ?
                 WHERE auctionId = ?";
@@ -281,16 +317,24 @@ function endAuction($auctionId) {
             $auctionId
         );
         $stmt2->execute();
+
+        // 3. Update item to sold
+        updateItemStatus($itemId, "sold");
+
     } else {
-        // no bid（soldPrice = null）
+        // no bids
         $sql3 = "UPDATE auctions
                 SET soldPrice = NULL, winningBidId = NULL
                 WHERE auctionId = ?";
         $stmt3 = $conn->prepare($sql3);
         $stmt3->bind_param("i", $auctionId);
         $stmt3->execute();
+
+        // No winner → item stays inactive (or returned to inactive)
+        updateItemStatus($itemId, "inactive");
     }
 }
+
 
 // 9. Close auction only if ended
 function closeAuctionIfEnded($auctionId) {
@@ -306,6 +350,39 @@ function closeAuctionIfEnded($auctionId) {
 
     return "Auction still active.";
 }
+// 10. cancel auction 
+function cancelAuction($auctionId, $itemId) {
+    global $conn;
 
+    // 1. cancel auction
+    $sql1 = "
+        UPDATE auctions
+        SET auctionStatus = 'cancelled'
+        WHERE auctionId = ?
+    ";
+    $stmt1 = $conn->prepare($sql1);
+    $stmt1->bind_param("i", $auctionId);
+    $stmt1->execute();
 
+    // 2. reset item to inactive
+    $sql2 = "
+        UPDATE items
+        SET itemStatus = 'inactive'
+        WHERE itemId = ?
+    ";
+    $stmt2 = $conn->prepare($sql2);
+    $stmt2->bind_param("i", $itemId);
+
+    return $stmt2->execute();
+}
+
+//12. YH: get auction by itemId and we can get auctionId by link to itemid, I wrote in one file but I too tired to find it. I am pretty sure I wrote it. 
+function getAuctionByItemId($itemId) {
+    global $conn;
+    $sql = "SELECT * FROM auctions WHERE itemId = ? LIMIT 1";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("i", $itemId);
+    $stmt->execute();
+    return $stmt->get_result()->fetch_assoc();
+}
 ?>

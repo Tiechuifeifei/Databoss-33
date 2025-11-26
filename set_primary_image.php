@@ -9,7 +9,7 @@ if (!$imageId || !$itemId) {
     die("Missing imageId or itemId");
 }
 
-// 调用你已经写好的 function
+// 调用已经写好的 function 在image_functions.php里面
 setPrimaryImage($imageId, $itemId);
 
 echo "<h3>Primary image updated!</h3>";

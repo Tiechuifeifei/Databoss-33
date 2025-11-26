@@ -1,169 +1,205 @@
-<?php include_once("header.php")?>
-<?php require("utilities.php")?>
-
 <?php
-  // Get info from the URL:
-  $item_id = $_GET['item_id'];
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 
-  // TODO: Use item_id to make a query to the database.
+require_once("utilities.php");
+require_once("Auction_functions.php");
+require_once("image_functions.php");
+require_once("bid_functions.php");
+session_start();
 
-  // DELETEME: For now, using placeholder data.
-  $title = "Placeholder title";
-  $description = "Description blah blah blah";
-  $current_price = 30.50;
-  $num_bids = 1;
-  $end_time = new DateTime('2020-11-02T00:00:00');
+$auctionId = $_GET['auctionId'] ?? null;
+$itemId    = $_GET['item_id'] ?? null;
 
-  // TODO: Note: Auctions that have ended may pull a different set of data,
-  //       like whether the auction ended in a sale or was cancelled due
-  //       to lack of high-enough bids. Or maybe not.
-  
-  // Calculate time to auction end:
-  $now = new DateTime();
-  
-  if ($now < $end_time) {
-    $time_to_end = date_diff($now, $end_time);
-    $time_remaining = ' (in ' . display_time_remaining($time_to_end) . ')';
-  }
-  
-  // TODO: If the user has a session, use it to make a query to the database
-  //       to determine if the user is already watching this item.
-  //       For now, this is hardcoded.
-  $has_session = true;
-  $watching = false;
+if (!$auctionId && $itemId) {
+    $auction = getAuctionByItemId($itemId);
+    if ($auction) {
+        $auctionId = $auction['auctionId'];
+    }
+}
+
+if (!$auctionId) {
+    echo "<p>Invalid auctionId.</p>";
+    exit;
+}
+
+// refresh auction status
+refreshAuctionStatus($auctionId);
+
+// get auction info
+$auction = getAuctionById($auctionId);
+if (!$auction) {
+    echo "<p>Auction not found.</p>";
+    exit;
+}
+
+// YH: add the start_time for scheduled auction
+$itemId      = $auction['itemId'];
+$startPrice  = (float)$auction['startPrice'];
+$endTime     = new DateTime($auction['auctionEndTime']);
+$now         = new DateTime();
+$start_time = new DateTime($auction['auctionStartTime']);
+
+// images
+$primaryImage = getPrimaryImage($itemId);
+$allImages    = getImagesByItemId($itemId);
+
+// get bid info
+$highestBid = getHighestBidForAuction($auctionId);
+$bidHistory = getBidsByAuctionId($auctionId);
+
+$currentPrice = $highestBid ? (float)$highestBid['bidPrice'] : $startPrice;
+
+// header
+include_once("header.php");
+
+// time remaining
+$timeRemaining = "";
+if ($now < $endTime) {
+    $interval = $now->diff($endTime);
+    $timeRemaining = " (in " . display_time_remaining($interval) . ")";
+}
 ?>
 
+<div class="container mt-4">
 
-<div class="container">
-
-<div class="row"> <!-- Row #1 with auction title + watch button -->
-  <div class="col-sm-8"> <!-- Left col -->
-    <h2 class="my-3"><?php echo($title); ?></h2>
-  </div>
-  <div class="col-sm-4 align-self-center"> <!-- Right col -->
 <?php
-  /* The following watchlist functionality uses JavaScript, but could
-     just as easily use PHP as in other places in the code */
-  if ($now < $end_time):
+require_once 'watchlist_funcs.php';
+
+$userId = $_SESSION['userId'] ?? null;
+$isWatching = $userId ? isInWatchlist($userId, $auction['auctionId']) : false;
 ?>
-    <div id="watch_nowatch" <?php if ($has_session && $watching) echo('style="display: none"');?> >
-      <button type="button" class="btn btn-outline-secondary btn-sm" onclick="addToWatchlist()">+ Add to watchlist</button>
-    </div>
-    <div id="watch_watching" <?php if (!$has_session || !$watching) echo('style="display: none"');?> >
-      <button type="button" class="btn btn-success btn-sm" disabled>Watching</button>
-      <button type="button" class="btn btn-danger btn-sm" onclick="removeFromWatchlist()">Remove watch</button>
-    </div>
-<?php endif /* Print nothing otherwise */ ?>
-  </div>
+
+<div>
+    <?php if (!$userId): ?>
+        <a href="login.php" class="btn btn-outline-primary btn-sm">
+            Login to watch
+        </a>
+    <?php elseif (!$isWatching): ?>
+        <a href="watchlist_add.php?auctionId=<?= $auction['auctionId'] ?>" 
+           class="btn btn-outline-success btn-sm">
+            ♡ Add to Watchlist
+        </a>
+    <?php else: ?>
+        <a href="watchlist_remove.php?auctionId=<?= $auction['auctionId'] ?>" 
+           class="btn btn-danger btn-sm">
+            ♥ Remove
+        </a>
+    <?php endif; ?>
 </div>
 
-<div class="row"> <!-- Row #2 with auction description + bidding info -->
-  <div class="col-sm-8"> <!-- Left col with item info -->
+  <?php if (isset($_GET['success'])): ?>
+      <div class="alert alert-success"><?= h($_GET['success']) ?></div>
+  <?php endif; ?>
 
-    <div class="itemDescription">
-    <?php echo($description); ?>
+  <?php if (isset($_GET['error'])): ?>
+      <div class="alert alert-danger"><?= h($_GET['error']) ?></div>
+  <?php endif; ?>
+
+  <h3><?= h($auction['itemName']) ?></h3>
+
+  <div class="row mt-3">
+
+    <!-- LEFT SIDE -->
+    <div class="col-md-8">
+
+      <?php if (!empty($primaryImage)): ?>
+          <img src="<?= h($primaryImage['imageUrl']) ?>" style="max-width: 300px; border-radius: 6px;">
+      <?php endif; ?>
+
+      <div class="d-flex gap-2 my-3">
+        <?php foreach ($allImages as $img): ?>
+            <img src="<?= h($img['imageUrl']) ?>" style="max-width: 120px; border-radius: 4px;">
+        <?php endforeach; ?>
+      </div>
+
+      <h5>Description:</h5>
+      <p><?= nl2br(h($auction['itemDescription'])) ?></p>
+
+      <h5>Bid History:</h5>
+      <?php if (empty($bidHistory)): ?>
+          <p>No bids yet. Be the first!</p>
+      <?php else: ?>
+          <table class="table table-sm table-bordered">
+            <tr><th>Bidder</th><th>Amount</th><th>Time</th></tr>
+            <?php foreach ($bidHistory as $bid): ?>
+                <tr>
+                  <td><?= h($bid['buyerName']) ?></td>
+                  <td>£<?= number_format($bid['bidPrice'], 2) ?></td>
+                  <td><?= h($bid['bidTime']) ?></td>
+                </tr>
+            <?php endforeach; ?>
+          </table>
+      <?php endif; ?>
+
     </div>
 
-  </div>
+<!-- RIGHT SIDE: BIDDING PANEL -->
+<div class="col-md-4">
 
-  <div class="col-sm-4"> <!-- Right col with bidding info -->
+    <?php 
+    $status = $auction['auctionStatus'];
+    ?>
 
-    <p>
-<?php if ($now > $end_time): ?>
-     This auction ended <?php echo(date_format($end_time, 'j M H:i')) ?>
-     <!-- TODO: Print the result of the auction here? -->
-<?php else: ?>
-     Auction ends <?php echo(date_format($end_time, 'j M H:i') . $time_remaining) ?></p>  
-    <p class="lead">Current bid: £<?php echo(number_format($current_price, 2)) ?></p>
+    <!--  Auction ended -->
+    <?php if ($status === 'ended'): ?>
 
-    <!-- Bidding form -->
-    <form method="POST" action="place_bid.php">
-      <div class="input-group">
-        <div class="input-group-prepend">
-          <span class="input-group-text">£</span>
+        <div class="alert alert-secondary">
+            <strong>This auction has ended.</strong>
         </div>
-	    <input type="number" class="form-control" id="bid">
-      </div>
-      <button type="submit" class="btn btn-primary form-control">Place bid</button>
-    </form>
-<?php endif ?>
 
-  
-  </div> <!-- End of right col with bidding info -->
+        <?php if ($highestBid): ?>
+            <p>Winner: User <?= h($highestBid['buyerId']) ?></p>
+            <p>Final Price: £<?= number_format($highestBid['bidPrice'],2) ?></p>
+        <?php else: ?>
+            <p>No bids were placed.</p>
+        <?php endif; ?>
 
-</div> <!-- End of row #2 -->
+    <!-- YH DEBUG: Auction NOT STARTED (scheduled) -->
+    <?php elseif ($status === 'scheduled'): ?>
+
+        <div class="alert alert-info">
+            <strong>This auction has not started yet.</strong><br>
+            Starts on: <?= $start_time->format('j M H:i') ?><br>
+            (in <?= $now->diff($start_time)->format('%ad %hh %im') ?>)
+        </div>
+
+        <p class="lead">Starting Price: £<?= number_format($startPrice,2) ?></p>
+
+        <!-- no bid form -->
+        <p class="text-muted">Bidding will open once the auction starts.</p>
+
+    <!-- Auction is running -->
+    <?php elseif ($status === 'running'): ?>
+
+        <p class="text-muted">
+            Auction ends <?= $endTime->format('j M H:i') ?>
+            (in <?= display_time_remaining($now->diff($endTime)) ?>)
+        </p>
+
+        <p class="lead">Current bid: £<?= number_format($currentPrice,2) ?></p>
+
+        <?php if (isset($_SESSION['userId']) && $_SESSION['userId'] == $auction['sellerId']): ?>
+
+            <p class="text-warning">You are the seller and cannot bid.</p>
+
+        <?php else: ?>
+
+            <form method="POST" action="place_bid.php">
+                <input type="hidden" name="auctionId" value="<?= $auctionId ?>">
+                <div class="input-group">
+                    <span class="input-group-text">£</span>
+                    <input type="number" name="bidPrice" class="form-control" step="0.01" min="0" required>
+                </div>
+                <button class="btn btn-primary mt-2">Place bid</button>
+            </form>
+
+        <?php endif; ?>
+
+    <?php endif; ?>
+
+</div>
 
 
-
-<?php include_once("footer.php")?>
-
-
-<script> 
-// JavaScript functions: addToWatchlist and removeFromWatchlist.
-
-function addToWatchlist(button) {
-  console.log("These print statements are helpful for debugging btw");
-
-  // This performs an asynchronous call to a PHP function using POST method.
-  // Sends item ID as an argument to that function.
-  $.ajax('watchlist_funcs.php', {
-    type: "POST",
-    data: {functionname: 'add_to_watchlist', arguments: [<?php echo($item_id);?>]},
-
-    success: 
-      function (obj, textstatus) {
-        // Callback function for when call is successful and returns obj
-        console.log("Success");
-        var objT = obj.trim();
- 
-        if (objT == "success") {
-          $("#watch_nowatch").hide();
-          $("#watch_watching").show();
-        }
-        else {
-          var mydiv = document.getElementById("watch_nowatch");
-          mydiv.appendChild(document.createElement("br"));
-          mydiv.appendChild(document.createTextNode("Add to watch failed. Try again later."));
-        }
-      },
-
-    error:
-      function (obj, textstatus) {
-        console.log("Error");
-      }
-  }); // End of AJAX call
-
-} // End of addToWatchlist func
-
-function removeFromWatchlist(button) {
-  // This performs an asynchronous call to a PHP function using POST method.
-  // Sends item ID as an argument to that function.
-  $.ajax('watchlist_funcs.php', {
-    type: "POST",
-    data: {functionname: 'remove_from_watchlist', arguments: [<?php echo($item_id);?>]},
-
-    success: 
-      function (obj, textstatus) {
-        // Callback function for when call is successful and returns obj
-        console.log("Success");
-        var objT = obj.trim();
- 
-        if (objT == "success") {
-          $("#watch_watching").hide();
-          $("#watch_nowatch").show();
-        }
-        else {
-          var mydiv = document.getElementById("watch_watching");
-          mydiv.appendChild(document.createElement("br"));
-          mydiv.appendChild(document.createTextNode("Watch removal failed. Try again later."));
-        }
-      },
-
-    error:
-      function (obj, textstatus) {
-        console.log("Error");
-      }
-  }); // End of AJAX call
-
-} // End of addToWatchlist func
-</script>
+<?php include_once("footer.php"); ?>
