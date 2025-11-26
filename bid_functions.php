@@ -55,11 +55,9 @@ function getHighestBidForAuction($auctionId)
         ORDER BY b.bidPrice DESC, b.bidTime ASC
         LIMIT 1
     ";
-//prepare SQL,先检查一下错误。
+
     $stmt = $db -> prepare($sql);
-    if (!$stmt) {
-        return null;
-    }
+   
     $stmt -> bind_param("i", $auctionId);
     $stmt -> execute();
     $result = $stmt -> get_result();
@@ -96,9 +94,7 @@ function getBidsByAuctionId($auctionId)
     ";// "ordered by time" must be written in sql, better not to rely on front side.
 
     $stmt = $db -> prepare($sql);
-    if (!$stmt) {
-        return [];
-    }
+
     $stmt -> bind_param("i", $auctionId);
     $stmt -> execute();
     $result = $stmt -> get_result();
@@ -137,9 +133,6 @@ function getBidsByUser($userId)
     ";
 
     $stmt = $db -> prepare($sql);
-    if (!$stmt) {
-        return [];
-    }
     
     $stmt -> bind_param("i", $userId);
     $stmt -> execute();
@@ -196,10 +189,7 @@ ORDER BY
 
 // if there is no value, then return an empty array for user, avoid show error.
 $stmt = $db -> prepare($sql);
-if ($stmt === false) {
-    return array();
-}
-
+    
 $stmt -> bind_param("i", $sellerId);
 $stmt -> execute();
 $result = $stmt -> get_result();
