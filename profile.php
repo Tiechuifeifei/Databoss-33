@@ -60,7 +60,6 @@ $watchlist = viewWatchlistByUser($userId);
     <h4>Basic Information</h4>
     <p><strong>Name:</strong> <?= h($user['userName']) ?></p>
     <p><strong>Email:</strong> <?= h($user['userEmail']) ?></p>
-    <p><strong>Role:</strong> <?= h($user['userRole']) ?></p>
     <p><strong>Phone:</strong> <?= h($user['userPhoneNumber'] ?? '—') ?></p>
     <p><strong>Address:</strong>
         <?= h($user['userHouseNo']) . ", " . h($user['userStreet']) . ", " . h($user['userCity']) ?>
