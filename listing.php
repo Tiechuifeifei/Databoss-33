@@ -89,8 +89,6 @@ $isWatching = $userId ? isInWatchlist($userId, $auction['auctionId']) : false;
     <?php endif; ?>
 </div>
 
-
-  <!-- Success / Error message -->
   <?php if (isset($_GET['success'])): ?>
       <div class="alert alert-success"><?= h($_GET['success']) ?></div>
   <?php endif; ?>

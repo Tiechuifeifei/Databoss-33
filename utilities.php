@@ -38,6 +38,7 @@ function display_time_remaining(DateInterval $interval): string {
 // Render listing item
 // YH DEBUG: We should use auctionId instead of userID
 // YH DEBUG: auctionId not auction_id
+// YH DEBUG: seperate scheduled/ running and ended auctions
 function print_listing_li($auctionId, $title, $desc, $price, $num_bids, $endTime, $startTime, $status)
 {
     $now = new DateTime();

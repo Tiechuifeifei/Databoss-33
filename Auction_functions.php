@@ -376,7 +376,7 @@ function cancelAuction($auctionId, $itemId) {
     return $stmt2->execute();
 }
 
-//12. get auction by itemId
+//12. YH: get auction by itemId and we can get auctionId by link to itemid, I wrote in one file but I too tired to find it. I am pretty sure I wrote it. 
 function getAuctionByItemId($itemId) {
     global $conn;
     $sql = "SELECT * FROM auctions WHERE itemId = ? LIMIT 1";
