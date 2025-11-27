@@ -131,5 +131,28 @@ $stmt->close();
 return "removed_success";
 }
 
-?>
 
+//Leo debug, add one more fucntion "isInWatchList()":
+
+//4. Check if auction is in user's watchlist
+function isInWatchlist($userId, $auctionId)
+{
+    $db = get_db_connection();
+    $sql = "
+        SELECT watchId
+        FROM watchlist
+        WHERE userId = ? AND auctionId = ?
+        LIMIT 1
+    ";
+
+    $stmt = $db->prepare($sql);
+
+    $stmt->bind_param("ii", $userId, $auctionId);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $exists = ($result && $result->num_rows > 0);
+    $stmt->close();
+
+    return $exists;
+}
+?>
