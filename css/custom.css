@@ -1,2 +1,67 @@
-/* Any custom CSS you would like to specify for your site can go here. */
+.hero-banner {
+  height: 80vh;
+  background-image: url('HomeImage.jpg');
+  background-size: cover;
+  background-position: center center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  text-align: center;
+  position: relative;
+}
+
+.hero-banner::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.25);
+}
+
+.hero-content {
+  position: relative;
+  z-index: 10;
+}
+
+.section-products {
+  padding: 60px 0;
+}
+
+.product-card {
+  border: none;
+  border-radius: 0;
+  background-color: transparent;
+}
+
+.product-card .product-image-wrapper {
+  width: 100%;
+  height: 220px;
+  overflow: hidden;
+}
+
+.product-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.product-card .card-body {
+  padding: 10px 0;
+}
+
+.product-card .item-title {
+  font-size: 0.9rem;
+  font-weight: 500;
+  margin-bottom: 2px;
+}
+
+.product-card .item-meta {
+  font-size: 0.8rem;
+  color: #777;
+}
+
+.product-card:hover {
+  transform: translateY(-3px);
+  transition: transform 0.2s ease;
+}
 
