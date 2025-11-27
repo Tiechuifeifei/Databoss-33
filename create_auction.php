@@ -12,7 +12,24 @@ if (!isset($_GET["itemId"])) {
     exit();
 }
 $itemId = intval($_GET["itemId"]);
+
+$db = get_db_connection();
+$stmt = $db->prepare("SELECT COUNT(*) AS imgCount FROM images WHERE itemId = ?");
+$stmt->bind_param("i", $itemId);
+$stmt->execute();
+$row = $stmt->get_result()->fetch_assoc();
+
+if ($row['imgCount'] == 0) {
+    echo "<div class='alert alert-danger'>
+            Please upload at least one image before creating an auction.
+          </div>";
+    echo "<a class='btn btn-warning' href='create_item.php?itemId=$itemId'>Upload image</a>";
+    include("footer.php");
+    exit();
+}
+
 ?>
+
 
 <div class="container">
 

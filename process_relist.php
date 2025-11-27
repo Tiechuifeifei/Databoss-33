@@ -11,11 +11,16 @@ if ($_SERVER["REQUEST_METHOD"] !== "POST") {
     die("Invalid request.");
 }
 
-$itemId = intval($_POST['itemId']);
-$startPrice = floatval($_POST['startPrice']);
+// DB connection
+$db = get_db_connection();
+
+// Get POST values
+$itemId       = intval($_POST['itemId']);
+$oldAuctionId = intval($_POST['oldAuctionId']);   
+$startPrice   = floatval($_POST['startPrice']);
 $reservedPrice = floatval($_POST['reservedPrice']);
-$startTime = $_POST['startTime'];
-$endTime = $_POST['endTime'];
+$startTime    = $_POST['startTime'];
+$endTime      = $_POST['endTime'];
 
 updateItemStatus($itemId, 'inactive');
 
@@ -31,5 +36,10 @@ if (!$newAuctionId) {
     die("Failed to create new auction.");
 }
 
-header("Location: listing.php?auctionId=" . $newAuctionId);
+$sql = "UPDATE auctions SET auctionStatus = 'relisted' WHERE auctionId = ?";
+$stmt = $db->prepare($sql);
+$stmt->bind_param("i", $oldAuctionId);
+$stmt->execute();
+
+header("Location: listing.php?auctionId={$newAuctionId}&success=relisted");
 exit;

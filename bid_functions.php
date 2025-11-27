@@ -45,32 +45,34 @@ require_once 'utilities.php';
 
 function getHighestBidForAuction($auctionId)
 {
-//build the connection with database
     $db = get_db_connection();
 
     $sql = "
-        SELECT *
+        SELECT 
+            b.bidId,
+            b.bidPrice,
+            b.buyerId,
+            u.userName,
+            u.userEmail
         FROM bids AS b
+        JOIN users AS u ON b.buyerId = u.userId
         WHERE b.auctionId = ?
         ORDER BY b.bidPrice DESC, b.bidTime ASC
         LIMIT 1
     ";
 
-    $stmt = $db -> prepare($sql);
-   
-    $stmt -> bind_param("i", $auctionId);
-    $stmt -> execute();
-    $result = $stmt -> get_result();
-    $row = $result -> fetch_assoc();
+    $stmt = $db->prepare($sql);
+    $stmt->bind_param("i", $auctionId);
+    $stmt->execute();
 
-//not necessary, but better to have it；also,close MUST before the return!!
-    $stmt -> close();
+    $result = $stmt->get_result();
+    $row = $result->fetch_assoc();
 
-//没有出价的话，就返回 null 值。
+    $stmt->close();
+
     if (!$row) {
         return null;
     }
-    //不空的话，就返回数组。
     return $row;
 }
 
