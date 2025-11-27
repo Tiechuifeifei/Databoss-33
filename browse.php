@@ -3,14 +3,14 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-include_once("header.php");
-
-require_once("utilities.php");
 require_once("db_connect.php");
+require_once("utilities.php");
 require_once("Auction_functions.php");
 require_once("Item_function.php");
 require_once("Image_functions.php");
 require_once("bid_functions.php");
+include_once("header.php");
+refreshAllAuctions();
 ?>
 
 
@@ -49,6 +49,7 @@ require_once("bid_functions.php");
           $sql="SELECT * FROM categories";
           $result=mysqli_query($conn,$sql);
           while ($row = mysqli_fetch_assoc($result)) {
+            refreshAuctionStatus($row['auctionId']);
           echo '<option value="' . $row['categoryId'] . '">'
             . htmlspecialchars($row['categoryName']) .
             '</option>';
@@ -127,7 +128,7 @@ require_once("bid_functions.php");
      JOIN categories c ON i.categoryId=c.categoryId
      WHERE 1=1";
 
-     $base_sql .= " AND a.auctionStatus IN ('scheduled', 'running')";
+     $base_sql .= " AND a.auctionStatus IN ('scheduled', 'running', 'ended')";
 
      // This is keyword search sql query
      if ($keyword !==""){
@@ -203,17 +204,44 @@ require_once("bid_functions.php");
 <!--This is for printing the list group-->
   <?php 
   while ($row = mysqli_fetch_assoc($result_item)) {
-    $item_id = $row["itemId"];
-    $auction_id = $row["auctionId"];   // YH DEBUG: we present by using auctionId instead of itemId
+    refreshAuctionStatus($row['auctionId']);
+    $auction_id = $row["auctionId"];   
     $title = $row["itemName"];
     $desc = $row["itemDescription"];
-    $price = $row["startPrice"];
+
+    $highestBid = getHighestBidForAuction($auction_id);
+
+    if ($row["auctionStatus"] === 'ended') {
+        // No bids at all, hide
+        if (!$highestBid) continue;
+
+        // Has bids but below reserved price, hide
+        if ($highestBid['bidPrice'] < $row['startPrice']) continue;
+    }
+    
+
+    //find the highest bid
+    $highestBid = getHighestBidForAuction($auction_id);
+
+    // find the final price 
+    $price = $highestBid ? $highestBid['bidPrice'] : $row["startPrice"];
+
+    // find the winner
+    $winnerName = null;
+    if ($highestBid) {
+        $winnerId = $highestBid['buyerId'];
+        $db = get_db_connection();
+        $stmt = $db->prepare("SELECT userName FROM users WHERE userId = ?");
+        $stmt->bind_param("i", $winnerId);
+        $stmt->execute();
+        $winnerRow = $stmt->get_result()->fetch_assoc();
+        $winnerName = $winnerRow['userName'] ?? null;
+    }
+
     $num_bids = $row["num_bids"];
     $end_time = new DateTime($row["auctionEndTime"]);
-
     $start_time = new DateTime($row["auctionStartTime"]);
-    $end_time   = new DateTime($row["auctionEndTime"]);
-    $status     = $row["auctionStatus"];
+    $status = $row["auctionStatus"];
     print_listing_li(
       $auction_id,
       $title,
@@ -222,11 +250,14 @@ require_once("bid_functions.php");
       $num_bids,
       $end_time,
       $start_time,
-      $status
-    );
- // YH DEBUG: we use auctionId instead of itemId
- // YH: display differently among different auction status
-  }
+      $status,
+      $winnerName
+  );
+  
+}
+// YH DEBUG: we use auctionId instead of itemId
+// YH: display differently among different auction status
+
   ?>
 
 </ul>

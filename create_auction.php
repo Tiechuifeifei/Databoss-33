@@ -1,4 +1,9 @@
-<?php include_once("header.php") ?>
+<?php 
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
+include_once("header.php") ?>
 
 <?php
 // 从URL获取上一步传来的itemId
@@ -7,7 +12,24 @@ if (!isset($_GET["itemId"])) {
     exit();
 }
 $itemId = intval($_GET["itemId"]);
+
+$db = get_db_connection();
+$stmt = $db->prepare("SELECT COUNT(*) AS imgCount FROM images WHERE itemId = ?");
+$stmt->bind_param("i", $itemId);
+$stmt->execute();
+$row = $stmt->get_result()->fetch_assoc();
+
+if ($row['imgCount'] == 0) {
+    echo "<div class='alert alert-danger'>
+            Please upload at least one image before creating an auction.
+          </div>";
+    echo "<a class='btn btn-warning' href='create_item.php?itemId=$itemId'>Upload image</a>";
+    include("footer.php");
+    exit();
+}
+
 ?>
+
 
 <div class="container">
 
@@ -27,16 +49,6 @@ $itemId = intval($_GET["itemId"]);
                    name="auctionTitle"
                    placeholder="e.g. Vintage vase auction"
                    required>
-          </div>
-        </div>
-
-        <div class="form-group row">
-          <label class="col-sm-2 col-form-label text-right">Details</label>
-          <div class="col-sm-10">
-            <textarea class="form-control" 
-                      name="auctionDetails"
-                      rows="4"
-                      required></textarea>
           </div>
         </div>
 

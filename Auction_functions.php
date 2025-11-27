@@ -1,6 +1,7 @@
 <?php
 require_once("db_connect.php");   
 require_once("Item_function.php");   
+require_once("bid_functions.php");
 require_once(__DIR__ . '/utilities.php');
 
 /*
@@ -10,16 +11,18 @@ require_once(__DIR__ . '/utilities.php');
 | This file contains all auction-related backend logic:
 | - 1. create a new auction 
 | - 2. get the auction details
-| - 3. search for the active auction - browse 用！！！
+| - 3. search for the active auction -for browse ！！！
 | - 4. get the current highest price - for bid!!!
-| - 5. update auctionstatus automatically - 时间自动更新 update 
-| - 6. get the remaining time - call utilities.php --- 
-| - 7. 获取某个用户创建的所有拍卖 - for item
+| - 5. update auctionstatus automatically 
+| - 6. get the remaining time - call utilities.php 
+| - 7. all listing - for item
 | - 8. endAuctions - update the auction when it ends
 | - 9. Close auction only if ended
 | - 10. cancel auction 
 | - 11. update status ???? could be deleted?
 | - 12. get acution by itemid
+| - 13. refresh all auctions - call 5
+| - 14. is auction successful?
 |---------------------------------------------------------------------------
 */
 
@@ -177,40 +180,62 @@ function refreshAuctionStatus($auctionId) {
     $row = $result->fetch_assoc();
     $itemId = $row['itemId'];
 
-    // Cancelled = ended (no further updates)
-    if ($row['auctionStatus'] === 'cancelled') {
-        return true;
-    }
-
-    // Compare current time with start & end
     $now   = new DateTime();
     $start = new DateTime($row['auctionStartTime']);
     $end   = new DateTime($row['auctionEndTime']);
 
-    if ($now < $start) {
-        $newStatus = "scheduled";
-        // item should remain inactive
-        updateItemStatus($itemId, "inactive");
-    } 
-    else if ($now >= $start && $now < $end) {
-        $newStatus = "running";
-        // item should be active
-        updateItemStatus($itemId, "active");
-    } 
-    else {
-        $newStatus = "ended";
-        // item status will be set in endAuction()
+    $status = $row['auctionStatus'];
+    if ($now < $start && $status !== 'scheduled') {
+
+        $newStatus = 'scheduled';
+        $sql2 = "UPDATE auctions SET auctionStatus = ? WHERE auctionId = ?";
+        $stmt2 = $conn->prepare($sql2);
+        $stmt2->bind_param("si", $newStatus, $auctionId);
+        $stmt2->execute();
+
+        updateItemStatus($itemId, 'inactive');
+
+        return 'scheduled';
     }
 
-    // Update auction if changed
-    if ($newStatus !== $row['auctionStatus']) {
-        $updateSql = "UPDATE auctions SET auctionStatus = ? WHERE auctionId = ?";
-        $updateStmt = $conn->prepare($updateSql);
-        $updateStmt->bind_param("si", $newStatus, $auctionId);
-        $updateStmt->execute();
+    if ($now >= $start && $now < $end && $status !== 'running') {
+
+        $newStatus = 'running';
+        $sql2 = "UPDATE auctions SET auctionStatus = ? WHERE auctionId = ?";
+        $stmt2 = $conn->prepare($sql2);
+        $stmt2->bind_param("si", $newStatus, $auctionId);
+        $stmt2->execute();
+
+        updateItemStatus($itemId, 'active');
+
+        return 'running';
     }
 
-    return ($newStatus === "ended" || $newStatus === "cancelled");
+    if ($now >= $end && $status !== 'ended') {
+
+        $newStatus = 'ended';
+        $sql2 = "UPDATE auctions SET auctionStatus = ? WHERE auctionId = ?";
+        $stmt2 = $conn->prepare($sql2);
+        $stmt2->bind_param("si", $newStatus, $auctionId);
+        $stmt2->execute();
+
+        $highestBid = getHighestBidForAuction($auctionId);
+
+        if ($highestBid) {
+            updateItemStatus($itemId, 'sold');
+        } else {
+            updateItemStatus($itemId, 'inactive');
+        }
+
+        return 'ended';
+    }
+
+    if ($status === 'cancelled') {
+        updateItemStatus($itemId, 'withdrawn');
+        return 'cancelled';
+    }
+
+    return $status; 
 }
 
 
@@ -385,4 +410,39 @@ function getAuctionByItemId($itemId) {
     $stmt->execute();
     return $stmt->get_result()->fetch_assoc();
 }
+
+//13. refresh all auctions
+function refreshAllAuctions() {
+    global $conn;
+
+    $sql = "SELECT auctionId FROM auctions";
+    $result = $conn->query($sql);
+
+    while ($row = $result->fetch_assoc()) {
+        refreshAuctionStatus($row['auctionId']);
+    }
+}
+
+// is the auction successful?
+function isAuctionUnsuccessful($auctionId) {
+    $auction = getAuctionById($auctionId);
+    if (!$auction) return false;
+
+    if ($auction['auctionStatus'] !== 'ended') {
+        return false;
+    }
+
+    $highestBid = getHighestBidForAuction($auctionId);
+
+    if (!$highestBid) {
+        return true;
+    }
+
+    if ($highestBid['bidPrice'] < $auction['reservedPrice']) {
+        return true;
+    }
+
+    return false;
+}
+
 ?>

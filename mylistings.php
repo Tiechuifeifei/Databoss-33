@@ -30,8 +30,10 @@ $sql = "
     FROM auctions a
     JOIN items i ON i.itemId = a.itemId
     WHERE i.sellerId = ?
+      AND a.auctionStatus <> 'relisted'
     ORDER BY a.auctionId DESC
 ";
+
 $stmt = $db->prepare($sql);
 $stmt->bind_param('i', $userId);
 $stmt->execute();
@@ -57,7 +59,7 @@ $rs = $stmt->get_result();
                 ?>
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                     <div>
-                        <a href="listing.php?auctionId=<?=$auctionId?>">#<?=$auctionId?> — <?=$itemName?></a><br>
+                        <a href="listing.php?auctionId=<?=$auctionId?>"><?=$itemName?></a><br>
                         <small>
                             Start £<?=number_format($start, 2)?> ·
                             Current £<?=number_format($topPrice, 2)?> ·

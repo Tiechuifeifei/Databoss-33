@@ -2,15 +2,15 @@
 require_once("db_connect.php");
 require_once("image_functions.php");
 
-$imageId = $_GET['imageId'];
-$itemId = $_GET['itemId'];
+$imageId = $_GET['imageId'] ?? null;
+$itemId  = $_GET['itemId'] ?? null;
 
 if (!$imageId || !$itemId) {
     die("Missing imageId or itemId");
 }
 
-// 调用已经写好的 function 在image_functions.php里面
+// 调用函数设置主图
 setPrimaryImage($imageId, $itemId);
 
-echo "<h3>Primary image updated!</h3>";
-echo "<a href='listing_item_test.php?itemId=$itemId'>Back to item</a>";
+header("Location: edit_item.php?itemId=".$itemId);
+exit;

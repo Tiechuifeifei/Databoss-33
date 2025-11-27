@@ -27,8 +27,11 @@ if (!$auctionId) {
 // refresh auction status
 refreshAuctionStatus($auctionId);
 
-// get auction info
+// get auction and item info
 $auction = getAuctionById($auctionId);
+$itemId = $auction['itemId'];   
+$item   = getItemById($itemId);
+
 if (!$auction) {
     echo "<p>Auction not found.</p>";
     exit;
@@ -89,8 +92,10 @@ $isWatching = $userId ? isInWatchlist($userId, $auction['auctionId']) : false;
     <?php endif; ?>
 </div>
 
-  <?php if (isset($_GET['success'])): ?>
-      <div class="alert alert-success"><?= h($_GET['success']) ?></div>
+  <?php if (isset($_GET['success']) && $_GET['success'] === 'relisted'): ?>
+      <div class="alert alert-success">
+        Your Item has been successfully relisted!
+      </div>
   <?php endif; ?>
 
   <?php if (isset($_GET['error'])): ?>
@@ -116,6 +121,14 @@ $isWatching = $userId ? isInWatchlist($userId, $auction['auctionId']) : false;
 
       <h5>Description:</h5>
       <p><?= nl2br(h($auction['itemDescription'])) ?></p>
+      
+    <?php if ($item['itemStatus'] === 'inactive' && $_SESSION['userId'] == $item['sellerId']): ?>
+        <a href="edit_item.php?itemId=<?= $item['itemId'] ?>" 
+            class="btn btn-secondary mb-3">
+            Edit Item
+        </a>
+    <?php endif; ?>
+
 
       <h5>Bid History:</h5>
       <?php if (empty($bidHistory)): ?>
@@ -134,72 +147,106 @@ $isWatching = $userId ? isInWatchlist($userId, $auction['auctionId']) : false;
       <?php endif; ?>
 
     </div>
-
+    
 <!-- RIGHT SIDE: BIDDING PANEL -->
 <div class="col-md-4">
 
-    <?php 
-    $status = $auction['auctionStatus'];
-    ?>
+<?php 
+$status = $auction['auctionStatus'];
+?>
 
-    <!--  Auction ended -->
-    <?php if ($status === 'ended'): ?>
+<?php if ($status === 'relisted'): ?>
 
-        <div class="alert alert-secondary">
-            <strong>This auction has ended.</strong>
-        </div>
+    <!-- 状态：relisted -->
+    <div class="alert alert-secondary">
+        <strong>This auction has been re-listed.</strong>
+    </div>
 
-        <?php if ($highestBid): ?>
-            <p>Winner: User <?= h($highestBid['buyerId']) ?></p>
-            <p>Final Price: £<?= number_format($highestBid['bidPrice'],2) ?></p>
-        <?php else: ?>
-            <p>No bids were placed.</p>
-        <?php endif; ?>
+    <?php if ($_SESSION['userId'] == $item['sellerId']): ?>
+        <button class="btn btn-secondary mt-3" disabled>
+            Already re-listed
+        </button>
+    <?php endif; ?>
 
-    <!-- YH DEBUG: Auction NOT STARTED (scheduled) -->
-    <?php elseif ($status === 'scheduled'): ?>
 
-        <div class="alert alert-info">
-            <strong>This auction has not started yet.</strong><br>
-            Starts on: <?= $start_time->format('j M H:i') ?><br>
-            (in <?= $now->diff($start_time)->format('%ad %hh %im') ?>)
-        </div>
+<?php elseif ($status === 'ended'): ?>
 
-        <p class="lead">Starting Price: £<?= number_format($startPrice,2) ?></p>
+    <!-- 状态：ended -->
+    <div class="alert alert-secondary">
+        <strong>This auction has ended.</strong>
+    </div>
 
-        <!-- no bid form -->
-        <p class="text-muted">Bidding will open once the auction starts.</p>
+    <?php if ($highestBid): ?>
 
-    <!-- Auction is running -->
-    <?php elseif ($status === 'running'): ?>
+        <!-- 显示赢家 -->
+        <?php
+            $winnerId = $highestBid['buyerId'];
+            $db = get_db_connection();
+            $stmt = $db->prepare("SELECT userName FROM users WHERE userId = ?");
+            $stmt->bind_param("i", $winnerId);
+            $stmt->execute();
+            $winnerRow = $stmt->get_result()->fetch_assoc();
+            $winnerName = $winnerRow['userName'] ?? ('User ' . $winnerId);
+        ?>
+        <p><strong>Winner:</strong> <?= h($winnerName) ?></p>
+        <p><strong>Final Price:</strong> £<?= number_format($highestBid['bidPrice'], 2) ?></p>
 
-        <p class="text-muted">
-            Auction ends <?= $endTime->format('j M H:i') ?>
-            (in <?= display_time_remaining($now->diff($endTime)) ?>)
-        </p>
+    <?php else: ?>
+        <p>No bids were placed.</p>
 
-        <p class="lead">Current bid: £<?= number_format($currentPrice,2) ?></p>
-
-        <?php if (isset($_SESSION['userId']) && $_SESSION['userId'] == $auction['sellerId']): ?>
-
-            <p class="text-warning">You are the seller and cannot bid.</p>
-
-        <?php else: ?>
-
-            <form method="POST" action="place_bid.php">
-                <input type="hidden" name="auctionId" value="<?= $auctionId ?>">
-                <div class="input-group">
-                    <span class="input-group-text">£</span>
-                    <input type="number" name="bidPrice" class="form-control" step="0.01" min="0" required>
-                </div>
-                <button class="btn btn-primary mt-2">Place bid</button>
-            </form>
-
+        <?php if (
+            isset($_SESSION['userId']) &&
+            $_SESSION['userId'] == $item['sellerId'] &&
+            isAuctionUnsuccessful($auctionId)
+        ): ?>
+            <a href="relist.php?auctionId=<?= $auctionId ?>" 
+               class="btn btn-warning mt-3">
+               Re-list this item
+            </a>
         <?php endif; ?>
 
     <?php endif; ?>
 
+
+<?php elseif ($status === 'scheduled'): ?>
+
+    <!-- 状态：scheduled -->
+    <div class="alert alert-info">
+        <strong>This auction has not started yet.</strong><br>
+        Starts on: <?= $start_time->format('j M H:i') ?><br>
+        (in <?= $now->diff($start_time)->format('%ad %hh %im') ?>)
+    </div>
+
+    <p class="lead">Starting Price: £<?= number_format($startPrice,2) ?></p>
+    <p class="text-muted">Bidding will open once the auction starts.</p>
+
+
+<?php elseif ($status === 'running'): ?>
+
+    <!-- 状态：running -->
+    <p class="text-muted">
+        Auction ends <?= $endTime->format('j M H:i') ?>
+        (in <?= display_time_remaining($now->diff($endTime)) ?>)
+    </p>
+
+    <p class="lead">Current bid: £<?= number_format($currentPrice,2) ?></p>
+
+    <?php if (isset($_SESSION['userId']) && $_SESSION['userId'] == $auction['sellerId']): ?>
+        <p class="text-warning">You are the seller and cannot bid.</p>
+
+    <?php else: ?>
+        <form method="POST" action="place_bid.php">
+            <input type="hidden" name="auctionId" value="<?= $auctionId ?>">
+            <div class="input-group">
+                <span class="input-group-text">£</span>
+                <input type="number" name="bidPrice" class="form-control" step="0.01" min="0" required>
+            </div>
+            <button class="btn btn-primary mt-2">Place bid</button>
+        </form>
+    <?php endif; ?>
+
+
+<?php endif; ?>
+
 </div>
 
-
-<?php include_once("footer.php"); ?>

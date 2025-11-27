@@ -1,26 +1,39 @@
 <?php
-if (session_status() === PHP_SESSION_NONE) session_start();
-?>
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 
-<?php
+if (session_status() === PHP_SESSION_NONE) session_start();
+
 require_once("db_connect.php");
 require_once("image_functions.php");
+require_once("Item_function.php");
 
-// 如果item已经创建（带itemId） if the item has already been created
+// If item already exists
 $itemId = isset($_GET["itemId"]) ? intval($_GET["itemId"]) : null;
+if ($itemId) {
+    $status = getItemStatus($itemId);
 
-// 第一次提交（创建item，不含图片） first time creation
+    if ($status === 'active') {
+        echo "<p style='color:red;font-weight:bold'>
+                This item is currently in an active auction and cannot be edited.
+              </p>";
+        exit;
+    }
+}
+
+// First time creation (no itemId yet)
 if ($_SERVER["REQUEST_METHOD"] === "POST" && !$itemId) {
     if (!isset($_SESSION['userId'])) {
         die("Please log in before creating an item.");
     }
+
     $itemName = $_POST["itemName"];
     $itemDescription = $_POST["itemDescription"];
-    $sellerId = $_SESSION["userId"]; 
+    $sellerId = $_SESSION["userId"];
     $categoryId = $_POST["categoryId"];
     $itemCondition = $_POST["itemCondition"];
 
-    // 插入items表
     $sql = "INSERT INTO items (itemName, itemDescription, sellerId, categoryId, itemCondition)
             VALUES (?, ?, ?, ?, ?)";
 
@@ -30,12 +43,11 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && !$itemId) {
 
     $itemId = $conn->insert_id;
 
-    // 上传图片
     header("Location: create_item.php?itemId=" . $itemId);
     exit();
 }
 
-// 图片上传 
+// Upload images
 if (isset($_POST["uploadImage"]) && $itemId) {
 
     if (isset($_FILES["itemImages"])) {
@@ -50,7 +62,7 @@ if (isset($_POST["uploadImage"]) && $itemId) {
             $ext = strtolower(pathinfo($images["name"][$i], PATHINFO_EXTENSION));
             if (!in_array($ext, $allowed)) continue;
 
-            // 限制 3 张
+            // Max 3 images
             if (countImagesByItemId($itemId) >= 3) break;
 
             $targetDir = "uploads/";
@@ -70,15 +82,14 @@ if (isset($_POST["uploadImage"]) && $itemId) {
     exit();
 }
 
-// 删除图片
-// 这里将来可以写成只要是auction开始之前都可以删除图片  place holder: write the images could be changed before the auction in the future if I have capacity 
+// Delete image
 if (isset($_GET["deleteImage"]) && $itemId) {
     deleteImage($_GET["deleteImage"]);
     header("Location: create_item.php?itemId=$itemId");
     exit();
 }
 
-// set the primary photo
+// Set primary
 if (isset($_GET["setPrimary"]) && $itemId) {
     setPrimaryImage($_GET["setPrimary"], $itemId);
     header("Location: create_item.php?itemId=$itemId");
@@ -91,11 +102,18 @@ if (isset($_GET["setPrimary"]) && $itemId) {
 <html>
 <body>
 
+<?php if (isset($_GET['relist'])): ?>
+    <div style="padding:10px;background:#fff3cd;border:1px solid #ffeeba;">
+        <strong>You are relisting this item.</strong><br>
+        You can edit the item details or images before starting a new auction.
+    </div>
+<?php endif; ?>
+
 <h2>Create Item</h2>
 
 <?php if (!$itemId): ?>
 
-<!-- create Item  -->
+<!-- Create Item Form -->
 <form method="POST">
 
     <label>Item Name:</label><br>
@@ -129,8 +147,7 @@ if (isset($_GET["setPrimary"]) && $itemId) {
 
 <?php else: ?>
 
-<!-- upload image -->
-
+<!-- Upload Images -->
 <h3>Upload Images (max 3)</h3>
 
 <form method="POST" enctype="multipart/form-data">
@@ -144,14 +161,15 @@ if (isset($_GET["setPrimary"]) && $itemId) {
 
 <?php
 $images = getImagesByItemId($itemId);
-if (empty($images)) {
+$imageCount = count($images);
+
+if ($imageCount === 0) {
     echo "<p>No images uploaded.</p>";
 } else {
     foreach ($images as $img) { ?>
         <div style="margin-bottom:10px;">
             <img src="<?= $img['imageUrl'] ?>" width="120"><br>
 
-            <!-- primary -->
             <?php if ($img["isPrimary"] == 1): ?>
                 <strong>⭐ Primary Image</strong>
             <?php else: ?>
@@ -170,10 +188,15 @@ if (empty($images)) {
 
 <hr>
 
-<!-- item is created, jump to auction -->
-<a href="create_auction.php?itemId=<?= $itemId ?>">
-    <button>Next: Create Auction</button>
-</a>
+<!-- NEXT BUTTON WITH IMAGE CHECK -->
+<?php if ($imageCount === 0): ?>
+    <p style="color:red;font-weight:bold;">Please upload at least one image before continuing.</p>
+    <button class="btn btn-secondary" disabled>Next: Create Auction</button>
+<?php else: ?>
+    <a href="create_auction.php?itemId=<?= $itemId ?>">
+        <button>Next: Create Auction</button>
+    </a>
+<?php endif; ?>
 
 <?php endif; ?>
 

@@ -62,5 +62,5 @@ for ($i = 0; $i < count($images['name']); $i++) {
 }
 
 // 上传完成
-header("Location: listing_item_test.php?itemId=$itemId");
+header("Location: edit_item.php?itemId=".$itemId);
 exit;
