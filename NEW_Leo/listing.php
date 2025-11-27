@@ -166,31 +166,37 @@ $isWatching = $userId ? isInWatchlist($userId, $auction['auctionId']) : false;
 <?php 
 $status = $auction['auctionStatus'];
 ?>
-
-<?php if ($status === 'relisted'): ?>
-
-    <!--status: relisted -->
-    <div class="alert alert-secondary">
-        <strong>This auction has been re-listed.</strong>
-    </div>
-
-    <?php if ($_SESSION['userId'] == $item['sellerId']): ?>
-        <button class="btn btn-secondary mt-3" disabled>
-            Already re-listed
-        </button>
-    <?php endif; ?>
-
-
-<?php elseif ($status === 'ended'): ?>
-
+<?php if ($status === 'ended'): ?>
     <!-- status：ended -->
     <div class="alert alert-secondary">
         <strong>This auction has ended.</strong>
     </div>
+    <?php
+        //读取 reservePrice（没有则视为 0 = 无保留价）
+        $reservePrice = isset($auction['reservedPrice']) ? (float)$auction['reservedPrice'] : 0.0;
 
-    <?php if ($highestBid): ?>
 
-        <!-- show winner -->
+
+//是否有最高出价
+$hasHighestBid = !empty($highestBid);
+//直接在这里自己判断“不成功拍卖”，不要再依赖 isAuctionUnsuccessful()
+$isUnsuccessful = false;
+//情况1：完全没人出价，则不成功
+if (!$hasHighestBid) {
+    $isUnsuccessful = true;
+}
+//情况2：有人出价，但没达到保留价,则不成功
+elseif ($reservePrice > 0 && (float)$highestBid['bidPrice'] < $reservePrice) {
+    $isUnsuccessful = true;
+}
+//如果不是“不成功拍卖”，那就是有一个有效 winner
+$hasValidWinner = !$isUnsuccessful;
+
+?>
+
+    <?php if ($hasValidWinner): ?>
+
+        <!-- 情况 1：有有效的 Winner -->
         <?php
             $winnerId = $highestBid['buyerId'];
             $db = get_db_connection();
@@ -204,12 +210,29 @@ $status = $auction['auctionStatus'];
         <p><strong>Final Price:</strong> £<?= number_format($highestBid['bidPrice'], 2) ?></p>
 
     <?php else: ?>
-        <p>No bids were placed.</p>
+
+        <!-- 情况 2 & 3：拍卖不成功（无人出价 或 有出价但没到保留价） -->
+        <?php if ($hasHighestBid && $reservePrice > 0 && (float)$highestBid['bidPrice'] < $reservePrice): ?>
+            <p>
+              Highest bid £<?= number_format($highestBid['bidPrice'], 2) ?> 
+              did not meet the reserve price of 
+              £<?= number_format($reservePrice, 2) ?>.  
+              There is no winner for this auction.
+            </p>
+        <?php elseif ($hasHighestBid): ?>
+            <!-- 理论上不该走到这里，但以防没有 reserve 逻辑时的兜底 -->
+            <p>
+              Highest bid: £<?= number_format($highestBid['bidPrice'], 2) ?>.  
+              There is no winner for this auction.
+            </p>
+        <?php else: ?>
+            <p>No bids were placed.</p>
+        <?php endif; ?>
 
         <?php if (
             isset($_SESSION['userId']) &&
             $_SESSION['userId'] == $item['sellerId'] &&
-            isAuctionUnsuccessful($auctionId)
+            $isUnsuccessful
         ): ?>
             <a href="relist.php?auctionId=<?= $auctionId ?>" 
                class="btn btn-warning mt-3">
@@ -218,6 +241,7 @@ $status = $auction['auctionStatus'];
         <?php endif; ?>
 
     <?php endif; ?>
+
 
 
 <?php elseif ($status === 'scheduled'): ?>
@@ -261,4 +285,3 @@ $status = $auction['auctionStatus'];
 <?php endif; ?>
 
 </div>
-
