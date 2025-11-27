@@ -10,7 +10,7 @@ require_once "bid_functions.php";
 
 session_start();
 
-// Leo debug: 
+// Leo debug
 // unified the names, try to use itemId first.
 $itemId    = $_GET['itemId'] ?? null;
 $auctionId = $_GET['auctionId'] ?? null;
@@ -87,32 +87,37 @@ $isWatching = $userId ? isInWatchlist($userId, $auction['auctionId']) : false;
 ?>
 
 <div>
-    <?php if (!$userId): ?>
-        <a href="login.php" class="btn btn-outline-primary btn-sm">
-            Login to watch
-        </a>
-    <?php elseif (!$isWatching): ?>
-        <a href="watchlist_add.php?auctionId=<?= $auction['auctionId'] ?>" 
-           class="btn btn-outline-success btn-sm">
-            ♡ Add to Watchlist
-        </a>
+<?php if (!$userId): ?>
+ <a href="login.php" class="btn btn-outline-primary btn-sm">
+     Login to watch
+    </a>
+<?php elseif (!$isWatching): ?>
+    <a href="watchlist_add.php?auctionId=<?= $auction['auctionId'] ?>" 
+     class="btn btn-outline-success btn-sm">
+     Add to Watchlist
+    </a>
     <?php else: ?>
-        <a href="watchlist_remove.php?auctionId=<?= $auction['auctionId'] ?>" 
-           class="btn btn-danger btn-sm">
-            ♥ Remove
-        </a>
+    <a href="watchlist_remove.php?auctionId=<?= $auction['auctionId'] ?>" 
+    class="btn btn-danger btn-sm">
+     Remove
+    </a>
     <?php endif; ?>
 </div>
 
-  <?php if (isset($_GET['success']) && $_GET['success'] === 'relisted'): ?>
+  <?php if (isset($_GET['success']) && $_GET['success'] !== ''): ?>
       <div class="alert alert-success">
-        Your Item has been successfully relisted!
+        <?php if ($_GET['success'] === 'relisted'): ?>
+            Your Item has been successfully relisted!
+        <?php else: ?>
+            <?= h($_GET['success']) ?>
+        <?php endif; ?>
       </div>
   <?php endif; ?>
 
-  <?php if (isset($_GET['error'])): ?>
+  <?php if (isset($_GET['error']) && $_GET['error'] !== ''): ?>
       <div class="alert alert-danger"><?= h($_GET['error']) ?></div>
   <?php endif; ?>
+
 
   <h3><?= h($auction['itemName']) ?></h3>
 
@@ -142,23 +147,22 @@ $isWatching = $userId ? isInWatchlist($userId, $auction['auctionId']) : false;
     <?php endif; ?>
 
 
-      <h5>Bid History:</h5>
-      <?php if (empty($bidHistory)): ?>
-          <p>No bids yet. Be the first!</p>
-      <?php else: ?>
-          <table class="table table-sm table-bordered">
-            <tr><th>Bidder</th><th>Amount</th><th>Time</th></tr>
-            <?php foreach ($bidHistory as $bid): ?>
-                <tr>
-                  <td><?= h($bid['buyerName']) ?></td>
-                  <td>£<?= number_format($bid['bidPrice'], 2) ?></td>
-                  <td><?= h($bid['bidTime']) ?></td>
-                </tr>
-            <?php endforeach; ?>
-          </table>
-      <?php endif; ?>
-
-    </div>
+<h5>Bid History:</h5>
+<?php if (empty($bidHistory)): ?>
+<p>No bids yet. Be the first!</p>
+<?php else: ?>
+<table class="table table-sm table-bordered">
+<tr><th>Bidder</th><th>Amount</th><th>Time</th></tr>
+<?php foreach ($bidHistory as $bid): ?>
+<tr>
+<td><?= h($bid['buyerName']) ?></td>
+<td>£<?= number_format($bid['bidPrice'], 2) ?></td>
+<td><?= h($bid['bidTime']) ?></td>
+</tr>
+<?php endforeach; ?>
+</table>
+<?php endif; ?>
+</div>
     
 <!-- RIGHT SIDE: BIDDING PANEL -->
 <div class="col-md-4">
@@ -167,36 +171,36 @@ $isWatching = $userId ? isInWatchlist($userId, $auction['auctionId']) : false;
 $status = $auction['auctionStatus'];
 ?>
 <?php if ($status === 'ended'): ?>
-    <!-- status：ended -->
-    <div class="alert alert-secondary">
-        <strong>This auction has ended.</strong>
-    </div>
-    <?php
-        //读取 reservePrice（没有则视为 0 = 无保留价）
-        $reservePrice = isset($auction['reservedPrice']) ? (float)$auction['reservedPrice'] : 0.0;
+<!-- status：ended -->
+<div class="alert alert-secondary">
+<strong>This auction has ended.</strong>
+</div>
+<?php
+//get reservePrice, if not,see it as 0=no reserved price
+$reservePrice = isset($auction['reservedPrice']) ? (float)$auction['reservedPrice'] : 0.0;
 
 
 
-//是否有最高出价
+//see if there is a highest bid
 $hasHighestBid = !empty($highestBid);
-//直接在这里自己判断“不成功拍卖”，不要再依赖 isAuctionUnsuccessful()
+//will not rely on isAuctionUnsuccessful()
 $isUnsuccessful = false;
-//情况1：完全没人出价，则不成功
+//1. if no bid
 if (!$hasHighestBid) {
     $isUnsuccessful = true;
 }
-//情况2：有人出价，但没达到保留价,则不成功
+//2.has bid, but lower than RP
 elseif ($reservePrice > 0 && (float)$highestBid['bidPrice'] < $reservePrice) {
     $isUnsuccessful = true;
 }
-//如果不是“不成功拍卖”，那就是有一个有效 winner
+
 $hasValidWinner = !$isUnsuccessful;
 
 ?>
 
     <?php if ($hasValidWinner): ?>
 
-        <!-- 情况 1：有有效的 Winner -->
+        <!--1有有效的Winner-->
         <?php
             $winnerId = $highestBid['buyerId'];
             $db = get_db_connection();
@@ -211,7 +215,7 @@ $hasValidWinner = !$isUnsuccessful;
 
     <?php else: ?>
 
-        <!-- 情况 2 & 3：拍卖不成功（无人出价 或 有出价但没到保留价） -->
+        <!--2&3:拍卖不成功（无人出价或有出价但没到保留价)-->
         <?php if ($hasHighestBid && $reservePrice > 0 && (float)$highestBid['bidPrice'] < $reservePrice): ?>
             <p>
               Highest bid £<?= number_format($highestBid['bidPrice'], 2) ?> 
@@ -220,7 +224,7 @@ $hasValidWinner = !$isUnsuccessful;
               There is no winner for this auction.
             </p>
         <?php elseif ($hasHighestBid): ?>
-            <!-- 理论上不该走到这里，但以防没有 reserve 逻辑时的兜底 -->
+            <!--理论上不该走到这里，但以防没有reserve逻辑时的兜底-->
             <p>
               Highest bid: £<?= number_format($highestBid['bidPrice'], 2) ?>.  
               There is no winner for this auction.
@@ -246,7 +250,7 @@ $hasValidWinner = !$isUnsuccessful;
 
 <?php elseif ($status === 'scheduled'): ?>
 
-    <!-- scheduled：scheduled -->
+    <!--scheduled:scheduled -->
     <div class="alert alert-info">
         <strong>This auction has not started yet.</strong><br>
         Starts on: <?= $start_time->format('j M H:i') ?><br>
@@ -259,17 +263,14 @@ $hasValidWinner = !$isUnsuccessful;
 
 <?php elseif ($status === 'running'): ?>
 
-    <!-- status：running -->
+    <!-- status:running -->
     <p class="text-muted">
         Auction ends <?= $endTime->format('j M H:i') ?>
         (in <?= display_time_remaining($now->diff($endTime)) ?>)
     </p>
-
     <p class="lead">Current bid: £<?= number_format($currentPrice,2) ?></p>
-
     <?php if (isset($_SESSION['userId']) && $_SESSION['userId'] == $auction['sellerId']): ?>
         <p class="text-warning">You are the seller and cannot bid.</p>
-
     <?php else: ?>
         <form method="POST" action="place_bid.php">
             <input type="hidden" name="auctionId" value="<?= $auctionId ?>">
@@ -280,8 +281,6 @@ $hasValidWinner = !$isUnsuccessful;
             <button class="btn btn-primary mt-2">Place bid</button>
         </form>
     <?php endif; ?>
-
-
 <?php endif; ?>
 
 </div>
