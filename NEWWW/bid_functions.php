@@ -389,4 +389,4 @@ function placeBid($buyerId, $auctionId, $bidPrice)
         "message" => "Congratulations! You placed the bid successfully.",
         "bidId"   => $newBidId
     ];
-}}
+}
