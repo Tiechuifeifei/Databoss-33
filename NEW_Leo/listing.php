@@ -169,7 +169,7 @@ $status = $auction['auctionStatus'];
 
 <?php if ($status === 'relisted'): ?>
 
-    <!-- 状态：relisted -->
+    <!--status: relisted -->
     <div class="alert alert-secondary">
         <strong>This auction has been re-listed.</strong>
     </div>
@@ -183,14 +183,14 @@ $status = $auction['auctionStatus'];
 
 <?php elseif ($status === 'ended'): ?>
 
-    <!-- 状态：ended -->
+    <!-- status：ended -->
     <div class="alert alert-secondary">
         <strong>This auction has ended.</strong>
     </div>
 
     <?php if ($highestBid): ?>
 
-        <!-- 显示赢家 -->
+        <!-- show winner -->
         <?php
             $winnerId = $highestBid['buyerId'];
             $db = get_db_connection();
@@ -222,7 +222,7 @@ $status = $auction['auctionStatus'];
 
 <?php elseif ($status === 'scheduled'): ?>
 
-    <!-- 状态：scheduled -->
+    <!-- scheduled：scheduled -->
     <div class="alert alert-info">
         <strong>This auction has not started yet.</strong><br>
         Starts on: <?= $start_time->format('j M H:i') ?><br>
@@ -235,7 +235,7 @@ $status = $auction['auctionStatus'];
 
 <?php elseif ($status === 'running'): ?>
 
-    <!-- 状态：running -->
+    <!-- status：running -->
     <p class="text-muted">
         Auction ends <?= $endTime->format('j M H:i') ?>
         (in <?= display_time_remaining($now->diff($endTime)) ?>)
@@ -251,7 +251,7 @@ $status = $auction['auctionStatus'];
             <input type="hidden" name="auctionId" value="<?= $auctionId ?>">
             <div class="input-group">
                 <span class="input-group-text">£</span>
-                <input type="number" name="bidPrice" class="form-control" step="0.01" min="0" required>
+                <input type="number" name="bidPrice" class="form-control" step="0.01" required>
             </div>
             <button class="btn btn-primary mt-2">Place bid</button>
         </form>
