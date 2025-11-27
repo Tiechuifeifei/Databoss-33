@@ -1,7 +1,7 @@
 <?php
 require_once 'utilities.php';
 
-//bids_functions.php:
+//bid_functions.php:
 //--------------------------------------------------------------------------------------------------------------------------------------------
 // 5 Core Functions:
 // 1. Get Highest Bid For Auction
