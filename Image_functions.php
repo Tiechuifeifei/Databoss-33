@@ -26,7 +26,7 @@ function uploadImage($itemId, $imageUrl, $isPrimary = 0) {
     // Step 0: 限制最大 3 张
     $currentCount = countImagesByItemId($itemId);
     if ($currentCount >= 3) {
-        return "MAX_LIMIT_REACHED";   // 标记超过上限
+        return "MAX_LIMIT_REACHED";   
     }
 
     // Step 1: 正常插入

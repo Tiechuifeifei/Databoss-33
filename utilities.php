@@ -78,7 +78,7 @@ function print_listing_li($auctionId, $title, $desc, $price, $num_bids, $endTime
                     <small>$num_bids " . ($num_bids == 1 ? "bid" : "bids") . "</small><br>
                     <small class='text-muted'>$time_text</small><br>";
 
-                    // ⭐ NEW: only show winner if auction ended
+                    // NEW: only show winner if auction ended
                     if ($status === 'ended') {
                         if ($winnerName) {
                             echo "<small><strong>Winner:</strong> " . htmlspecialchars($winnerName) . "</small>";
