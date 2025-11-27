@@ -1,13 +1,28 @@
 <?php
-if (session_status() === PHP_SESSION_NONE) session_start();
-?>
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 
-<?php
+
+if (session_status() === PHP_SESSION_NONE) session_start();
+
 require_once("db_connect.php");
 require_once("image_functions.php");
+require_once("Item_function.php");
 
 // 如果item已经创建（带itemId） if the item has already been created
 $itemId = isset($_GET["itemId"]) ? intval($_GET["itemId"]) : null;
+if ($itemId) {
+    $status = getItemStatus($itemId);
+
+    if ($status === 'active') {
+        echo "<p style='color:red;font-weight:bold'>
+                This item is currently in an active auction and cannot be edited.
+              </p>";
+        exit;
+    }
+}
+
 
 // 第一次提交（创建item，不含图片） first time creation
 if ($_SERVER["REQUEST_METHOD"] === "POST" && !$itemId) {
@@ -90,6 +105,14 @@ if (isset($_GET["setPrimary"]) && $itemId) {
 <!DOCTYPE html>
 <html>
 <body>
+
+<?php if (isset($_GET['relist'])): ?>
+    <div style="padding:10px;background:#fff3cd;border:1px solid #ffeeba;">
+        <strong>You are relisting this item.</strong><br>
+        You can edit the item details or images before starting a new auction.
+    </div>
+<?php endif; ?>
+
 
 <h2>Create Item</h2>
 

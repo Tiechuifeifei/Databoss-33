@@ -1,4 +1,9 @@
-<?php include_once("header.php") ?>
+<?php 
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
+include_once("header.php") ?>
 
 <?php
 // 从URL获取上一步传来的itemId
@@ -27,16 +32,6 @@ $itemId = intval($_GET["itemId"]);
                    name="auctionTitle"
                    placeholder="e.g. Vintage vase auction"
                    required>
-          </div>
-        </div>
-
-        <div class="form-group row">
-          <label class="col-sm-2 col-form-label text-right">Details</label>
-          <div class="col-sm-10">
-            <textarea class="form-control" 
-                      name="auctionDetails"
-                      rows="4"
-                      required></textarea>
           </div>
         </div>
 

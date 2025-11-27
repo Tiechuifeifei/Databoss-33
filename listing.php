@@ -27,8 +27,11 @@ if (!$auctionId) {
 // refresh auction status
 refreshAuctionStatus($auctionId);
 
-// get auction info
+// get auction and item info
 $auction = getAuctionById($auctionId);
+$itemId = $auction['itemId'];   
+$item   = getItemById($itemId);
+
 if (!$auction) {
     echo "<p>Auction not found.</p>";
     exit;
@@ -116,6 +119,14 @@ $isWatching = $userId ? isInWatchlist($userId, $auction['auctionId']) : false;
 
       <h5>Description:</h5>
       <p><?= nl2br(h($auction['itemDescription'])) ?></p>
+      
+    <?php if ($item['itemStatus'] === 'inactive' && $_SESSION['userId'] == $item['sellerId']): ?>
+        <a href="edit_item.php?itemId=<?= $item['itemId'] ?>" 
+            class="btn btn-secondary mb-3">
+            Edit Item
+        </a>
+    <?php endif; ?>
+
 
       <h5>Bid History:</h5>
       <?php if (empty($bidHistory)): ?>
@@ -163,11 +174,22 @@ $status = $auction['auctionStatus'];
         <p><strong>Winner:</strong> <?= h($winnerName) ?></p>
         <p><strong>Final Price:</strong> £<?= number_format($highestBid['bidPrice'], 2) ?></p>
 
-    <?php else: ?>
+        <?php else: ?>
+            <p>No bids were placed.</p>
+            <?php if (
+                isset($_SESSION['userId']) &&
+                $_SESSION['userId'] == $item['sellerId'] &&
+                isAuctionUnsuccessful($auctionId)
+            ): ?>
+                <a href="relist.php?auctionId=<?= $auctionId ?>" 
+                class="btn btn-warning mt-3">
+                Re-list this item
+                </a>
+            <?php endif; ?>
 
-        <p>No bids were placed.</p>
+<?php endif; ?>
 
-    <?php endif; ?>
+
 
 <?php elseif ($status === 'scheduled'): ?>
 

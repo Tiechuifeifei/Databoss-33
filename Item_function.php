@@ -6,12 +6,13 @@ require_once("db_connect.php");
 | ITEM FUNCTIONS
 |--------------------------------------------------------------------------
 | This file contains all Item-related backend logic:
-| - create item 第一个
-| - fetch item 第二个，第三个（找到seller）
+| - 1. create item 第一个
+| - 2/3 fetch item 第二个，第三个（找到seller）
 | - update item 第四个
 | - update status (inactive, active and sold) 第五个
 | - search bar 第六个
 | - images related functions --- seperate file named started with Image_
+| - 7/. get item status
 |---------------------------------------------------------------------------
 */
 
@@ -90,8 +91,7 @@ function updateItem($itemId, $itemName, $itemDescription, $categoryId, $itemCond
 
 
 
-// 5. Update item status (inactive / active / sold / withdrawn) 和auction是呼应的 状态
-
+// 5. Update item status (inactive / active / sold / withdrawn) 和auction是呼应的状态
 function updateItemStatus($itemId, $newStatus) {
     global $conn;
 
@@ -121,6 +121,22 @@ function searchItems($keyword) {
     $stmt->execute();
 
     return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+}
+
+//7. get item
+// 7. Get item status by itemId —— 用于判断是否允许编辑
+function getItemStatus($itemId) {
+    global $conn;
+
+    $sql = "SELECT itemStatus FROM items WHERE itemId = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("i", $itemId);
+    $stmt->execute();
+
+    $result = $stmt->get_result();
+    $row = $result->fetch_assoc();
+
+    return $row['itemStatus'] ?? null;
 }
 
 ?>

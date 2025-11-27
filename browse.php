@@ -2,6 +2,7 @@
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
+
 require_once("db_connect.php");
 require_once("utilities.php");
 require_once("Auction_functions.php");
@@ -207,6 +208,16 @@ refreshAllAuctions();
     $auction_id = $row["auctionId"];   
     $title = $row["itemName"];
     $desc = $row["itemDescription"];
+
+    $highestBid = getHighestBidForAuction($auction_id);
+
+    if ($row["auctionStatus"] === 'ended') {
+        // No bids at all, hide
+        if (!$highestBid) continue;
+
+        // Has bids but below reserved price, hide
+        if ($highestBid['bidPrice'] < $row['startPrice']) continue;
+    }
     
 
     //find the highest bid
