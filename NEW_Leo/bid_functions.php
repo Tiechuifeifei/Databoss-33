@@ -32,7 +32,7 @@ require_once 'utilities.php';
 //    Users cannot place a bid on cancelled, scheduled, or already-ended auctions.
 //
 // 4. Minimum bid requirement (no existing bids):
-//    The first bid must not be less than the start price set by the seller.
+//    The first bid must be £5 higher than the start price set by the seller.
 //
 // 5. Minimum bid requirement (with existing bids):
 //    Any new bid must be at least £5.00 higher than the current highest bid.
@@ -221,9 +221,9 @@ return $rows;
 // 1) Validate bid price (> 0).
 // 2) Load auction info and check existence / seller / timing / status.
 // 3) Apply bidding rules:
-//    - First bid must be >= start price.
+//    - First bid must be £5 higher than start price.
 //    - Current highest bidder cannot bid again.
-//    -New bid must be at least £5.00 higher than current highest bid.
+//    - New bid must be at least £5.00 higher than current highest bid.
 //    - Seller cannot bid on own auction.
 // 4) Insert the bid if all checks pass and return a result array.
 
