@@ -22,30 +22,29 @@ if ($itemId) {
     }
 }
 
-// First time creation (no itemId yet)
+// create item(new)
 if ($_SERVER["REQUEST_METHOD"] === "POST" && !$itemId) {
     if (!isset($_SESSION['userId'])) {
         die("Please log in before creating an item.");
     }
 
-    $itemName = $_POST["itemName"];
+    $itemName        = $_POST["itemName"];
     $itemDescription = $_POST["itemDescription"];
-    $sellerId = $_SESSION["userId"];
-    $categoryId = $_POST["categoryId"];
-    $itemCondition = $_POST["itemCondition"];
+    $sellerId        = $_SESSION["userId"];
+    $categoryId      = $_POST["categoryId"];
+    $itemCondition   = $_POST["itemCondition"];
 
-    $sql = "INSERT INTO items (itemName, itemDescription, sellerId, categoryId, itemCondition)
-            VALUES (?, ?, ?, ?, ?)";
 
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("ssiis", $itemName, $itemDescription, $sellerId, $categoryId, $itemCondition);
-    $stmt->execute();
+    $itemId = createItem($itemName, $itemDescription, $sellerId, $categoryId, $itemCondition);
 
-    $itemId = $conn->insert_id;
+    if ($itemId === false) {
+        die("Failed to create item.");
+    }
 
     header("Location: create_item.php?itemId=" . $itemId);
     exit();
 }
+
 
 // Upload images
 if (isset($_POST["uploadImage"]) && $itemId) {
@@ -62,7 +61,7 @@ if (isset($_POST["uploadImage"]) && $itemId) {
             $ext = strtolower(pathinfo($images["name"][$i], PATHINFO_EXTENSION));
             if (!in_array($ext, $allowed)) continue;
 
-            // Max 3 images
+            // 限制 3 张
             if (countImagesByItemId($itemId) >= 3) break;
 
             $targetDir = "uploads/";
@@ -77,7 +76,6 @@ if (isset($_POST["uploadImage"]) && $itemId) {
             uploadImage($itemId, $savePath, $isPrimary);
         }
     }
-
     header("Location: create_item.php?itemId=$itemId");
     exit();
 }
@@ -171,7 +169,7 @@ if ($imageCount === 0) {
             <img src="<?= $img['imageUrl'] ?>" width="120"><br>
 
             <?php if ($img["isPrimary"] == 1): ?>
-                <strong>⭐ Primary Image</strong>
+                <strong>Primary Image</strong>
             <?php else: ?>
                 <a href="create_item.php?itemId=<?= $itemId ?>&setPrimary=<?= $img['imageId'] ?>">
                     Set as Primary
@@ -187,7 +185,6 @@ if ($imageCount === 0) {
 <?php }} ?>
 
 <hr>
-
 <!-- NEXT BUTTON WITH IMAGE CHECK -->
 <?php if ($imageCount === 0): ?>
     <p style="color:red;font-weight:bold;">Please upload at least one image before continuing.</p>

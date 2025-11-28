@@ -58,17 +58,28 @@ if ($reservePrice === "" || !is_numeric($reservePrice)) {
     $errors[] = "Reserve price must be a valid number.";
 }
 
+if ($reservePrice<$startPrice){
+    $errors[] = "Reserve price must higher or equal to start price.";
+}
+
 if ($startTime === "" || $endTime === "") {
     $errors[] = "Start and end time are required.";
 } else {
-    $now = time();
+    $startTS=strtotime($startTime);
+    $endTS=strtotime($endTime);
+    $tomorrowTS = strtotime('tomorrow');
+    $minStart = time()+24*60*60;
 
-    if (strtotime($startTime) <= $now) {
-        $errors[] = "Start time must be in the future.";
+    if ($startTS < $minStart) {
+        $errors[] = "Start time must be from 24 hours onwards";
     }
 
-    if (strtotime($endTime) <= strtotime($startTime)) {
+    if ($endTS<=$startTS) {
         $errors[] = "End time must be after start time.";
+    }
+
+    if (($endTS-$startTS)<24*60*60){
+        $errors[] = "End time must be at least 24 hours after the start time.";
     }
 }
 
