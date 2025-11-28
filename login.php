@@ -1,20 +1,27 @@
-<?php if (isset($_GET['error'])): ?>
-    <div style="color:red; margin-bottom:10px;">
-        <?= htmlspecialchars($_GET['error']) ?>
-    </div>
-<?php endif; ?>
-
 <?php
-if (session_status() === PHP_SESSION_NONE) { session_start(); }
+// login.php
+
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
 require_once __DIR__ . '/utilities.php';
 
 $email    = $_POST['userEmail']    ?? '';
 $password = $_POST['userPassword'] ?? '';
 $redirect = $_POST['redirect']     ?? 'browse.php';
 
-if (!filter_var($email, FILTER_VALIDATE_EMAIL) || $password === '') {
-    header("Location: login.php?error=Invalid login credentials.");
+//return to original page if error
+function redirect_with_error(string $redirect, string $message): void {
+    // 确保有 ? / & 正确拼接参数
+    $sep = (strpos($redirect, '?') === false) ? '?' : '&';
+    header("Location: {$redirect}{$sep}loginError=" . urlencode($message));
     exit();
+}
+
+//
+if (!filter_var($email, FILTER_VALIDATE_EMAIL) || $password === '') {
+    redirect_with_error($redirect, 'Invalid login credentials.');
 }
 
 $db = get_db_connection();
@@ -30,27 +37,31 @@ $stmt = $db->prepare("
     WHERE userEmail = ?
     LIMIT 1
 ");
+if (!$stmt) {
+    redirect_with_error($redirect, 'Sorry, something went wrong. Please try again later.');
+}
+
 $stmt->bind_param('s', $email);
 $stmt->execute();
 $result = $stmt->get_result();
 
 if (!$result || $result->num_rows === 0) {
     $stmt->close();
-    header("Location: login.php?error=Email not found.");
-    exit();
+    redirect_with_error($redirect, 'No user found with that email.');
 }
 
 $user = $result->fetch_assoc();
 $stmt->close();
 
+//check the password
 if (!password_verify($password, $user['userPassword'])) {
-    header("Location: login.php?error=Incorrect password.");
-    exit();
+    redirect_with_error($redirect, 'Wrong password.');
 }
 
-$_SESSION['userId']        = $user['userId'];
-$_SESSION['userName']  = $user['userName'];
-$_SESSION['userRole']      = $user['userRole'];
+$_SESSION['userId']   = (int)$user['userId'];
+$_SESSION['userName'] = $user['userName'];
+$_SESSION['userRole'] = $user['userRole'];
 
-header("Location: $redirect");
-exit;
+//return to browse or listing page
+header("Location: {$redirect}");
+exit();
