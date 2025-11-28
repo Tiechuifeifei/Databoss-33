@@ -20,7 +20,7 @@ require_once 'utilities.php';
 // 5. Place Bid
 //    Allows a buyer to place a bid on an auction item, but with multiple validation checks.
 //***********************************************************************************************************************
-// 7 Validations:
+// 6 Validations:
 //
 // 1. Auction existence check:
 //    Users cannot bid if the auction does not exist.
@@ -39,9 +39,6 @@ require_once 'utilities.php';
 //
 // 6. Basic input validation:
 //    Users cannot place a bid that is less than or equal to £0.00 (will also check the non-numeric values too)
-//
-// 7. Basic anti-spam rule:
-//    The current highest bidder cannot place another bid on the same auction.
 //***********************************************************************************************************************
 
     
@@ -222,7 +219,6 @@ return $rows;
 // 2) Load auction info and check existence / seller / timing / status.
 // 3) Apply bidding rules:
 //    - First bid must be £5 higher than start price.
-//    - Current highest bidder cannot bid again.
 //    - New bid must be at least £5.00 higher than current highest bid.
 //    - Seller cannot bid on own auction.
 // 4) Insert the bid if all checks pass and return a result array.
@@ -238,7 +234,7 @@ function placeBid($buyerId, $auctionId, $bidPrice)
     }
     $db = get_db_connection();
 
-//2. Check auction's status, like:exsistence/start price/status etc.
+//2. Check auction's status, like:existence/start price/status etc.
 $sqlAuction = "
     SELECT 
         i.sellerId,
@@ -334,14 +330,7 @@ if ($currentHighest !== null) {
     $currentHighestPrice = (float)$currentHighest["bidPrice"];
     $currentHighestBuyer = (int)$currentHighest["buyerId"];
 
-  //(3.2)Current highest biddER cannot bid again, otherwise return reminder. 当前最高出价者不能再出价
-    if ($currentHighestBuyer === (int)$buyerId) {
-        return [
-            "success" => false,
-            "message" => "Sorry, you are already the highest bidder for this auction, and cannot place another bid on the same auction."
-        ];
-    }
-  //(3.3)Minimum increase £5 rule for bid otherwise meaningless最小的加价至少要5镑
+  //(3.2)Minimum increase £5 rule for bid otherwise meaningless最小的加价至少要5镑
     $minIncrease = 5.00;  // can be a difference number
     if ($bidPrice < $currentHighestPrice + $minIncrease) {
         return [
