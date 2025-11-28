@@ -32,36 +32,41 @@ $currentUrl = $_SERVER['REQUEST_URI'] ?? 'browse.php';
 
 <body>
 
-<!-- 顶部浅色导航：站点名 + 右侧登录/登出 -->
-<nav class="navbar navbar-expand-lg navbar-light bg-light mx-2">
-  <a class="navbar-brand" href="#">Auction <!--CHANGEME!--></a>
 
-  <ul class="navbar-nav ml-auto">
-    <li class="nav-item d-flex align-items-center">
-<?php if (!empty($_SESSION['userId'])): ?>
+<!-- 顶部浅色导航：站点名 + 右侧登录/登出 -->
+<nav class="navbar navbar-expand-lg minimal-navbar pg-white">
+  <a class="navbar-brand minimal-brand" href="#">Auction <!--CHANGEME!--></a>
+
+  <div class="navbar" id="nav1">
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item d-flex align-items-center">
+    <?php if (!empty($_SESSION['userId'])): ?>
       <!-- Renamed username → userName -->
-      <span class="nav-link">Hi, <?= h($_SESSION['userName'] ?? 'User') ?></span>
-      <a class="nav-link" href="logout.php">Logout</a>
-<?php else: ?>
+        <span class="nav-link text-dark">Hi, 
+          <?= h($_SESSION['userName'] ?? 'User') ?></span>
+        <a class="nav-link text-dark" href="logout.php">Logout</a>
+    <?php else: ?>
       <!-- 保持原来用 Modal 登录，同时补上 Register 链接 -->
-      <button type="button" class="btn nav-link" data-toggle="modal" data-target="#loginModal">Login</button>
-      <a class="nav-link" href="register.php">Register</a>
-<?php endif; ?>
-    </li>
-  </ul>
+      <button type="button" class="btn nav-link text-dark font-weight-bold" data-toggle="modal" data-target="#loginModal">
+        Login</button>
+      <a class="nav-link text-dark font-weight-bold" href="register.php">Register</a>
+    <?php endif; ?>
+      </li>
+    </ul>
+  </div>
 </nav>
 
 <!-- 第二条深色导航：功能菜单（外观不改） -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <ul class="navbar-nav align-middle">
-    <li class="nav-item mx-1"><a class="nav-link" href="index.php">Home</a></li>
-    <li class="nav-item mx-1"><a class="nav-link" href="browse.php">Browse</a></li>
+<nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom pb-3">
+  <ul class="navbar-nav justify-content-center w-100 aligh-middle">
+    <li class="nav-item mx-2"><a class="nav-link minimal-link" href="index.php">Home</a></li>
+    <li class="nav-item mx-2"><a class="nav-link minimal-link" href="browse.php">Browse</a></li>
 
 <?php if (!empty($_SESSION['userId'])): ?>
-    <li class="nav-item mx-1"><a class="nav-link" href="mybids.php">My Bids</a></li>
-    <li class="nav-item mx-1"><a class="nav-link" href="mylistings.php">My Listings</a></li>
+    <li class="nav-item mx-2"><a class="nav-link minimal-link" href="mybids.php">My Bids</a></li>
+    <li class="nav-item mx-2"><a class="nav-link minimal-link" href="mylistings.php">My Listings</a></li>
 <!-- YH DEBUG: create item before create auction-->
-    <li class="nav-item ml-3"><a class="nav-link btn border-light" href="create_item.php">+ Create auction</a></li>
+    <li class="nav-item ml-3"><a class="nav-link btn minimal-btn" href="create_item.php">+ Create auction</a></li>
 <?php endif; ?>
   </ul>
 </nav>

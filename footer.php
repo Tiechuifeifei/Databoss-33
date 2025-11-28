@@ -4,7 +4,7 @@
 
   </div> <!-- .container from header.php -->
 
-  <footer class="footer bg-dark text-white mt-5 p-3 text-center">
+  <footer class="minimal-footer bg-white text-dark border-top mt-5 p-3 text-center">
     <div class="container">
       <small>&copy; <?php echo date('Y'); ?> Auction Website - All rights reserved.</small>
     </div>
