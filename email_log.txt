@@ -1,0 +1,450 @@
+----
+To: seller@email.com
+Subject: Your auction has ended: Item 2001
+
+Hi Seller A,
+
+Your auction for 'Item 2001' has ended, but there was no winning bid.
+You may wish to relist the item.
+
+Regards,
+Auction Website
+
+----
+To: seller@email.com
+Subject: Your auction has ended: Item 2001
+
+Hi Seller A,
+
+Your auction for 'Item 2001' has ended, but there was no winning bid.
+You may wish to relist the item.
+
+Regards,
+Auction Website
+
+----
+To: seller@email.com
+Subject: Your auction has ended: Item 2001
+
+Hi Seller A,
+
+Your auction for 'Item 2001' has ended, but there was no winning bid.
+You may wish to relist the item.
+
+Regards,
+Auction Website
+
+----
+To: seller@email.com
+Subject: Your auction has ended: Item 2001
+
+Hi Seller A,
+
+Your auction for 'Item 2001' has ended, but there was no winning bid.
+You may wish to relist the item.
+
+Regards,
+Auction Website
+
+----
+To: seller@email.com
+Subject: Your auction has ended: Item 2001
+
+Hi Seller A,
+
+Your auction for 'Item 2001' has ended, but there was no winning bid.
+You may wish to relist the item.
+
+Regards,
+Auction Website
+
+----
+To: seller@email.com
+Subject: Your auction has ended: Item 2001
+
+Hi Seller A,
+
+Your auction for 'Item 2001' has ended, but there was no winning bid.
+You may wish to relist the item.
+
+Regards,
+Auction Website
+
+----
+To: seller@email.com
+Subject: Your auction has ended: Item 2001
+
+Hi Seller A,
+
+Your auction for 'Item 2001' has ended, but there was no winning bid.
+You may wish to relist the item.
+
+Regards,
+Auction Website
+
+----
+To: buyer2@email.com
+Subject: You won the auction: Item 2002
+
+Hi Buyer C,
+
+Congratulations! You have won the auction for 'Item 2002'.
+Final price: £9.99
+
+Please log in to your account to view the details.
+
+Regards,
+Auction Website
+
+----
+To: seller@email.com
+Subject: Your auction has ended: Item 2002
+
+Hi Seller A,
+
+Your auction for 'Item 2002' has ended and a buyer has won the item.
+Final price: £9.99
+
+Please log in to your account to see the winner's details.
+
+Regards,
+Auction Website
+
+----
+To: seller@email.com
+Subject: Your auction has ended: Item 2003
+
+Hi Seller A,
+
+Your auction for 'Item 2003' has ended, but there was no winning bid.
+You may wish to relist the item.
+
+Regards,
+Auction Website
+
+----
+To: seller@email.com
+Subject: Your auction has ended: EndAuction Test Item
+
+Hi Seller A,
+
+Your auction for 'EndAuction Test Item' has ended, but there was no winning bid.
+You may wish to relist the item.
+
+Regards,
+Auction Website
+
+----
+To: seller@email.com
+Subject: Your auction has ended: EndAuction Test Item
+
+Hi Seller A,
+
+Your auction for 'EndAuction Test Item' has ended, but there was no winning bid.
+You may wish to relist the item.
+
+Regards,
+Auction Website
+
+----
+To: seller@email.com
+Subject: Your auction has ended: EndAuction Test Item
+
+Hi Seller A,
+
+Your auction for 'EndAuction Test Item' has ended, but there was no winning bid.
+You may wish to relist the item.
+
+Regards,
+Auction Website
+
+----
+To: buyer1@email.com
+Subject: You won the auction: EndAuction Test Item
+
+Hi Buyer B,
+
+Congratulations! You have won the auction for 'EndAuction Test Item'.
+Final price: £30.00
+
+Please log in to your account to view the details.
+
+Regards,
+Auction Website
+
+----
+To: seller@email.com
+Subject: Your auction has ended: EndAuction Test Item
+
+Hi Seller A,
+
+Your auction for 'EndAuction Test Item' has ended and a buyer has won the item.
+Final price: £30.00
+
+Please log in to your account to see the winner's details.
+
+Regards,
+Auction Website
+
+----
+To: seller@email.com
+Subject: Your auction has ended: Test Item for refresh
+
+Hi Seller A,
+
+Your auction for 'Test Item for refresh' has ended, but there was no winning bid.
+You may wish to relist the item.
+
+Regards,
+Auction Website
+
+----
+To: seller@email.com
+Subject: Your auction has ended: Test Item From User
+
+Hi Seller A,
+
+Your auction for 'Test Item From User' has ended, but there was no winning bid.
+You may wish to relist the item.
+
+Regards,
+Auction Website
+
+----
+To: 90750791197@qq.com
+Subject: You won the auction: watch
+
+Hi xiaohua,
+
+Congratulations! You have won the auction for 'watch'.
+Final price: £1.00
+
+Please log in to your account to view the details.
+
+Regards,
+Auction Website
+
+----
+To: seller@email.com
+Subject: Your auction has ended: watch
+
+Hi Seller A,
+
+Your auction for 'watch' has ended and a buyer has won the item.
+Final price: £1.00
+
+Please log in to your account to see the winner's details.
+
+Regards,
+Auction Website
+
+----
+To: 90750791197@qq.com
+Subject: Auction ended: watch111
+
+Hi xiaohua,
+
+The auction for 'watch111' has now ended.
+Unfortunately, you did not win this time.
+
+You can log in to view other items and bid again.
+
+Regards,
+Auction Website
+
+----
+To: 9077@qq.com
+Subject: Auction ended: watch111
+
+Hi xiaohua111,
+
+The auction for 'watch111' has now ended.
+Unfortunately, you did not win this time.
+
+You can log in to view other items and bid again.
+
+Regards,
+Auction Website
+
+----
+To: mekialkhan1707@gmail.com
+Subject: You won the auction: watch111
+
+Hi Ninja1707,
+
+Congratulations! You have won the auction for 'watch111'.
+Final price: £90.00
+
+Please log in to your account to view the details.
+
+Regards,
+Auction Website
+
+----
+To: seller@email.com
+Subject: Your auction has ended: watch111
+
+Hi Seller A,
+
+Your auction for 'watch111' has ended and a buyer has won the item.
+Final price: £90.00
+
+Please log in to your account to see the winner's details.
+
+Regards,
+Auction Website
+
+----
+To: 90750791197@qq.com
+Subject: Auction ended: car
+
+Hi xiaohua,
+
+The auction for 'car' has now ended.
+Unfortunately, you did not win this time.
+
+You can log in to view other items and bid again.
+
+Regards,
+Auction Website
+
+----
+To: mekialkhan1707@gmail.com
+Subject: You won the auction: car
+
+Hi Ninja1707,
+
+Congratulations! You have won the auction for 'car'.
+Final price: £105.00
+
+Please log in to your account to view the details.
+
+Regards,
+Auction Website
+
+----
+To: 9077@qq.com
+Subject: Your auction has ended: car
+
+Hi xiaohua111,
+
+Your auction for 'car' has ended and a buyer has won the item.
+Final price: £105.00
+
+Please log in to your account to see the winner's details.
+
+Regards,
+Auction Website
+
+----
+To: 9077@qq.com
+Subject: Auction ended: car
+
+Hi xiaohua111,
+
+The auction for 'car' has now ended.
+Unfortunately, you did not win this time.
+
+You can log in to view other items and bid again.
+
+Regards,
+Auction Website
+
+----
+To: 90750791197@qq.com
+Subject: Auction ended: car
+
+Hi xiaohua,
+
+The auction for 'car' has now ended.
+Unfortunately, you did not win this time.
+
+You can log in to view other items and bid again.
+
+Regards,
+Auction Website
+
+----
+To: mekialkhan1707@gmail.com
+Subject: You won the auction: car
+
+Hi Ninja1707,
+
+Congratulations! You have won the auction for 'car'.
+Final price: £2,433,323.00
+
+Please log in to your account to view the details.
+
+Regards,
+Auction Website
+
+----
+To: 9077@gmail.com
+Subject: Your auction has ended: car
+
+Hi yufei,
+
+Your auction for 'car' has ended and a buyer has won the item.
+Final price: £2,433,323.00
+
+Please log in to your account to see the winner's details.
+
+Regards,
+Auction Website
+
+----
+To: mekialkhan1707@gmail.com
+Subject: You won the auction: car
+
+Hi Ninja1707,
+
+Congratulations! You have won the auction for 'car'.
+Final price: £908.00
+
+Please log in to your account to view the details.
+
+Regards,
+Auction Website
+
+----
+To: 90750791197@qq.com
+Subject: Your auction has ended: car
+
+Hi xiaohua,
+
+Your auction for 'car' has ended and a buyer has won the item.
+Final price: £908.00
+
+Please log in to your account to see the winner's details.
+
+Regards,
+Auction Website
+
+----
+To: mekialkhan1707@gmail.com
+Subject: You won the auction: newcar
+
+Hi Ninja1707,
+
+Congratulations! You have won the auction for 'newcar'.
+Final price: £90.00
+
+Please log in to your account to view the details.
+
+Regards,
+Auction Website
+
+----
+To: 90750791197@qq.com
+Subject: Your auction has ended: newcar
+
+Hi xiaohua,
+
+Your auction for 'newcar' has ended and a buyer has won the item.
+Final price: £90.00
+
+Please log in to your account to see the winner's details.
+
+Regards,
+Auction Website
+

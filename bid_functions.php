@@ -122,40 +122,43 @@ function getBidsByAuctionId($auctionId)
 function getBidsByUser($userId)
 {
     $db = get_db_connection();
+
     $sql = "
         SELECT
             b.*,
             i.itemName,
             i.itemId,
+            i.sellerId,
+            u.userName AS sellerName,
             a.auctionId,
             a.auctionStartTime,
             a.auctionEndTime,
             a.auctionStatus,
+            a.winningBidId,
             a.startPrice
         FROM bids AS b
         JOIN auctions AS a ON b.auctionId = a.auctionId
         JOIN items   AS i ON a.itemId     = i.itemId
+        JOIN users   AS u ON i.sellerId   = u.userId
         WHERE b.buyerId = ?
-        ORDER BY FIELD(a.auctionStatus, 'running', 'scheduled', 'ended', 'cancelled'), b.bidTime DESC
+        ORDER BY FIELD(a.auctionStatus, 'running', 'scheduled', 'ended', 'cancelled'),
+                 b.bidTime DESC
     ";
 
-    $stmt = $db -> prepare($sql);
-    
-    $stmt -> bind_param("i", $userId);
-    $stmt -> execute();
-    $result = $stmt -> get_result();
+
+    $stmt = $db->prepare($sql);
+    $stmt->bind_param("i", $userId);
+    $stmt->execute();
+    $result = $stmt->get_result();
 
     $bids = [];
-    while ($row = $result -> fetch_assoc()) {
-        $bids[] = $row; // ";" must be in the curly braces!
+    while ($row = $result->fetch_assoc()) {
+        $bids[] = $row;
     }
 
-    $stmt -> close();
+    $stmt->close();
     return $bids;
 }
-
-
-
 
 // 4. View Bids On My Auctions:
 //    "Seller's View" - a user(seller) can view all bids that are placed on his/her auction/auctions.  

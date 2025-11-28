@@ -308,8 +308,11 @@ function getAuctionsByUser($userId) {
 }
 
 //8. endAuctions -- update the auction when it ends
+//8. endAuctions -- update the auction when it ends
 function endAuction($auctionId) {
     global $conn;
+
+    $auctionId = (int)$auctionId;
 
     // 1. Get highest bid (id + price)
     $sql = "SELECT bidId, bidPrice
@@ -317,47 +320,59 @@ function endAuction($auctionId) {
             WHERE auctionId = ?
             ORDER BY bidPrice DESC
             LIMIT 1";
-
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("i", $auctionId);
     $stmt->execute();
     $highestBid = $stmt->get_result()->fetch_assoc();
+    $stmt->close();
 
-    // Get itemId for status update
+    // 2. Get itemId for status update
     $sql_item = "SELECT itemId FROM auctions WHERE auctionId = ?";
     $stmt_item = $conn->prepare($sql_item);
     $stmt_item->bind_param("i", $auctionId);
     $stmt_item->execute();
-    $itemId = $stmt_item->get_result()->fetch_assoc()['itemId'];
+    $rowItem = $stmt_item->get_result()->fetch_assoc();
+    $stmt_item->close();
+
+    if (!$rowItem) {
+        return; // auction not found
+    }
+    $itemId = $rowItem['itemId'];
 
     if ($highestBid) {
-        // 2. Update sold price
+        // 3. Update sold price + winning bid
         $sql2 = "UPDATE auctions
-                SET soldPrice = ?, winningBidId = ?
-                WHERE auctionId = ?";
+                 SET soldPrice = ?, winningBidId = ?
+                 WHERE auctionId = ?";
         $stmt2 = $conn->prepare($sql2);
-        $stmt2->bind_param("dii",
+        $stmt2->bind_param(
+            "dii",
             $highestBid['bidPrice'],
             $highestBid['bidId'],
             $auctionId
         );
         $stmt2->execute();
+        $stmt2->close();
 
-        // 3. Update item to sold
+        // 4. Update item to sold
         updateItemStatus($itemId, "sold");
 
     } else {
         // no bids
         $sql3 = "UPDATE auctions
-                SET soldPrice = NULL, winningBidId = NULL
-                WHERE auctionId = ?";
+                 SET soldPrice = NULL, winningBidId = NULL
+                 WHERE auctionId = ?";
         $stmt3 = $conn->prepare($sql3);
         $stmt3->bind_param("i", $auctionId);
         $stmt3->execute();
+        $stmt3->close();
 
-        // No winner → item stays inactive (or returned to inactive)
+        // No winner → item inactive
         updateItemStatus($itemId, "inactive");
     }
+
+    // 5. NOW send emails (after DB is correct)
+    notifyAuctionEnded($auctionId);
 }
 
 
@@ -445,4 +460,167 @@ function isAuctionUnsuccessful($auctionId) {
     return false;
 }
 
+/**
+ * Notify all bidders when an auction has ended.
+ * - Winner gets a "you won" email
+ * - Other bidders get a "you did not win" email
+ * - Seller gets a summary email
+ */
+function notifyAuctionEnded($auctionId)
+{
+    $db = get_db_connection();
+    $auctionId = (int)$auctionId;
+
+    // 1. Get auction + item + seller info + winner info (if any)
+    $sqlAuction = "
+        SELECT 
+            a.auctionId,
+            a.auctionEndTime,
+            a.soldPrice,
+            a.winningBidId,
+            i.itemName,
+            i.sellerId,
+            s.userName  AS sellerName,
+            s.userEmail AS sellerEmail
+        FROM auctions a
+        JOIN items  i ON a.itemId   = i.itemId
+        JOIN users  s ON i.sellerId = s.userId
+        WHERE a.auctionId = ?
+        LIMIT 1
+    ";
+
+    $stmt = $db->prepare($sqlAuction);
+    $stmt->bind_param("i", $auctionId);
+    $stmt->execute();
+    $auctionRow = $stmt->get_result()->fetch_assoc();
+    $stmt->close();
+
+    if (!$auctionRow) {
+        return; // auction not found, nothing to notify
+    }
+
+    $itemName     = $auctionRow['itemName'];
+    $sellerId     = (int)$auctionRow['sellerId'];
+    $sellerName   = $auctionRow['sellerName'];
+    $sellerEmail  = $auctionRow['sellerEmail'];
+    $soldPrice    = $auctionRow['soldPrice'];
+    $winningBidId = $auctionRow['winningBidId'];
+
+    // 2. Get winner info, if there is a winner
+    $winnerId   = null;
+    $winnerName = null;
+    $winnerEmail= null;
+
+    if (!is_null($winningBidId)) {
+        $sqlWinner = "
+            SELECT 
+                b.bidId,
+                b.bidPrice,
+                u.userId,
+                u.userName,
+                u.userEmail
+            FROM bids b
+            JOIN users u ON b.buyerId = u.userId
+            WHERE b.bidId = ?
+            LIMIT 1
+        ";
+
+        $stmt = $db->prepare($sqlWinner);
+        $stmt->bind_param("i", $winningBidId);
+        $stmt->execute();
+        $winRow = $stmt->get_result()->fetch_assoc();
+        $stmt->close();
+
+        if ($winRow) {
+            $winnerId    = (int)$winRow['userId'];
+            $winnerName  = $winRow['userName'];
+            $winnerEmail = $winRow['userEmail'];
+        }
+    }
+
+    // 3. Get all distinct bidders for this auction
+    $sqlBidders = "
+        SELECT DISTINCT 
+            u.userId,
+            u.userName,
+            u.userEmail
+        FROM bids b
+        JOIN users u ON b.buyerId = u.userId
+        WHERE b.auctionId = ?
+    ";
+
+    $stmt = $db->prepare($sqlBidders);
+    $stmt->bind_param("i", $auctionId);
+    $stmt->execute();
+    $biddersRes = $stmt->get_result();
+    $stmt->close();
+
+    // 4. Notify each bidder if they won or not
+    while ($row = $biddersRes->fetch_assoc()) {
+        $bidderId    = (int)$row['userId'];
+        $bidderName  = $row['userName'];
+        $bidderEmail = $row['userEmail'];
+
+        if (!filter_var($bidderEmail, FILTER_VALIDATE_EMAIL)) {
+            continue; // skip weird emails
+        }
+
+        if (!is_null($winnerId) && $bidderId === $winnerId) {
+            // Winner email
+            $subject = "You won the auction: {$itemName}";
+            $body = "Hi {$bidderName},\n\n"
+                  . "Congratulations! You have won the auction for '{$itemName}'.\n";
+
+            if (!is_null($soldPrice)) {
+                $body .= "Final price: £" . number_format((float)$soldPrice, 2) . "\n";
+            }
+
+            $body .= "\nPlease log in to your account to view the details.\n\n"
+                   . "Regards,\nAuction Website";
+
+        } else {
+            // Non-winner email
+            $subject = "Auction ended: {$itemName}";
+            $body = "Hi {$bidderName},\n\n"
+                  . "The auction for '{$itemName}' has now ended.\n";
+
+            if (!is_null($winnerName)) {
+                $body .= "Unfortunately, you did not win this time.\n";
+            } else {
+                $body .= "The auction ended with no winning bid.\n";
+            }
+
+            $body .= "\nYou can log in to view other items and bid again.\n\n"
+                   . "Regards,\nAuction Website";
+        }
+
+        sendEmail($bidderEmail, $subject, $body);
+    }
+
+    // 5. Email seller a summary
+    if (filter_var($sellerEmail, FILTER_VALIDATE_EMAIL)) {
+        $subject = "Your auction has ended: {$itemName}";
+
+        if (!is_null($winnerId)) {
+            $body = "Hi {$sellerName},\n\n"
+                  . "Your auction for '{$itemName}' has ended and a buyer has won the item.\n";
+
+            if (!is_null($soldPrice)) {
+                $body .= "Final price: £" . number_format((float)$soldPrice, 2) . "\n";
+            }
+
+            $body .= "\nPlease log in to your account to see the winner's details.\n\n"
+                   . "Regards,\nAuction Website";
+        } else {
+            $body = "Hi {$sellerName},\n\n"
+                  . "Your auction for '{$itemName}' has ended, but there was no winning bid.\n"
+                  . "You may wish to relist the item.\n\n"
+                  . "Regards,\nAuction Website";
+        }
+
+        sendEmail($sellerEmail, $subject, $body);
+    }
+}
+
 ?>
+

@@ -12,15 +12,16 @@ $sql = "SELECT auctionId FROM auctions";
 $result = $conn->query($sql);
 
 while ($row = $result->fetch_assoc()) {
-    $auctionId = $row['auctionId'];
+    $auctionId = (int)$row['auctionId'];
 
-    // Run your refresh function
-    $isEnded = refreshAuctionStatus($auctionId);
+    // Refresh → returns a status string or false
+    $status = refreshAuctionStatus($auctionId);
 
-    // If ended, do finalization (you will add endAuction later)
-    if ($isEnded) {
+    // Only run endAuction when the auction has ended
+    if ($status === 'ended') {
         endAuction($auctionId);
     }
 }
+
 
 echo "Auction status refreshed at " . date("Y-m-d H:i:s");

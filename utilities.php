@@ -19,6 +19,20 @@ function get_db_connection(): mysqli {
     return $db;
 }
 
+function sendEmail($to, $subject, $body)
+{
+    echo "<script>console.log('sendEmail() reached');</script>";
+    $logFile = __DIR__ . '/email_log.txt';
+    $logMsg  = "----\nTo: {$to}\nSubject: {$subject}\n\n{$body}\n\n";
+    file_put_contents($logFile, $logMsg, FILE_APPEND);
+
+    $headers  = "From: no-reply@auction.local\r\n";
+    $headers .= "Content-Type: text/plain; charset=UTF-8\r\n";
+
+    @mail($to, $subject, $body, $headers);
+}
+
+
 // Escape HTML //
 function h(?string $s): string {
     return htmlspecialchars($s ?? '', ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
