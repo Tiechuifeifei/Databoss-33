@@ -8,6 +8,7 @@ require_once __DIR__ . '/utilities.php';
 // For login redirect back
 $currentUrl = $_SERVER['REQUEST_URI'] ?? 'browse.php';
 ?>
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -72,28 +73,22 @@ $currentUrl = $_SERVER['REQUEST_URI'] ?? 'browse.php';
 </nav>
 
 
-<!-- Login Modal（单独放在 body 底部，避免嵌套表单破坏页面） -->
 <div class="modal fade" id="loginModal">
   <div class="modal-dialog">
     <div class="modal-content">
 
       <div class="modal-header">
         <h4 class="modal-title">Login</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
       </div>
 
       <div class="modal-body">
 
-        <!-- Show login error -->
-        <?php 
-        if (!empty($_SESSION['flash_error'])): ?>
-          <div class="alert alert-danger">
-            <?= h($_SESSION['flash_error']); ?>
-          </div>
-          <?php unset($_SESSION['flash_error']); ?>
-        <?php endif; ?>
+        <div id="loginErrorBox" class="alert alert-danger d-none"></div>
 
-        <!-- Login form -->
-        <form method="POST" action="login_result.php">
+        <form id="loginForm" method="POST" action="login_result.php">
           <input type="hidden" name="redirect" value="<?= h($currentUrl) ?>">
 
           <div class="form-group">
@@ -120,4 +115,50 @@ $currentUrl = $_SERVER['REQUEST_URI'] ?? 'browse.php';
   </div>
 </div>
 
-<!-- 页面内容继续... -->
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  var form    = document.getElementById('loginForm');
+  var errorBox = document.getElementById('loginErrorBox');
+
+  if (!form || !errorBox) return;
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault(); 
+
+    errorBox.textContent = '';
+    errorBox.classList.add('d-none');
+
+    var formData = new FormData(form);
+    var action   = form.getAttribute('action') || 'login_result.php';
+
+    fetch(action, {
+      method: 'POST',
+      body: formData
+    })
+      .then(function (response) {
+        return response.json();
+      })
+      .then(function (data) {
+        if (data.success) {
+          window.location.href = data.redirect || 'browse.php';
+        } else {
+          errorBox.textContent = data.message || 'Login failed.';
+          errorBox.classList.remove('d-none');
+        }
+      })
+      .catch(function () {
+        errorBox.textContent = 'Sorry, something went wrong. Please try again later.';
+        errorBox.classList.remove('d-none');
+      });
+  });
+
+
+  if (window.jQuery) {
+    $('#loginModal').on('hidden.bs.modal show.bs.modal', function () {
+      errorBox.textContent = '';
+      errorBox.classList.add('d-none');
+      form.reset();
+    });
+  }
+});
+</script>

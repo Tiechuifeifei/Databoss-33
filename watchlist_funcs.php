@@ -3,9 +3,9 @@
 // watchlist_funcs.php
 // ************************************************************************************
 // Watchlist has 3 functions
-// 1) add_to_watchlist       —— 把某个 auction 加到关注列表里
-// 2) view_watchlist         —— 查看我当前关注了哪些 auctions
-// 3) remove_from_watchlist  —— 从关注列表里删掉某个 auction
+// 1) add_to_watchlist —— 把某个auction加到关注列表里
+// 2) view_watchlist —— 查看我当前关注了哪些auctions
+// 3) remove_from_watchlist —— 从关注列表里删掉某个auction
 //
 // What's in the watchlist table:
 // - watchId          INT(11) NOT NULL,
@@ -22,53 +22,37 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-// ************************************************************************************
-// 1. Add to watchlist —— 加关注
-// ************************************************************************************
+
+// 1. Add to watchlist
 function addToWatchlist($userId, $auctionId) {
 
-    // 1. connect db 连接数据库
     $db = get_db_connection();
 
-    // 2. write SQL 写SQL
-    // 使用 INSERT IGNORE 防止重复添加
+//“INSERT IGNORE” to avoid adding the same auction again
     $sql = "
         INSERT IGNORE INTO watchlist (userId, auctionId, addedAt)
         VALUES (?, ?, NOW())
     ";
 
-// 3. prepare statement 预处理语句
-// 预处理失败就返回 fail
     $stmt = $db->prepare($sql);
-    if ($stmt === false) {
-        return "fail";
-    }
 
-// 4. bind parameter 绑参数
     $stmt->bind_param("ii", $userId, $auctionId);
-
-// 5. execute query 执行查询
     $stmt->execute();
 
-// 6. close statement 关闭语句
     $stmt->close();
-
-// 7. return success 返回成功
     return "success";
 }
 
 
 
-// ************************************************************************************
+
 // 2. View watchlist —— 查看关注列表
-// ************************************************************************************
+
 function viewWatchlistByUser($userId)
 {
-    // 1. connect the db 连接数据库
     $db = get_db_connection();
 
-// 2. write SQL 写SQL
-// 连 auctions 和 items，让界面上不仅能看到 auctionId，还能看到 itemName / startPrice / status / startTime 等等。
+//join auctions&items, to view auction info, and also item's info too.
     $sql = "
         SELECT
             w.watchId,
@@ -92,102 +76,81 @@ function viewWatchlistByUser($userId)
         ORDER BY w.addedAt DESC
     ";
 
-// 3. prepare statement 预处理语句
     $stmt = $db->prepare($sql);
-    if ($stmt === false) {
-        // 失败就简单返回空列表
-        return [];
-    }
 
-// 4. bind parameter 绑参数
     $stmt->bind_param("i", $userId);
-
-// 5. execute query 执行查询
     $stmt->execute();
 
-// 6. get result 拿结果
     $result = $stmt->get_result();
-
-// 7. fetch all rows 去拿所有行
     $rows = [];
     while ($line = $result->fetch_assoc()) {
         $rows[] = $line;
     }
-
-// 8. close statement 关闭语句
     $stmt->close();
-
-// 9. return array 返回数组（给 PHP 直接用）
     return $rows;
 }
 
 
-
-// ************************************************************************************
-// 3. Remove from watchlist —— 取消关注
-// ************************************************************************************
+// 3.Remove from watchlist
 function removeFromWatchlist($userId, $auctionId)
 {
 
-// 1. connect the db 连接数据库
-    $db = get_db_connection();
+$db = get_db_connection();
 
-// 2. prepare SQL 写SQL
-    $sql = "
-        DELETE FROM watchlist
-        WHERE userId = ? AND auctionId = ?
-    ";
+$sql_check = "
+SELECT watchId
+FROM watchlist
+WHERE userId = ? AND auctionId = ?
+LIMIT 1
+";
+$stmt = $db->prepare($sql_check);
+$stmt->bind_param("ii", $userId, $auctionId);
+$stmt->execute();
+$result = $stmt->get_result();
+$exists = ($result->num_rows > 0);
+$stmt->close();
 
-// 3. prepare statement 预处理语句
-    $stmt = $db->prepare($sql);
-    if ($stmt === false) {
-        return "fail";
-    }
-
-// 4. bind parameter 绑参数
-    $stmt->bind_param("ii", $userId, $auctionId);
-
-// 5. execute query 执行查询
-    $stmt->execute();
-
-// 6. close statement 关闭语句
-    $stmt->close();
-
-// 7. return success 返回成功
-    return "success";
+// 2 situations:
+// if not in watchlist, return a reminder to user
+if (!$exists) {
+return "You are not watching this auction, so it cannot be removed.";
 }
 
-// ************************************************************************************
-// 如果 functionname 根本匹配不了就返回 fail
-// ************************************************************************************
+// if yes, then is allowed to remove.
+$sql_delete = "
+DELETE FROM watchlist
+WHERE userId = ? AND auctionId = ?
+";
+$stmt = $db->prepare($sql_delete);
+$stmt->bind_param("ii", $userId, $auctionId);
+$stmt->execute();
+$stmt->close();
+
+return "removed_success";
+}
 
 
-// YH: Check if auction is in user's watchlist 
+//Leo debug, add one more fucntion "isInWatchList()":
+
+//4. Check if auction is in user's watchlist
 function isInWatchlist($userId, $auctionId)
 {
     $db = get_db_connection();
-
     $sql = "
-        SELECT watchId 
+        SELECT watchId
         FROM watchlist
         WHERE userId = ? AND auctionId = ?
         LIMIT 1
     ";
 
     $stmt = $db->prepare($sql);
-    if ($stmt === false) {
-        return false;
-    }
 
     $stmt->bind_param("ii", $userId, $auctionId);
     $stmt->execute();
-
     $result = $stmt->get_result();
-    $exists = ($result->num_rows > 0);
-
+    $exists = ($result && $result->num_rows > 0);
     $stmt->close();
+
     return $exists;
 }
-
 ?>
-

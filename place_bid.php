@@ -1,39 +1,44 @@
 <?php
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 
 require_once 'utilities.php';
 require_once 'bid_functions.php';
+
 session_start();
 
-// YH comment: I changed a lot of below codes. Since we have the function file, we can remove some old version codes.
-// user check 
+//login check
 $buyerId = $_SESSION['userId'] ?? null;
 if (!$buyerId) {
     header("Location: login.php?loginError=" . urlencode("Please log in to place a bid."));
     exit;
 }
 
-// auctionId and bidPrice
-$auctionId = $_POST['auctionId'] ?? null;
+//get POST values (new interfaces)
+$auctionId = isset($_POST['auctionId']) ? (int)$_POST['auctionId'] : 0;
+$itemId    = isset($_POST['itemId'])    ? (int)$_POST['itemId']    : 0;
 $bidPrice  = $_POST['bidPrice'] ?? null;
 
-// check the existance of user and auction
-if (!$auctionId || !$bidPrice) {
-    header("Location: listing.php?auctionId=$auctionId&error=" . urlencode("Invalid bid input."));
+$redirectItemId = $itemId ?: $auctionId;
+
+//basic input check
+if ($auctionId <= 0 || $bidPrice === null || $bidPrice === '' || !is_numeric($bidPrice)) {
+    $msg = "Invalid bid input.";
+    header("Location: listing.php?itemId={$redirectItemId}&auctionId={$auctionId}&error=" . urlencode($msg));
     exit;
 }
 
-// call placeBid() 
-// YH DEBUG: $result
+$bidPrice = (float)$bidPrice;
+
+//place bid
 $result = placeBid($buyerId, $auctionId, $bidPrice);
 
-// success / error redirect to listing.php
+//redirect back to listing
 if ($result['success']) {
-    header("Location: listing.php?auctionId=$auctionId&success=" . urlencode($result['message']));
-    exit;
+    header("Location: listing.php?itemId={$redirectItemId}&auctionId={$auctionId}&success=bid");
 } else {
-    header("Location: listing.php?auctionId=$auctionId&error=" . urlencode($result['message']));
-    exit;
+    header("Location: listing.php?itemId={$redirectItemId}&auctionId={$auctionId}&error=" . urlencode($result['message']));
 }
-?>
+
+exit;
