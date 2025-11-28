@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- 主机： localhost
--- 生成日期： 2025-11-26 13:22:01
+-- 生成日期： 2025-11-28 18:55:18
 -- 服务器版本： 10.4.28-MariaDB
 -- PHP 版本： 8.2.4
 
@@ -32,7 +32,7 @@ CREATE TABLE `auctions` (
   `itemId` int(11) NOT NULL,
   `auctionStartTime` datetime NOT NULL,
   `auctionEndTime` datetime NOT NULL,
-  `auctionStatus` enum('scheduled','running','ended','cancelled') DEFAULT 'scheduled',
+  `auctionStatus` enum('scheduled','running','ended','cancelled','relisted') NOT NULL DEFAULT 'scheduled',
   `startPrice` decimal(10,2) NOT NULL DEFAULT 0.00,
   `soldPrice` decimal(10,2) DEFAULT NULL,
   `winningBidId` int(10) UNSIGNED DEFAULT NULL,
@@ -45,34 +45,62 @@ CREATE TABLE `auctions` (
 
 INSERT INTO `auctions` (`auctionId`, `itemId`, `auctionStartTime`, `auctionEndTime`, `auctionStatus`, `startPrice`, `soldPrice`, `winningBidId`, `reservedPrice`) VALUES
 (1001, 2001, '2025-11-18 23:26:39', '2025-12-18 23:26:39', 'running', 1.00, 8.00, 3, 0.00),
-(1002, 2002, '2025-11-09 23:26:39', '2025-11-18 23:26:39', 'ended', 5.00, 9.99, 2, 0.00),
-(1003, 2003, '2025-11-11 23:26:39', '2025-11-18 23:26:39', 'ended', 10.00, NULL, NULL, 0.00),
-(1006, 2001, '2025-11-18 12:00:00', '2025-11-20 12:00:00', 'running', 10.00, NULL, NULL, 20.00),
-(1007, 2001, '2025-11-18 12:00:00', '2025-11-20 12:00:00', 'running', 10.00, NULL, NULL, 20.00),
-(1008, 2001, '2025-11-18 12:00:00', '2025-11-20 12:00:00', 'running', 10.00, NULL, NULL, 20.00),
+(1002, 2002, '2025-11-09 23:26:39', '2025-11-26 18:26:39', 'ended', 5.00, 9.99, 2, 0.00),
+(1003, 2003, '2025-11-11 23:26:39', '2025-11-26 18:25:30', 'ended', 10.00, NULL, NULL, 0.00),
+(1006, 2001, '2025-11-18 12:00:00', '2025-11-20 12:00:00', 'ended', 10.00, NULL, NULL, 20.00),
+(1007, 2001, '2025-11-18 12:00:00', '2025-11-20 12:00:00', 'ended', 10.00, NULL, NULL, 20.00),
+(1008, 2001, '2025-11-18 12:00:00', '2025-11-20 12:00:00', 'ended', 10.00, NULL, NULL, 20.00),
 (1009, 2001, '2025-01-01 10:00:00', '2025-01-01 12:00:00', 'ended', 10.00, NULL, NULL, 5.00),
 (1010, 2001, '2025-01-01 10:00:00', '2025-01-01 12:00:00', 'ended', 10.00, NULL, NULL, 5.00),
-(1012, 2016, '2025-11-21 11:40:17', '2025-11-21 11:40:27', 'scheduled', 10.00, NULL, NULL, 5.00),
-(1013, 2017, '2025-11-21 11:41:42', '2025-11-21 11:41:52', 'scheduled', 10.00, NULL, NULL, 5.00),
-(1014, 2018, '2025-11-21 11:41:51', '2025-11-21 11:42:01', 'scheduled', 10.00, NULL, NULL, 5.00),
-(1015, 2019, '2025-11-21 11:43:01', '2025-11-21 11:43:11', 'scheduled', 10.00, 30.00, 4, 5.00),
-(1016, 2001, '2025-01-01 10:00:00', '2025-01-01 12:00:00', 'scheduled', 18.00, NULL, NULL, 5.00),
-(1017, 2020, '2025-11-21 11:49:24', '2025-11-21 11:49:39', 'running', 10.00, NULL, NULL, 5.00),
-(1018, 2001, '2025-01-01 10:00:00', '2025-01-01 12:00:00', 'scheduled', 18.00, NULL, NULL, 5.00),
+(1012, 2016, '2025-11-21 11:40:17', '2025-11-21 11:40:27', 'ended', 10.00, NULL, NULL, 5.00),
+(1013, 2017, '2025-11-21 11:41:42', '2025-11-21 11:41:52', 'ended', 10.00, NULL, NULL, 5.00),
+(1014, 2018, '2025-11-21 11:41:51', '2025-11-21 11:42:01', 'ended', 10.00, NULL, NULL, 5.00),
+(1015, 2019, '2025-11-21 11:43:01', '2025-11-21 11:43:11', 'ended', 10.00, 30.00, 4, 5.00),
+(1016, 2001, '2025-01-01 10:00:00', '2025-01-01 12:00:00', 'ended', 18.00, NULL, NULL, 5.00),
+(1017, 2020, '2025-11-21 11:49:24', '2025-11-21 11:49:39', 'ended', 10.00, NULL, NULL, 5.00),
+(1018, 2001, '2025-01-01 10:00:00', '2025-01-01 12:00:00', 'ended', 18.00, NULL, NULL, 5.00),
 (1019, 2022, '2025-11-21 14:50:37', '2025-11-22 15:55:37', 'ended', 20.00, NULL, NULL, 40.00),
-(1022, 2001, '2025-11-21 16:46:00', '2025-11-29 16:46:00', 'scheduled', 1.00, NULL, NULL, 2.00),
-(1023, 2001, '2025-11-22 17:09:00', '2025-11-29 17:09:00', 'scheduled', 12.00, NULL, NULL, 13.00),
-(1024, 2001, '2025-11-22 17:15:00', '2025-11-29 17:15:00', 'scheduled', 1.00, NULL, NULL, 2.00),
+(1022, 2001, '2025-11-21 16:46:00', '2025-11-29 16:46:00', 'running', 1.00, NULL, NULL, 2.00),
+(1023, 2001, '2025-11-22 17:09:00', '2025-11-29 17:09:00', 'running', 12.00, NULL, NULL, 13.00),
+(1024, 2001, '2025-11-22 17:15:00', '2025-11-29 17:15:00', 'running', 1.00, NULL, NULL, 2.00),
 (1025, 2028, '2025-11-22 17:18:00', '2025-11-29 17:18:00', 'running', 1.00, NULL, NULL, 2.00),
 (1026, 2030, '2025-11-22 17:45:00', '2025-11-29 17:45:00', 'running', 1.00, NULL, NULL, 2.00),
 (1027, 2031, '2025-11-25 14:08:00', '2025-11-29 14:09:00', 'running', 1.00, NULL, NULL, 2.00),
 (1028, 2033, '2025-11-20 14:49:00', '2025-11-30 14:49:00', 'running', 1.00, NULL, NULL, 1.00),
 (1029, 2034, '2025-11-02 15:02:00', '2025-11-29 15:03:00', 'running', 1.00, NULL, NULL, 1.00),
 (1030, 2035, '2025-11-25 15:42:00', '2025-12-18 15:42:00', 'running', 1.00, NULL, NULL, 1.00),
-(1031, 2036, '2025-11-30 23:40:00', '2025-12-06 23:40:00', 'scheduled', 3.00, NULL, NULL, 4.00),
+(1031, 2036, '2025-11-26 23:40:00', '2025-11-27 00:08:00', 'ended', 3.00, NULL, NULL, 4.00),
 (1032, 2037, '2025-11-29 00:52:00', '2025-12-06 04:52:00', 'scheduled', 1.00, NULL, NULL, 19.00),
 (1033, 2038, '2025-11-26 03:09:00', '2025-12-01 01:09:00', 'running', 1.00, NULL, NULL, 3.00),
-(1034, 2040, '2025-11-24 11:21:00', '2025-11-30 11:21:00', 'scheduled', 10.00, NULL, NULL, 80.00);
+(1034, 2040, '2025-11-24 11:21:00', '2025-11-30 11:21:00', 'running', 10.00, NULL, NULL, 80.00),
+(1035, 2041, '2025-11-25 22:04:00', '2025-11-26 22:10:00', 'ended', 10.00, NULL, NULL, 20.00),
+(1036, 2022, '2025-11-26 23:46:57', '2025-11-27 23:45:57', 'ended', 20.00, NULL, NULL, 40.00),
+(1037, 2036, '2025-11-27 00:20:53', '2025-11-28 00:19:53', 'ended', 3.00, NULL, NULL, 4.00),
+(1038, 2036, '2025-11-27 00:21:30', '2025-11-28 00:20:30', 'ended', 3.00, NULL, NULL, 4.00),
+(1039, 2041, '2025-11-27 00:49:55', '2025-11-28 00:48:55', 'ended', 10.00, NULL, NULL, 20.00),
+(1040, 2041, '2025-11-28 00:51:00', '2025-11-28 00:51:00', 'ended', 10.00, NULL, NULL, 20.00),
+(1041, 2047, '2025-11-10 11:00:00', '2025-11-14 11:00:00', 'ended', 1.00, NULL, NULL, 2.00),
+(1042, 2047, '2025-11-27 11:00:00', '2025-11-28 11:00:00', 'ended', 1.00, NULL, NULL, 2.00),
+(1043, 2047, '2025-11-27 11:20:00', '2025-11-28 11:20:00', 'ended', 1.00, NULL, NULL, 2.00),
+(1044, 2047, '2025-11-27 11:20:00', '2025-11-28 11:20:00', 'ended', 1.00, NULL, NULL, 2.00),
+(1045, 2047, '2025-11-28 11:24:00', '2025-11-27 11:24:00', 'ended', 1.00, NULL, NULL, 2.00),
+(1046, 2047, '2025-11-20 11:33:00', '2025-11-26 11:33:00', 'ended', 1.00, NULL, NULL, 2.00),
+(1047, 2047, '2025-11-27 11:41:00', '2025-11-27 11:44:00', 'ended', 1.00, NULL, NULL, 2.00),
+(1048, 2048, '2025-11-28 11:56:00', '2025-11-30 11:56:00', 'running', 2.00, NULL, NULL, 2.00),
+(1049, 2053, '2025-11-27 12:50:00', '2025-11-27 12:52:00', 'ended', 2.00, NULL, NULL, 2.00),
+(1050, 2054, '2025-11-27 13:05:00', '2025-11-27 14:59:00', 'ended', 1.00, NULL, NULL, 2.00),
+(1051, 2053, '2025-11-28 13:46:00', '2025-11-29 13:47:00', 'scheduled', 2.00, NULL, NULL, 2.00),
+(1052, 2055, '2025-11-28 13:58:00', '2025-11-30 13:58:00', 'scheduled', 1.00, NULL, NULL, 2.00),
+(1053, 2056, '2025-11-27 16:04:00', '2025-11-27 18:08:00', 'ended', 1.00, NULL, NULL, 3.00),
+(1054, 2041, '2025-11-28 14:38:00', '2025-11-29 14:38:00', 'scheduled', 10.00, NULL, NULL, 30.00),
+(1055, 2057, '2025-11-27 16:29:00', '2025-11-27 16:31:00', 'ended', 10.00, NULL, NULL, 50.00),
+(1056, 2057, '2025-11-27 16:33:00', '2025-11-27 16:37:00', 'ended', 10.00, NULL, NULL, 50.00),
+(1057, 2058, '2025-11-27 16:42:00', '2025-11-27 16:46:00', 'ended', 1.00, NULL, NULL, 50.00),
+(1058, 2059, '2025-11-27 16:45:00', '2025-11-27 17:00:00', 'ended', 1.00, NULL, NULL, 100.00),
+(1059, 2058, '2025-11-28 00:57:00', '2025-11-29 03:57:00', 'running', 1.00, NULL, NULL, 50.00),
+(1060, 2056, '2025-11-28 13:02:00', '2025-11-28 15:02:00', 'scheduled', 1.00, NULL, NULL, 3.00),
+(1061, 2060, '2025-11-28 13:04:00', '2025-11-28 14:04:00', 'scheduled', 10.00, NULL, NULL, 30.00),
+(1062, 2061, '2025-11-28 12:10:00', '2025-11-28 13:09:00', 'running', 10.00, NULL, NULL, 1000000.00);
 
 -- --------------------------------------------------------
 
@@ -104,7 +132,15 @@ INSERT INTO `bids` (`bidId`, `auctionId`, `buyerId`, `bidPrice`, `bidTime`) VALU
 (9, 1028, 5, 4.00, '2025-11-26 00:22:01'),
 (10, 1027, 4, 100.00, '2025-11-26 00:51:08'),
 (11, 1001, 4, 20000.00, '2025-11-26 01:06:26'),
-(12, 1028, 4, 1000.00, '2025-11-26 11:19:08');
+(12, 1028, 4, 1000.00, '2025-11-26 11:19:08'),
+(13, 1003, 5, 100.00, '2025-11-26 18:24:17'),
+(14, 1053, 4, 2.00, '2025-11-27 16:46:08'),
+(15, 1028, 5, 1100.00, '2025-11-27 23:28:00'),
+(16, 1033, 5, 10.00, '2025-11-27 23:31:35'),
+(17, 1030, 5, 10.00, '2025-11-27 23:32:37'),
+(18, 1029, 5, 10.00, '2025-11-27 23:42:47'),
+(19, 1025, 5, 10.00, '2025-11-27 23:46:38'),
+(20, 1027, 8, 105.00, '2025-11-28 12:05:57');
 
 -- --------------------------------------------------------
 
@@ -194,7 +230,29 @@ INSERT INTO `images` (`imageId`, `itemId`, `imageUrl`, `isPrimary`, `uploadedAt`
 (49, 2038, 'uploads/6926532da0e9b.png', 1, '2025-11-26 01:09:01'),
 (50, 2038, 'uploads/6926533723890.png', 0, '2025-11-26 01:09:11'),
 (51, 2040, 'uploads/6926e28040c33.png', 0, '2025-11-26 11:20:32'),
-(52, 2040, 'uploads/6926e287524bc.png', 1, '2025-11-26 11:20:39');
+(52, 2040, 'uploads/6926e287524bc.png', 1, '2025-11-26 11:20:39'),
+(53, 2041, 'uploads/6927796755d51.png', 1, '2025-11-26 22:04:23'),
+(54, 2044, 'uploads/69279ec9b5f64.png', 1, '2025-11-27 00:43:53'),
+(55, 2045, 'uploads/69282c6083eb6.png', 1, '2025-11-27 10:48:00'),
+(56, 2045, 'uploads/69282c692be81.png', 0, '2025-11-27 10:48:09'),
+(57, 2047, 'uploads/69282f27b7e79.png', 1, '2025-11-27 10:59:51'),
+(61, 2052, 'uploads/6928447ff3db4.png', 1, '2025-11-27 12:30:56'),
+(62, 2053, 'uploads/692848499599e.png', 1, '2025-11-27 12:47:05'),
+(65, 2054, 'uploads/69284b023ffd0.png', 1, '2025-11-27 12:58:42'),
+(72, 2054, 'uploads/item_1764250984_3464.png', 0, '2025-11-27 13:43:04'),
+(73, 2053, 'uploads/item_1764251363_5552.png', 0, '2025-11-27 13:49:23'),
+(74, 2055, 'uploads/692858f470bc8.png', 1, '2025-11-27 13:58:12'),
+(75, 2056, 'uploads/69285a4fb048d.png', 1, '2025-11-27 14:03:59'),
+(76, 2056, 'uploads/item_1764252319_3394.png', 0, '2025-11-27 14:05:19'),
+(79, 2056, 'uploads/item_1764252856_1732.png', 0, '2025-11-27 14:14:16'),
+(80, 2041, 'uploads/item_1764255130_8059.png', 0, '2025-11-27 14:52:10'),
+(81, 2057, 'uploads/69287bcf537b5.png', 1, '2025-11-27 16:26:55'),
+(82, 2058, 'uploads/69287ed6a2909.png', 1, '2025-11-27 16:39:50'),
+(83, 2059, 'uploads/69287fbf45d54.png', 1, '2025-11-27 16:43:43'),
+(84, 2058, 'uploads/item_1764280685_5858.png', 0, '2025-11-27 21:58:05'),
+(85, 2060, 'uploads/69298fdea8113.jpg', 1, '2025-11-28 12:04:46'),
+(86, 2061, 'uploads/692990574caa5.png', 1, '2025-11-28 12:06:47'),
+(87, 2061, 'uploads/item_1764331773_3739.png', 0, '2025-11-28 12:09:33');
 
 -- --------------------------------------------------------
 
@@ -209,7 +267,7 @@ CREATE TABLE `items` (
   `sellerId` int(10) UNSIGNED NOT NULL,
   `categoryId` int(11) DEFAULT NULL,
   `itemUploadTime` datetime DEFAULT current_timestamp(),
-  `itemStatus` enum('active','sold','inactive') DEFAULT 'active',
+  `itemStatus` varchar(20) NOT NULL DEFAULT 'inactive',
   `itemCondition` enum('new','used','refurbished') DEFAULT 'used'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -239,7 +297,7 @@ INSERT INTO `items` (`itemId`, `itemName`, `itemDescription`, `sellerId`, `categ
 (2019, 'EndAuction Test Item', 'Testing endAuction function', 1, 1, '2025-11-21 11:43:21', 'sold', 'new'),
 (2020, 'Test Item for refresh', 'Testing status transitions', 1, 1, '2025-11-21 11:49:29', 'active', 'new'),
 (2021, 'watch', 'a nice watch', 1, 1, '2025-11-21 14:02:01', 'active', 'new'),
-(2022, 'Test Item From User', 'This is a test item created by an existing user.', 1, 2, '2025-11-21 14:55:37', 'active', 'new'),
+(2022, 'Test Item From User', 'This is a test item created by an existing user.', 1, 2, '2025-11-21 14:55:37', 'inactive', 'new'),
 (2023, 'car', 'good car', 1, 3, '2025-11-21 17:03:11', 'active', 'new'),
 (2024, 'car', '1', 1, 3, '2025-11-21 17:06:31', 'active', 'new'),
 (2025, 'watch', '111', 1, 1, '2025-11-21 17:08:43', 'active', 'new'),
@@ -257,7 +315,28 @@ INSERT INTO `items` (`itemId`, `itemName`, `itemDescription`, `sellerId`, `categ
 (2037, 'car', 'carrr', 4, 3, '2025-11-26 00:51:42', 'inactive', 'used'),
 (2038, 'watch', 'nice watch', 4, 1, '2025-11-26 01:08:17', 'active', 'refurbished'),
 (2039, 'newc', '', 4, 1, '2025-11-26 11:20:10', 'active', 'new'),
-(2040, 'newcar', 'new carrrr', 4, 3, '2025-11-26 11:20:21', 'active', 'new');
+(2040, 'newcar', 'new carrrr', 4, 3, '2025-11-26 11:20:21', 'active', 'new'),
+(2041, 'another nice car', 'nice', 5, 3, '2025-11-26 22:04:14', 'inactive', 'refurbished'),
+(2042, '11', '11', 4, 1, '2025-11-27 00:42:08', 'active', 'new'),
+(2043, '11', '11', 4, 1, '2025-11-27 00:42:19', 'active', 'new'),
+(2044, '1', '11', 4, 1, '2025-11-27 00:43:46', 'inactive', 'new'),
+(2045, 'nice watch', 'nice watch', 7, 1, '2025-11-27 10:47:50', 'inactive', 'new'),
+(2046, 'car', '1', 7, 1, '2025-11-27 10:54:43', 'inactive', 'new'),
+(2047, '11', '1', 7, 1, '2025-11-27 10:59:45', 'inactive', 'new'),
+(2048, 'new car for testing ', '2', 4, 2, '2025-11-27 11:56:26', 'active', 'used'),
+(2049, 'test watch', '2005', 4, 1, '2025-11-27 12:08:09', 'inactive', 'used'),
+(2050, 'watch', '1212', 4, 1, '2025-11-27 12:10:16', 'inactive', 'new'),
+(2051, 'car', '1', 4, 1, '2025-11-27 12:25:49', 'inactive', 'new'),
+(2052, 'car', '1', 4, 1, '2025-11-27 12:30:46', 'inactive', 'new'),
+(2053, 'test car', 'test', 4, 3, '2025-11-27 12:46:59', 'inactive', 'used'),
+(2054, 'test1', '1', 4, 1, '2025-11-27 12:58:36', 'inactive', 'new'),
+(2055, 'test 2', '22', 4, 1, '2025-11-27 13:58:03', 'inactive', 'new'),
+(2056, 'test watch', '11', 5, 1, '2025-11-27 14:03:17', 'sold', 'new'),
+(2057, 'test 3', '333', 4, 1, '2025-11-27 16:26:48', 'inactive', 'new'),
+(2058, 'test 4', 'a car', 4, 3, '2025-11-27 16:39:45', 'active', 'new'),
+(2059, 'tesyt', '', 5, 1, '2025-11-27 16:43:35', 'inactive', 'new'),
+(2060, 'test6 new car', 'test create item and auction', 5, 3, '2025-11-28 12:03:29', 'inactive', 'new'),
+(2061, 'test7 test reserve price', ' test reserve price', 8, 3, '2025-11-28 12:06:32', 'active', 'used');
 
 -- --------------------------------------------------------
 
@@ -286,11 +365,13 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`userId`, `userName`, `userEmail`, `userPassword`, `createdAt`, `userRole`, `userPhoneNumber`, `userDob`, `userHouseNo`, `userStreet`, `userCity`, `userPostcode`) VALUES
 (1, 'Seller A', 'seller@email.com', '7e240de74fb1ed08fa08d38063f6a6a91462a815', '2025-01-01 10:00:00', 'seller', 'london', '2025-11-26', '11', '111', 'london', 'w1 3tg'),
-(2, 'Buyer B', 'buyer1@email.com', '5cb138284d431abd6a053a56625ec088bfb88912', '2025-01-02 11:00:00', 'buyer', NULL, NULL, NULL, NULL, NULL, NULL),
-(3, 'Buyer C', 'buyer2@email.com', 'f36b4825e5db2cf7dd2d2593b3f5c24c0311d8b2', '2025-01-03 12:00:00', 'buyer', NULL, NULL, NULL, NULL, NULL, NULL),
+(2, 'hanmeimei', 'buyer1@email.com', '5cb138284d431abd6a053a56625ec088bfb88912', '2025-01-02 11:00:00', 'buyer', NULL, NULL, NULL, NULL, NULL, NULL),
+(3, 'lilei', 'buyer2@email.com', 'f36b4825e5db2cf7dd2d2593b3f5c24c0311d8b2', '2025-01-03 12:00:00', 'buyer', NULL, NULL, NULL, NULL, NULL, NULL),
 (4, 'xiaohua', '90750791197@qq.com', '$2y$10$jEXvufpdBeW8nIQksuROTuyqBamAa7mQAT1M0GhWeI3ysLYJsdxVa', '2025-11-25 12:29:23', 'buyer', '07858656880', '2006-03-18', '96', 'Look Lane', 'London', 'E1 6GU'),
 (5, 'xiaohua111', '9077@qq.com', '$2y$10$PLpuaPeKU1CpzNL7s2mWuO60P/xEoYYHgHOupXnt/AXU3Blb2SqLe', '2025-11-25 12:55:35', 'buyer', '020730', '2006-03-07', '15', 'West Park Walk', 'Arcadia', '91007'),
-(6, 'yufei', '9077@gmail.com', '$2y$10$kOy3j1Ft4QYUUCfQAX0/2uMc/U67hdOOageW87.HwrQYhX5ShPLxa', '2025-11-25 14:47:28', 'buyer', '06480', '1980-12-29', '77', 'S 6TH AVE', 'Arcadia', '28449');
+(6, 'yufei', '9077@gmail.com', '$2y$10$kOy3j1Ft4QYUUCfQAX0/2uMc/U67hdOOageW87.HwrQYhX5ShPLxa', '2025-11-25 14:47:28', 'buyer', '06480', '1980-12-29', '77', 'S 6TH AVE', 'Arcadia', '28449'),
+(7, 'Amy', '90997@qq.com', '$2y$10$L5sZpfdCH76OKrIoc8XO1.Qwhyv/D12qlCxHcIid0owwUAzBFQt1m', '2025-11-27 10:47:27', 'buyer', '07134340', '1987-02-25', '5', 'Canada Square', 'Arcadia', 'E20 1DG'),
+(8, '李雷和韩梅梅', '1@qq.com', '$2y$10$a/rSd6wwnA6GxYQgMFtxU.ZWjf97hrFlyrj5V8v9eeUNuNzZ5dCmK', '2025-11-27 23:54:18', 'buyer', '078580', '1996-02-14', '77', 'West Park Walk', 'London', '28449');
 
 -- --------------------------------------------------------
 
@@ -316,7 +397,13 @@ INSERT INTO `watchlist` (`watchId`, `userId`, `auctionId`, `addedAt`) VALUES
 (5, 5, 1031, '2025-11-26 00:31:59'),
 (7, 4, 1031, '2025-11-26 00:50:46'),
 (10, 4, 1032, '2025-11-26 01:07:13'),
-(11, 4, 1027, '2025-11-26 11:18:14');
+(11, 4, 1027, '2025-11-26 11:18:14'),
+(12, 4, 1028, '2025-11-27 13:59:19'),
+(13, 4, 1053, '2025-11-27 14:56:43'),
+(14, 5, 1055, '2025-11-27 16:29:01'),
+(15, 5, 1003, '2025-11-27 23:22:31'),
+(17, 8, 1027, '2025-11-28 00:14:09'),
+(20, 8, 1025, '2025-11-28 00:18:17');
 
 --
 -- 转储表的索引
@@ -383,13 +470,13 @@ ALTER TABLE `watchlist`
 -- 使用表AUTO_INCREMENT `auctions`
 --
 ALTER TABLE `auctions`
-  MODIFY `auctionId` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1035;
+  MODIFY `auctionId` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1063;
 
 --
 -- 使用表AUTO_INCREMENT `bids`
 --
 ALTER TABLE `bids`
-  MODIFY `bidId` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `bidId` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- 使用表AUTO_INCREMENT `categories`
@@ -401,25 +488,25 @@ ALTER TABLE `categories`
 -- 使用表AUTO_INCREMENT `images`
 --
 ALTER TABLE `images`
-  MODIFY `imageId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
+  MODIFY `imageId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=88;
 
 --
 -- 使用表AUTO_INCREMENT `items`
 --
 ALTER TABLE `items`
-  MODIFY `itemId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2041;
+  MODIFY `itemId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2062;
 
 --
 -- 使用表AUTO_INCREMENT `users`
 --
 ALTER TABLE `users`
-  MODIFY `userId` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `userId` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- 使用表AUTO_INCREMENT `watchlist`
 --
 ALTER TABLE `watchlist`
-  MODIFY `watchId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `watchId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- 限制导出的表
