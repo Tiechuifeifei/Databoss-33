@@ -234,7 +234,7 @@ function placeBid($buyerId, $auctionId, $bidPrice)
     }
     $db = get_db_connection();
 
-//2. Check auction's status, like:exsistence/start price/status etc.
+//2. Check auction's status, like:existence/start price/status etc.
 $sqlAuction = "
     SELECT 
         i.sellerId,
