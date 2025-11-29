@@ -1,2 +1,24 @@
-/* Any custom CSS you would like to specify for your site can go here. */
 
+.header-logo{
+    font-family:Monospace,"Monaco";
+    font-weight:800;
+    font-size:2.5rem;
+    color:#000;
+    text-decoration:none;
+}
+
+.nav-link{
+    font-weight:500;
+    color:#000;
+}
+
+.nav-link:hover{
+    text-decoration:underline;
+}
+
+.havbar-centered .navbar-nav{
+    float:none;
+    margin:0 auto;
+    display:table;
+    table-layout:fixed;
+}
