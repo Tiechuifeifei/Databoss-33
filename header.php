@@ -5,10 +5,16 @@ if (session_status() === PHP_SESSION_NONE) {
 
 require_once __DIR__ . '/utilities.php';
 
-// For login redirect back
 $currentUrl = $_SERVER['REQUEST_URI'] ?? 'browse.php';
 ?>
+<?php
 
+if (session_status() === PHP_SESSION_NONE) { session_start(); }
+
+require_once __DIR__ . '/utilities.php';
+
+$currentUrl = $_SERVER['REQUEST_URI'] ?? 'index.php';
+?>
 <!doctype html>
 <html lang="en">
 <head>
@@ -16,149 +22,107 @@ $currentUrl = $_SERVER['REQUEST_URI'] ?? 'browse.php';
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <link rel="stylesheet" href="css/bootstrap.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <link rel="stylesheet" href="css/custom.css">
-  <title>Auction</title>
+  <link rel="stylesheet" href="css/custom_2.css">
+
+  <title>[My Auction Site] <!--CHANGEME!--></title>
 </head>
 
-<body>
+<body class="p-5">
 
-<!-- bar -->
-<nav class="navbar navbar-expand-lg navbar-light bg-light mx-2">
-  <a class="navbar-brand" href="browse.php">Auction</a>
+<!--Logo in the middle-->
+<div class="container-fluid bg-white pt-3 pb-2">
+    <div class="row align-items-center">
+        <div class="col-4"></div>
+        <div class="col-4 text-center">
+            <a href="index.php" class="header-logo">Auction</a>
+        </div>
+        
+        <!--login and user infomation-->
+        <div class="col-4 text-right d-flex justify-content-end align-items-center">
+            <?php if (!empty($_SESSION['userId'])): ?>
+                <span class="hi-user">Hi, <?= h($_SESSION['userName'] ?? 'User') ?></span>
+                <a class="nav-link text-dark px-1" href="logout.php">Log out</a>
+            <?php else: ?>
+                <a type="button" class="nav-link text-dark px-2" data-toggle="modal" data-target="#loginModal">
+                  Login</a>
+                <span class="text-muted mx-1">|</span>
+                <a class="nav-link text-dark px-2" href="register.php">Register</a>
+            <?php endif; ?>
+        </div>
+    </div>
+</div>
 
-  <ul class="navbar-nav ml-auto">
-    <li class="nav-item d-flex align-items-center">
+<!--Header buttons to different pages-->
+<nav class="navbar navbar-expand-lg navbar-light bg-white pb-3">
+  <button class="navbar-toggler mx-auto" type="button" data-toggle="collapse" data-target="#mainNav">
+      <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse justify-content-center" id="mainNav">
+    <ul class="navbar-nav">
+      <li class="nav-item mx-3"><a class="nav-link" href="index.php">Home</a></li>
+      <li class="nav-item mx-3"><a class="nav-link" href="browse.php">Browse</a></li>
+      
       <?php if (!empty($_SESSION['userId'])): ?>
-        <span class="nav-link">Hi, <?= h($_SESSION['userName'] ?? 'User') ?></span>
-        <a class="nav-link" href="logout.php">Logout</a>
-      <?php else: ?>
-        <button type="button" class="btn nav-link" data-toggle="modal" data-target="#loginModal">
-          Login
-        </button>
-        <a class="nav-link" href="register.php">Register</a>
+        <li class="nav-item mx-3"><a class="nav-link" href="mybids.php">My Bids</a></li>
+        <li class="nav-item mx-3"><a class="nav-link" href="mylistings.php">My Listings</a></li>
+        <li class="nav-item mx-3"><a class="nav-link" href="profile.php">My Profoile</a></li>
       <?php endif; ?>
-    </li>
-  </ul>
-</nav>
-
-<!-- function manu -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <ul class="navbar-nav">
-
-    <li class="nav-item mx-1">
-      <a class="nav-link" href="browse.php">Browse</a>
-    </li>
-
+    </ul>
+    
     <?php if (!empty($_SESSION['userId'])): ?>
-
-      <li class="nav-item mx-1">
-        <a class="nav-link" href="mybids.php">My Bids</a>
-      </li>
-
-      <li class="nav-item mx-1">
-        <a class="nav-link" href="profile.php">My Profile</a>
-      </li>
-
-      <li class="nav-item mx-1">
-        <a class="nav-link" href="mylistings.php">My Listings</a>
-      </li>
-
-      <li class="nav-item ml-3">
-        <a class="nav-link btn border-light" href="create_item.php">+ Create auction</a>
-      </li>
+      <a class="btn btn-outline-dark" style="padding:4px 12px;font-size:0.95rem;" 
+        href="create_item.php">+ Create auction</a>
 
     <?php endif; ?>
-
-  </ul>
+  </div>
 </nav>
 
-
-<div class="modal fade" id="loginModal">
+<!--login modal code-->
+<div class="modal fade mt-3 " id="loginModal">
   <div class="modal-dialog">
     <div class="modal-content">
-
-      <div class="modal-header">
-        <h4 class="modal-title">Login</h4>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
+      <div class="login-container">
+        <h4 class="login-title">Login</h4>
       </div>
-
       <div class="modal-body">
+        <?php 
+        if (!empty($_SESSION['flash_error'])): ?>
+          <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                if (typeof $ !== 'undefined') {
+                    $('#loginModal').modal('show');
+                }
+            });
+          </script>
+          <div class="alert alert-danger">
+            <?= h($_SESSION['flash_error']); ?>
+          </div>
+          <?php unset($_SESSION['flash_error']); ?>
+        <?php endif; ?>
 
-        <div id="loginErrorBox" class="alert alert-danger d-none"></div>
-
-        <form id="loginForm" method="POST" action="login_result.php">
+          <!--Login html-->
+        <form method="POST" action="login_result.php">
           <input type="hidden" name="redirect" value="<?= h($currentUrl) ?>">
 
-          <div class="form-group">
-            <label for="loginEmail">Email</label>
-            <input type="email" class="form-control" id="loginEmail" name="userEmail"
-                   placeholder="Email" required>
+          <div class="form-group mb-3">
+            <label for="loginEmail" class="login-label">
+              email</label>
+            <input type="email" class="form-control login-input py-4" id="loginEmail" name="userEmail"
+             placeholder="name@exmple.com" required>
           </div>
 
-          <div class="form-group">
-            <label for="loginPassword">Password</label>
-            <input type="password" class="form-control" id="loginPassword" name="userPassword"
-                   placeholder="Password" required>
+          <div class="form-group mb-4">
+            <label for="loginPassword" class="login-label">
+              Password</label>
+            <input type="password" class="form-control login-input" id="loginPassword"
+             name="userPassword" placeholder="Enter Your Password" required>
           </div>
-
-          <button type="submit" class="btn btn-primary form-control">Sign in</button>
+          <button type="submit" class="btn-black btn-primary form-control">Sign in</button>
         </form>
-
-        <div class="text-center mt-2">
-          or <a href="register.php">create an account</a>
-        </div>
-
+        <div class="text-center mt-4 text-muted small">Don't have an account?
+          <a href="register.php" class="text-dark font-weight-bold" style="text-decoration:underline">create now</a></div>
       </div>
     </div>
   </div>
 </div>
-
-<script>
-document.addEventListener('DOMContentLoaded', function () {
-  var form    = document.getElementById('loginForm');
-  var errorBox = document.getElementById('loginErrorBox');
-
-  if (!form || !errorBox) return;
-
-  form.addEventListener('submit', function (e) {
-    e.preventDefault(); 
-
-    errorBox.textContent = '';
-    errorBox.classList.add('d-none');
-
-    var formData = new FormData(form);
-    var action   = form.getAttribute('action') || 'login_result.php';
-
-    fetch(action, {
-      method: 'POST',
-      body: formData
-    })
-      .then(function (response) {
-        return response.json();
-      })
-      .then(function (data) {
-        if (data.success) {
-          window.location.href = data.redirect || 'browse.php';
-        } else {
-          errorBox.textContent = data.message || 'Login failed.';
-          errorBox.classList.remove('d-none');
-        }
-      })
-      .catch(function () {
-        errorBox.textContent = 'Sorry, something went wrong. Please try again later.';
-        errorBox.classList.remove('d-none');
-      });
-  });
-
-
-  if (window.jQuery) {
-    $('#loginModal').on('hidden.bs.modal show.bs.modal', function () {
-      errorBox.textContent = '';
-      errorBox.classList.add('d-none');
-      form.reset();
-    });
-  }
-});
-</script>
