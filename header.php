@@ -63,6 +63,10 @@ $currentUrl = $_SERVER['REQUEST_URI'] ?? 'browse.php';
         <a class="nav-link" href="mylistings.php">My Listings</a>
       </li>
 
+      <li class="nav-item mx-1">
+        <a class="nav-link" href="viewBidsOnMyAuctions.php">Bids on My Auctions</a>
+      </li>
+
       <li class="nav-item ml-3">
         <a class="nav-link btn border-light" href="create_item.php">+ Create auction</a>
       </li>
