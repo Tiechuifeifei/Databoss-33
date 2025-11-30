@@ -42,6 +42,10 @@ require_once 'utilities.php';
 //
 // 7. Basic anti-spam rule:
 //    The current highest bidder cannot place another bid on the same auction.
+//
+// 8. Reminder for user before bidding (soft validation):
+//    Please double-check your bid amount before submitting to avoid typo errors.
+//    Please confirm your decision carefully, as bids cannot be cancelled or withdrawn.
 //***********************************************************************************************************************
 
     
