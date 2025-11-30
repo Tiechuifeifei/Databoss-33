@@ -2,46 +2,38 @@
 // mybids.php
 // Buyer's view: buyer can view all his/her bids on different auctions.
 
-require_once __DIR__ . '/utilities.php';
-require_once __DIR__ . '/bid_functions.php';
+require_once __DIR__.'/utilities.php';
+require_once __DIR__.'/bid_functions.php';
 
 if (session_status() === PHP_SESSION_NONE) {
   session_start();
 }
 
 $userId = $_SESSION['userId'] ?? null;
-include __DIR__ . '/header.php';
+include __DIR__.'/header.php';
 
-// if not logged in, cannot check "my" bids
 if (!$userId) {
   echo '<div class="container mt-4">
     <div class="alert alert-warning">Please log in to view your bids.</div>
   </div>';
-  include __DIR__ . '/footer.php';
+  include __DIR__.'/footer.php';
   exit;
 }
 
-// take all the bids records first.
 $rawBids = getBidsByUser($userId);
 
-// group by auctionId: for each auction, only keep YOUR highest bid
-$grouped = []; // key: auctionId
-
+$grouped = [];
 foreach ($rawBids as $row) {
   $aid = (int)$row['auctionId'];
-
-  // if this auction not seen before, save this bid
   if (!isset($grouped[$aid])) {
     $grouped[$aid] = $row;
   } else {
-    // if this bidPrice is higher, replace the previous one
     if ((float)$row['bidPrice'] > (float)$grouped[$aid]['bidPrice']) {
       $grouped[$aid] = $row;
     }
   }
 }
 
-// now $bids = one row per auction
 $bids = array_values($grouped);
 ?>
 
@@ -50,6 +42,7 @@ $bids = array_values($grouped);
 
   <?php if (empty($bids)): ?>
     <p>You have not placed any bids yet.</p>
+
   <?php else: ?>
     <?php foreach ($bids as $b): ?>
 
@@ -64,7 +57,6 @@ $bids = array_values($grouped);
       $startPrice = (float)$b['startPrice'];
 
       $highestRow = getHighestBidForAuction($auctionId);
-
       if ($highestRow) {
         $currentHighest = (float)$highestRow['bidPrice'];
         $isHighest = ((int)$highestRow['buyerId'] === (int)$userId);
@@ -79,14 +71,10 @@ $bids = array_values($grouped);
       <div class="card mb-4">
         <div class="card-header">
           <div><strong>#<?= $auctionId ?> — <?= h($itemName) ?></strong></div>
-
           <div>
             Status: <strong><?= h($status) ?></strong>
-            <?php if ($endTime): ?>
-              | Ends: <?= h($endTime) ?>
-            <?php endif; ?>
+            <?php if ($endTime): ?> | Ends: <?= h($endTime) ?> <?php endif; ?>
           </div>
-
           <div>
             <?php
             if ($status === 'ended') {
@@ -113,6 +101,7 @@ $bids = array_values($grouped);
                 <th>#</th>
                 <th>Buyer</th>
                 <th>Buyer ID</th>
+                <th>Start Price</th>
                 <th>Bid Price</th>
                 <th>Bid Time</th>
               </tr>
@@ -127,6 +116,7 @@ $bids = array_values($grouped);
                   <td><?= $index++ ?></td>
                   <td><?= h($oneBid['buyerName']) ?></td>
                   <td><?= (int)$oneBid['buyerId'] ?></td>
+                  <td>£<?= number_format($startPrice, 2) ?></td>
                   <td>£<?= number_format($oneBid['bidPrice'], 2) ?></td>
                   <td><?= h($oneBid['bidTime']) ?></td>
                 </tr>
@@ -134,14 +124,13 @@ $bids = array_values($grouped);
             </tbody>
           </table>
 
-          <a href="listing.php?itemId=<?= $itemId ?>" class="btn btn-outline-primary btn-sm">
-            Open Auction
-          </a>
+          <a href="listing.php?itemId=<?= $itemId ?>" class="btn btn-outline-primary btn-sm">Open Auction</a>
         </div>
       </div>
 
     <?php endforeach; ?>
   <?php endif; ?>
+
 </div>
 
-<?php include __DIR__ . '/footer.php'; ?>
+<?php include __DIR__.'/footer.php'; ?>
