@@ -56,6 +56,7 @@ $db = get_db_connection();
 $sql = "
   SELECT
   b.bidId,
+  b.buyerId,
   b.auctionId,
   b.bidPrice,
   b.bidTime,
