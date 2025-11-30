@@ -20,7 +20,7 @@ require_once 'utilities.php';
 // 5. Place Bid
 //    Allows a buyer to place a bid on an auction item, but with multiple validation checks.
 //***********************************************************************************************************************
-// 8 Validations:
+// 7 Validations:
 //
 // 1. Auction existence check:
 //    Users cannot bid if the auction does not exist.
@@ -96,7 +96,7 @@ $sql = "
     
     
 // 2. Get Bids By Auction: 
-//    "Auction's View" - to check all bid/bids in an auction.
+// "Auction's View" - to check all bid/bids in an auction.
 function getBidsByAuctionId($auctionId)
 {
 
@@ -183,6 +183,7 @@ a.auctionStartTime,
 a.auctionEndTime,
 a.auctionStatus,
 a.startPrice,
+a.winningBidId,
 
 i.itemName,
 
@@ -227,7 +228,6 @@ return $rows;
 
 // 5. Place Bid: 
 //    A user(buyer) to place a bid on an item in an auction.
-
 // How it works:
 // 1) Validate bid price (> 0).
 // 2) Load auction info and check existence / seller / timing / status.
