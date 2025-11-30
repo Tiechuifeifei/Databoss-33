@@ -20,7 +20,7 @@ require_once 'utilities.php';
 // 5. Place Bid
 //    Allows a buyer to place a bid on an auction item, but with multiple validation checks.
 //***********************************************************************************************************************
-// 7 Validations:
+// 8 Validations:
 //
 // 1. Auction existence check:
 //    Users cannot bid if the auction does not exist.
