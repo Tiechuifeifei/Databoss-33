@@ -36,9 +36,8 @@ $result = placeBid($buyerId, $auctionId, $bidPrice);
 
 //redirect back to listing
 if ($result['success']) {
-    header("Location: listing.php?itemId={$redirectItemId}&auctionId={$auctionId}&success=bid");
+    header("Location: listing.php?itemId={$redirectItemId}&auctionId={$auctionId}&success=" . urlencode($result['message']));
 } else {
     header("Location: listing.php?itemId={$redirectItemId}&auctionId={$auctionId}&error=" . urlencode($result['message']));
 }
-
 exit;
