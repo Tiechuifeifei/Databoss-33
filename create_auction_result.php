@@ -1,3 +1,5 @@
+<link rel="stylesheet" href="css/custom_2.css">
+
 <?php
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
@@ -8,24 +10,27 @@ require_once("Auction_functions.php");
 include_once("header.php");
 ?>
 
-<div class="container my-5">
+<div class="form-container" style="margin-top:50px;">
 
 <?php
-// ----------- STEP 1: Validate request method -----------
+//Validate request method
 if ($_SERVER["REQUEST_METHOD"] !== "POST") {
-    echo "<div class='alert alert-danger'>Invalid request.</div>";
+    echo "<div class='message-box error'>
+    <h3>Invalid request.</h3>
+    </div>";
+    echo"</div>";
+    include_once("footer.php");
     exit();
 }
 
-// ----------- STEP 2: Extract POST data -----------
+//Extract POST data
 $itemId = intval($_POST['itemId']);
-$auctionTitle = trim($_POST['auctionTitle']);
 $startPrice   = $_POST['startPrice'];
 $reservePrice = $_POST['reservePrice'];
 $startTime    = $_POST['startTime'];
 $endTime      = $_POST['endTime'];
 
-// ----------- STEP 2B: Check image existence -----------
+//Check image existence
 $db = get_db_connection();   // ← MUST HAVE THIS
 
 $stmt = $db->prepare("SELECT COUNT(*) as cnt 
@@ -36,19 +41,18 @@ $stmt->execute();
 $row = $stmt->get_result()->fetch_assoc();
 
 if ($row['cnt'] == 0) {
-    echo "<div class='alert alert-danger'>
-            You must upload a primary image before creating an auction.
+    echo "<div class='message-box error'>
+            <h3>You must upload a primary image before creating an auction.</h3>
           </div>";
-    echo "<a class='btn btn-warning mt-3' href='edit_item.php?itemId=$itemId'>
+
+    echo "<a class='btn-link-style' href='edit_item.php?itemId=$itemId'>
             Upload / Set primary image
           </a>";
     exit();
 }
 
-// ----------- STEP 3: Validate fields -----------
+//Validate fields
 $errors = [];
-
-if ($auctionTitle === "") $errors[] = "Auction title is required.";
 
 if ($startPrice === "" || !is_numeric($startPrice)) {
     $errors[] = "Start price must be a valid number.";
@@ -58,35 +62,53 @@ if ($reservePrice === "" || !is_numeric($reservePrice)) {
     $errors[] = "Reserve price must be a valid number.";
 }
 
+if ($reservePrice<$startPrice){
+    $errors[] = "Reserve price must higher or equal to start price.";
+}
+
 if ($startTime === "" || $endTime === "") {
     $errors[] = "Start and end time are required.";
 } else {
-    $now = time();
+    $startTS=strtotime($startTime);
+    $endTS=strtotime($endTime);
+    $tomorrowTS = strtotime('tomorrow');
+    $minStart = time()+24*60*60;
 
-    if (strtotime($startTime) <= $now) {
-        $errors[] = "Start time must be in the future.";
+    if ($startTS < $minStart) {
+        $errors[] = "Start time must be from 24 hours onwards";
     }
 
-    if (strtotime($endTime) <= strtotime($startTime)) {
+    if ($endTS<=$startTS) {
         $errors[] = "End time must be after start time.";
+    }
+
+    if (($endTS-$startTS)<24*60*60){
+        $errors[] = "End time must be at least 24 hours after the start time.";
     }
 }
 
 if (!empty($errors)) {
-    echo "<div class='alert alert-danger'><strong>Errors:</strong><ul>";
+    echo "<div class='message-box error'";
+    echo "<h1 class='result-title'>Errors:</h1><ul>";
+    echo "<ul class='error-list'";
     foreach ($errors as $err) echo "<li>$err</li>";
-    echo "</ul></div>";
+    echo "</ul>";
+    echo "</div>";
 
     // Add return button
-    echo "<a class='btn btn-primary mt-3' href='create_auction.php?itemId=$itemId'>
-            Go back to Create Auction
-          </a>";
+    echo "<a class='btn-link-style' href='create_auction.php?itemId=$itemId'
+    style='justify-content:center;'>
+            Go back to Create Auction</a>";
+    echo"</div>";
+
+    echo"</div>";
+    include_once("footer.php");
 
     exit();
 }
 
 
-// ----------- STEP 4: Insert auction -----------
+//Insert auction
 $newAuctionId = createAuction(
     $itemId,
     $startPrice,
@@ -96,20 +118,24 @@ $newAuctionId = createAuction(
 );
 
 if (!$newAuctionId) {
-    echo "<div class='alert alert-danger'>Failed to create auction. Please try again.</div>";
+    echo "<div class='message-box error'>Failed to create auction. Please try again.</div>";
+    echo "</div>";
+    include_once("footer.php");
     exit();
 }
-
-// ----------- STEP 5: Success message -----------
-echo "
-<div class='text-center alert alert-success'>
-    Auction successfully created! <br><br>
-    <a class='btn btn-success' href='listing.php?auctionId={$newAuctionId}'>
-        View your new listing
-    </a>
-</div>";
 ?>
 
-</div>
+<!--create successully-->
+<div class="message-box success">
+        <h3 class="result-title">Auction Created!</h3>
+        <p style="color: #666;">Your item is now live on the marketplace.</p>
+    </div>
 
+    <div class="form-footer" style="justify-content: center;">
+        <a class="btn-link-style primary" href="listing.php?auctionId=<?php echo $newAuctionId; ?>">
+            View Listing
+        </a>
+    </div>
+
+</div>
 <?php include_once("footer.php") ?>

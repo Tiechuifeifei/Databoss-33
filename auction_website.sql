@@ -267,7 +267,7 @@ CREATE TABLE `items` (
   `sellerId` int(10) UNSIGNED NOT NULL,
   `categoryId` int(11) DEFAULT NULL,
   `itemUploadTime` datetime DEFAULT current_timestamp(),
-  `itemStatus` varchar(20) NOT NULL DEFAULT 'inactive',
+  `itemStatus` enum('active','sold','inactive') DEFAULT 'inactive',
   `itemCondition` enum('new','used','refurbished') DEFAULT 'used'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 

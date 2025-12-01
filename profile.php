@@ -1,3 +1,5 @@
+<link rel="stylesheet" href="css/custom_2.css">
+
 <?php
 require_once 'utilities.php';
 require_once 'auction_functions.php';
@@ -11,10 +13,10 @@ if (!$userId) {
     exit;
 }
 
-// Connect DB
+//Connect DB
 $db = get_db_connection();
 
-// 1. Fetch User Info
+//Fetch User Info
 $sql = "SELECT * FROM users WHERE userId = ?";
 $stmt = $db->prepare($sql);
 $stmt->bind_param("i", $userId);
@@ -60,7 +62,7 @@ $avgRating   = $ratingRow['avg_rating'] ?? null;
 $ratingCount = (int)($ratingRow['rating_count'] ?? 0);
 
 
-// 2. Fetch User's Listings
+//Fetch User's Listings
 $sqlListings = "
     SELECT 
         a.auctionId,
@@ -79,24 +81,25 @@ $stmt->execute();
 $listings = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
 $stmt->close();
 
-// 3. Fetch User's Bids
+//Fetch User's Bids
 $bids = getBidsByUser($userId);
 
-// 4. Fetch Watchlist
+//Fetch Watchlist
 $watchlist = viewWatchlistByUser($userId);
 
 ?>
 
 <?php include "header.php"; ?>
-<div class="container mt-4">
 
-<h2 class="mb-4">👤 My Profile</h2>
+<div class="container mt-4 profile-page">
 
-<!-- basic information -->
-<div class="card mb-4 p-3">
-    <h4>Basic Information</h4>
-    <p><strong>Name:</strong> <?= h($user['userName']) ?></p>
-    <p><strong>Email:</strong> <?= h($user['userEmail']) ?></p>
+<h2 class="mb-4 profile-title">My Profile</h2>
+
+<!--basic information-->
+<div class="card mb-4 p-3 profile-card profile-section">
+    <h4 class="profile-section-title">Basic Information</h4>
+    <p class="porfile-info">Name: <?= h($user['userName']) ?></p>
+    <p class="porfile-info">Email: <?= h($user['userEmail']) ?></p>
 
         <p><strong>Seller Rating:</strong>
         <?php if ($ratingCount > 0): ?>
@@ -107,13 +110,12 @@ $watchlist = viewWatchlistByUser($userId);
         <?php endif; ?>
     </p>
 
-    <p><strong>Phone:</strong> <?= h($user['userPhoneNumber'] ?? '—') ?></p>
-    <p><strong>Address:</strong>
-        <?= h($user['userHouseNo']) . ", " . h($user['userStreet']) . ", " . h($user['userCity']) ?>
+    <p class="porfile-info">Phone: <?= h($user['userPhoneNumber'] ?? '—') ?></p>
+    <p class="porfile-info">Address: <?= h($user['userHouseNo']) . ", " . h($user['userStreet']) . ", " . h($user['userCity']) ?>
     </p>
-    <p><strong>Postcode:</strong> <?= h($user['userPostcode']) ?></p>
-    <p><strong>Date of Birth:</strong> <?= h($user['userDob']) ?></p>
-    <p><strong>Joined:</strong> <?= h($user['createdAt']) ?></p>
+    <p class="porfile-info">Postcode: <?= h($user['userPostcode']) ?></p>
+    <p class="porfile-info">Date of Birth: <?= h($user['userDob']) ?></p>
+    <p class="porfile-info">Joined: <?= h($user['createdAt']) ?></p>
         <?php if ($ratingCount > 0): ?>
         <p>
             <strong>Seller Rating:</strong>
@@ -127,28 +129,28 @@ $watchlist = viewWatchlistByUser($userId);
 </div>
 
 
-<!-- user listing -->
-<h4 class="mt-5"> My Listings</h4>
+<!--user listing-->
+<h4 class="profile-section-title"> My Listings</h4>
 
 <?php if (empty($listings)): ?>
-    <p>No listings yet.</p>
+    <p class="profile-message">No listings yet.</p>
 <?php else: ?>
     <?php foreach ($listings as $a): ?>
-        <div class="card p-3 mb-2">
-            <h5><?= h($a['itemName']) ?></h5>
-            <p>Status: <strong><?= h($a['auctionStatus']) ?></strong></p>
-            <p>Start Price: £<?= h($a['startPrice']) ?></p>
+        <div class="card p-3 mb-2 profile-card profile-mini-card">
+            <h5 class="profile-item-title"><?= h($a['itemName']) ?></h5>
+            <p class="porfile-info">Status: <?= h($a['auctionStatus']) ?></strong></p>
+            <p class="porfile-info">Start Price: £<?= h($a['startPrice']) ?></p>
             <a href="listing.php?auctionId=<?= $a['auctionId'] ?>" 
-               class="btn btn-primary btn-sm">View Auction</a>
+               class="profile-btn">View Auction</a>
         </div>
     <?php endforeach; ?>
 <?php endif; ?>
 
-<!-- user bids -->
-<h4 class="mt-5"> My Bids</h4>
+<!--user bids-->
+<h4 class="mt-5 profile-section-title"> My Bids</h4>
 
 <?php if (empty($bids)): ?>
-    <p>You haven’t placed any bids.</p>
+    <p class="profile-message">You haven't placed any bids.</p>
 <?php else: ?>
     <?php foreach ($bids as $b): ?>
 
@@ -255,32 +257,33 @@ $watchlist = viewWatchlistByUser($userId);
 <?php endif; ?>
 
 
-            <a class="btn btn-primary btn-sm"
-               href="listing.php?auctionId=<?= (int)$auctionId ?>">View Auction</a>
+            <a class="profile-btn" href="listing.php?auctionId=<?= $b['auctionId'] ?>"
+            style="margin= auto;">View Auction</a>
         </div>
     <?php endforeach; ?>
 <?php endif; ?>
 
 
-<!-- watchlist -->
-<h4 class="mt-5"> My Watchlist</h4>
+<!--watchlist-->
+<h4 class="mt-5 profile-section-title"> My Watchlist</h4>
 
 <?php if (empty($watchlist)): ?>
-    <p>No items in your watchlist.</p>
+    <p class="profile-message">No items in your watchlist.</p>
 <?php else: ?>
     <?php foreach ($watchlist as $w): ?>
         <div class="card p-3 mb-2">
             <h5><?= h($w['itemName']) ?></h5>
-            <p>Status: <?= h($w['auctionStatus']) ?></p>
+            <p class="porfile-info">Status: <?= h($w['auctionStatus']) ?></p>
 
-            <a class="btn btn-primary btn-sm" 
+            <a class="profile-btn" 
                href="listing.php?auctionId=<?= $w['auctionId'] ?>">View</a>
 
-            <a class="btn btn-danger btn-sm" 
+            <a class="profile-btn-remove"
                href="watchlist_remove.php?auctionId=<?= $w['auctionId'] ?>">Remove</a>
         </div>
     <?php endforeach; ?>
 <?php endif; ?>
+</div>
 
 
 </div>

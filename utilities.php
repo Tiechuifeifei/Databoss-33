@@ -1,3 +1,5 @@
+<link rel="stylesheet" href="css/custom_2.css">
+
 <?php
 require __DIR__ . DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR . 'autoload.php';
 
@@ -7,6 +9,7 @@ $dotenv->load();
 
 error_reporting(E_ALL);
 ini_set('display_errors', '1');
+
 
 // Get database connection //
 function get_db_connection(): mysqli {
@@ -109,52 +112,66 @@ function print_listing_li($auctionId, $title, $desc, $price, $num_bids, $endTime
 {
     $now = new DateTime();
 
-    // Determine status text + badge
+    
     if ($status === 'scheduled') {
-
-        $interval = $now->diff($startTime);
+        $interval  = $now->diff($startTime);
         $time_text = "Starts in " . display_time_remaining($interval);
-        $badge = "<span class='badge bg-info text-dark'>Not started</span>";
-
+        $badge     = "<span class='badge badge-schedule'>Not started</span>";
     } elseif ($status === 'running') {
-
-        $interval = $now->diff($endTime);
+        $interval  = $now->diff($endTime);
         $time_text = display_time_remaining($interval) . " remaining";
-        $badge = "<span class='badge bg-success'>Running</span>";
-
+        $badge     = "<span class='badge badge-running'>Running</span>";
     } else { // ended
-
         $time_text = "Auction ended";
-        $badge = "<span class='badge bg-secondary'>Ended</span>";
+        $badge     = "<span class='badge badge-ended'>Ended</span>";
     }
 
-    echo "<li class='list-group-item'>
-            <div class='d-flex justify-content-between'>
+    $bid_word = ($num_bids == 1) ? "bid" : "bids";
+    ?>
 
-                <!-- LEFT -->
-                <div>
-                    <a href='listing.php?auctionId=$auctionId' class='fw-bold'>$title</a><br>
-                    <small class='text-muted'>$desc</small><br>
-                    $badge
+    <li class="list-group-item listing-item">
+        <div class="row align-items-start">
+
+            <!--LEFT-->
+            <div class="col-9 listing-left">
+                <a href="listing.php?auctionId=<?= $auctionId ?>" class="listing-title">
+                    <?= htmlspecialchars($title) ?>
+                </a>
+
+                <div class="listing-desc text-muted">
+                    <?= htmlspecialchars($desc) ?>
                 </div>
 
-                <!-- RIGHT -->
-                <div class='text-end'>
-                    <strong>£" . number_format($price, 2) . "</strong><br>
-                    <small>$num_bids " . ($num_bids == 1 ? "bid" : "bids") . "</small><br>
-                    <small class='text-muted'>$time_text</small><br>";
-
-                    // NEW: only show winner if auction ended
-                    if ($status === 'ended') {
-                        if ($winnerName) {
-                            echo "<small><strong>Winner:</strong> " . htmlspecialchars($winnerName) . "</small>";
-                        } else {
-                            echo "<small><strong>No bids were placed</strong></small>";
-                        }
-                    }
-
-    echo       "</div>
-
+                <div class="listing-badge">
+                    <?= $badge ?>
+                </div>
             </div>
-          </li>";
+
+            <!--RIGHT-->
+            <div class="col-3 listing-right text-end">
+                <div class="listing-price">
+                    £<?= number_format($price, 2) ?>
+                </div>
+                <div class="listing-bids">
+                    <?= $num_bids . ' ' . $bid_word ?>
+                </div>
+                <div class="listing-time">
+                    <?= htmlspecialchars($time_text) ?>
+                </div>
+
+                <?php if ($status === 'ended'): ?>
+                    <div class="listing-winner">
+                        <?php if ($winnerName): ?>
+                            Winner: <?= htmlspecialchars($winnerName) ?>
+                        <?php else: ?>
+                            No bids were placed
+                        <?php endif; ?>
+                    </div>
+                <?php endif; ?>
+            </div>
+
+        </div>
+    </li>
+
+    <?php
 }

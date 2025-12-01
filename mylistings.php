@@ -1,3 +1,5 @@
+  <link rel="stylesheet" href="css/custom_2.css">
+
 <?php
 require_once __DIR__ . '/utilities.php';
 if (session_status() === PHP_SESSION_NONE) { session_start(); }
@@ -41,12 +43,15 @@ $rs = $stmt->get_result();
 ?>
 
 <!-- YH DEBUG: we need to use auctionID in the mylisting page instead of itemID -->
-<div class="container mt-4">
-    <h3>My listings</h3>
+<div class="container mt-4 mylistings-page">
+    <h3 class="mylistings-title">My listings</h3>
+
     <?php if ($rs->num_rows === 0): ?>
-        <div class="alert alert-info mt-3">You haven’t created any auctions yet.</div>
+        <div class="alert alert-info mt-3 mylistings-empty">You haven't created any auctions yet.</div>
     <?php else: ?>
-        <ul class="list-group mt-3">
+        </div>
+
+        <ul class="list-group mt-3 mylistings-list">
             <?php while ($row = $rs->fetch_assoc()): ?>
                 <?php
                     $auctionId = (int)$row['auctionId'];
@@ -57,18 +62,24 @@ $rs = $stmt->get_result();
                     $start     = (float)$row['startPrice'];
                     $topPrice  = (float)$row['topPrice'];
                 ?>
-                <li class="list-group-item d-flex justify-content-between align-items-center">
-                    <div>
-                        <a href="listing.php?auctionId=<?=$auctionId?>"><?=$itemName?></a><br>
-                        <small>
+
+                <li class="list-group-item d-flex justify-content-between align-items-center mylistings-item">
+                    <div class="mylistings-item-main">
+                        <a href="listing.php?auctionId=<?=$auctionId?>"class="mylistings-item-link">
+                            <?=$itemName?></a><br>
+                        <small class="mylistings-item-meta">
                             Start £<?=number_format($start, 2)?> ·
                             Current £<?=number_format($topPrice, 2)?> ·
-                            Status: <?=h($status)?> ·
+                            <span class="mylistings-status mylistings-status-<?=h($status)?>">
+                                Status: <?=h($status)?>
+                            </span>
                             Ends: <?=$endTime->format('Y-m-d H:i')?>
                         </small>
                     </div>
-                    <div>
-                        <a class="btn btn-sm btn-outline-secondary" href="listing.php?auctionId=<?=$auctionId?>">Open</a>
+
+                    <div class="mylistings-item-actions">
+                        <a class="btn btn-sm btn-outline-secondary mylistings-open-btn" 
+                        href="listing.php?auctionId=<?=$auctionId?>">Open</a>
                     </div>
                 </li>
             <?php endwhile; ?>

@@ -1,0 +1,1145 @@
+/*CSS for header.php*/
+.header-logo{
+    font-family:monospace,"Monaco";
+    font-weight:300;
+    font-size:4rem;
+    color:#000;
+    text-decoration:none;
+    letter-spacing: -2px;
+}
+
+.header-logo:hover{
+    color:rgb(82, 85, 87);
+}
+
+.nav-link{
+    font-weight:200;
+    color:#000;
+}
+
+.nav-link:hover{
+    text-decoration:underline;
+}
+
+.havbar-centered .navbar-nav{
+    float:none;
+    margin:0 auto;
+    display:table;
+    table-layout:fixed;
+}
+
+.log-info .log-button{
+    font-weight:200;
+    color:#000;
+}
+
+.log-button:hover{
+    color:rbg(82,85,87);
+    text-decoration: underline;
+}
+
+.hi-user{
+    color:#000;
+    font-weight:200;
+    margin-right:10px;
+}
+
+/*CSS for login*/
+.login-container{
+    background-color:white;
+    max-width: 400px;
+    margin: 30px auto;
+}
+
+.login-title {
+    font-family: monospace,"Monaco"; 
+    font-size: 2.5rem;
+    text-align: center;
+    margin-bottom: 10px;
+    color: #000;
+}
+
+.login-label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #333;
+    letter-spacing: 0.5px;
+    font-weight:200;
+}
+
+.login-input {
+    border: 1px solid #ccc;
+    border-radius: 2px;
+    padding: 10px;
+    height: 45px;
+    box-shadow: none !important;
+    font-weight:200;
+}
+
+.login-input:focus {
+    border-color: #000;
+    background-color: #fff;
+}
+
+.btn-black {
+    background-color:white;
+    color: black;
+    width: 100%;
+    height: 45px;
+    border-radius: 4px;
+    font-weight: 200;
+    border: 1px solid #000;
+    margin-top: 10px;
+    transition: all 0.3s ease;
+}
+
+.btn-black:hover {
+    background-color: #333;
+    border-color: #333;
+    color: #fff;
+}
+
+.login-footer {
+    text-align: center;
+    font-weight:200;
+    margin-top: 20px;
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.login-footer a {
+    color: #000;
+    text-decoration: underline;
+    font-weight: bold;
+}
+
+/*CSS for footer.php*/
+.site-footer {
+    background-color: #fff;
+    border-top: 1px solid #666;
+    padding: 40px 0;
+    font-family: monospace,"Monaco";
+    color: black;
+    font-weight:500;
+
+}
+
+.site-footer small {
+    font-size: 1rem;
+    letter-spacing: -1px;
+}
+
+/* CSS for index.php */
+
+/*CSS for images*/
+.hero-banner {
+    background-image: url('homeImage.jpg'); 
+    background-size: cover;
+    background-position: center; 
+    height: 500px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: #fff;
+}
+
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.hero-title {
+    font-family: monospace,"Monaco";
+    font-weight: 500;
+    letter-spacing: -1px;
+    font-size:3.2rem;
+}
+
+.btn-explore {
+    font-weight: 200;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding-left: 30px;
+    padding-right: 30px;
+    color:#fff;
+    border: 1px solid #fff;
+}
+
+.btn-explore:hover {
+    background-color: #fff;
+    color: #333;
+}
+
+/*CSS for item display*/
+.item_card {
+    border: none !important;
+    border-radius: 0 !important;
+    background: #fff;
+    transition: background-color 0.3s ease;
+}
+
+.item_card:hover {
+    background-color: #f4f4f4; /* 微微变灰 */
+}
+
+.item_card a {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+/*CSS for item info*/
+.product-image-wrapper {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    position: relative;
+    margin-bottom: 0;
+}
+
+.item-image {
+    max-height: 100%;
+    max-width: 100%;
+    object-fit: cover; 
+    object-position:center;
+}
+
+.card-body {
+    padding: 15px;
+    padding-top: 8px;
+}
+
+.item-title {
+    font-family:monospace,"Monaco";
+    letter-spacing: -1px;
+    text-transform: capitalize;
+    font-size: 1.2rem;
+    color: #000;
+    margin-top:0;
+    margin-bottom: 4px;
+}
+
+.item-details {
+    border-top: 1px solid #eee;
+    padding-top: 5px;
+}
+
+.item-info{
+    font-size:0.8rem;
+    font-weight:200;
+    color:black;
+    margin-bottom:2px;
+}
+
+/*CSS for create_item.php*/
+
+/*CSS for create item (stage 1)*/
+    .form-container {
+        background-color: #fff;
+        padding: 40px;
+        max-width: 800px;
+        margin: 20px auto;
+        color: #333;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+    }
+
+    .create-title {
+        font-family:monospace,"Monaco";
+        font-size: 4rem;
+        font-weight:500;
+        margin-bottom: 40px;
+        letter-spacing: -1px;
+        text-align: center;
+    }
+
+    .form-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 40px;
+        margin-bottom: 30px;
+    }
+
+    .full-width {
+        grid-column: 1 / -1;
+    }
+
+    .input-group {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 10px;
+    }
+
+    .input-group label {
+        font-size: 20px;
+        color: black;
+        font-weight: 500;
+        margin-bottom: 8px;
+    }
+
+    .create-item-input {
+        border:none;
+        border-bottom: 1px solid #666;
+        padding: 10px 0;
+        font-size: 16px;
+        background: transparent;
+        outline: none;
+        transition: border-color 0.3s;
+        border-radius: 0;
+        width: 100%;
+        font-weight: 200;
+    }
+
+    .input-detail-title{
+        font-family:monospace,"Monaco";
+        color:black;
+        letter-spacing: -1px;
+        font-size: 20px;
+    }
+
+    select.create-item-input {
+        appearance: none;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+    }
+
+
+    select.create-item-input:required:invalid {
+        color: #999;
+        border-bottom-color: #ccc;
+    }
+
+
+    select.create-item-input:required:hover {
+        color: #000 !important;
+        border-bottom-color: #000 !important;
+    }
+
+    option {
+        color: #000;
+    }
+
+    .form-footer {
+        display: flex;
+        justify-content: flex-end;
+        margin-top: 40px;
+        padding-top: 20px;
+    }
+
+    .btn-next {
+        background: none;
+        border: 1px solid #666;
+        padding: 12px 25px;
+        font-size: 15px;
+        font-weight:200;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        cursor: pointer;
+        transition: all 0.3s;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .btn-next:hover {
+        border-color: white;
+        background-color: black;
+        color:white;
+    }
+
+    .upload-image-title{
+        font-family: monospace,"Monaco";
+        text-align: center;
+        font-size: 30px;
+        font-weight:500;
+        letter-spacing: -1px;
+    }
+
+    .image-gallery {
+        display: flex;
+        gap: 20px;
+        flex-wrap: wrap;
+        margin-top: 20px;
+        margin-bottom: 40px;
+    }
+
+    .image-card {
+        width: 150px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .image-preview {
+        width: 100%;
+        height: 150px;
+        object-fit: cover;
+        border: 1px solid #eee;
+        border-radius: 4px;
+    }
+
+    .image-actions {
+        font-size: 16px;
+        font-weight:200;
+        display: flex;
+        justify-content: space-between;
+        color: #666;
+        font-family:sans-serif;
+    }
+
+    .image-actions a {
+        color: #333;
+        text-decoration: none;
+        border-bottom: 1px solid transparent;
+        transition: border-color 0.2s;
+    }
+
+    .image-actions a:hover {
+        border-bottom: 1px solid #000;
+    }
+
+    .image-actions a.delete-link {
+        color: #d9534f;
+    }
+
+    .divider {
+        border: 0;
+        border-top: 1px solid #eee;
+        margin: 40px 0;
+    }
+
+    input[type="file"] {
+        font-family: monospace, "Monaco";
+        font-size: 14px;
+        padding: 10px 0;
+    }
+
+    .image-info{
+        font-size:15px;
+        font-weight:200;
+        font-family:sans-serif
+    }
+
+    .styled-input {
+        width: 100%;
+        padding: 10px 0;
+        font-size: 16px;
+        color: #333;
+        border: none;
+        border-bottom: 1px solid #ccc;
+        background: transparent;
+        outline: none;
+        border-radius: 0;
+        font-weight:200;
+    }
+
+    .styled-input:focus {
+        border-bottom: 1px solid #000;
+    }
+
+    input[type="datetime-local"] {
+        font-weight:200px;
+        color: #999;
+    }
+
+    /*CSS for create_auction_result.php*/
+    .message-box {
+        padding: 40px;
+        text-align: center;
+        margin-bottom: 30px;
+        font-weight:200;
+    }
+
+    .message-box.error {
+        color: #d9534f;
+    }
+
+    .message-box.success {
+        color: #333;
+    }
+
+    .error-list {
+        list-style: none;
+        padding: 0;
+        margin: 20px 0;
+        text-align: left;
+        display: inline-block;
+    }
+
+    .error-list li {
+        margin-bottom: 10px;
+        font-size: 14px;
+    }
+
+    .result-title {
+        font-size: 24px;
+        font-weight: 500;
+        margin-bottom: 2rem;
+        letter-spacing: -1px;
+        font-family:monospace,"Monaco";
+    }
+
+    .btn-link-style {
+        margin-top:10px;
+        display: inline-block;
+        padding: 12px 30px;
+        border: 1px solid #ccc;
+        background: transparent;
+        color: #333;
+        text-decoration: none !important;
+        font-weight:200;
+        font-size: 14px;
+        text-transform: uppercase;
+        transition: all 0.3s;
+        cursor: pointer;
+    }
+
+    .btn-link-style:hover {
+        border-color:white;
+        background-color: black;
+        color:white;
+    }
+
+    /*CSS for register.php*/
+        .register-container {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 20px;
+            background: #fff;
+        }
+
+        .register-title {
+            font-family: monospace,"Monaco";
+            font-size: 3rem;
+            letter-spacing: -1.5px;
+            text-align: center;
+            margin-bottom: 60px;
+            color: #333;
+        }
+
+        .register-label {
+            font-family: monospace,"Monaco";
+            font-size: 1.1rem;
+            letter-spacing: -1px;
+            font-weight:300;
+            color: #000;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .register-input {
+            width: 100%;
+            border: none;
+            border-bottom: 1px solid #999;
+            border-radius: 0;
+            padding: 10px 0;
+            font-size: 1rem;
+            color: #555;
+            background: transparent;
+            transition: border-color 0.3s;
+            margin-bottom: 40px;
+        }
+
+        .register-input:focus {
+            outline: none;
+            border-bottom: 1px solid #000;
+            box-shadow: none;
+        }
+
+        .register-input::placeholder {
+            color: #ccc;
+            font-weight: 200;
+        }
+
+        .text-muted {
+            font-size: 0.75rem;
+            margin-top: -35px;
+            font-weight:200;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .btn-outline-box {
+            background: transparent;
+            border: 1px solid black;
+            color: black;
+            padding: 15px 30px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.9rem;
+            border-radius: 0;
+            transition: all 0.3s;
+            margin-top: 20px;
+        }
+
+        .btn-outline-box:hover {
+            background: black;
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .login-link {
+            text-align: center;
+            margin-top: 10px;
+            font-family: monospace,"Monaco";
+            font-size: 0.9rem;
+        }
+        
+        .login-link a {
+            color: #000;
+            text-decoration: underline;
+        }
+
+        /*CSS for browse.php*/
+     .browse-title {
+        font-family: monospace,"Monaco";
+        font-size: 2.5rem;
+        text-align: center;
+        margin-top: 40px;
+        margin-bottom: 50px;
+        color: #222;
+        letter-spacing: -1px;
+    }
+
+    .search-flex-container {
+        width: 100%;
+        margin-bottom: 60px;
+        font-weight:200;
+    }
+
+    .search-row {
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+        gap: 20px;
+        flex-wrap: wrap;
+    }
+
+    .search-col {
+        flex: 1;
+        min-width: 180px;
+        position: relative;
+    }
+    
+    .search-col.wide { flex: 2; }
+    
+    .search-col.narrow { flex: 0 0 100px; min-width: auto; }
+
+    .browse-label {
+        display: block;
+        font-size: 0.75rem;
+        font-weight:200;
+        color:black;
+        margin-bottom: 0;
+    }
+
+    .browse-control {
+        width: 100%;
+        border: none;
+        border-bottom: 1px solid black;
+        background: transparent;
+        padding: 10px 0;
+        font-size: 1rem;
+        color: #333;
+        border-radius: 0;
+        outline: none;
+        height: 45px;
+        box-shadow: none !important;
+    }
+
+    .browse-control:focus {
+        border-bottom: 1px solid #000;
+        outline: none;
+    }
+
+    select.browse-control{
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+    }
+
+    .icon-wrapper i {
+        position: absolute;
+        left: 0;
+        bottom: 15px;
+        color: #ccc;
+        z-index: 10;
+    }
+    .icon-wrapper input {
+        padding-left: 25px;
+    }
+
+    .btn-browse {
+        width: 100%;
+        height: 45px;
+        background: #fff;
+        color: black;
+        border: 1px solid black;
+        text-transform: uppercase;
+        font-size: 0.8rem;
+        cursor: pointer;
+        transition: opacity 0.3s;
+        font-weight:200;
+        letter-spacing: 0.5px;
+    }
+    .btn-browse:hover { opacity: 0.8; 
+        color: #fff;
+        background:black
+        
+    }
+
+    .browse-pagination{
+        border-radius: 0;
+    }
+
+    .browse-pagination .page-link {
+    border: 1px solid #999;
+    background: #fff;
+    color: #444 ;
+    border-radius: 0;
+    width:40px;
+    height:40px;
+    text-align:center;
+    font-weight:200;
+    }
+
+    .browse-pagination .page-link:hover {
+    border-color: #ccc;
+    background-color: #fafafa;
+    }
+
+    .browse-pagination .page-item.active .page-link {
+    background: black;
+    color: white;
+    border-color: black;
+    }
+
+    /*CSS for utilities*/
+    .browse-item .browse-item {
+        padding: 12px 24px;
+        border:none;
+    }
+
+    .browse-link {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 40px;
+        padding: 22px 0;
+        text-decoration: none;
+        color: #2b2623;
+    }
+
+    .browse-link:hover {
+        background: #fbf6f0;
+        border-radius: 12px;
+    }
+
+    .browse-text {
+        flex: 1;
+    }
+
+    .browse-title {
+        font-size: 2.5rem;
+        letter-spacing: -1px;
+        margin: 40px;
+        font-family:monospace,"Monaco"
+    }
+
+    .browse-desc {
+        font-size: 13px;
+        line-height: 1.6;
+        color: #8a7b6f;
+        margin: 0 0 8px;
+    }
+
+    .browse-meta {
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        color: #b5a293;
+        margin: 0;
+    }
+
+    .meta-separator {
+        margin: 0 4px;
+    }
+
+    .status-label {
+        font-weight: 500;
+    }
+
+    .browse-right {
+        min-width: 130px;
+        text-align: right;
+    }
+
+    .browse-price {
+        font-size: 16px;
+        font-weight: 200;
+    }
+
+    .browse-bids .browse-winner {
+        font-size: 12px;
+        color: #8a7b6f;
+        margin-top: 3px;
+    }
+
+    .listing-item {
+    padding: 14px 24px;
+    border: none;
+    }
+
+    .listing-item + .listing-item {
+    border-top: 1px solid #eee;
+    }
+
+    .listing-left {
+    display: block;
+    }
+
+    .listing-title {
+    display: block;
+    font-family:monospace,"Monaco";
+    font-size: 20px;
+    line-height: 1.4;
+    margin: 0 0 4px;
+    letter-spacing: -1px;
+    text-decoration: none;
+    color: inherit;
+    }
+
+    .listing-desc {
+    font-size: 14px;
+    line-height: 1.4;
+    margin: 0 0 6px;
+    font-weight:200;
+    }
+
+    .listing-badge .badge {
+    width:90px;
+    font-size: 14px;
+    padding: 4px;
+    background:none;
+    border-radius: 0;
+    }
+
+    .badge-schedule{
+        background:white;
+        border: 1px solid black;
+        color:black;
+        font-weight:200;
+        border-radius: 0;
+    }
+
+    .badge-running{
+        background:#999 !important;
+        color:white;
+        font-weight:200;
+        border-radius:0;
+        
+    }
+
+    .badge-ended{
+        background:black !important;
+        color:white;
+        font-weight:200;
+    }
+
+    .listing-right {
+    font-size: 12px;
+    }
+
+    .listing-price {
+    font-size: 16px;
+    font-weight: 200;
+    margin-bottom: 5px;
+    }
+
+    .listing-bids,
+    .listing-time,
+    .listing-winner {
+    font-size:14px;
+    font-weight:200;
+    line-height: 1.4;
+    margin-bottom:5px;
+    }
+
+    /*CSS for mybids.php*/
+    .mybids-page {
+        max-width: 900px;
+        margin-top: 40px;
+    }
+
+    .mybids-title {
+        font-size: 2.5rem;
+        margin-bottom: 20px;
+        font-family:monospace,"Monaco";
+        letter-spacing: -1px;
+        text-align: center;
+    }
+
+    .mybids-empty {
+        font-size: 16px;
+        color: #777;
+    }
+
+    .mybids-table {
+        overflow: hidden;
+        font-size: 15px;
+    }
+
+    .mybids-header th {
+        background: #999;
+        font-size: 14px;
+        font-family:monospace,"Monaco";
+        color:white;
+        font-weight:500;
+        letter-spacing: -1px;
+    }
+
+    .mybids-cell {
+        padding: 6px 10px !important;
+        background:white;
+    }
+
+    .mybids-itemlink {
+        font-weight: 200;
+        color:black;
+        text-decoration:underline;
+        text-align: center;
+    }
+
+    .mybids-itemlink:hover {
+        text-decoration: underline;
+        color: #999;
+    }
+
+    .mybids-cell-text{
+        font: weight 200px;
+        color:#000;
+    }
+
+    .mybids-table tbody td{
+        background:white;
+        font-weight:200;
+    }
+
+    /*CSS for mylistings.php*/
+
+    .mylistings-page {
+        max-width: 900px;
+        margin-top: 40px;
+        margin-bottom:30px;
+    }
+
+    .mylistings-title {
+        font-size: 2.2rem;
+        margin-bottom: 20px;
+        font-family: monospace, "Monaco";
+        letter-spacing: -1px;
+        text-align: center;
+    }
+
+    .mylistings-empty {
+        font-size: 15px;
+    }
+
+    .mylistings-list {
+        overflow: hidden;
+        border:none;
+    }
+
+    .mylistings-item {
+        padding: 20px 25px;
+        border: none;
+        border-bottom: 1px solid black;
+    }
+
+    .mylistings-item:last-child {
+        border:none;
+    }
+
+    .mylistings-item-main {
+        max-width: 75%;
+    }
+
+    .mylistings-item-link {
+        font-size: 20px;
+        color: #666;
+        text-decoration: none;
+        font-family:monospace,"Monaco";
+        letter-spacing: -1px;
+    }
+
+    .mylistings-item-link:hover {
+        text-decoration: underline;
+        color:#000;
+    }
+
+    .mylistings-item-meta {
+        color: #333;
+        font-weight:200;
+    }
+
+    .mylistings-item-actions {
+        text-align: right;
+        margin-top:10px;
+    }
+
+    .mylistings-open-btn {
+        padding: 4px 14px;
+        font-size: 13px;
+        border: 1px solid black;
+        border-radius: 0;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        font-weight:200;
+        color:black;
+    }
+
+    .mylistings-open-btn:hover{
+        background:black;
+        color:white;
+    }
+
+    .mylistings-status {
+        padding: 2px 6px;
+        border-radius: 4px;
+        font-size: 12px;
+        background: #f2f2f2;
+        color: #555;
+    }
+
+    .mylistings-status-running {
+        background: #e5f7ea;
+        color: #1b7a3b;
+    }
+
+    .mylistings-status-ended {
+        background: #f5e6e6;
+        color: #9a1f1f;
+    }
+
+    .mylistings-status-scheduled {
+        background: #e7f0ff;
+        color: #215a9b;
+    }
+
+    /*CSS for profile.php*/
+    
+    .profile-page {
+        max-width: 900px;
+    }
+
+    .profile-title {
+        font-size: 2.2rem;
+        font-family: monospace, "Monaco";
+        letter-spacing: -1px;
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+    .profile-card{
+        background:white;
+        border:none!important;
+        border-bottom: 1px solid black !important;
+        border-radius: 0 !important;
+        padding: 10px 15px;
+    }
+
+    .profile-section-title {
+        font-size: 1.5rem;
+        margin-top:10px;
+        margin-bottom: 15px;
+        letter-spacing: -1px;
+        font-family:monospace,"Monaco";
+    }
+
+    .porfile-info {
+        font-size: 0.95rem;
+        color: #444;
+        margin-bottom: 6px;
+        font-weight:200;
+    }
+
+    .profile-message {
+        font-size: 0.95rem;
+        color: #777;
+        margin-bottom: 10px;
+        font-weight:200;
+    }
+
+    .profile-card,
+    .profile-mini-card {
+        border-radius: 10px;
+        border: 1px solid #e5e5e5;
+        background: #fff;
+        transition: box-shadow 0.15s ease, transform 0.15s ease;
+    }
+
+    .profile-mini-card:hover {
+        box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        transform: translateY(-1px);
+    }
+
+    .profile-basic {
+        background: #f9f9f9;
+    }
+
+    .profile-item-title {
+        font-size: 1.05rem;
+        margin-bottom: 8px;
+        font-family:monospace,"Monaco";
+        letter-spacing: -1px;
+    }
+
+    .profile-result {
+        margin-top: 6px;
+        font-size: 0.95rem;
+        font-weight:200;
+    }
+
+    .profile-btn {
+        border-radius:0 !important;
+        border:1px solid black;
+        padding: 4px 14px;
+        font-size: 0.85rem;
+        margin-top: 6px;
+        font-weight:200;
+        width:150px !important;
+        color:black;
+        text-transform: uppercase;
+        letter-spacing: -0.5px;
+        text-align: center;
+        margin:auto;
+    }
+
+    .profile-btn:hover{
+        background:#222 !important;
+        color:white !important;
+        text-decoration: none !important;
+    }
+
+    .profile-btn-remove {
+        background: transparent;
+        border: 1px solid #d9534f;
+        color: #d9534f;
+        text-align: center;
+        font-weight:200;
+        margin-top:10px;
+        width:150px;
+        margin:auto;
+        margin-top:10px;
+    }
+
+    .profile-btn-remove:hover {
+        background: #d9534f;
+        color: #fff;
+        text-decoration: none;
+    }
