@@ -6,7 +6,6 @@ error_reporting(E_ALL);
 include_once("header.php") ?>
 
 <?php
-// 从URL获取上一步传来的itemId
 if (!isset($_GET["itemId"])) {
     echo "<div class='alert alert-danger'>No item selected for auction.</div>";
     exit();
@@ -30,71 +29,52 @@ if ($row['imgCount'] == 0) {
 
 ?>
 
+<link rel="stylesheet" href="css/custom_2.css">
 
-<div class="container">
+<div class="form-container">
+    
 
-<div style="max-width: 800px; margin: 10px auto">
-  <h2 class="my-3">Create new auction</h2>
-  <div class="card">
-    <div class="card-body">
+    <h1 class="page-title" style="text-align: center; font-family:monospace,'Monaco';
+    letter-space: -1px; padding-bottom: 30px;">
+      Create Auction</h1>
 
-      <form method="post" action="create_auction_result.php">
-
+    <form method="post" action="create_auction_result.php">
+        
         <input type="hidden" name="itemId" value="<?php echo $itemId; ?>">
 
-        <div class="form-group row">
-          <label class="col-sm-2 col-form-label text-right">Title of auction</label>
-          <div class="col-sm-10">
-            <input type="text" class="form-control" 
-                   name="auctionTitle"
-                   placeholder="e.g. Vintage vase auction"
-                   required>
-          </div>
+        <div class="form-grid">
+
+            <div class="input-group">
+                <label class="input-detail-title">Starting Price</label>
+                <input type="number" step="0.01" name="startPrice" class="styled-input" 
+                       placeholder="0.00" required>
+            </div>
+
+            <div class="input-group">
+                <label class="input-detail-title">Reserve Price</label>
+                <input type="number" step="0.01" name="reservePrice" class="styled-input" 
+                       placeholder="0.00" required>
+            </div>
+
+            <div class="input-group">
+                <label class="input-detail-title">Start Date</label>
+                <input type="datetime-local" name="startTime" class="styled-input" required>
+            </div>
+
+            <div class="input-group">
+                <label class="input-detail-title">End Date</label>
+                <input type="datetime-local" name="endTime" class="styled-input" required>
+            </div>
+
         </div>
 
-        <div class="form-group row">
-          <label class="col-sm-2 col-form-label text-right">Starting price</label>
-          <div class="col-sm-10">
-            <input type="number" step="0.01" class="form-control" 
-                   name="startPrice"
-                   required>
-          </div>
+
+        <div class="form-footer">
+            <button type="submit" class="btn-next">
+                Create Auction &rarr;
+            </button>
         </div>
 
-        <div class="form-group row">
-          <label class="col-sm-2 col-form-label text-right">Reserve price</label>
-          <div class="col-sm-10">
-            <input type="number" step="0.01" class="form-control" 
-                   name="reservePrice"
-                   required>
-          </div>
-        </div>
-
-        <div class="form-group row">
-          <label class="col-sm-2 col-form-label text-right">Start date</label>
-          <div class="col-sm-10">
-            <input type="datetime-local"
-                   class="form-control"
-                   name="startTime"
-                   required>
-          </div>
-        </div>
-
-        <div class="form-group row">
-          <label class="col-sm-2 col-form-label text-right">End date</label>
-          <div class="col-sm-10">
-            <input type="datetime-local" class="form-control" 
-                   name="endTime"
-                   required>
-          </div>
-        </div>
-
-        <button type="submit" class="btn btn-primary form-control">Create Auction</button>
-
-      </form>
-
-    </div>
-  </div>
+    </form>
 </div>
 
-<?php include_once("footer.php") ?>

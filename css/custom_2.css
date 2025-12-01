@@ -1,0 +1,456 @@
+/*CSS for header.php*/
+.header-logo{
+    font-family:monospace,"Monaco";
+    font-weight:300;
+    font-size:4rem;
+    color:#000;
+    text-decoration:none;
+    letter-spacing: -2px;
+}
+
+.header-logo:hover{
+    color:rgb(82, 85, 87);
+}
+
+.nav-link{
+    font-weight:200;
+    color:#000;
+}
+
+.nav-link:hover{
+    text-decoration:underline;
+}
+
+.havbar-centered .navbar-nav{
+    float:none;
+    margin:0 auto;
+    display:table;
+    table-layout:fixed;
+}
+
+.log-info .log-button{
+    font-weight:200;
+    color:#000;
+}
+
+.log-button:hover{
+    color:rbg(82,85,87);
+    text-decoration: underline;
+}
+
+.hi-user{
+    color:#000;
+    font-weight:200;
+    margin-right:10px;
+}
+
+/*CSS for login*/
+.login-container{
+    background-color:white;
+    max-width: 400px;
+    margin: 30px auto;
+}
+
+.login-title {
+    font-family: monospace,"Monaco"; 
+    font-size: 2.5rem;
+    text-align: center;
+    margin-bottom: 10px;
+    color: #000;
+}
+
+.login-label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #333;
+    letter-spacing: 0.5px;
+    font-weight:200;
+}
+
+.login-input {
+    border: 1px solid #ccc;
+    border-radius: 2px;
+    padding: 10px;
+    height: 45px;
+    box-shadow: none !important;
+    font-weight:200;
+}
+
+.login-input:focus {
+    border-color: #000;
+    background-color: #fff;
+}
+
+.btn-black {
+    background-color:white;
+    color: black;
+    width: 100%;
+    height: 45px;
+    border-radius: 4px;
+    font-weight: 200;
+    border: 1px solid #000;
+    margin-top: 10px;
+    transition: all 0.3s ease;
+}
+
+.btn-black:hover {
+    background-color: #333;
+    border-color: #333;
+    color: #fff;
+}
+
+.login-footer {
+    text-align: center;
+    font-weight:200;
+    margin-top: 20px;
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.login-footer a {
+    color: #000;
+    text-decoration: underline;
+    font-weight: bold;
+}
+
+/*CSS for footer.php*/
+.site-footer {
+    background-color: #fff;
+    border-top: 1px solid #666;
+    padding: 40px 0;
+    font-family: monospace,"Monaco";
+    color: black;
+    font-weight:500;
+
+}
+
+.site-footer small {
+    font-size: 1rem;
+    letter-spacing: -1px;
+}
+
+/* CSS for index.php */
+
+/*CSS for images*/
+.hero-banner {
+    background-image: url('homeImage.jpg'); 
+    background-size: cover;
+    background-position: center; 
+    height: 500px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: #fff;
+}
+
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.hero-title {
+    font-family: monospace,"Monaco";
+    font-weight: 500;
+    letter-spacing: -1px;
+    font-size:3.2rem;
+}
+
+.btn-explore {
+    font-weight: 200;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding-left: 30px;
+    padding-right: 30px;
+    color:#fff;
+    border: 1px solid #fff;
+}
+
+.btn-explore:hover {
+    background-color: #fff;
+    color: #333;
+}
+
+/*CSS for item display*/
+.item_card {
+    border: none !important;
+    border-radius: 0 !important;
+    background: #fff;
+    transition: background-color 0.3s ease;
+}
+
+.item_card:hover {
+    background-color: #f4f4f4; /* 微微变灰 */
+}
+
+.item_card a {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+/*CSS for item info*/
+.product-image-wrapper {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    position: relative;
+    margin-bottom: 0;
+}
+
+.item-image {
+    max-height: 100%;
+    max-width: 100%;
+    object-fit: cover; 
+    object-position:center;
+}
+
+.card-body {
+    padding: 15px;
+    padding-top: 8px;
+}
+
+.item-title {
+    font-family:monospace,"Monaco";
+    letter-spacing: -1px;
+    text-transform: capitalize;
+    font-size: 1.2rem;
+    color: #000;
+    margin-top:0;
+    margin-bottom: 4px;
+}
+
+.item-details {
+    border-top: 1px solid #eee;
+    padding-top: 5px;
+}
+
+.item-info{
+    font-size:0.8rem;
+    font-weight:200;
+    color:black;
+    margin-bottom:2px;
+}
+
+/*CSS for create_item.php*/
+
+/*CSS for create item (stage 1)*/
+    .form-container {
+        background-color: #fff;
+        padding: 40px;
+        max-width: 800px;
+        margin: 20px auto;
+        color: #333;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+    }
+
+    .create-title {
+        font-family:monospace,"Monaco";
+        font-size: 4rem;
+        font-weight:500;
+        margin-bottom: 40px;
+        letter-spacing: -1px;
+        text-align: center;
+    }
+
+    .form-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 40px;
+        margin-bottom: 30px;
+    }
+
+    .full-width {
+        grid-column: 1 / -1;
+    }
+
+    .input-group {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 10px;
+    }
+
+    .input-group label {
+        font-size: 20px;
+        color: black;
+        font-weight: 500;
+        margin-bottom: 8px;
+    }
+
+    .create-item-input {
+        border:none;
+        border-bottom: 1px solid #666;
+        padding: 10px 0;
+        font-size: 16px;
+        background: transparent;
+        outline: none;
+        transition: border-color 0.3s;
+        border-radius: 0;
+        width: 100%;
+        font-weight: 200;
+    }
+
+    .input-detail-title{
+        font-family:monospace,"Monaco";
+        color:black;
+        letter-spacing: -1px;
+        font-size: 20px;
+    }
+
+    select.create-item-input {
+        appearance: none;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+    }
+
+
+    select.create-item-input:required:invalid {
+        color: #999;
+        border-bottom-color: #ccc;
+    }
+
+
+    select.create-item-input:required:hover {
+        color: #000 !important;
+        border-bottom-color: #000 !important;
+    }
+
+    option {
+        color: #000;
+    }
+
+    .form-footer {
+        display: flex;
+        justify-content: flex-end;
+        margin-top: 40px;
+        padding-top: 20px;
+    }
+
+    .btn-next {
+        background: none;
+        border: 1px solid #666;
+        padding: 12px 25px;
+        font-size: 15px;
+        font-weight:200;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        cursor: pointer;
+        transition: all 0.3s;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .btn-next:hover {
+        border-color: white;
+        background-color: black;
+        color:white;
+    }
+
+/*CSS for upload images*/
+    .upload-image-title{
+        font-family: monospace,"Monaco";
+        text-align: center;
+        font-size: 30px;
+        font-weight:500;
+        letter-spacing: -1px;
+    }
+
+
+
+    .image-gallery {
+        display: flex;
+        gap: 20px;
+        flex-wrap: wrap;
+        margin-top: 20px;
+        margin-bottom: 40px;
+    }
+
+
+    .image-card {
+        width: 150px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .image-preview {
+        width: 100%;
+        height: 150px;
+        object-fit: cover;
+        border: 1px solid #eee;
+        border-radius: 4px;
+    }
+
+    .image-actions {
+        font-size: 16px;
+        font-weight:200;
+        display: flex;
+        justify-content: space-between;
+        color: #666;
+        font-family:sans-serif;
+    }
+
+    .image-actions a {
+        color: #333;
+        text-decoration: none;
+        border-bottom: 1px solid transparent;
+        transition: border-color 0.2s;
+    }
+
+    .image-actions a:hover {
+        border-bottom: 1px solid #000;
+    }
+
+    .image-actions a.delete-link {
+        color: #d9534f;
+    }
+
+    .divider {
+        border: 0;
+        border-top: 1px solid #eee;
+        margin: 40px 0;
+    }
+
+    input[type="file"] {
+        font-family: monospace, "Monaco";
+        font-size: 14px;
+        padding: 10px 0;
+    }
+
+    .image-info{
+        font-size:15px;
+        font-weight:200;
+        font-family:sans-serif
+    }
+
+    /*CSS for create_auction.php */
+    /* 确保输入框是下划线风格 */
+.styled-input {
+    width: 100%;
+    padding: 10px 0;
+    font-size: 16px;
+    color: #333;
+    border: none;
+    border-bottom: 1px solid #ccc;
+    background: transparent;
+    outline: none;
+    border-radius: 0;
+    font-weight:200;
+}
+
+/* 选中时变黑 */
+.styled-input:focus {
+    border-bottom: 1px solid #000;
+}
+
+/* 针对日期选择器的特殊处理，让它字体也统一 */
+input[type="datetime-local"] {
+    font-weight:200px;
+    color: #666;
+}

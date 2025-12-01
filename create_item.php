@@ -22,30 +22,29 @@ if ($itemId) {
     }
 }
 
-// First time creation (no itemId yet)
+// create item(new)
 if ($_SERVER["REQUEST_METHOD"] === "POST" && !$itemId) {
     if (!isset($_SESSION['userId'])) {
         die("Please log in before creating an item.");
     }
 
-    $itemName = $_POST["itemName"];
+    $itemName        = $_POST["itemName"];
     $itemDescription = $_POST["itemDescription"];
-    $sellerId = $_SESSION["userId"];
-    $categoryId = $_POST["categoryId"];
-    $itemCondition = $_POST["itemCondition"];
+    $sellerId        = $_SESSION["userId"];
+    $categoryId      = $_POST["categoryId"];
+    $itemCondition   = $_POST["itemCondition"];
 
-    $sql = "INSERT INTO items (itemName, itemDescription, sellerId, categoryId, itemCondition)
-            VALUES (?, ?, ?, ?, ?)";
 
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("ssiis", $itemName, $itemDescription, $sellerId, $categoryId, $itemCondition);
-    $stmt->execute();
+    $itemId = createItem($itemName, $itemDescription, $sellerId, $categoryId, $itemCondition);
 
-    $itemId = $conn->insert_id;
+    if ($itemId === false) {
+        die("Failed to create item.");
+    }
 
     header("Location: create_item.php?itemId=" . $itemId);
     exit();
 }
+
 
 // Upload images
 if (isset($_POST["uploadImage"]) && $itemId) {
@@ -62,7 +61,7 @@ if (isset($_POST["uploadImage"]) && $itemId) {
             $ext = strtolower(pathinfo($images["name"][$i], PATHINFO_EXTENSION));
             if (!in_array($ext, $allowed)) continue;
 
-            // Max 3 images
+            // 限制 3 张
             if (countImagesByItemId($itemId) >= 3) break;
 
             $targetDir = "uploads/";
@@ -77,7 +76,6 @@ if (isset($_POST["uploadImage"]) && $itemId) {
             uploadImage($itemId, $savePath, $isPrimary);
         }
     }
-
     header("Location: create_item.php?itemId=$itemId");
     exit();
 }
@@ -100,6 +98,11 @@ if (isset($_GET["setPrimary"]) && $itemId) {
 
 <!DOCTYPE html>
 <html>
+
+<head>
+    <link rel="stylesheet" href="css/custom_2.css">
+</head>
+
 <body>
 
 <?php if (isset($_GET['relist'])): ?>
@@ -109,96 +112,142 @@ if (isset($_GET["setPrimary"]) && $itemId) {
     </div>
 <?php endif; ?>
 
-<h2>Create Item</h2>
+<div class="form-container">
+    <h1 class="create-title">Create Item</h1>
 
-<?php if (!$itemId): ?>
+    <?php if (!$itemId): ?>
 
 <!-- Create Item Form -->
-<form method="POST">
+    <form method="POST">
+        <div class="form-grid">
 
-    <label>Item Name:</label><br>
-    <input type="text" name="itemName" required><br><br>
+            <div class="input-group full-width">
+                <label class="input-detail-title">Item Name</label><br>
+                <input type="text" name="itemName" class="create-item-input" placeholder="e.g. Vintage coat" required>
+            </div>
 
-    <label>Description:</label><br>
-    <textarea name="itemDescription"></textarea><br><br>
+            <div class="input-group full-width">
+                <label class="input-detail-title">Description</label><br>
+                <textarea name="itemDescription" class="create-item-input" placeholder="e.g. This is a Chanel vintage coat..."></textarea>
+            </div>
 
-    <label>Category:</label><br>
-    <select name="categoryId" required>
-        <?php 
-        $catSql = "SELECT categoryId, categoryName FROM categories ORDER BY categoryId ASC";
-        $catResult = $conn->query($catSql);
-        while ($row = $catResult->fetch_assoc()) { ?>
-            <option value="<?= $row['categoryId'] ?>"><?= $row['categoryName'] ?></option>
-        <?php } ?>
-    </select>
-    <br><br>
+            <div class="create-item-group">
+                <label class="input-detail-title">Category</label><br>
+                <select name="categoryId" class="create-item-input" required>
+                    <option value="" disabled selected>select a category</option>
+                <?php 
+                $catSql = "SELECT categoryId, categoryName FROM categories ORDER BY categoryId ASC";
+                $catResult = $conn->query($catSql);
+                while ($row = $catResult->fetch_assoc()) { ?>
+                    <option value="<?= $row['categoryId'] ?>"><?= $row['categoryName'] ?></option>
+                <?php } ?>
+                </select>
+            </div>
 
-    <label>Condition:</label><br>
-    <select name="itemCondition">
-        <option value="new">New</option>
-        <option value="used">Used</option>
-        <option value="refurbished">Refurbished</option>
-    </select>
-    <br><br>
+            <div class="create-item-group">
+                <label class="input-detail-title">Condition</label><br>
+                <select name="itemCondition" class="create-item-input" required>
+                    <option value="" disabled selected>select a condition</option>
+                    <option value="new">New</option>
+                    <option value="used">Used</option>
+                    <option value="refurbished">Refurbished</option>
+                </select>
+            </div>
 
-    <button type="submit">Next: Upload Images</button>
-
-</form>
+            <div>
+                <button type="submit" class="btn-next">Next: Upload Images</button>
+            </div>
+        </div>
+    </form>
+</div>
 
 <?php else: ?>
 
 <!-- Upload Images -->
-<h3>Upload Images (max 3)</h3>
+<div class="form-container">
 
-<form method="POST" enctype="multipart/form-data">
-    <input type="file" name="itemImages[]" multiple accept="image/*">
-    <button type="submit" name="uploadImage">Upload</button>
-</form>
+    <div style="margin-bottom: 40px;">
+        <label class="input-detail-title">Select Images - Max 3</label>
+        
+        <form method="POST" enctype="multipart/form-data"
+            style="display:flex; justify-content: space-between; align-items:center; 
+            border-bottom: 1px solid #ccc; padding-bottom: 10px; margin-top: 10px;">
+            
+            <input type="file" name="itemImages[]" multiple accept="image/*"
+                style="border:none; font-family: monospace; font-size: 14px;">
+            
+            <button type="submit" name="uploadImage" class="btn-next"
+                style="padding: 8px 20px; margin: 0; border: 1px solid #ccc;">
+                UPLOAD
+            </button>
+        </form>
+    </div>
 
-<hr>
+    <h3 class="input-detail-title" style="text-align: center; margin-bottom: 30px;">Selected Images</h3>
 
-<h3>Images</h3>
+    <?php
+    $images = getImagesByItemId($itemId);
+    $imageCount = count($images);
 
-<?php
-$images = getImagesByItemId($itemId);
-$imageCount = count($images);
+    if ($imageCount === 0) {
+        echo "<div style='text-align:center; padding:40px; color:#999;'>";
+        echo "No images uploaded yet.";
+        echo "</div>"; 
+    } else {
+        echo '<div class="image-gallery" style="display:flex; gap:20px; flex-wrap:wrap;">';
 
-if ($imageCount === 0) {
-    echo "<p>No images uploaded.</p>";
-} else {
-    foreach ($images as $img) { ?>
-        <div style="margin-bottom:10px;">
-            <img src="<?= $img['imageUrl'] ?>" width="120"><br>
+        foreach ($images as $img) { ?>
+            <div class="image-card">
+                <img src="<?= $img['imageUrl'] ?>" class="image-preview"><br>
+                
+                <div class="image-actions">
+                    <?php if ($img["isPrimary"] == 1): ?>
+                        <span class="image-info" style="font-weight:200; color:black;">
+                            Primary
+                        </span>
+                    <?php else: ?>
+                        <a href="create_item.php?itemId=<?= $itemId ?>&setPrimary=<?= $img['imageId'] ?>"
+                        style="text-decoration:none; color:#666;">
+                            Set Primary
+                        </a>
+                    <?php endif; ?>
 
-            <?php if ($img["isPrimary"] == 1): ?>
-                <strong>⭐ Primary Image</strong>
-            <?php else: ?>
-                <a href="create_item.php?itemId=<?= $itemId ?>&setPrimary=<?= $img['imageId'] ?>">
-                    Set as Primary
-                </a>
-            <?php endif; ?>
+                    <span style="margin: 0 5px; color:#eee;">|</span>
 
-            &nbsp; | &nbsp;
+                    <a href="create_item.php?itemId=<?= $itemId ?>&deleteImage=<?= $img['imageId'] ?>"
+                    class="delete-link" style="text-decoration:none;">
+                        Delete
+                    </a>
+                </div>
+            </div>
+    <?php } 
+        echo '</div>'; 
+    } ?>
 
-            <a href="create_item.php?itemId=<?= $itemId ?>&deleteImage=<?= $img['imageId'] ?>">
-                Delete
+    <div style="margin-top: 60px;"></div>
+
+    <div class="form-footer" style="display:flex; justify-content:flex-end; align-items:center;">
+        <?php if ($imageCount === 0): ?>
+            <div style="display:flex; align-items:center; gap:15px;">
+                <p style="color:#d9534f; font-weight:200; font-size:12px; margin:0;">
+                    * Please upload at least one image
+                </p>
+                <button class="btn-next" style="opacity:0.5; cursor:not-allowed;" disabled>
+                    Next: Create Auction
+                </button>
+            </div>
+        <?php else: ?>
+            <a href="create_auction.php?itemId=<?= $itemId ?>" style="text-decoration:none;">
+                <button class="btn-next">
+                    Next: Create Auction &rarr;
+                </button>
             </a>
-        </div>
-<?php }} ?>
+        <?php endif; ?>
+    </div>
 
-<hr>
-
-<!-- NEXT BUTTON WITH IMAGE CHECK -->
-<?php if ($imageCount === 0): ?>
-    <p style="color:red;font-weight:bold;">Please upload at least one image before continuing.</p>
-    <button class="btn btn-secondary" disabled>Next: Create Auction</button>
-<?php else: ?>
-    <a href="create_auction.php?itemId=<?= $itemId ?>">
-        <button>Next: Create Auction</button>
-    </a>
-<?php endif; ?>
+</div>
 
 <?php endif; ?>
-
+<?php include "footer.php" ?>
 </body>
 </html>

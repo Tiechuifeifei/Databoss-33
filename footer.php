@@ -6,7 +6,7 @@
 
   <footer class="site-footer mt-5 text-center">
     <div class="container">
-      <small>&copy; <?php echo date('Y'); ?> Auction Website - All rights reserved.</small>
+      <small style="text-align:center;">&copy; <?php echo date('Y'); ?> Auction Website - All rights reserved.</small>
     </div>
   </footer>
 
