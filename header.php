@@ -67,7 +67,7 @@ $currentUrl = $_SERVER['REQUEST_URI'] ?? 'index.php';
       <?php if (!empty($_SESSION['userId'])): ?>
         <li class="nav-item mx-3"><a class="nav-link" href="mybids.php">My Bids</a></li>
         <li class="nav-item mx-3"><a class="nav-link" href="mylistings.php">My Listings</a></li>
-        <li class="nav-item mx-3"><a class="nav-link" href="profile.php">My Profoile</a></li>
+        <li class="nav-item mx-3"><a class="nav-link" href="profile.php">My Profile</a></li>
       <?php endif; ?>
     </ul>
     

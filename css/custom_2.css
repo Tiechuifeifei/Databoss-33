@@ -1143,3 +1143,379 @@
         color: #fff;
         text-decoration: none;
     }
+
+    /*CSS for listing.php*/
+
+.product-page {
+    margin-top: 40px;
+    margin-bottom: 80px;
+}
+
+.product-page .col-md-8 {
+    padding-right: 60px;
+    font-weight:200;
+}
+
+
+.product-page .col-md-8 img:first-of-type {
+    display: block;
+    max-width: 320px;
+    border-radius: 6px;
+    margin-bottom: 16px;
+}
+
+
+.product-page .col-md-8 .d-flex img {
+    max-width: 110px;
+    border-radius: 4px;
+    border: 1px solid #eee;
+}
+
+
+.item-name {
+    font-family: monospace,"Monaco";
+    font-size: 1.8rem;
+    letter-spacing: -0.5px;
+    margin-bottom: 10px;
+}
+
+
+.product-page h5 {
+    font-family: monospace,"Monaco";
+    font-size: 1rem;
+    margin-top: 20px;
+    margin-bottom: 8px;
+}
+
+
+.product-page p {
+    font-size: 0.95rem;
+}
+
+.auction-alert-info {
+    border-radius: 0;
+    border: 1px solid #000;
+    background: #f6f6f6;
+    font-weight:200;
+    font-size: 0.9rem;
+    padding: 8px 12px;
+    text-align: center;
+}
+
+.bid-btn {
+    display: block;
+    margin: 10px auto 0;
+    width: 140px;
+    background: #ffffff;
+    border: 1px solid #111;
+    border-radius: 0;
+
+    padding: 8px 18px;
+
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 300;
+
+    color: #000;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.bid-btn:hover {
+    background: #111;
+    color: #fff;
+    text-decoration: none;
+}
+
+.product-page .input-group-text {
+    border-radius: 0;
+    border-color: #000;
+    background: #f6f6f6;
+}
+
+.product-page .input-group .form-control {
+    border-radius: 0;
+    border-color: #000;
+    box-shadow: none;
+    min-width: 0;
+}
+
+.product-page .input-group .form-control:focus {
+    border-color: #000;
+    box-shadow: none;
+}
+
+.product-page table.table {
+    font-size: 0.9rem;
+    border-color: #ccc;
+}
+
+.product-page table.table th {
+    background: #999;
+    color: #fff;
+    font-weight: 200;
+}
+
+.product-page table.table td {
+    background: #fff;
+}
+
+.watchlist-btn {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 999px;
+    border: 1px solid #4CAF50;
+    font-size: 0.8rem;
+    font-family: "JetBrains Mono", "Menlo", monospace;
+    background: #fff;
+    color: #4CAF50;
+    text-decoration: none;
+}
+
+.watchlist-btn:hover {
+    background: #4CAF50;
+    color: #fff;
+    text-decoration: none;
+}
+
+.bid-input-wrapper {
+    width: 100%;
+    max-width: 360px;
+    margin-top: 10px;
+}
+
+.bid-input-wrapper .input-group {
+    width: 100%;
+}
+
+.bid-input-wrapper {
+    width: 100%;
+    max-width: 380px;
+    margin-top: 10px;
+}
+
+.bid-input-wrapper .input-group {
+    width: 100%;
+}
+
+.bid-input-wrapper .form-control,
+.bid-input-wrapper input[name="bidPrice"] {
+    width: 100% !important;
+    height: 42px !important;
+    padding: 8px 10px !important;
+    font-size: 14px !important;
+    line-height: 1.4 !important;
+    box-sizing: border-box;
+    color: #000 !important;
+    background: #fff !important;
+    border: 1px solid #222 !important;
+    border-radius: 0 !important;
+    font-weight: 300;
+}
+
+.bid-input-wrapper .input-group-text {
+    height: 42px;
+    padding: 8px 10px;
+    border-radius: 0;
+    border: 1px solid #222;
+    border-right: none;
+    background: #fff;
+    font-size: 14px;
+    font-weight: 300;
+}
+    /*CSS for edit_item.php*/
+
+    .edit-item-page {
+        max-width: 900px;
+        margin-top: 60px;
+        margin-bottom: 80px;
+    }
+
+    .edit-item-title {
+        font-family: monospace, "Monaco";
+        font-size: 2.2rem;
+        letter-spacing: -1px;
+        margin-bottom: 40px;
+    }
+
+    /* 整体表单 */
+    .edit-item-form {
+        margin-top: 10px;
+    }
+
+    /* 单个字段块 */
+    .edit-field {
+        margin-bottom: 40px;
+    }
+
+    /* label */
+    .edit-label {
+        display: block;
+        font-family: monospace, "Monaco";
+        font-size: 1.4rem;
+        margin-bottom: 10px;
+    }
+
+
+    .edit-input,
+    .edit-select,
+    .edit-textarea {
+        width: 100%;
+        border: none;
+        border-bottom: 1px solid #d9d9d9;
+        padding: 10px 0 8px;
+        font-size: 1rem;
+        background: transparent;
+        outline: none;
+        border-radius: 0;
+        font-weight:200;
+
+    }
+
+    .edit-input.form-control,
+    .edit-select.form-control,
+    .edit-textarea.form-control {
+        border: none;
+        border-bottom: 1px solid #d9d9d9;
+        box-shadow: none;
+    }
+
+    .edit-input::placeholder,
+    .edit-textarea::placeholder {
+        color: #b8b8b8;
+    }
+
+    .edit-input:focus,
+    .edit-select:focus,
+    .edit-textarea:focus {
+        border-bottom-color: #000;
+    }
+
+.edit-row {
+    display: flex;
+    gap: 60px;
+    flex-wrap: wrap;
+    margin-top: 40px;
+}
+
+.edit-field {
+    margin-bottom: 40px;
+}
+
+.edit-field-half {
+    flex: 1 1 0;
+}
+
+.edit-label {
+    display: block;
+    font-family: monospace, "Monaco";
+    font-size: 1.4rem;
+    margin-bottom: 20px;
+    text-align: left !important;
+    
+}
+
+.edit-select {
+    width: 100%;
+    border: none;
+    border-bottom: 1px solid #d9d9d9;
+    padding: 10px 0 8px;
+    font-size: 1rem;
+    background: transparent;
+    outline: none;
+    border-radius: 0;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+
+.edit-select.form-control {
+    border: none;
+    border-bottom: 1px solid #d9d9d9;
+    box-shadow: none;
+}
+
+.edit-select:focus {
+    border-bottom-color: #000;
+    box-shadow: none;
+}
+
+.edit-actions {
+    margin-top: 10px;
+    text-align: center;
+}
+
+.edit-next-btn {
+    background: #ffffff;
+    border: 1px solid #111;
+    border-radius: 0;
+    padding: 14px 32px;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 500;
+    cursor: pointer;
+    font-weight:200;
+}
+
+.edit-next-btn:hover {
+    background: #111;
+    color: #fff;
+}
+
+.edit-btn {
+    display: inline-block;
+    background: #fff;
+    border: 1px solid #000;
+    border-radius: 0;
+    padding: 8px 26px;
+    font-family: "JetBrains Mono", "Menlo", monospace;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 300;
+    color: #000;
+    text-align: center;
+    text-decoration: none;
+}
+
+.edit-btn-small {
+    padding: 6px 20px;
+    font-size: 0.8rem;
+}
+
+.edit-btn:hover {
+    background: #000;
+    color: #fff;
+    text-decoration: none;
+}
+
+.edit-actions-bottom {
+    text-align: center;
+    margin-top: 24px;
+}
+
+.edit-btn{
+    font-family:sans-serif;
+    font-weight:200;
+    display:block;
+    width:180px;
+    margin:auto;
+}
+
+.badge-edit-success{
+    font-size:14px;
+    font-weight:200;
+    padding:5px 15px;
+    border-radius: 0;
+    color:green;
+}
+
+.edit-primary-button{
+    display:block;
+    font-weight: 200;
+    text-decoration: none;
+    background-color: white;
+}

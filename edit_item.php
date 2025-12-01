@@ -1,3 +1,5 @@
+<link rel="stylesheet" href="css/custom_2.css">
+
 <?php
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
@@ -44,115 +46,116 @@ $msg = $_GET['msg'] ?? null;
 include("header.php");
 ?>
 
-<div class="container mt-4">
-
-    <h2>Edit Item</h2>
-    <?php if($msg): ?><div class="alert alert-info"><?=htmlspecialchars($msg)?></div><?php endif; ?>
+<div class="container mt-4 edit-item-page">
+    <h3 class="edit-item-title">Edit Item</h3>
 
 <form method="POST" enctype="multipart/form-data">
 
-    <input type="hidden" name="finish_editing" value="1">
-    <input type="hidden" name="itemId" value="<?= htmlspecialchars($itemId) ?>">
+    <!-- 编辑基本信息 -->
+    <form method="POST" class="edit-item-form">
+        <input type="hidden" name="save_info" value="1">
 
-    <!-- BASIC INFO -->
-    <div class="form-group mt-3">
-        <label>Item Name</label>
-        <input name="itemName" required class="form-control"
-               value="<?=htmlspecialchars($item['itemName'])?>">
+        <div class="form-group">
+            <label class="edit-label">Item Name</label>
+            <input type="text" name="itemName" class="edit-input" 
+                   value="<?= htmlspecialchars($item['itemName']) ?>" required>
+        </div>
+
+        <div class="edit-field">
+            <label class="edit-label">Description</label>
+            <textarea name="itemDescription" class="edit-input" rows="4" placeholder="e.g. This is a Chanel vintage coat..." required><?= 
+                htmlspecialchars($item['itemDescription']) ?></textarea>
+        </div>
+
+        <div class="edit-row">
+
+            <div class="edit-field edit-field-half">
+            <label class="edit-label">Category:</label>
+            <select name="categoryId" class="edit-select" required>
+                <option value="" disabled>select a category</option>
+                <?php 
+                $catSql = "SELECT categoryId, categoryName FROM categories ORDER BY categoryId ASC";
+                $catResult = $conn->query($catSql);
+                 
+                while ($row = $catResult->fetch_assoc()) { 
+                    $selected = ($row['categoryId'] == $item['categoryId']) ? "selected" : "";
+                ?>
+                <option value="<?= $row['categoryId'] ?>" <?= $selected ?>>
+                    <?= $row['categoryName'] ?>
+                </option>
+                <?php } ?>
+            </select>
+            </div>
+            
+        
+
+        <div class="edit-field edit-field-half">
+            <label class="edit-label">Condition:</label>
+            <select name="itemCondition" class="edit-select" required>
+                <option value="new"         <?= ($item['itemCondition'] == 'new' ? 'selected' : '') ?>>New</option>
+                <option value="used"        <?= ($item['itemCondition'] == 'used' ? 'selected' : '') ?>>Used</option>
+                <option value="refurbished" <?= ($item['itemCondition'] == 'refurbished' ? 'selected' : '') ?>>Refurbished</option>
+            </select>
+        </div>
     </div>
 
-    <div class="form-group mt-3">
-        <label>Description</label>
-        <textarea name="itemDescription" required class="form-control" rows="4"><?= 
-            htmlspecialchars($item['itemDescription']) ?></textarea>
+    <div class="edit-actions">
+        <button class="edit-next-btn" type="submit">Save Changes</button>
     </div>
-
-    <div class="form-group mt-3">
-        <label>Category</label>
-        <select name="categoryId" class="form-control">
-        <?php
-            $res = $conn->query("SELECT categoryId,categoryName FROM categories");
-            while($c=$res->fetch_assoc()):
-        ?>
-            <option value="<?=$c['categoryId']?>" 
-                   <?=$c['categoryId']==$item['categoryId']?"selected":""?>>
-                   <?=$c['categoryName']?></option>
-        <?php endwhile; ?>
-        </select>
-    </div>
-
-    <div class="form-group mt-3">
-        <label>Condition</label>
-        <select name="itemCondition" class="form-control">
-            <option <?=$item['itemCondition']=="new"?'selected':''?>>new</option>
-            <option <?=$item['itemCondition']=="used"?'selected':''?>>used</option>
-            <option <?=$item['itemCondition']=="refurbished"?'selected':''?>>refurbished</option>
-        </select>
-    </div>
+    </form>
 
 
-    <!-- ============= IMAGE MANAGEMENT ============= -->
+
+    <!-- ----------------- 图片管理区 --------------------- -->
     <hr class="my-4">
-    <h4>Manage Images (max 3)</h4>
+    <h4 class="edit-label">Manage Images</h4>
 
     <?php $images = getImagesByItemId($itemId); ?>
 
-    <div class="row">
-                <?php foreach($images as $img): ?>
-                    <div class="col-md-3 text-center mb-4">
+    <?php if (empty($images)): ?>
+        <p style="font-weight:200;">No images uploaded for this item.</p>
+    <?php else: ?>
+        <div class="row">
+            <?php foreach ($images as $img): ?>
+                <div class="col-md-3 text-center mb-3">
+                    <img src="<?= htmlspecialchars($img['imageUrl']) ?>" 
+                         class="img-fluid border" 
+                         style="max-height:150px; object-fit:cover;">
 
-            <!-- image -->
-                    <img src="<?=$img['imageUrl']?>" 
-                    class="img-fluid border mb-2"
-                    style="max-height:150px;object-fit:cover;border-radius:6px;">
+                    <?php if ($img['isPrimary'] == 1): ?>
+                        <div class="mt-2">
+                            <span class="badge badge-edit-success">Primary</span>
+                        </div>
+                    <?php else: ?>
+                        <a href="set_primary_image.php?imageId=<?= $img['imageId'] ?>&itemId=<?= $itemId ?>" 
+                           class="edit-primary-btn">Set as primary</a>
+                    <?php endif; ?>
 
-
-            <!-- 上排：Primary / Set Primary (位置保持一致) -->
-                <div class="d-flex justify-content-center mb-2" style="gap:10px;">
-
-                    <?php if($img['isPrimary']): ?>
-                        <span class="badge bg-success px-3 py-2" style="font-size:14px;">Primary</span>
-                <?php else: ?>
-                    <a href="set_primary_image.php?imageId=<?=$img['imageId']?>&itemId=<?=$itemId?>"
-                    class="btn btn-outline-primary btn-sm">
-                    Set Primary
+                    <a href="delete_image.php?itemId=<?= $itemId ?>&imageId=<?= $img['imageId'] ?>"
+                       class="edit-delete-btn"
+                       onclick="return confirm('Delete this image?');">
+                       Delete
                     </a>
-                <?php endif; ?>
-
-            </div>
-
-
-            <!-- 下排统一 Delete -->
-            <a href="delete_image.php?imageId=<?=$img['imageId']?>&itemId=<?=$itemId?>"
-            onclick="return confirm('Delete this image?');"
-            class="btn btn-outline-danger btn-sm w-75">
-            Delete
-            </a>
-
+                </div>
+            <?php endforeach; ?>
         </div>
-        <?php endforeach; ?>
-
-
-
-    <!-- Upload Images -->
-    <?php if(count($images)<3): ?>
-    <div class="form-group">
-        <label>Upload Images</label>
-        <input type="file" name="itemImages[]" 
-               accept=".jpg,.jpeg,.png,.gif,.webp"
-               class="form-control-file" multiple>
-
-        <button formaction="upload_image.php" formmethod="POST"
-                class="btn btn-secondary mt-2">Upload</button>
-    </div>
     <?php endif; ?>
 
 
-    <!-- FINAL BUTTON -->
+    <!-- 上传新图片 -->
+    <form method="POST" action="upload_image.php" enctype="multipart/form-data" class="mt-3">
+        <input type="hidden" name="itemId" value="<?= $itemId ?>">
+        <div class="form-group">
+            <label style="font-weight:200;">Upload new images (max 3)</label>
+            <input type="file" name="itemImages[]" class="form-control-file" multiple required>
+        </div>
+        <button type="submit" class="edit-btn edit-btn-small">Upload Images</button>
+    </form>
+
+
+    <!-- 完成编辑 -->
     <hr class="my-4">
-    <button type="submit" class="btn btn-success btn-lg w-100">
-        Finish Editing & Save All Changes
-    </button>
+    <a href="mylistings.php" class="edit-btn">Finish Editing</a>
 
 </form>
 </div>
