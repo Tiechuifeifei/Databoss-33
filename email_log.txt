@@ -448,3 +448,47 @@ Please log in to your account to see the winner's details.
 Regards,
 Auction Website
 
+----
+To: mekialkhan1707@gmail.com
+Subject: Test Email
+
+Hello! This is a test from PHPMailer.
+
+PHPMailer Error: SMTP Error: Could not authenticate. | Exception: SMTP Error: Could not authenticate.
+----
+To: mekialkhan1707@gmail.com
+Subject: Test Email
+
+Hello! This is a test from PHPMailer.
+
+PHPMailer Error: SMTP Error: Could not authenticate. | Exception: SMTP Error: Could not authenticate.
+----
+To: mekialkhan1707@gmail.com
+Subject: Test Email
+
+Hello! This is a test from PHPMailer.
+
+PHPMailer Error: SMTP Error: Could not authenticate. | Exception: SMTP Error: Could not authenticate.
+----
+To: mekialkhan1707@gmail.com
+Subject: Test Email
+
+Hello! This is a test from PHPMailer.
+
+PHPMailer Error: SMTP Error: Could not authenticate. | Exception: SMTP Error: Could not authenticate.
+----
+To: mekialkhan1707@gmail.com
+Subject: Test Email
+
+Hello! This is a test from PHPMailer.
+
+----
+To: mekialkhan1707@gmail.com
+Subject: Test Email
+
+Hello! This is a test from PHPMailer.
+
+Sent: mekialkhan1707@gmail.com | Subject: Test Email
+Sent: mekialkhan1707@gmail.com | Subject: Test Email
+
+-----

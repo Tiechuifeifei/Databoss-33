@@ -1,4 +1,10 @@
 <?php
+require __DIR__ . DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR . 'autoload.php';
+
+
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
+$dotenv->load();
+
 error_reporting(E_ALL);
 ini_set('display_errors', '1');
 
@@ -21,15 +27,61 @@ function get_db_connection(): mysqli {
 
 function sendEmail($to, $subject, $body)
 {
-    echo "<script>console.log('sendEmail() reached');</script>";
+    // Always keep a local log for audit/debug
     $logFile = __DIR__ . '/email_log.txt';
     $logMsg  = "----\nTo: {$to}\nSubject: {$subject}\n\n{$body}\n\n";
     file_put_contents($logFile, $logMsg, FILE_APPEND);
 
-    $headers  = "From: no-reply@auction.local\r\n";
-    $headers .= "Content-Type: text/plain; charset=UTF-8\r\n";
+    // SMTP configuration - set these as env vars or replace with your values
+    $smtpHost    = 'smtp.gmail.com';
+    $smtpPort    = 587;
+    $smtpUser    = 'ninjaboss1707@gmail.com';
+    $smtpPass    = 'imuirngouskdmtaj'; // Gmail app password
+    $smtpSecure  = 'tls';
+    $fromAddress = 'ninjaboss1707@gmail.com';
+    $fromName    = 'Auction Website';
 
-    @mail($to, $subject, $body, $headers);
+
+
+    // Load PHPMailer (install with Composer)
+    $autoload = __DIR__ . '/vendor/autoload.php';
+    if (!file_exists($autoload)) {
+        file_put_contents($logFile, "PHPMailer autoload not found. Run: composer require phpmailer/phpmailer\n", FILE_APPEND);
+        return false;
+    }
+    require_once $autoload;
+
+    $mail = new PHPMailer\PHPMailer\PHPMailer(true);
+
+    try {
+        // Server settings
+        $mail->isSMTP();
+        $mail->Host       = $smtpHost;
+        $mail->SMTPAuth   = true;
+        $mail->Username   = $smtpUser;
+        $mail->Password   = $smtpPass;
+        $mail->SMTPSecure = $smtpSecure;
+        $mail->Port       = (int)$smtpPort;
+        $mail->CharSet    = 'UTF-8';
+
+        // Recipients
+        $mail->setFrom($fromAddress, $fromName);
+        $mail->addAddress($to);
+
+        // Content
+        $mail->Subject = $subject;
+        $mail->Body    = $body;
+        $mail->isHTML(false);
+
+        $mail->send();
+
+        file_put_contents($logFile, "Sent: {$to} | Subject: {$subject}\n", FILE_APPEND);
+        return true;
+    } catch (Exception $e) {
+        $err = "PHPMailer Error: {$mail->ErrorInfo} | Exception: {$e->getMessage()}\n";
+        file_put_contents($logFile, $err, FILE_APPEND);
+        return false;
+    }
 }
 
 
