@@ -3,6 +3,7 @@ require_once("db_connect.php");
 require_once("Auction_functions.php");
 require_once("Item_function.php");
 
+
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
@@ -24,40 +25,39 @@ if (!isset($_SESSION['userId']) || $_SESSION['userId'] != $auction['sellerId']) 
 }
 
 $itemId = $auction['itemId'];
+
+include('header.php')
 ?>
 
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Re-list Item</title>
-</head>
-<body>
 
-<h2>Re-list Item</h2>
 
-<p>You can define new start time and end time for this auction.</p>
+<div class="relist-container">
 
-<form method="POST" action="process_relist.php">
+    <h2 class="relist-title">Re-list Item</h2>
+    <p class="relist-subtitle">You can define new start time and end time for this auction.</p>
 
-    <input type="hidden" name="itemId" value="<?= $itemId ?>">
-    <input type="hidden" name="oldAuctionId" value="<?= $auctionId ?>">
+    <form method="POST" action="process_relist.php" class="relist-form">
 
-    <label>Starting Price:</label><br>
-    <input type="number" name="startPrice" step="0.01" 
-        value="<?= $auction['startPrice'] ?>" required><br><br>
+        <input type="hidden" name="itemId" value="<?= $itemId ?>">
+        <input type="hidden" name="oldAuctionId" value="<?= $auctionId ?>">
 
-    <label>Reserve Price:</label><br>
-    <input type="number" name="reservedPrice" step="0.01" 
-        value="<?= $auction['reservedPrice'] ?>" required><br><br>
+        <label class="relist-label">Starting Price</label>
+        <input type="number" name="startPrice" class="relist-input" step="0.01" 
+               value="<?= $auction['startPrice'] ?>" required>
 
-    <label>New Start Time:</label><br>
-    <input type="datetime-local" name="startTime" required><br><br>
+        <label class="relist-label">Reserve Price</label>
+        <input type="number" name="reservedPrice" class="relist-input" step="0.01" 
+               value="<?= $auction['reservedPrice'] ?>" required>
 
-    <label>New End Time:</label><br>
-    <input type="datetime-local" name="endTime" required><br><br>
+        <label class="relist-label">New Start Time</label>
+        <input type="datetime-local" name="startTime" class="relist-input" required>
 
-    <button type="submit">Create New Auction</button>
-</form>
+        <label class="relist-label">New End Time</label>
+        <input type="datetime-local" name="endTime" class="relist-input" required>
 
-</body>
-</html>
+        <button type="submit" class="relist-btn">Create New Auction</button>
+    </form>
+
+</div>
+
+<?php include("footer.php")?>
