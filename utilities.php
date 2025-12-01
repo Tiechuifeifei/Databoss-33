@@ -50,14 +50,14 @@ function print_listing_li($auctionId, $title, $desc, $price, $num_bids, $endTime
     if ($status === 'scheduled') {
         $interval  = $now->diff($startTime);
         $time_text = "Starts in " . display_time_remaining($interval);
-        $badge     = "<span class='badge bg-info text-dark'>Not started</span>";
+        $badge     = "<span class='badge badge-schedule'>Not started</span>";
     } elseif ($status === 'running') {
         $interval  = $now->diff($endTime);
         $time_text = display_time_remaining($interval) . " remaining";
-        $badge     = "<span class='badge bg-success'>Running</span>";
+        $badge     = "<span class='badge badge-running'>Running</span>";
     } else { // ended
         $time_text = "Auction ended";
-        $badge     = "<span class='badge bg-secondary'>Ended</span>";
+        $badge     = "<span class='badge badge-ended'>Ended</span>";
     }
 
     $bid_word = ($num_bids == 1) ? "bid" : "bids";

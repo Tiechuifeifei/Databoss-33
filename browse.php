@@ -13,76 +13,70 @@ include_once("header.php");
 refreshAllAuctions();
 ?>
 
+<link rel="stylesheet" href="css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="css/custom_2.css">
 
 <div class="container">
 
-<h2 class="my-3">Browse listings</h2>
+    <h2 class="browse-title">Browse</h2>
 
-<div id="searchSpecs">
-<!-- PROFESSOR'S COMMENTS: When this form is submitted, this PHP page is what processes it.
-     Search/sort specs are passed to this page through parameters in the URL
-     (GET method of passing data to a page). -->
-<form method="get" action="browse.php">
-  <div class="row">
-    <div class="col-md-5 pr-0">
-      <div class="form-group">
-        <label for="keyword" class="sr-only">Search keyword:</label>
-	    <div class="input-group">
-          <div class="input-group-prepend">
-            <span class="input-group-text bg-transparent pr-0 text-muted">
-              <i class="fa fa-search"></i>
-            </span>
+    <div id="searchSpecs" class="search-flex-container">
+        <form method="get" action="browse.php">
+            
+          <div class="search-row">
+                
+            <!--Keyword Search-->
+            <div class="search-col wide">
+              <label for="keyword" class="browse-label">Search</label>
+                <div class="icon-wrapper">
+                  <i class="fa fa-search"></i>
+                  <input type="text" class="browse-control" id="keyword" name="keyword" placeholder="Search for anything"
+                    value="<?php echo isset($_GET['keyword']) ? htmlspecialchars($_GET['keyword']) : ''; ?>">
+                </div>
+            </div>
+
+            <!--Category-->
+              <div class="search-col">
+                <label for="cat" class="browse-label">Search within</label>
+                  <select class="browse-control" id="cat" name="cat">
+                    <option selected value="all">All categories</option>
+                      <?php 
+                        if(isset($conn)) {
+                            $sql="SELECT * FROM categories";
+                            $result=mysqli_query($conn,$sql);
+                            while ($row = mysqli_fetch_assoc($result)) {
+                                refreshAuctionStatus($row['auctionId']); // 保留了你的函数调用
+                                echo '<option value="' . $row['categoryId'] . '">' . htmlspecialchars($row['categoryName']) . '</option>';
+                            }
+                        }
+                      ?>
+                  </select>
+              </div>
+
+                <!--Sort By-->
+              <div class="search-col">
+                <label class="browse-label" for="order_by">Sort by</label>
+                  <select class="browse-control" id="order_by" name="order_by">
+                    <option value="pricelow" <?php echo (!isset($_GET['order_by']) || $_GET['order_by']=="pricelow") ? "selected" : ""; ?>> 
+                      Price (low to high)</option>
+                    <option value="pricehigh" <?php echo (isset($_GET['order_by']) && $_GET['order_by']=="pricehigh") ? "selected" : ""; ?>>
+                      Price (high to low)</option>
+                    <option value="date" <?php echo (isset($_GET['order_by']) && $_GET['order_by']=="date") ? "selected" : ""; ?>>
+                      Soonest expiry</option>
+                  </select>
+              </div>
+
+                <!--Submit Button-->
+              <div class="search-col narrow">
+                <button type="submit" class="btn-browse">Search</button>
+              </div>
+
           </div>
-<!--Text input for keyword search, add value="<!php ... ?> -->
-          <input type="text" class="form-control border-left-0" id="keyword" name="keyword" placeholder="Search for anything"
-          value="<?php echo isset($_GET['keyword']) ? htmlspecialchars($_GET['keyword']) : ''; ?>">
-        </div>
-      </div>
-    </div>
-    <div class="col-md-3 pr-0">
-      <div class="form-group">
-        <label for="cat" class="sr-only">Search within:</label>
-        <select class="form-control" id="cat" name = "cat">
-          <option selected value="all">All categories</option>
-<!--This is for category filter, show category names in browse page-->
-          <?php 
-          $sql="SELECT * FROM categories";
-          $result=mysqli_query($conn,$sql);
-          while ($row = mysqli_fetch_assoc($result)) {
-            refreshAuctionStatus($row['auctionId']);
-          echo '<option value="' . $row['categoryId'] . '">'
-            . htmlspecialchars($row['categoryName']) .
-            '</option>';
-          }
-          ?>
-        </select>
-      </div>
-    </div>
-    <div class="col-md-3 pr-0">
-      <div class="form-inline">
-        <label class="mx-2" for="order_by">Sort by:</label>
-        <!--Add name="order_by" -->
-        <select class="form-control" id="order_by" name="order_by">
-        <!--Add price(low to high) order-->
-          <option value="pricelow"
-          <?php echo (!isset($_GET['order_by']) || $_GET['order_by']=="pricelow") ? "selected" : ""; ?>> 
-            Price (low to high)</option>
-        <!--Add price (high to low) order-->
-          <option value="pricehigh"
-          <?php echo (isset($_GET['order_by']) && $_GET['order_by']=="pricehigh") ? "selected" : ""; ?>>
-          Price (high to low)</option>
-        <!--Add date order-->
-          <option value="date" <?php echo (isset($_GET['order_by']) && $_GET['order_by']=="date") ? "selected" : ""; ?>>
-            Soonest expiry</option>
-        </select>
-      </div>
-    </div>
-    <div class="col-md-1 px-0">
-      <button type="submit" class="btn btn-primary">Search</button>
-    </div>
-  </div>
-</form>
-</div> <!-- end search specs bar -->
+      </form>
+  </div> 
+
+</div>
 
 
 </div>
@@ -190,9 +184,10 @@ refreshAllAuctions();
   if (!$result_item){
     die("SQL error:" . mysqli_error($conn) ."<br>Query was: " . $sql_item);
   };
+
 ?>
 
-<div class="container mt-5">
+<div class="listing-card">
 <!-- This is for printing text to notify there is no result found -->
   <?php
   if ($num_results == 0) {
@@ -251,7 +246,8 @@ refreshAllAuctions();
       $end_time,
       $start_time,
       $status,
-      $winnerName
+      $winnerName,
+      
   );
   
 }
@@ -263,7 +259,7 @@ refreshAllAuctions();
 </ul>
 
 <!--PROFESSOR'S COMMENTS: Pagination for results listings -->
-<nav aria-label="Search results pages" class="mt-5">
+<nav aria-label="Search results pages" class="mt-5 browse-pagination">
   <ul class="pagination justify-content-center">
   
 <?php
