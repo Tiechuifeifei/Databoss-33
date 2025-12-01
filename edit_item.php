@@ -1,5 +1,6 @@
+<link rel="stylesheet" href="css/custom_2.css">
+
 <?php
-// 显示错误
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
@@ -56,30 +57,33 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['save_info'])) {
 
 <?php include("header.php"); ?>
 
-<div class="container mt-4">
-    <h3>Edit Item</h3>
+<div class="container mt-4 edit-item-page">
+    <h3 class="edit-item-title">Edit Item</h3>
 
     <?= $updateMessage ?>
 
     <!-- 编辑基本信息 -->
-    <form method="POST">
+    <form method="POST" class="edit-item-form">
         <input type="hidden" name="save_info" value="1">
 
         <div class="form-group">
-            <label>Item Name</label>
-            <input type="text" name="itemName" class="form-control" 
+            <label class="edit-label">Item Name</label>
+            <input type="text" name="itemName" class="edit-input" 
                    value="<?= htmlspecialchars($item['itemName']) ?>" required>
         </div>
 
-        <div class="form-group">
-            <label>Description</label>
-            <textarea name="itemDescription" class="form-control" rows="4" required><?= 
+        <div class="edit-field">
+            <label class="edit-label">Description</label>
+            <textarea name="itemDescription" class="edit-input" rows="4" placeholder="e.g. This is a Chanel vintage coat..." required><?= 
                 htmlspecialchars($item['itemDescription']) ?></textarea>
         </div>
 
-        <div class="form-group">
-            <label>Category:</label>
-            <select name="categoryId" class="form-control" required>
+        <div class="edit-row">
+
+            <div class="edit-field edit-field-half">
+            <label class="edit-label">Category:</label>
+            <select name="categoryId" class="edit-select" required>
+                <option value="" disabled>select a category</option>
                 <?php 
                 $catSql = "SELECT categoryId, categoryName FROM categories ORDER BY categoryId ASC";
                 $catResult = $conn->query($catSql);
@@ -92,31 +96,37 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['save_info'])) {
                 </option>
                 <?php } ?>
             </select>
-        </div>
+            </div>
+            
+        
 
-        <div class="form-group">
-            <label>Condition:</label>
-            <select name="itemCondition" class="form-control">
+        <div class="edit-field edit-field-half">
+            <label class="edit-label">Condition:</label>
+            <select name="itemCondition" class="edit-select" required>
                 <option value="new"         <?= ($item['itemCondition'] == 'new' ? 'selected' : '') ?>>New</option>
                 <option value="used"        <?= ($item['itemCondition'] == 'used' ? 'selected' : '') ?>>Used</option>
                 <option value="refurbished" <?= ($item['itemCondition'] == 'refurbished' ? 'selected' : '') ?>>Refurbished</option>
             </select>
         </div>
+    </div>
 
-        <button class="btn btn-primary mt-3">Save Changes</button>
+    <div class="edit-actions">
+        <button class="edit-next-btn" type="submit">Save Changes</button>
+    </div>
     </form>
+
 
 
     <!-- ----------------- 图片管理区 --------------------- -->
     <hr class="my-4">
-    <h4>Manage Images</h4>
+    <h4 class="edit-label">Manage Images</h4>
 
     <?php 
     $images = getImagesByItemId($itemId);
     ?>
 
     <?php if (empty($images)): ?>
-        <p>No images uploaded for this item.</p>
+        <p style="font-weight:200;">No images uploaded for this item.</p>
     <?php else: ?>
         <div class="row">
             <?php foreach ($images as $img): ?>
@@ -127,15 +137,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['save_info'])) {
 
                     <?php if ($img['isPrimary'] == 1): ?>
                         <div class="mt-2">
-                            <span class="badge badge-success">Primary</span>
+                            <span class="badge badge-edit-success">Primary</span>
                         </div>
                     <?php else: ?>
                         <a href="set_primary_image.php?imageId=<?= $img['imageId'] ?>&itemId=<?= $itemId ?>" 
-                           class="btn btn-sm btn-outline-primary mt-2">Set as primary</a>
+                           class="edit-primary-btn">Set as primary</a>
                     <?php endif; ?>
 
                     <a href="delete_image.php?itemId=<?= $itemId ?>&imageId=<?= $img['imageId'] ?>"
-                       class="btn btn-sm btn-outline-danger mt-2"
+                       class="edit-delete-btn"
                        onclick="return confirm('Delete this image?');">
                        Delete
                     </a>
@@ -149,16 +159,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['save_info'])) {
     <form method="POST" action="upload_image.php" enctype="multipart/form-data" class="mt-3">
         <input type="hidden" name="itemId" value="<?= $itemId ?>">
         <div class="form-group">
-            <label>Upload new images (max 3)</label>
+            <label style="font-weight:200;">Upload new images (max 3)</label>
             <input type="file" name="itemImages[]" class="form-control-file" multiple required>
         </div>
-        <button type="submit" class="btn btn-secondary">Upload Images</button>
+        <button type="submit" class="edit-btn edit-btn-small">Upload Images</button>
     </form>
 
 
     <!-- 完成编辑 -->
     <hr class="my-4">
-    <a href="mylistings.php" class="btn btn-success btn-lg">Finish Editing</a>
+    <a href="mylistings.php" class="edit-btn">Finish Editing</a>
 
 </div>
 

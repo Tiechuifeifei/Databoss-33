@@ -1,3 +1,5 @@
+<link rel="stylesheet" href="css/custom_2.css">
+
 <?php
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
@@ -62,24 +64,18 @@ $bidHistory = getBidsByAuctionId($auctionId);
 
 $currentPrice = $highestBid ? (float)$highestBid['bidPrice'] : $startPrice;
 
-/* ------------------------------------------------------
-   4. Header
------------------------------------------------------- */
 include_once "header.php";
 
-/* ------------------------------------------------------
-   5. Reserve price logic（吸收 Leo 的强逻辑）
------------------------------------------------------- */
 $reservePrice = isset($auction['reservedPrice']) ? (float)$auction['reservedPrice'] : 0.0;
 
 $hasHighestBid   = !empty($highestBid);
 $isUnsuccessful  = false;
 
-// 情况 1：无人出价
+//No bids
 if (!$hasHighestBid) {
     $isUnsuccessful = true;
 }
-// 情况 2：有人出价但没达到保留价
+//have bids but not achieve reserve price
 elseif ($reservePrice > 0 && (float)$highestBid['bidPrice'] < $reservePrice) {
     $isUnsuccessful = true;
 }
@@ -95,18 +91,6 @@ $userId = $_SESSION['userId'] ?? null;
 $isWatching = $userId ? isInWatchlist($userId, $auctionId) : false;
 ?>
 
-<div>
-    <?php if (!$userId): ?>
-        <a href="login.php" class="btn btn-outline-primary btn-sm">Login to watch</a>
-    <?php elseif (!$isWatching): ?>
-        <a href="watchlist_add.php?auctionId=<?= $auctionId ?>" 
-           class="btn btn-outline-success btn-sm">♡ Add to Watchlist</a>
-    <?php else: ?>
-        <a href="watchlist_remove.php?auctionId=<?= $auctionId ?>" 
-           class="btn btn-danger btn-sm">♥ Remove</a>
-    <?php endif; ?>
-</div>
-
 <?php if (isset($_GET['success']) && $_GET['success'] === 'relisted'): ?>
     <div class="alert alert-success">Your Item has been successfully relisted!</div>
 <?php endif; ?>
@@ -121,11 +105,11 @@ $isWatching = $userId ? isInWatchlist($userId, $auctionId) : false;
     <div class="alert alert-danger"><?= h($_GET['error']) ?></div>
 <?php endif; ?>
 
-<h3><?= h($auction['itemName']) ?></h3>
 
-<div class="row mt-3">
+<!--html-->
+<div class="row mt-3nb product-page">
 
-<!-- LEFT SIDE -->
+<!--left-->
 <div class="col-md-8">
 
   <?php if ($primaryImage): ?>
@@ -137,12 +121,34 @@ $isWatching = $userId ? isInWatchlist($userId, $auctionId) : false;
           <img src="<?= h($img['imageUrl']) ?>" style="max-width: 120px; border-radius: 4px;">
       <?php endforeach; ?>
   </div>
+</div>
+
+
+<!--right-->
+<div class="col-md-4">
+
+<h3 class="item-name"><?= h($auction['itemName']) ?></h3>
+
+<?php $status = $auction['auctionStatus']; ?>
+
+<div class="mb-3">
+    <?php if (!$userId): ?>
+        <a href="login.php" class="watch-btn watch-btn-outline">Login to watch</a>
+    <?php elseif (!$isWatching): ?>
+        <a href="watchlist_add.php?auctionId=<?= $auctionId ?>" 
+           class="bid-btn">♡ Add to Watchlist</a>
+    <?php else: ?>
+        <a href="watchlist_remove.php?auctionId=<?= $auctionId ?>" 
+           class="bid-btn">♥ Remove</a>
+    <?php endif; ?>
+</div>
+
 
   <h5>Description:</h5>
   <p><?= nl2br(h($auction['itemDescription'])) ?></p>
 
   <?php if ($item['itemStatus'] === 'inactive' && $userId == $item['sellerId']): ?>
-      <a href="edit_item.php?itemId=<?= $item['itemId'] ?>" class="btn btn-secondary mb-3">Edit Item</a>
+      <a href="edit_item.php?itemId=<?= $item['itemId'] ?>" class="edit-btn edit-btn-small mb-3">Edit Item</a>
   <?php endif; ?>
 
   <h5>Bid History:</h5>
@@ -161,27 +167,23 @@ $isWatching = $userId ? isInWatchlist($userId, $auctionId) : false;
       </table>
   <?php endif; ?>
 
-</div>
-
-
-<!-- RIGHT SIDE -->
-<div class="col-md-4">
-
-<?php $status = $auction['auctionStatus']; ?>
-
-<!-- 状态：RELISTED -->
+<!--relist-->
 <?php if ($status === 'relisted'): ?>
-    <div class="alert alert-secondary"><strong>This auction has been re-listed.</strong></div>
+    <div class="auction-ended-box"><strong>This auction has been re-listed.</strong></div>
 
     <?php if ($userId == $item['sellerId']): ?>
-        <button class="btn btn-secondary mt-3" disabled>Already re-listed</button>
+        <button class="auction-info-line" disabled>Already re-listed</button>
     <?php endif; ?>
 
+ 
+<?php if ($item['itemStatus'] === 'inactive' && $userId == $item['sellerId']): ?>
+      <a href="edit_item.php?itemId=<?= $item['itemId'] ?>" class="bid-btn">Edit Item</a>
+  <?php endif; ?>
 
-<!-- 状态：ENDED -->
+<!--ended-->
 <?php elseif ($status === 'ended'): ?>
 
-    <div class="alert alert-secondary"><strong>This auction has ended.</strong></div>
+    <div class="auction-ended-box"><strong>This auction has ended.</strong></div>
 
     <?php if ($hasValidWinner): ?>
 
@@ -199,7 +201,7 @@ $isWatching = $userId ? isInWatchlist($userId, $auctionId) : false;
 
     <?php else: ?>
 
-        <!-- 拍卖不成功 -->
+        <!--unsuccessful auction-->
         <?php if ($hasHighestBid && $reservePrice > 0 && $highestBid['bidPrice'] < $reservePrice): ?>
             <p>
             Highest bid £<?= number_format($highestBid['bidPrice'],2) ?> 
@@ -208,46 +210,46 @@ $isWatching = $userId ? isInWatchlist($userId, $auctionId) : false;
             </p>
 
         <?php elseif ($hasHighestBid): ?>
-            <p>Highest bid £<?= number_format($highestBid['bidPrice'],2) ?>. No winner.</p>
+            <p class="auction-info-line">Highest bid £<?= number_format($highestBid['bidPrice'],2) ?>. No winner.</p>
         <?php else: ?>
-            <p>No bids were placed.</p>
+            <p lass="auction-info-line">No bids were placed.</p>
         <?php endif; ?>
 
         <?php if ($userId == $item['sellerId'] && $isUnsuccessful): ?>
-            <a href="relist.php?auctionId=<?= $auctionId ?>" class="btn btn-warning mt-3">Re-list this item</a>
+            <a href="relist.php?auctionId=<?= $auctionId ?>" class="relist-btn">Re-list this item</a>
         <?php endif; ?>
 
     <?php endif; ?>
 
 
-<!-- 状态：SCHEDULED -->
+<!--scheduled-->
 <?php elseif ($status === 'scheduled'): ?>
 
-    <div class="alert alert-info"><strong>This auction has not started yet.</strong></div>
+    <div class="alert auction-alert-info"><strong>This auction has not started yet.</strong></div>
     <p>Starts: <?= $startTime->format('j M H:i') ?> (in <?= $now->diff($startTime)->format('%ad %hh %im') ?>)</p>
     <p class="lead">Starting Price: £<?= number_format($startPrice,2) ?></p>
 
 
-<!-- 状态：RUNNING -->
+<!--running-->
 <?php elseif ($status === 'running'): ?>
 
-    <p class="text-muted">
+    <p class="auction-info-line">
         Ends <?= $endTime->format('j M H:i') ?>  
         (in <?= display_time_remaining($now->diff($endTime)) ?>)
     </p>
 
-    <p class="lead">Current bid: £<?= number_format($currentPrice,2) ?></p>
+    <p class="auction-info-line">Current bid: £<?= number_format($currentPrice,2) ?></p>
 
     <?php if ($userId == $auction['sellerId']): ?>
-        <p class="text-warning">You are the seller and cannot bid.</p>
+        <p class="auction-info-line text-warning">You are the seller and cannot bid.</p>
     <?php else: ?>
-        <form method="POST" action="place_bid.php">
+        <form method="POST" action="place_bid.php" class="mt-2">
             <input type="hidden" name="auctionId" value="<?= $auctionId ?>">
-            <div class="input-group">
+            <div class="bid-input-wrap">
                 <span class="input-group-text">£</span>
                 <input type="number" name="bidPrice" class="form-control" step="0.01" required>
             </div>
-            <button class="btn btn-primary mt-2">Place bid</button>
+            <button class="btn bid-btn mt-2">Place bid</button>
         </form>
     <?php endif; ?>
 
