@@ -870,91 +870,276 @@
     margin-bottom:5px;
     }
 
-    /*CSS for listing.php*/
-    /* 整个详情页整体感 */
-.product-page {
-  max-width: 1100px;
-  margin: 40px auto 80px;
-}
+    /*CSS for mybids.php*/
+    .mybids-page {
+        max-width: 900px;
+        margin-top: 40px;
+    }
 
-/* 顶部标题 + watch 按钮 */
-.product-topbar {
-  margin-bottom: 24px;
-}
+    .mybids-title {
+        font-size: 2.5rem;
+        margin-bottom: 20px;
+        font-family:monospace,"Monaco";
+        letter-spacing: -1px;
+        text-align: center;
+    }
 
-.product-title {
-  font-size: 26px;
-  letter-spacing: 0.03em;
-}
+    .mybids-empty {
+        font-size: 16px;
+        color: #777;
+    }
 
-.product-watch .btn {
-  border-radius: 999px;
-  font-size: 12px;
-  padding: 6px 14px;
-}
+    .mybids-table {
+        overflow: hidden;
+        font-size: 15px;
+    }
 
-/* 中间那块“大卡片” */
-.product-main-card {
-  background: #f5f3f0;           /* 奶油色背景，类似 Pinterest 图 */
-  border-radius: 24px;
-  padding: 32px 40px;
-}
+    .mybids-header th {
+        background: #999;
+        font-size: 14px;
+        font-family:monospace,"Monaco";
+        color:white;
+        font-weight:500;
+        letter-spacing: -1px;
+    }
 
-/* 左边图片区 */
-.product-main-image img {
-  width: 100%;
-  max-width: 480px !important;   /* 覆盖内联的 300px 限制，让图更大一点 */
-  border-radius: 18px;
-  object-fit: cover;
-  display: block;
-}
+    .mybids-cell {
+        padding: 6px 10px !important;
+        background:white;
+    }
 
-.product-thumb-row {
-  margin-top: 16px;
-}
+    .mybids-itemlink {
+        font-weight: 200;
+        color:black;
+        text-decoration:underline;
+        text-align: center;
+    }
 
-.product-thumb img {
-  width: 88px;
-  height: 88px;
-  border-radius: 12px;
-  object-fit: cover;
-  border: 1px solid #e2dfdb;
-}
+    .mybids-itemlink:hover {
+        text-decoration: underline;
+        color: #999;
+    }
 
-/* Description 等小标题 */
-.product-section-title {
-  margin-top: 24px;
-  margin-bottom: 6px;
-  font-size: 14px;
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-}
+    .mybids-cell-text{
+        font: weight 200px;
+        color:#000;
+    }
 
-/* 右侧白卡片 */
-.product-right-card {
-  background: #ffffff;
-  border-radius: 20px;
-  padding: 20px 22px;
-  border: 1px solid #e5e2dd;
-}
+    .mybids-table tbody td{
+        background:white;
+        font-weight:200;
+    }
 
-.product-status-text {
-  font-size: 13px;
-}
+    /*CSS for mylistings.php*/
 
-/* 右侧 price / bid 的字看起来更像产品页 */
-.product-right .lead {
-  font-size: 18px;
-  font-weight: 600;
-}
+    .mylistings-page {
+        max-width: 900px;
+        margin-top: 40px;
+        margin-bottom:30px;
+    }
 
-/* Bid history 表格略微收紧 */
-.product-left table {
-  font-size: 13px;
-}
+    .mylistings-title {
+        font-size: 2.2rem;
+        margin-bottom: 20px;
+        font-family: monospace, "Monaco";
+        letter-spacing: -1px;
+        text-align: center;
+    }
 
-.product-left table th,
-.product-left table td {
-  padding-top: 6px;
-  padding-bottom: 6px;
-}
+    .mylistings-empty {
+        font-size: 15px;
+    }
+
+    .mylistings-list {
+        overflow: hidden;
+        border:none;
+    }
+
+    .mylistings-item {
+        padding: 20px 25px;
+        border: none;
+        border-bottom: 1px solid black;
+    }
+
+    .mylistings-item:last-child {
+        border:none;
+    }
+
+    .mylistings-item-main {
+        max-width: 75%;
+    }
+
+    .mylistings-item-link {
+        font-size: 20px;
+        color: #666;
+        text-decoration: none;
+        font-family:monospace,"Monaco";
+        letter-spacing: -1px;
+    }
+
+    .mylistings-item-link:hover {
+        text-decoration: underline;
+        color:#000;
+    }
+
+    .mylistings-item-meta {
+        color: #333;
+        font-weight:200;
+    }
+
+    .mylistings-item-actions {
+        text-align: right;
+        margin-top:10px;
+    }
+
+    .mylistings-open-btn {
+        padding: 4px 14px;
+        font-size: 13px;
+        border: 1px solid black;
+        border-radius: 0;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        font-weight:200;
+        color:black;
+    }
+
+    .mylistings-open-btn:hover{
+        background:black;
+        color:white;
+    }
+
+    .mylistings-status {
+        padding: 2px 6px;
+        border-radius: 4px;
+        font-size: 12px;
+        background: #f2f2f2;
+        color: #555;
+    }
+
+    .mylistings-status-running {
+        background: #e5f7ea;
+        color: #1b7a3b;
+    }
+
+    .mylistings-status-ended {
+        background: #f5e6e6;
+        color: #9a1f1f;
+    }
+
+    .mylistings-status-scheduled {
+        background: #e7f0ff;
+        color: #215a9b;
+    }
+
+    /*CSS for profile.php*/
+    
+    .profile-page {
+        max-width: 900px;
+    }
+
+    .profile-title {
+        font-size: 2.2rem;
+        font-family: monospace, "Monaco";
+        letter-spacing: -1px;
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+    .profile-card{
+        background:white;
+        border:none!important;
+        border-bottom: 1px solid black !important;
+        border-radius: 0 !important;
+        padding: 10px 15px;
+    }
+
+    .profile-section-title {
+        font-size: 1.5rem;
+        margin-top:10px;
+        margin-bottom: 15px;
+        letter-spacing: -1px;
+        font-family:monospace,"Monaco";
+    }
+
+    .porfile-info {
+        font-size: 0.95rem;
+        color: #444;
+        margin-bottom: 6px;
+        font-weight:200;
+    }
+
+    .profile-message {
+        font-size: 0.95rem;
+        color: #777;
+        margin-bottom: 10px;
+        font-weight:200;
+    }
+
+    .profile-card,
+    .profile-mini-card {
+        border-radius: 10px;
+        border: 1px solid #e5e5e5;
+        background: #fff;
+        transition: box-shadow 0.15s ease, transform 0.15s ease;
+    }
+
+    .profile-mini-card:hover {
+        box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        transform: translateY(-1px);
+    }
+
+    .profile-basic {
+        background: #f9f9f9;
+    }
+
+    .profile-item-title {
+        font-size: 1.05rem;
+        margin-bottom: 8px;
+        font-family:monospace,"Monaco";
+        letter-spacing: -1px;
+    }
+
+    .profile-result {
+        margin-top: 6px;
+        font-size: 0.95rem;
+        font-weight:200;
+    }
+
+    .profile-btn {
+        border-radius:0 !important;
+        border:1px solid black;
+        padding: 4px 14px;
+        font-size: 0.85rem;
+        margin-top: 6px;
+        font-weight:200;
+        width:150px !important;
+        color:black;
+        text-transform: uppercase;
+        letter-spacing: -0.5px;
+        text-align: center;
+        margin:auto;
+    }
+
+    .profile-btn:hover{
+        background:#222 !important;
+        color:white !important;
+        text-decoration: none !important;
+    }
+
+    .profile-btn-remove {
+        background: transparent;
+        border: 1px solid #d9534f;
+        color: #d9534f;
+        text-align: center;
+        font-weight:200;
+        margin-top:10px;
+        width:150px;
+        margin:auto;
+        margin-top:10px;
+    }
+
+    .profile-btn-remove:hover {
+        background: #d9534f;
+        color: #fff;
+        text-decoration: none;
+    }

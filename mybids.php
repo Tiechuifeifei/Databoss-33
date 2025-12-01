@@ -1,3 +1,5 @@
+  <link rel="stylesheet" href="css/custom_2.css">
+
 <?php
 //mybids.php
 // Buyer's view: buyer can view all his/her bids on different auctions.
@@ -21,24 +23,27 @@ exit;
 $bids = getBidsByUser($userId);
 
 ?>
-<div class="container mt-4">
-<h2>My Bids</h2>
+<div class="container mt-4 my-bid-page">
+<h2 class="mybids-title">My Bids</h2>
 
 <?php if(empty($bids)): ?>
-<p>You have not placed any bids yet.</p>
+<p class="mybids-empty">You have not placed any bids yet.</p>
 <?php else: ?>
-<table class="table table-bordered table-striped mt-3">
-<thead>
+<table class="table table-bordered table-striped mt-3 mybids-table">
+<thead class="mybids-header">
 <tr>
-<th>Item</th><th>Auction ID</th><th>Your bid</th>
-<th>Highest bidder?</th>
-<th>Current highest bid</th>
-<th>Auction status</th>
-<th>Bid time</th>
-<th>Auction end time</th>
+<th class="mybids-head-text">Item</th>
+<th class="mybids-head-text">Auction ID</th>
+<th class="mybids-head-text">Your bid</th>
+<th class="mybids-head-text">Highest bidder?</th>
+<th class="mybids-head-text">Current highest bid</th>
+<th class="mybids-head-text">Auction status</th>
+<th class="mybids-head-text">Bid time</th>
+<th class="mybids-head-text">Auction end time</th>
 </tr>
 </thead>
-<tbody>
+
+<tbody class="mybids-body">
 <?php foreach($bids as $b): ?>
 
 <?php
@@ -91,19 +96,19 @@ $winnerText = '<span class="text-muted">Auction ended with no bids.</span>';
 }
 }
 ?>
-<tr>
-<td>
-<a href="listing.php?itemId=<?=$itemId?>">
+<tr class="mybids-row">
+<td class="mybids-cell">
+<a class="mybids-itemlink" href="listing.php?itemId=<?=$itemId?>">
 <?= h($itemName) ?>
 </a>
 </td>
-<td><?=$auctionId?></td>
-<td>£<?=number_format($yourBid,2)?></td>
-<td><?php echo $winnerText; ?></td>
-<td>£<?=number_format($currentHighest,2)?></td>
-<td><?=h($status)?></td>
-<td><?=h($bidTime)?></td>
-<td><?= $endTime ? h($endTime) : 'N/A' ?></td>
+<td class="mybids-cell-text"><?=$auctionId?></td>
+<td class="mybids-cell-text">£<?=number_format($yourBid,2)?></td>
+<td class="mybids-cell-text"><?php echo $winnerText; ?></td>
+<td class="mybids-cell-text">£<?=number_format($currentHighest,2)?></td>
+<td class="mybids-cell-text"><?=h($status)?></td>
+<td class="mybids-cell-text"><?=h($bidTime)?></td>
+<td class="mybids-cell-text"><?= $endTime ? h($endTime) : 'N/A' ?></td>
 </tr>
 <?php endforeach; ?>
 </tbody>
