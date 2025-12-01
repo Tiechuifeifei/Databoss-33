@@ -352,7 +352,6 @@
         color:white;
     }
 
-/*CSS for upload images*/
     .upload-image-title{
         font-family: monospace,"Monaco";
         text-align: center;
@@ -361,8 +360,6 @@
         letter-spacing: -1px;
     }
 
-
-
     .image-gallery {
         display: flex;
         gap: 20px;
@@ -370,7 +367,6 @@
         margin-top: 20px;
         margin-bottom: 40px;
     }
-
 
     .image-card {
         width: 150px;
@@ -429,28 +425,536 @@
         font-family:sans-serif
     }
 
-    /*CSS for create_auction.php */
-    /* 确保输入框是下划线风格 */
-.styled-input {
-    width: 100%;
-    padding: 10px 0;
-    font-size: 16px;
-    color: #333;
-    border: none;
-    border-bottom: 1px solid #ccc;
-    background: transparent;
-    outline: none;
+    .styled-input {
+        width: 100%;
+        padding: 10px 0;
+        font-size: 16px;
+        color: #333;
+        border: none;
+        border-bottom: 1px solid #ccc;
+        background: transparent;
+        outline: none;
+        border-radius: 0;
+        font-weight:200;
+    }
+
+    .styled-input:focus {
+        border-bottom: 1px solid #000;
+    }
+
+    input[type="datetime-local"] {
+        font-weight:200px;
+        color: #999;
+    }
+
+    /*CSS for create_auction_result.php*/
+    .message-box {
+        padding: 40px;
+        text-align: center;
+        margin-bottom: 30px;
+        font-weight:200;
+    }
+
+    .message-box.error {
+        color: #d9534f;
+    }
+
+    .message-box.success {
+        color: #333;
+    }
+
+    .error-list {
+        list-style: none;
+        padding: 0;
+        margin: 20px 0;
+        text-align: left;
+        display: inline-block;
+    }
+
+    .error-list li {
+        margin-bottom: 10px;
+        font-size: 14px;
+    }
+
+    .result-title {
+        font-size: 24px;
+        font-weight: 500;
+        margin-bottom: 2rem;
+        letter-spacing: -1px;
+        font-family:monospace,"Monaco";
+    }
+
+    .btn-link-style {
+        margin-top:10px;
+        display: inline-block;
+        padding: 12px 30px;
+        border: 1px solid #ccc;
+        background: transparent;
+        color: #333;
+        text-decoration: none !important;
+        font-weight:200;
+        font-size: 14px;
+        text-transform: uppercase;
+        transition: all 0.3s;
+        cursor: pointer;
+    }
+
+    .btn-link-style:hover {
+        border-color:white;
+        background-color: black;
+        color:white;
+    }
+
+    /*CSS for register.php*/
+        .register-container {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 20px;
+            background: #fff;
+        }
+
+        .register-title {
+            font-family: monospace,"Monaco";
+            font-size: 3rem;
+            letter-spacing: -1.5px;
+            text-align: center;
+            margin-bottom: 60px;
+            color: #333;
+        }
+
+        .register-label {
+            font-family: monospace,"Monaco";
+            font-size: 1.1rem;
+            letter-spacing: -1px;
+            font-weight:300;
+            color: #000;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .register-input {
+            width: 100%;
+            border: none;
+            border-bottom: 1px solid #999;
+            border-radius: 0;
+            padding: 10px 0;
+            font-size: 1rem;
+            color: #555;
+            background: transparent;
+            transition: border-color 0.3s;
+            margin-bottom: 40px;
+        }
+
+        .register-input:focus {
+            outline: none;
+            border-bottom: 1px solid #000;
+            box-shadow: none;
+        }
+
+        .register-input::placeholder {
+            color: #ccc;
+            font-weight: 200;
+        }
+
+        .text-muted {
+            font-size: 0.75rem;
+            margin-top: -35px;
+            font-weight:200;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .btn-outline-box {
+            background: transparent;
+            border: 1px solid black;
+            color: black;
+            padding: 15px 30px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.9rem;
+            border-radius: 0;
+            transition: all 0.3s;
+            margin-top: 20px;
+        }
+
+        .btn-outline-box:hover {
+            background: black;
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .login-link {
+            text-align: center;
+            margin-top: 10px;
+            font-family: monospace,"Monaco";
+            font-size: 0.9rem;
+        }
+        
+        .login-link a {
+            color: #000;
+            text-decoration: underline;
+        }
+
+        /*CSS for browse.php*/
+     .browse-title {
+        font-family: monospace,"Monaco";
+        font-size: 2.5rem;
+        text-align: center;
+        margin-top: 40px;
+        margin-bottom: 50px;
+        color: #222;
+        letter-spacing: -1px;
+    }
+
+    .search-flex-container {
+        width: 100%;
+        margin-bottom: 60px;
+        font-weight:200;
+    }
+
+    .search-row {
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+        gap: 20px;
+        flex-wrap: wrap;
+    }
+
+    .search-col {
+        flex: 1;
+        min-width: 180px;
+        position: relative;
+    }
+    
+    .search-col.wide { flex: 2; }
+    
+    .search-col.narrow { flex: 0 0 100px; min-width: auto; }
+
+    .browse-label {
+        display: block;
+        font-size: 0.75rem;
+        font-weight:200;
+        color:black;
+        margin-bottom: 0;
+    }
+
+    .browse-control {
+        width: 100%;
+        border: none;
+        border-bottom: 1px solid black;
+        background: transparent;
+        padding: 10px 0;
+        font-size: 1rem;
+        color: #333;
+        border-radius: 0;
+        outline: none;
+        height: 45px;
+        box-shadow: none !important;
+    }
+
+    .browse-control:focus {
+        border-bottom: 1px solid #000;
+        outline: none;
+    }
+
+    select.browse-control{
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+    }
+
+    .icon-wrapper i {
+        position: absolute;
+        left: 0;
+        bottom: 15px;
+        color: #ccc;
+        z-index: 10;
+    }
+    .icon-wrapper input {
+        padding-left: 25px;
+    }
+
+    .btn-browse {
+        width: 100%;
+        height: 45px;
+        background: #fff;
+        color: black;
+        border: 1px solid black;
+        text-transform: uppercase;
+        font-size: 0.8rem;
+        cursor: pointer;
+        transition: opacity 0.3s;
+        font-weight:200;
+        letter-spacing: 0.5px;
+    }
+    .btn-browse:hover { opacity: 0.8; 
+        color: #fff;
+        background:black
+        
+    }
+
+    .browse-pagination{
+        border-radius: 0;
+    }
+
+    .browse-pagination .page-link {
+    border: 1px solid #999;
+    background: #fff;
+    color: #444 ;
     border-radius: 0;
+    width:40px;
+    height:40px;
+    text-align:center;
     font-weight:200;
+    }
+
+    .browse-pagination .page-link:hover {
+    border-color: #ccc;
+    background-color: #fafafa;
+    }
+
+    .browse-pagination .page-item.active .page-link {
+    background: black;
+    color: white;
+    border-color: black;
+    }
+
+    /*CSS for utilities*/
+    .browse-item .browse-item {
+        padding: 12px 24px;
+        border:none;
+    }
+
+    .browse-link {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 40px;
+        padding: 22px 0;
+        text-decoration: none;
+        color: #2b2623;
+    }
+
+    .browse-link:hover {
+        background: #fbf6f0;
+        border-radius: 12px;
+    }
+
+    .browse-text {
+        flex: 1;
+    }
+
+    .browse-title {
+        font-size: 2.5rem;
+        letter-spacing: -1px;
+        margin: 40px;
+        font-family:monospace,"Monaco"
+    }
+
+    .browse-desc {
+        font-size: 13px;
+        line-height: 1.6;
+        color: #8a7b6f;
+        margin: 0 0 8px;
+    }
+
+    .browse-meta {
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        color: #b5a293;
+        margin: 0;
+    }
+
+    .meta-separator {
+        margin: 0 4px;
+    }
+
+    .status-label {
+        font-weight: 500;
+    }
+
+    .browse-right {
+        min-width: 130px;
+        text-align: right;
+    }
+
+    .browse-price {
+        font-size: 16px;
+        font-weight: 200;
+    }
+
+    .browse-bids .browse-winner {
+        font-size: 12px;
+        color: #8a7b6f;
+        margin-top: 3px;
+    }
+
+    .listing-item {
+    padding: 14px 24px;
+    border: none;
+    }
+
+    .listing-item + .listing-item {
+    border-top: 1px solid #eee;
+    }
+
+    .listing-left {
+    display: block;
+    }
+
+    .listing-title {
+    display: block;
+    font-family:monospace,"Monaco";
+    font-size: 20px;
+    line-height: 1.4;
+    margin: 0 0 4px;
+    letter-spacing: -1px;
+    text-decoration: none;
+    color: inherit;
+    }
+
+    .listing-desc {
+    font-size: 14px;
+    line-height: 1.4;
+    margin: 0 0 6px;
+    font-weight:200;
+    }
+
+    .listing-badge .badge {
+    width:90px;
+    font-size: 14px;
+    padding: 4px;
+    background:none;
+    border-radius: 0;
+    }
+
+    .badge-schedule{
+        background:white;
+        border: 1px solid black;
+        color:black;
+        font-weight:200;
+        border-radius: 0;
+    }
+
+    .badge-running{
+        background:#999 !important;
+        color:white;
+        font-weight:200;
+        border-radius:0;
+        
+    }
+
+    .badge-ended{
+        background:black !important;
+        color:white;
+        font-weight:200;
+    }
+
+    .listing-right {
+    font-size: 12px;
+    }
+
+    .listing-price {
+    font-size: 16px;
+    font-weight: 200;
+    margin-bottom: 5px;
+    }
+
+    .listing-bids,
+    .listing-time,
+    .listing-winner {
+    font-size:14px;
+    font-weight:200;
+    line-height: 1.4;
+    margin-bottom:5px;
+    }
+
+    /*CSS for listing.php*/
+    /* 整个详情页整体感 */
+.product-page {
+  max-width: 1100px;
+  margin: 40px auto 80px;
 }
 
-/* 选中时变黑 */
-.styled-input:focus {
-    border-bottom: 1px solid #000;
+/* 顶部标题 + watch 按钮 */
+.product-topbar {
+  margin-bottom: 24px;
 }
 
-/* 针对日期选择器的特殊处理，让它字体也统一 */
-input[type="datetime-local"] {
-    font-weight:200px;
-    color: #666;
+.product-title {
+  font-size: 26px;
+  letter-spacing: 0.03em;
+}
+
+.product-watch .btn {
+  border-radius: 999px;
+  font-size: 12px;
+  padding: 6px 14px;
+}
+
+/* 中间那块“大卡片” */
+.product-main-card {
+  background: #f5f3f0;           /* 奶油色背景，类似 Pinterest 图 */
+  border-radius: 24px;
+  padding: 32px 40px;
+}
+
+/* 左边图片区 */
+.product-main-image img {
+  width: 100%;
+  max-width: 480px !important;   /* 覆盖内联的 300px 限制，让图更大一点 */
+  border-radius: 18px;
+  object-fit: cover;
+  display: block;
+}
+
+.product-thumb-row {
+  margin-top: 16px;
+}
+
+.product-thumb img {
+  width: 88px;
+  height: 88px;
+  border-radius: 12px;
+  object-fit: cover;
+  border: 1px solid #e2dfdb;
+}
+
+/* Description 等小标题 */
+.product-section-title {
+  margin-top: 24px;
+  margin-bottom: 6px;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+
+/* 右侧白卡片 */
+.product-right-card {
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 20px 22px;
+  border: 1px solid #e5e2dd;
+}
+
+.product-status-text {
+  font-size: 13px;
+}
+
+/* 右侧 price / bid 的字看起来更像产品页 */
+.product-right .lead {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+/* Bid history 表格略微收紧 */
+.product-left table {
+  font-size: 13px;
+}
+
+.product-left table th,
+.product-left table td {
+  padding-top: 6px;
+  padding-bottom: 6px;
 }
