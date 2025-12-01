@@ -231,25 +231,33 @@ $isWatching = $userId ? isInWatchlist($userId, $auctionId) : false;
 <!-- 状态：RUNNING -->
 <?php elseif ($status === 'running'): ?>
 
-    <p class="text-muted">
-        Ends <?= $endTime->format('j M H:i') ?>  
-        (in <?= display_time_remaining($now->diff($endTime)) ?>)
-    </p>
+<p class="text-muted">
+Ends <?= $endTime->format('j M H:i') ?>  
+(in <?= display_time_remaining($now->diff($endTime)) ?>)
+</p>
 
-    <p class="lead">Current bid: £<?= number_format($currentPrice,2) ?></p>
+<p class="lead">Current bid: £<?= number_format($currentPrice,2) ?></p>
 
-    <?php if ($userId == $auction['sellerId']): ?>
-        <p class="text-warning">You are the seller and cannot bid.</p>
-    <?php else: ?>
-        <form method="POST" action="place_bid.php">
-            <input type="hidden" name="auctionId" value="<?= $auctionId ?>">
-            <div class="input-group">
-                <span class="input-group-text">£</span>
-                <input type="number" name="bidPrice" class="form-control" step="0.01" required>
-            </div>
-            <button class="btn btn-primary mt-2">Place bid</button>
-        </form>
-    <?php endif; ?>
+<?php if ($userId == $auction['sellerId']): ?>
+<p class="text-warning">You are the seller and cannot bid.</p>
+<?php else: ?>
+
+<p class="text-warning" style="font-size: 0.9rem;">
+    Please double-check your bid amount before submitting.
+</p>
+<p class="text-warning" style="font-size: 0.9rem;">
+    Please confirm your decision carefully, as bids cannot be cancelled or withdrawn.
+
+</p>
+<form method="POST" action="place_bid.php">
+<input type="hidden" name="auctionId" value="<?= $auctionId ?>">
+<div class="input-group">
+<span class="input-group-text">£</span>
+<input type="number" name="bidPrice" class="form-control" step="0.01" required>
+</div>
+<button class="btn btn-primary mt-2">Place bid</button>
+</form>
+<?php endif; ?>
 
 <?php endif; ?>
 
