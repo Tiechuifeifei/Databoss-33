@@ -1,4 +1,5 @@
 <link rel="stylesheet" href="css/custom_2.css">
+<link rel="stylesheet" href="css/starRating.css">
 
 <?php
 require_once 'utilities.php';
