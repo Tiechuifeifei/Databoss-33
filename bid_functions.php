@@ -32,10 +32,10 @@ require_once 'utilities.php';
 //    Users cannot place a bid on cancelled, scheduled, or already-ended auctions.
 //
 // 4. Minimum bid requirement (no existing bids):
-//    The first bid must not be less than the start price set by the seller.
+//    The first bid must be strictly higher than the starting price set by the seller.
 //
 // 5. Minimum bid requirement (with existing bids):
-//    Any new bid must be at least £5.00 higher than the current highest bid.
+//    Any new bid must be strictly higher than the current highest bid (no fixed increment).
 //
 // 6. Basic input validation:
 //    Users cannot place a bid that is less than or equal to £0.00 (will also check the non-numeric values too)
@@ -235,9 +235,9 @@ return $rows;
 // 1) Validate bid price (> 0).
 // 2) Load auction info and check existence / seller / timing / status.
 // 3) Apply bidding rules:
-//    - First bid must be >= start price.
+//    - First bid must be > start price.
 //    - Current highest bidder cannot bid again.
-//    -New bid must be at least £5.00 higher than current highest bid.
+//    - New bid must be > current highest bid.
 //    - Seller cannot bid on own auction.
 // 4) Insert the bid if all checks pass and return a result array.
 
@@ -247,7 +247,7 @@ function placeBid($buyerId, $auctionId, $bidPrice)
     if ($bidPrice <= 0) { 
         return [
             "success" => false,
-            "message" => "Sorry,your bid amount must be higher than £0.00."
+            "message" => "Sorry, your bid amount must be higher than £0.00."
         ];
     }
     $db = get_db_connection();
@@ -330,37 +330,47 @@ $stmtAuction   -> close();
             ];
         }
     }
-// 3) Get the Current highest bid for bid validations later. 
-    $currentHighest = getHighestBidForAuction($auctionId);
-    // (3.1) First time bid must higher than the start price & check start price>0 btw, otherwise a reminder.首次出价必须高于卖家设置的起拍价
+
+
+// 3)Get the Current highest bid for bid validations later. 
+$currentHighest = getHighestBidForAuction($auctionId);
+
+// (3.1)first bid must higher than starting price if there is no existing bids
+
 if ($currentHighest === null) {
-    if ($startPrice > 0 && $bidPrice < $startPrice) {
+
+    if ($startPrice > 0 && $bidPrice <= $startPrice) {
         return [
             "success" => false,
-            "message" => "Sorry, you are placing the first bid for this auction, it must be at least the start price (£" . number_format($startPrice, 2) . ")."
+            "message" => "Sorry, your bid must be higher than the starting price (£" . number_format($startPrice, 2) . ")."
         ];
     }
-}
-// if not 3.1,can compare new bid with CHB
-    if ($currentHighest !== null) {
+
+} else {
+
+
     $currentHighestPrice = (float)$currentHighest["bidPrice"];
     $currentHighestBuyer = (int)$currentHighest["buyerId"];
-// (3.2) Current highest biddER cannot bid again, otherwise return reminder. 当前最高出价者不能再出价
+
+    // (3.2)highest bidder can’t bid again,avoid double-bidding or spam.
     if ($currentHighestBuyer === (int)$buyerId) {
         return [
             "success" => false,
-            "message" => "Sorry, you are already the highest bidder for this auction, and cannot place another bid on the same auction."
+            "message" => "Sorry, you are already the highest bidder for this auction, no need to bid again."
         ];
     }
-    // (3.3) Minimum increase £5 rule for bid otherwise meaningless最小的加价至少要5镑
-    $minIncrease = 5.00;  // can be a difference number
-    if ($bidPrice < $currentHighestPrice + $minIncrease) {
+
+    // (3.3) bid must be higher than the current highest bid, if there is/are bid/bids already.
+    if ($bidPrice <= $currentHighestPrice) {
         return [
             "success" => false,
-            "message" => "Sorry, your bid must be at leaset £5 higher than the current highest bid price."
+            "message" => "Sorry, your bid must be higher than the current highest bid (£" . number_format($currentHighestPrice, 2) . ")."
         ];
     }
 }
+
+
+
 //Insert the new bid into bids table 把新的出价插入导入bids表
     $sql = "
     INSERT INTO bids (auctionId, buyerId, bidPrice, bidTime)
