@@ -310,6 +310,8 @@ function getAuctionsByUser($userId) {
 //8. endAuctions -- update the auction when it ends
 //8. endAuctions -- update the auction when it ends
 function endAuction($auctionId) {
+    file_put_contents(__DIR__ . '/auction_email_debug.txt', "endAuction called for auction {$auctionId}\n", FILE_APPEND);
+
     global $conn;
 
     $auctionId = (int)$auctionId;
@@ -378,18 +380,20 @@ function endAuction($auctionId) {
 
 // 9. Close auction only if ended
 function closeAuctionIfEnded($auctionId) {
-
-    // Step 1: refresh auction status (this already checks time)
+    // refresh auction status (updates DB if needed)
     $ended = refreshAuctionStatus($auctionId);
 
-    // Step 2: if ended, calculate soldPrice + winningBidId
+    // If refresh says ended (string 'ended' or truthy), run endAuction()
     if ($ended) {
+        file_put_contents(__DIR__ . '/auction_email_debug.txt', "closeAuctionIfEnded: endAuction called for auction {$auctionId}\n", FILE_APPEND);
         endAuction($auctionId);
         return "Auction closed (ended).";
     }
 
     return "Auction still active.";
 }
+
+
 // 10. cancel auction 
 function cancelAuction($auctionId, $itemId) {
     global $conn;
@@ -468,6 +472,8 @@ function isAuctionUnsuccessful($auctionId) {
  */
 function notifyAuctionEnded($auctionId)
 {
+    file_put_contents(__DIR__ . '/auction_email_debug.txt', "notifyAuctionEnded called for auction {$auctionId}\n", FILE_APPEND);
+
     $db = get_db_connection();
     $auctionId = (int)$auctionId;
 

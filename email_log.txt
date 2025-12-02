@@ -1,278 +1,105 @@
 ----
-To: seller@email.com
-Subject: Your auction has ended: Item 2001
+To: ninjabosss1707@gmail.com
+Subject: Your auction has ended: afsdasfdafsdafad
 
-Hi Seller A,
+Hi ninjaafdsa,
 
-Your auction for 'Item 2001' has ended, but there was no winning bid.
+Your auction for 'afsdasfdafsdafad' has ended, but there was no winning bid.
 You may wish to relist the item.
 
 Regards,
 Auction Website
 
-----
-To: seller@email.com
-Subject: Your auction has ended: Item 2001
-
-Hi Seller A,
-
-Your auction for 'Item 2001' has ended, but there was no winning bid.
-You may wish to relist the item.
-
-Regards,
-Auction Website
-
-----
-To: seller@email.com
-Subject: Your auction has ended: Item 2001
-
-Hi Seller A,
-
-Your auction for 'Item 2001' has ended, but there was no winning bid.
-You may wish to relist the item.
-
-Regards,
-Auction Website
-
-----
-To: seller@email.com
-Subject: Your auction has ended: Item 2001
-
-Hi Seller A,
-
-Your auction for 'Item 2001' has ended, but there was no winning bid.
-You may wish to relist the item.
-
-Regards,
-Auction Website
-
-----
-To: seller@email.com
-Subject: Your auction has ended: Item 2001
-
-Hi Seller A,
-
-Your auction for 'Item 2001' has ended, but there was no winning bid.
-You may wish to relist the item.
-
-Regards,
-Auction Website
-
-----
-To: seller@email.com
-Subject: Your auction has ended: Item 2001
-
-Hi Seller A,
-
-Your auction for 'Item 2001' has ended, but there was no winning bid.
-You may wish to relist the item.
-
-Regards,
-Auction Website
-
-----
-To: seller@email.com
-Subject: Your auction has ended: Item 2001
-
-Hi Seller A,
-
-Your auction for 'Item 2001' has ended, but there was no winning bid.
-You may wish to relist the item.
-
-Regards,
-Auction Website
-
-----
-To: buyer2@email.com
-Subject: You won the auction: Item 2002
-
-Hi Buyer C,
-
-Congratulations! You have won the auction for 'Item 2002'.
-Final price: £9.99
-
-Please log in to your account to view the details.
-
-Regards,
-Auction Website
-
-----
-To: seller@email.com
-Subject: Your auction has ended: Item 2002
-
-Hi Seller A,
-
-Your auction for 'Item 2002' has ended and a buyer has won the item.
-Final price: £9.99
-
-Please log in to your account to see the winner's details.
-
-Regards,
-Auction Website
-
-----
-To: seller@email.com
-Subject: Your auction has ended: Item 2003
-
-Hi Seller A,
-
-Your auction for 'Item 2003' has ended, but there was no winning bid.
-You may wish to relist the item.
-
-Regards,
-Auction Website
-
-----
-To: seller@email.com
-Subject: Your auction has ended: EndAuction Test Item
-
-Hi Seller A,
-
-Your auction for 'EndAuction Test Item' has ended, but there was no winning bid.
-You may wish to relist the item.
-
-Regards,
-Auction Website
-
-----
-To: seller@email.com
-Subject: Your auction has ended: EndAuction Test Item
-
-Hi Seller A,
-
-Your auction for 'EndAuction Test Item' has ended, but there was no winning bid.
-You may wish to relist the item.
-
-Regards,
-Auction Website
-
-----
-To: seller@email.com
-Subject: Your auction has ended: EndAuction Test Item
-
-Hi Seller A,
-
-Your auction for 'EndAuction Test Item' has ended, but there was no winning bid.
-You may wish to relist the item.
-
-Regards,
-Auction Website
-
-----
-To: buyer1@email.com
-Subject: You won the auction: EndAuction Test Item
-
-Hi Buyer B,
-
-Congratulations! You have won the auction for 'EndAuction Test Item'.
-Final price: £30.00
-
-Please log in to your account to view the details.
-
-Regards,
-Auction Website
-
-----
-To: seller@email.com
-Subject: Your auction has ended: EndAuction Test Item
-
-Hi Seller A,
-
-Your auction for 'EndAuction Test Item' has ended and a buyer has won the item.
-Final price: £30.00
-
-Please log in to your account to see the winner's details.
-
-Regards,
-Auction Website
-
-----
-To: seller@email.com
-Subject: Your auction has ended: Test Item for refresh
-
-Hi Seller A,
-
-Your auction for 'Test Item for refresh' has ended, but there was no winning bid.
-You may wish to relist the item.
-
-Regards,
-Auction Website
-
-----
-To: seller@email.com
-Subject: Your auction has ended: Test Item From User
-
-Hi Seller A,
-
-Your auction for 'Test Item From User' has ended, but there was no winning bid.
-You may wish to relist the item.
-
-Regards,
-Auction Website
-
-----
-To: 90750791197@qq.com
-Subject: You won the auction: watch
-
-Hi xiaohua,
-
-Congratulations! You have won the auction for 'watch'.
-Final price: £1.00
-
-Please log in to your account to view the details.
-
-Regards,
-Auction Website
-
-----
-To: seller@email.com
-Subject: Your auction has ended: watch
-
-Hi Seller A,
-
-Your auction for 'watch' has ended and a buyer has won the item.
-Final price: £1.00
-
-Please log in to your account to see the winner's details.
-
-Regards,
-Auction Website
-
-----
-To: 90750791197@qq.com
-Subject: Auction ended: watch111
-
-Hi xiaohua,
-
-The auction for 'watch111' has now ended.
-Unfortunately, you did not win this time.
-
-You can log in to view other items and bid again.
-
-Regards,
-Auction Website
-
-----
-To: 9077@qq.com
-Subject: Auction ended: watch111
-
-Hi xiaohua111,
-
-The auction for 'watch111' has now ended.
-Unfortunately, you did not win this time.
-
-You can log in to view other items and bid again.
-
-Regards,
-Auction Website
-
+Sent: ninjabosss1707@gmail.com | Subject: Your auction has ended: afsdasfdafsdafad
 ----
 To: mekialkhan1707@gmail.com
-Subject: You won the auction: watch111
+Subject: Your auction has ended: gfsds
 
 Hi Ninja1707,
 
-Congratulations! You have won the auction for 'watch111'.
+Your auction for 'gfsds' has ended, but there was no winning bid.
+You may wish to relist the item.
+
+Regards,
+Auction Website
+
+Sent: mekialkhan1707@gmail.com | Subject: Your auction has ended: gfsds
+----
+To: mekialkhan1707@gmail.com
+Subject: Your auction has ended: fasdafdsafddsafddsafsda
+
+Hi Ninja1707,
+
+Your auction for 'fasdafdsafddsafddsafsda' has ended, but there was no winning bid.
+You may wish to relist the item.
+
+Regards,
+Auction Website
+
+Sent: mekialkhan1707@gmail.com | Subject: Your auction has ended: fasdafdsafddsafddsafsda
+----
+To: mekialkhan1707@gmail.com
+Subject: Your auction has ended: fdsa
+
+Hi Ninja1707,
+
+Your auction for 'fdsa' has ended, but there was no winning bid.
+You may wish to relist the item.
+
+Regards,
+Auction Website
+
+Sent: mekialkhan1707@gmail.com | Subject: Your auction has ended: fdsa
+----
+To: ninjaboss1707@gmail.com
+Subject: You won the auction: fsadsada
+
+Hi ninja,
+
+Congratulations! You have won the auction for 'fsadsada'.
+Final price: £5.00
+
+Please log in to your account to view the details.
+
+Regards,
+Auction Website
+
+Sent: ninjaboss1707@gmail.com | Subject: You won the auction: fsadsada
+----
+To: mekialkhan1707@gmail.com
+Subject: Your auction has ended: fsadsada
+
+Hi Ninja1707,
+
+Your auction for 'fsadsada' has ended and a buyer has won the item.
+Final price: £5.00
+
+Please log in to your account to see the winner's details.
+
+Regards,
+Auction Website
+
+Sent: mekialkhan1707@gmail.com | Subject: Your auction has ended: fsadsada
+----
+To: ninjaboss1707@gmail.com
+Subject: Your auction has ended: rwte
+
+Hi ninja,
+
+Your auction for 'rwte' has ended, but there was no winning bid.
+You may wish to relist the item.
+
+Regards,
+Auction Website
+
+Sent: ninjaboss1707@gmail.com | Subject: Your auction has ended: rwte
+----
+To: ninjaboss1707@gmail.com
+Subject: You won the auction: e
+
+Hi ninja,
+
+Congratulations! You have won the auction for 'e'.
 Final price: £90.00
 
 Please log in to your account to view the details.
@@ -280,13 +107,14 @@ Please log in to your account to view the details.
 Regards,
 Auction Website
 
+Sent: ninjaboss1707@gmail.com | Subject: You won the auction: e
 ----
-To: seller@email.com
-Subject: Your auction has ended: watch111
+To: mekialkhan1707@gmail.com
+Subject: Your auction has ended: e
 
-Hi Seller A,
+Hi Ninja1707,
 
-Your auction for 'watch111' has ended and a buyer has won the item.
+Your auction for 'e' has ended and a buyer has won the item.
 Final price: £90.00
 
 Please log in to your account to see the winner's details.
@@ -294,201 +122,94 @@ Please log in to your account to see the winner's details.
 Regards,
 Auction Website
 
+Sent: mekialkhan1707@gmail.com | Subject: Your auction has ended: e
 ----
-To: 90750791197@qq.com
-Subject: Auction ended: car
+To: ninjaboss1707@gmail.com
+Subject: You won the auction: fsda
 
-Hi xiaohua,
+Hi ninja,
 
-The auction for 'car' has now ended.
-Unfortunately, you did not win this time.
-
-You can log in to view other items and bid again.
-
-Regards,
-Auction Website
-
-----
-To: mekialkhan1707@gmail.com
-Subject: You won the auction: car
-
-Hi Ninja1707,
-
-Congratulations! You have won the auction for 'car'.
-Final price: £105.00
+Congratulations! You have won the auction for 'fsda'.
+Final price: £4.00
 
 Please log in to your account to view the details.
 
 Regards,
 Auction Website
 
+Sent: ninjaboss1707@gmail.com | Subject: You won the auction: fsda
 ----
-To: 9077@qq.com
-Subject: Your auction has ended: car
+To: mekialkhan1707@gmail.com
+Subject: Your auction has ended: fsda
 
-Hi xiaohua111,
+Hi Ninja1707,
 
-Your auction for 'car' has ended and a buyer has won the item.
-Final price: £105.00
+Your auction for 'fsda' has ended and a buyer has won the item.
+Final price: £4.00
 
 Please log in to your account to see the winner's details.
 
 Regards,
 Auction Website
 
+Sent: mekialkhan1707@gmail.com | Subject: Your auction has ended: fsda
 ----
-To: 9077@qq.com
-Subject: Auction ended: car
+To: ninjaboss1707@gmail.com
+Subject: You won the auction: sssss
 
-Hi xiaohua111,
+Hi ninja,
 
-The auction for 'car' has now ended.
-Unfortunately, you did not win this time.
-
-You can log in to view other items and bid again.
-
-Regards,
-Auction Website
-
-----
-To: 90750791197@qq.com
-Subject: Auction ended: car
-
-Hi xiaohua,
-
-The auction for 'car' has now ended.
-Unfortunately, you did not win this time.
-
-You can log in to view other items and bid again.
-
-Regards,
-Auction Website
-
-----
-To: mekialkhan1707@gmail.com
-Subject: You won the auction: car
-
-Hi Ninja1707,
-
-Congratulations! You have won the auction for 'car'.
-Final price: £2,433,323.00
+Congratulations! You have won the auction for 'sssss'.
+Final price: £5.00
 
 Please log in to your account to view the details.
 
 Regards,
 Auction Website
 
+Sent: ninjaboss1707@gmail.com | Subject: You won the auction: sssss
 ----
-To: 9077@gmail.com
-Subject: Your auction has ended: car
+To: mekialkhan1707@gmail.com
+Subject: Your auction has ended: sssss
 
-Hi yufei,
+Hi Ninja1707,
 
-Your auction for 'car' has ended and a buyer has won the item.
-Final price: £2,433,323.00
+Your auction for 'sssss' has ended and a buyer has won the item.
+Final price: £5.00
 
 Please log in to your account to see the winner's details.
 
 Regards,
 Auction Website
 
+Sent: mekialkhan1707@gmail.com | Subject: Your auction has ended: sssss
 ----
-To: mekialkhan1707@gmail.com
-Subject: You won the auction: car
+To: ninjaboss1707@gmail.com
+Subject: You won the auction: dfsa
 
-Hi Ninja1707,
+Hi ninja,
 
-Congratulations! You have won the auction for 'car'.
-Final price: £908.00
+Congratulations! You have won the auction for 'dfsa'.
+Final price: £44.00
 
 Please log in to your account to view the details.
 
 Regards,
 Auction Website
 
-----
-To: 90750791197@qq.com
-Subject: Your auction has ended: car
-
-Hi xiaohua,
-
-Your auction for 'car' has ended and a buyer has won the item.
-Final price: £908.00
-
-Please log in to your account to see the winner's details.
-
-Regards,
-Auction Website
-
+Sent: ninjaboss1707@gmail.com | Subject: You won the auction: dfsa
 ----
 To: mekialkhan1707@gmail.com
-Subject: You won the auction: newcar
+Subject: Your auction has ended: dfsa
 
 Hi Ninja1707,
 
-Congratulations! You have won the auction for 'newcar'.
-Final price: £90.00
-
-Please log in to your account to view the details.
-
-Regards,
-Auction Website
-
-----
-To: 90750791197@qq.com
-Subject: Your auction has ended: newcar
-
-Hi xiaohua,
-
-Your auction for 'newcar' has ended and a buyer has won the item.
-Final price: £90.00
+Your auction for 'dfsa' has ended and a buyer has won the item.
+Final price: £44.00
 
 Please log in to your account to see the winner's details.
 
 Regards,
 Auction Website
 
-----
-To: mekialkhan1707@gmail.com
-Subject: Test Email
-
-Hello! This is a test from PHPMailer.
-
-PHPMailer Error: SMTP Error: Could not authenticate. | Exception: SMTP Error: Could not authenticate.
-----
-To: mekialkhan1707@gmail.com
-Subject: Test Email
-
-Hello! This is a test from PHPMailer.
-
-PHPMailer Error: SMTP Error: Could not authenticate. | Exception: SMTP Error: Could not authenticate.
-----
-To: mekialkhan1707@gmail.com
-Subject: Test Email
-
-Hello! This is a test from PHPMailer.
-
-PHPMailer Error: SMTP Error: Could not authenticate. | Exception: SMTP Error: Could not authenticate.
-----
-To: mekialkhan1707@gmail.com
-Subject: Test Email
-
-Hello! This is a test from PHPMailer.
-
-PHPMailer Error: SMTP Error: Could not authenticate. | Exception: SMTP Error: Could not authenticate.
-----
-To: mekialkhan1707@gmail.com
-Subject: Test Email
-
-Hello! This is a test from PHPMailer.
-
-----
-To: mekialkhan1707@gmail.com
-Subject: Test Email
-
-Hello! This is a test from PHPMailer.
-
-Sent: mekialkhan1707@gmail.com | Subject: Test Email
-Sent: mekialkhan1707@gmail.com | Subject: Test Email
-
------
+Sent: mekialkhan1707@gmail.com | Subject: Your auction has ended: dfsa
