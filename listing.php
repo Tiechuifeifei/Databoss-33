@@ -64,6 +64,23 @@ $bidHistory = getBidsByAuctionId($auctionId);
 
 $currentPrice = $highestBid ? (float)$highestBid['bidPrice'] : $startPrice;
 
+// fetch seller name for the listing link
+$db = get_db_connection();
+$sellerId = $item['sellerId'] ?? $auction['sellerId'] ?? null;
+$sellerName = 'Seller';
+if ($sellerId) {
+    $stmt = $db->prepare("SELECT userName FROM users WHERE userId = ?");
+    if ($stmt) {
+        $stmt->bind_param("i", $sellerId);
+        $stmt->execute();
+        $row = $stmt->get_result()->fetch_assoc();
+        if ($row && !empty($row['userName'])) {
+            $sellerName = $row['userName'];
+        }
+        $stmt->close();
+    }
+}
+
 include_once "header.php";
 
 $reservePrice = isset($auction['reservedPrice']) ? (float)$auction['reservedPrice'] : 0.0;
@@ -128,6 +145,7 @@ $isWatching = $userId ? isInWatchlist($userId, $auctionId) : false;
 <div class="col-md-4">
 
 <h3 class="item-name"><?= h($auction['itemName']) ?></h3>
+<a class="nav-link" href="seller_profile.php?sellerId=<?= (int)$sellerId ?>"><?= h($sellerName) ?>'s Profile</a>
 
 <?php $status = $auction['auctionStatus']; ?>
 

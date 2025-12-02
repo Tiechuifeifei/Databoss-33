@@ -1,6 +1,3 @@
-<link rel="stylesheet" href="css/custom_2.css">
-<link rel="stylesheet" href="css/starRating.css">
-
 <?php
 require_once 'utilities.php';
 require_once 'auction_functions.php';
@@ -117,15 +114,6 @@ $watchlist = viewWatchlistByUser($userId);
     <p class="porfile-info">Postcode: <?= h($user['userPostcode']) ?></p>
     <p class="porfile-info">Date of Birth: <?= h($user['userDob']) ?></p>
     <p class="porfile-info">Joined: <?= h($user['createdAt']) ?></p>
-        <?php if ($ratingCount > 0): ?>
-        <p>
-            <strong>Seller Rating:</strong>
-            <?= number_format($avgRating, 1) ?> / 5
-            (<?= (int)$ratingCount ?> ratings)
-        </p>
-    <?php else: ?>
-        <p><strong>Seller Rating:</strong> No ratings yet</p>
-    <?php endif; ?>
 
 </div>
 
@@ -203,7 +191,7 @@ $watchlist = viewWatchlistByUser($userId);
 
             <div class="card p-3 mb-2">
                 <h5><?= h($itemName) ?></h5>
-                <p>Seller: <?= h($b['sellerName']) ?></p>
+                <p>Seller: <a href="seller_profile.php?sellerId=<?= (int)$b['sellerId'] ?>"><?= h($b['sellerName']) ?></a></p>
                 <p>Your Bid: £<?= h(number_format($yourBid, 2)) ?></p>
                 <p>Status: <strong><?= h($status) ?></strong></p>
 

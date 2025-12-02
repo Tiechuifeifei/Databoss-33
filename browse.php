@@ -202,6 +202,7 @@ refreshAllAuctions();
     refreshAuctionStatus($row['auctionId']);
     $auction_id = $row["auctionId"];   
     $title = $row["itemName"];
+    
     $desc = $row["itemDescription"];
 
     $highestBid = getHighestBidForAuction($auction_id);
