@@ -14,13 +14,11 @@ error_reporting(E_ALL);
 ini_set('display_errors', '1');
 
 
-
-// Get database connection //
 function get_db_connection(): mysqli {
     $host = 'localhost';
     $user = 'root';
     $pass = '';
-    $dbName = 'auction_website'; // modular DB
+    $dbName = 'auction_website';
 
 
     $db = new mysqli($host, $user, $pass, $dbName);
@@ -34,23 +32,19 @@ function get_db_connection(): mysqli {
 
 function sendEmail($to, $subject, $body)
 {
-    // Always keep a local log for audit/debug
+
     $logFile = __DIR__ . '/email_log.txt';
     $logMsg  = "----\nTo: {$to}\nSubject: {$subject}\n\n{$body}\n\n";
     file_put_contents($logFile, $logMsg, FILE_APPEND);
 
-    // SMTP configuration - set these as env vars or replace with your values
     $smtpHost    = 'smtp.gmail.com';
     $smtpPort    = 587;
     $smtpUser    = 'ninjaboss1707@gmail.com';
-    $smtpPass    = 'imuirngouskdmtaj'; // Gmail app password
+    $smtpPass    = 'imuirngouskdmtaj';
     $smtpSecure  = 'tls';
     $fromAddress = 'ninjaboss1707@gmail.com';
     $fromName    = 'Auction Website';
 
-
-
-    // Load PHPMailer (install with Composer)
     $autoload = __DIR__ . '/vendor/autoload.php';
     if (!file_exists($autoload)) {
         file_put_contents($logFile, "PHPMailer autoload not found. Run: composer require phpmailer/phpmailer\n", FILE_APPEND);
@@ -61,7 +55,6 @@ function sendEmail($to, $subject, $body)
     $mail = new PHPMailer\PHPMailer\PHPMailer(true);
 
     try {
-        // Server settings
         $mail->isSMTP();
         $mail->Host       = $smtpHost;
         $mail->SMTPAuth   = true;
@@ -70,12 +63,8 @@ function sendEmail($to, $subject, $body)
         $mail->SMTPSecure = $smtpSecure;
         $mail->Port       = (int)$smtpPort;
         $mail->CharSet    = 'UTF-8';
-
-        // Recipients
         $mail->setFrom($fromAddress, $fromName);
         $mail->addAddress($to);
-
-        // Content
         $mail->Subject = $subject;
         $mail->Body    = $body;
         $mail->isHTML(false);
@@ -92,12 +81,10 @@ function sendEmail($to, $subject, $body)
 }
 
 
-// Escape HTML //
 function h(?string $s): string {
     return htmlspecialchars($s ?? '', ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
 }
 
-/** Time remaining helper */
 function display_time_remaining(DateInterval $interval): string {
     if ($interval->days == 0 && $interval->h == 0) {
         return $interval->format('%im %Ss');
@@ -108,10 +95,6 @@ function display_time_remaining(DateInterval $interval): string {
     }
 }
 
-// Render listing item
-// YH DEBUG: We should use auctionId instead of userID
-// YH DEBUG: auctionId not auction_id
-// YH DEBUG: seperate scheduled/ running and ended auctions
 function print_listing_li($auctionId, $title, $desc, $price, $num_bids, $endTime, $startTime, $status, $winnerName)
 {
     $now = new DateTime();
@@ -125,7 +108,7 @@ function print_listing_li($auctionId, $title, $desc, $price, $num_bids, $endTime
         $interval  = $now->diff($endTime);
         $time_text = display_time_remaining($interval) . " remaining";
         $badge     = "<span class='badge badge-running'>Running</span>";
-    } else { // ended
+    } else {
         $time_text = "Auction ended";
         $badge     = "<span class='badge badge-ended'>Ended</span>";
     }
