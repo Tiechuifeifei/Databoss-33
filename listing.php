@@ -243,17 +243,23 @@ $isWatching = $userId ? isInWatchlist($userId, $auctionId) : false;
     <?php if ($userId == $auction['sellerId']): ?>
         <p class="auction-info-line text-warning">You are the seller and cannot bid.</p>
     <?php else: ?>
+
+        <p class="bid-note">• Please double-check that your bid amount is correct before submitting.</p>
+        <p class="bid-note">• Please confirm your decision carefully, as bids cannot be cancelled or withdrawn.</p>
+
         <form method="POST" action="place_bid.php" class="mt-2">
             <input type="hidden" name="auctionId" value="<?= $auctionId ?>">
             <div class="bid-input-wrap">
-                <span class="input-group-text">£</span>
-                <input type="number" name="bidPrice" class="form-control" step="0.01" required>
+            <span class="input-group-text">£</span>
+            <input type="number" name="bidPrice" class="form-control" step="0.01" required>
             </div>
             <button class="btn bid-btn mt-2">Place bid</button>
         </form>
     <?php endif; ?>
 
 <?php endif; ?>
+
+
 
 </div>
 
