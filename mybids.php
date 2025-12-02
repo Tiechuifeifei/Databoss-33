@@ -38,7 +38,7 @@ foreach ($rawBids as $row) {
 
 $bids = array_values($grouped);
 ?>
-<div class="container mt-4 my-bid-page">
+<tbody class="container mt-4 my-bid-page">
 <h2 class="mybids-title">My Bids</h2>
 
 <?php if(empty($bids)): ?>
@@ -120,3 +120,4 @@ $winnerText = '<span class="text-muted">Auction ended with no bids.</span>';
 </div>
 
 <?php include __DIR__.'/footer.php'; ?>
+
