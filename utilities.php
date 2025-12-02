@@ -1,6 +1,9 @@
 <link rel="stylesheet" href="css/custom_2.css">
 
 <?php
+
+date_default_timezone_set('Europe/London');
+
 require __DIR__ . DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR . 'autoload.php';
 
 
@@ -9,6 +12,7 @@ $dotenv->load();
 
 error_reporting(E_ALL);
 ini_set('display_errors', '1');
+
 
 
 // Get database connection //
