@@ -69,21 +69,17 @@ if ($reservePrice<$startPrice){
 if ($startTime === "" || $endTime === "") {
     $errors[] = "Start and end time are required.";
 } else {
-    $startTS=strtotime($startTime);
+ $startTS=strtotime($startTime);
     $endTS=strtotime($endTime);
     $tomorrowTS = strtotime('tomorrow');
-    $minStart = time()+24*60*60;
+    $now=time();
 
-    if ($startTS < $minStart) {
-        $errors[] = "Start time must be from 24 hours onwards";
+    if ($startTS < $now) {
+        $errors[] = "Invalid Time, please choose again";
     }
 
     if ($endTS<=$startTS) {
         $errors[] = "End time must be after start time.";
-    }
-
-    if (($endTS-$startTS)<24*60*60){
-        $errors[] = "End time must be at least 24 hours after the start time.";
     }
 }
 
@@ -138,4 +134,5 @@ if (!$newAuctionId) {
     </div>
 
 </div>
+
 <?php include_once("footer.php") ?>
