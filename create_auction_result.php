@@ -69,19 +69,23 @@ if ($reservePrice<$startPrice){
 if ($startTime === "" || $endTime === "") {
     $errors[] = "Start and end time are required.";
 } else {
- $startTS=strtotime($startTime);
-    $endTS=strtotime($endTime);
-    $tomorrowTS = strtotime('tomorrow');
-    $now=time();
+    $startDT = DateTime::createFromFormat('Y-m-d\TH:i', $startTime);
+    $endDT   = DateTime::createFromFormat('Y-m-d\TH:i', $endTime);
+    $now     = new DateTime();
 
-    if ($startTS < $now) {
-        $errors[] = "Invalid Time, please choose again";
-    }
-
-    if ($endTS<=$startTS) {
-        $errors[] = "End time must be after start time.";
+    if (!$startDT || !$endDT) {
+        $errors[] = "Invalid date/time format.";
+    } else {
+        if ($startDT <= $now) {
+            $errors[] = "Start time must be in the future.";
+        }
+        if ($endDT <= $startDT) {
+            $errors[] = "End time must be after start time.";
+        }
     }
 }
+
+
 
 if (!empty($errors)) {
     echo "<div class='message-box error'";
@@ -134,5 +138,6 @@ if (!$newAuctionId) {
     </div>
 
 </div>
-
 <?php include_once("footer.php") ?>
+<!--test-->
+<!--test-->
