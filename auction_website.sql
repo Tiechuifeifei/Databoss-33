@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- 主机： localhost
--- 生成日期： 2025-11-28 18:55:18
+-- 生成日期： 2025-12-02 13:11:36
 -- 服务器版本： 10.4.28-MariaDB
 -- PHP 版本： 8.2.4
 
@@ -60,19 +60,19 @@ INSERT INTO `auctions` (`auctionId`, `itemId`, `auctionStartTime`, `auctionEndTi
 (1017, 2020, '2025-11-21 11:49:24', '2025-11-21 11:49:39', 'ended', 10.00, NULL, NULL, 5.00),
 (1018, 2001, '2025-01-01 10:00:00', '2025-01-01 12:00:00', 'ended', 18.00, NULL, NULL, 5.00),
 (1019, 2022, '2025-11-21 14:50:37', '2025-11-22 15:55:37', 'ended', 20.00, NULL, NULL, 40.00),
-(1022, 2001, '2025-11-21 16:46:00', '2025-11-29 16:46:00', 'running', 1.00, NULL, NULL, 2.00),
-(1023, 2001, '2025-11-22 17:09:00', '2025-11-29 17:09:00', 'running', 12.00, NULL, NULL, 13.00),
-(1024, 2001, '2025-11-22 17:15:00', '2025-11-29 17:15:00', 'running', 1.00, NULL, NULL, 2.00),
-(1025, 2028, '2025-11-22 17:18:00', '2025-11-29 17:18:00', 'running', 1.00, NULL, NULL, 2.00),
-(1026, 2030, '2025-11-22 17:45:00', '2025-11-29 17:45:00', 'running', 1.00, NULL, NULL, 2.00),
-(1027, 2031, '2025-11-25 14:08:00', '2025-11-29 14:09:00', 'running', 1.00, NULL, NULL, 2.00),
-(1028, 2033, '2025-11-20 14:49:00', '2025-11-30 14:49:00', 'running', 1.00, NULL, NULL, 1.00),
-(1029, 2034, '2025-11-02 15:02:00', '2025-11-29 15:03:00', 'running', 1.00, NULL, NULL, 1.00),
-(1030, 2035, '2025-11-25 15:42:00', '2025-12-18 15:42:00', 'running', 1.00, NULL, NULL, 1.00),
+(1022, 2001, '2025-11-21 16:46:00', '2025-11-29 16:46:00', 'ended', 1.00, NULL, NULL, 2.00),
+(1023, 2001, '2025-11-22 17:09:00', '2025-11-29 17:09:00', 'ended', 12.00, NULL, NULL, 13.00),
+(1024, 2001, '2025-11-22 17:15:00', '2025-11-29 17:15:00', 'ended', 1.00, NULL, NULL, 2.00),
+(1025, 2028, '2025-11-22 17:18:00', '2025-11-29 17:18:00', 'ended', 1.00, NULL, NULL, 2.00),
+(1026, 2030, '2025-11-22 17:45:00', '2025-11-29 17:45:00', 'ended', 1.00, NULL, NULL, 2.00),
+(1027, 2031, '2025-11-25 14:08:00', '2025-11-29 14:09:00', 'ended', 1.00, NULL, NULL, 2.00),
+(1028, 2033, '2025-11-20 14:49:00', '2025-11-30 14:49:00', 'ended', 1.00, NULL, NULL, 1.00),
+(1029, 2034, '2025-11-02 15:02:00', '2025-11-29 15:03:00', 'ended', 1.00, NULL, NULL, 1.00),
+(1030, 2035, '2025-11-17 15:42:00', '2025-12-01 21:42:00', 'ended', 1.00, NULL, NULL, 100.00),
 (1031, 2036, '2025-11-26 23:40:00', '2025-11-27 00:08:00', 'ended', 3.00, NULL, NULL, 4.00),
-(1032, 2037, '2025-11-29 00:52:00', '2025-12-06 04:52:00', 'scheduled', 1.00, NULL, NULL, 19.00),
-(1033, 2038, '2025-11-26 03:09:00', '2025-12-01 01:09:00', 'running', 1.00, NULL, NULL, 3.00),
-(1034, 2040, '2025-11-24 11:21:00', '2025-11-30 11:21:00', 'running', 10.00, NULL, NULL, 80.00),
+(1032, 2037, '2025-11-29 00:52:00', '2025-12-06 04:52:00', 'running', 1.00, NULL, NULL, 19.00),
+(1033, 2038, '2025-11-26 03:09:00', '2025-12-01 01:09:00', 'ended', 1.00, NULL, NULL, 3.00),
+(1034, 2040, '2025-11-24 11:21:00', '2025-11-30 11:21:00', 'ended', 10.00, NULL, NULL, 80.00),
 (1035, 2041, '2025-11-25 22:04:00', '2025-11-26 22:10:00', 'ended', 10.00, NULL, NULL, 20.00),
 (1036, 2022, '2025-11-26 23:46:57', '2025-11-27 23:45:57', 'ended', 20.00, NULL, NULL, 40.00),
 (1037, 2036, '2025-11-27 00:20:53', '2025-11-28 00:19:53', 'ended', 3.00, NULL, NULL, 4.00),
@@ -86,21 +86,24 @@ INSERT INTO `auctions` (`auctionId`, `itemId`, `auctionStartTime`, `auctionEndTi
 (1045, 2047, '2025-11-28 11:24:00', '2025-11-27 11:24:00', 'ended', 1.00, NULL, NULL, 2.00),
 (1046, 2047, '2025-11-20 11:33:00', '2025-11-26 11:33:00', 'ended', 1.00, NULL, NULL, 2.00),
 (1047, 2047, '2025-11-27 11:41:00', '2025-11-27 11:44:00', 'ended', 1.00, NULL, NULL, 2.00),
-(1048, 2048, '2025-11-28 11:56:00', '2025-11-30 11:56:00', 'running', 2.00, NULL, NULL, 2.00),
+(1048, 2048, '2025-11-28 11:56:00', '2025-11-30 11:56:00', 'ended', 2.00, NULL, NULL, 2.00),
 (1049, 2053, '2025-11-27 12:50:00', '2025-11-27 12:52:00', 'ended', 2.00, NULL, NULL, 2.00),
 (1050, 2054, '2025-11-27 13:05:00', '2025-11-27 14:59:00', 'ended', 1.00, NULL, NULL, 2.00),
-(1051, 2053, '2025-11-28 13:46:00', '2025-11-29 13:47:00', 'scheduled', 2.00, NULL, NULL, 2.00),
-(1052, 2055, '2025-11-28 13:58:00', '2025-11-30 13:58:00', 'scheduled', 1.00, NULL, NULL, 2.00),
+(1051, 2053, '2025-11-28 13:46:00', '2025-11-29 13:47:00', 'ended', 2.00, NULL, NULL, 2.00),
+(1052, 2055, '2025-11-28 13:58:00', '2025-11-30 13:58:00', 'ended', 1.00, NULL, NULL, 2.00),
 (1053, 2056, '2025-11-27 16:04:00', '2025-11-27 18:08:00', 'ended', 1.00, NULL, NULL, 3.00),
-(1054, 2041, '2025-11-28 14:38:00', '2025-11-29 14:38:00', 'scheduled', 10.00, NULL, NULL, 30.00),
+(1054, 2041, '2025-11-28 14:38:00', '2025-11-29 14:38:00', 'ended', 10.00, NULL, NULL, 30.00),
 (1055, 2057, '2025-11-27 16:29:00', '2025-11-27 16:31:00', 'ended', 10.00, NULL, NULL, 50.00),
 (1056, 2057, '2025-11-27 16:33:00', '2025-11-27 16:37:00', 'ended', 10.00, NULL, NULL, 50.00),
 (1057, 2058, '2025-11-27 16:42:00', '2025-11-27 16:46:00', 'ended', 1.00, NULL, NULL, 50.00),
 (1058, 2059, '2025-11-27 16:45:00', '2025-11-27 17:00:00', 'ended', 1.00, NULL, NULL, 100.00),
-(1059, 2058, '2025-11-28 00:57:00', '2025-11-29 03:57:00', 'running', 1.00, NULL, NULL, 50.00),
-(1060, 2056, '2025-11-28 13:02:00', '2025-11-28 15:02:00', 'scheduled', 1.00, NULL, NULL, 3.00),
-(1061, 2060, '2025-11-28 13:04:00', '2025-11-28 14:04:00', 'scheduled', 10.00, NULL, NULL, 30.00),
-(1062, 2061, '2025-11-28 12:10:00', '2025-11-28 13:09:00', 'running', 10.00, NULL, NULL, 1000000.00);
+(1059, 2058, '2025-11-28 00:57:00', '2025-11-29 03:57:00', 'ended', 1.00, NULL, NULL, 50.00),
+(1060, 2056, '2025-11-28 13:02:00', '2025-11-28 15:02:00', 'ended', 1.00, NULL, NULL, 3.00),
+(1061, 2060, '2025-11-28 13:04:00', '2025-11-28 14:04:00', 'ended', 10.00, NULL, NULL, 30.00),
+(1062, 2061, '2025-11-28 12:10:00', '2025-11-28 13:09:00', 'ended', 10.00, NULL, NULL, 1000000.00),
+(1063, 2062, '2025-12-03 23:48:00', '2025-12-04 23:48:00', 'scheduled', 10.00, NULL, NULL, 100.00),
+(1064, 2063, '2025-12-01 00:28:00', '2025-12-01 07:28:00', 'relisted', 10.00, NULL, NULL, 100.00),
+(1065, 2063, '2025-12-02 00:44:00', '2025-12-03 00:44:00', 'running', 10.00, NULL, NULL, 100.00);
 
 -- --------------------------------------------------------
 
@@ -140,7 +143,9 @@ INSERT INTO `bids` (`bidId`, `auctionId`, `buyerId`, `bidPrice`, `bidTime`) VALU
 (17, 1030, 5, 10.00, '2025-11-27 23:32:37'),
 (18, 1029, 5, 10.00, '2025-11-27 23:42:47'),
 (19, 1025, 5, 10.00, '2025-11-27 23:46:38'),
-(20, 1027, 8, 105.00, '2025-11-28 12:05:57');
+(20, 1027, 8, 105.00, '2025-11-28 12:05:57'),
+(21, 1032, 9, 213.00, '2025-12-01 23:44:33'),
+(22, 1030, 9, 15.00, '2025-12-02 00:33:01');
 
 -- --------------------------------------------------------
 
@@ -252,7 +257,9 @@ INSERT INTO `images` (`imageId`, `itemId`, `imageUrl`, `isPrimary`, `uploadedAt`
 (84, 2058, 'uploads/item_1764280685_5858.png', 0, '2025-11-27 21:58:05'),
 (85, 2060, 'uploads/69298fdea8113.jpg', 1, '2025-11-28 12:04:46'),
 (86, 2061, 'uploads/692990574caa5.png', 1, '2025-11-28 12:06:47'),
-(87, 2061, 'uploads/item_1764331773_3739.png', 0, '2025-11-28 12:09:33');
+(87, 2061, 'uploads/item_1764331773_3739.png', 0, '2025-11-28 12:09:33'),
+(91, 2063, 'uploads/692e329cb49b9.png', 1, '2025-12-02 00:28:12'),
+(92, 2063, 'uploads/item_2063_17646353249576.png', 0, '2025-12-02 00:28:44');
 
 -- --------------------------------------------------------
 
@@ -276,7 +283,7 @@ CREATE TABLE `items` (
 --
 
 INSERT INTO `items` (`itemId`, `itemName`, `itemDescription`, `sellerId`, `categoryId`, `itemUploadTime`, `itemStatus`, `itemCondition`) VALUES
-(2001, 'Item 2001', 'Sample item 2001', 1, 1, '2025-11-11 23:26:39', 'active', 'used'),
+(2001, 'Item 2001', 'Sample item 2001', 1, 1, '2025-11-11 23:26:39', 'inactive', 'used'),
 (2002, 'Item 2002', 'Sample item 2002', 1, 1, '2025-11-11 23:26:39', 'active', 'used'),
 (2003, 'Item 2003', 'Sample item 2003', 1, 2, '2025-11-11 23:26:39', 'active', 'new'),
 (2004, 'car', 'really cool ', 1, 3, '2025-11-19 21:54:02', 'active', 'used'),
@@ -303,19 +310,19 @@ INSERT INTO `items` (`itemId`, `itemName`, `itemDescription`, `sellerId`, `categ
 (2025, 'watch', '111', 1, 1, '2025-11-21 17:08:43', 'active', 'new'),
 (2026, 'nice watch', 'goooooooood watch', 1, 1, '2025-11-21 17:12:04', 'active', 'new'),
 (2027, 'watch', '123', 1, 1, '2025-11-21 17:15:03', 'active', 'refurbished'),
-(2028, 'watch', 'watcccchhhhhh', 1, 1, '2025-11-21 17:18:34', 'active', 'new'),
+(2028, 'watch', 'watcccchhhhhh', 1, 1, '2025-11-21 17:18:34', 'sold', 'new'),
 (2029, 'watch', '1234124', 1, 1, '2025-11-21 17:20:37', 'active', 'new'),
-(2030, 'watch111', 'nice watch', 1, 1, '2025-11-21 17:44:30', 'active', 'new'),
-(2031, 'car', '231', 5, 3, '2025-11-25 14:08:25', 'active', 'used'),
+(2030, 'watch111', 'nice watch', 1, 1, '2025-11-21 17:44:30', 'sold', 'new'),
+(2031, 'car', '231', 5, 3, '2025-11-25 14:08:25', 'sold', 'used'),
 (2032, 'watch', '12', 6, 3, '2025-11-25 14:47:48', 'active', 'used'),
-(2033, 'car', '123', 6, 1, '2025-11-25 14:48:57', 'active', 'new'),
-(2034, 'car', '11', 4, 3, '2025-11-25 15:02:43', 'active', 'new'),
-(2035, 'car', '11', 4, 3, '2025-11-25 15:42:04', 'active', 'new'),
+(2033, 'car', '123', 6, 1, '2025-11-25 14:48:57', 'sold', 'new'),
+(2034, 'car', '11', 4, 3, '2025-11-25 15:02:43', 'sold', 'new'),
+(2035, 'car', '11', 4, 3, '2025-11-25 15:42:04', 'sold', 'new'),
 (2036, 'another nice car', 'carcarcar', 4, 3, '2025-11-25 23:39:44', 'inactive', 'used'),
-(2037, 'car', 'carrr', 4, 3, '2025-11-26 00:51:42', 'inactive', 'used'),
-(2038, 'watch', 'nice watch', 4, 1, '2025-11-26 01:08:17', 'active', 'refurbished'),
+(2037, 'car', 'carrr', 4, 3, '2025-11-26 00:51:42', 'active', 'used'),
+(2038, 'watch', 'nice watch', 4, 1, '2025-11-26 01:08:17', 'sold', 'refurbished'),
 (2039, 'newc', '', 4, 1, '2025-11-26 11:20:10', 'active', 'new'),
-(2040, 'newcar', 'new carrrr', 4, 3, '2025-11-26 11:20:21', 'active', 'new'),
+(2040, 'newcar', 'new carrrr', 4, 3, '2025-11-26 11:20:21', 'inactive', 'new'),
 (2041, 'another nice car', 'nice', 5, 3, '2025-11-26 22:04:14', 'inactive', 'refurbished'),
 (2042, '11', '11', 4, 1, '2025-11-27 00:42:08', 'active', 'new'),
 (2043, '11', '11', 4, 1, '2025-11-27 00:42:19', 'active', 'new'),
@@ -323,7 +330,7 @@ INSERT INTO `items` (`itemId`, `itemName`, `itemDescription`, `sellerId`, `categ
 (2045, 'nice watch', 'nice watch', 7, 1, '2025-11-27 10:47:50', 'inactive', 'new'),
 (2046, 'car', '1', 7, 1, '2025-11-27 10:54:43', 'inactive', 'new'),
 (2047, '11', '1', 7, 1, '2025-11-27 10:59:45', 'inactive', 'new'),
-(2048, 'new car for testing ', '2', 4, 2, '2025-11-27 11:56:26', 'active', 'used'),
+(2048, 'new car for testing ', '2', 4, 2, '2025-11-27 11:56:26', 'inactive', 'used'),
 (2049, 'test watch', '2005', 4, 1, '2025-11-27 12:08:09', 'inactive', 'used'),
 (2050, 'watch', '1212', 4, 1, '2025-11-27 12:10:16', 'inactive', 'new'),
 (2051, 'car', '1', 4, 1, '2025-11-27 12:25:49', 'inactive', 'new'),
@@ -331,12 +338,37 @@ INSERT INTO `items` (`itemId`, `itemName`, `itemDescription`, `sellerId`, `categ
 (2053, 'test car', 'test', 4, 3, '2025-11-27 12:46:59', 'inactive', 'used'),
 (2054, 'test1', '1', 4, 1, '2025-11-27 12:58:36', 'inactive', 'new'),
 (2055, 'test 2', '22', 4, 1, '2025-11-27 13:58:03', 'inactive', 'new'),
-(2056, 'test watch', '11', 5, 1, '2025-11-27 14:03:17', 'sold', 'new'),
+(2056, 'test watch', '11', 5, 1, '2025-11-27 14:03:17', 'inactive', 'new'),
 (2057, 'test 3', '333', 4, 1, '2025-11-27 16:26:48', 'inactive', 'new'),
-(2058, 'test 4', 'a car', 4, 3, '2025-11-27 16:39:45', 'active', 'new'),
+(2058, 'test 4', 'a car', 4, 3, '2025-11-27 16:39:45', 'inactive', 'new'),
 (2059, 'tesyt', '', 5, 1, '2025-11-27 16:43:35', 'inactive', 'new'),
 (2060, 'test6 new car', 'test create item and auction', 5, 3, '2025-11-28 12:03:29', 'inactive', 'new'),
-(2061, 'test7 test reserve price', ' test reserve price', 8, 3, '2025-11-28 12:06:32', 'active', 'used');
+(2061, 'test7 test reserve price', ' test reserve price', 8, 3, '2025-11-28 12:06:32', 'inactive', 'used'),
+(2062, 'car', 'this is a good car', 9, 3, '2025-12-01 23:46:45', 'inactive', 'used'),
+(2063, 'watch', 'this ', 9, 3, '2025-12-02 00:28:07', 'active', 'used');
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `sellerRatings`
+--
+
+CREATE TABLE `sellerRatings` (
+  `ratingId` int(11) NOT NULL,
+  `sellerId` int(11) NOT NULL,
+  `raterId` int(11) NOT NULL,
+  `rating` tinyint(3) UNSIGNED NOT NULL,
+  `comment` text DEFAULT NULL,
+  `auctionId` int(11) NOT NULL,
+  `createdAt` datetime NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- 转存表中的数据 `sellerRatings`
+--
+
+INSERT INTO `sellerRatings` (`ratingId`, `sellerId`, `raterId`, `rating`, `comment`, `auctionId`, `createdAt`) VALUES
+(1, 4, 9, 5, 'good seller!', 1030, '2025-12-02 00:37:38');
 
 -- --------------------------------------------------------
 
@@ -371,7 +403,8 @@ INSERT INTO `users` (`userId`, `userName`, `userEmail`, `userPassword`, `created
 (5, 'xiaohua111', '9077@qq.com', '$2y$10$PLpuaPeKU1CpzNL7s2mWuO60P/xEoYYHgHOupXnt/AXU3Blb2SqLe', '2025-11-25 12:55:35', 'buyer', '020730', '2006-03-07', '15', 'West Park Walk', 'Arcadia', '91007'),
 (6, 'yufei', '9077@gmail.com', '$2y$10$kOy3j1Ft4QYUUCfQAX0/2uMc/U67hdOOageW87.HwrQYhX5ShPLxa', '2025-11-25 14:47:28', 'buyer', '06480', '1980-12-29', '77', 'S 6TH AVE', 'Arcadia', '28449'),
 (7, 'Amy', '90997@qq.com', '$2y$10$L5sZpfdCH76OKrIoc8XO1.Qwhyv/D12qlCxHcIid0owwUAzBFQt1m', '2025-11-27 10:47:27', 'buyer', '07134340', '1987-02-25', '5', 'Canada Square', 'Arcadia', 'E20 1DG'),
-(8, '李雷和韩梅梅', '1@qq.com', '$2y$10$a/rSd6wwnA6GxYQgMFtxU.ZWjf97hrFlyrj5V8v9eeUNuNzZ5dCmK', '2025-11-27 23:54:18', 'buyer', '078580', '1996-02-14', '77', 'West Park Walk', 'London', '28449');
+(8, '李雷和韩梅梅', '1@qq.com', '$2y$10$a/rSd6wwnA6GxYQgMFtxU.ZWjf97hrFlyrj5V8v9eeUNuNzZ5dCmK', '2025-11-27 23:54:18', 'buyer', '078580', '1996-02-14', '77', 'West Park Walk', 'London', '28449'),
+(9, 'test12', '9@qq.com', '$2y$10$We7opgZYTqmVPREiKLb9Cuj1EGoLV2eC.EghXXMxbCTBai.GsolJ6', '2025-12-01 22:19:56', 'buyer', '073842715', '1994-06-16', '96', 'West Park Walk', 'London', '28449');
 
 -- --------------------------------------------------------
 
@@ -403,7 +436,9 @@ INSERT INTO `watchlist` (`watchId`, `userId`, `auctionId`, `addedAt`) VALUES
 (14, 5, 1055, '2025-11-27 16:29:01'),
 (15, 5, 1003, '2025-11-27 23:22:31'),
 (17, 8, 1027, '2025-11-28 00:14:09'),
-(20, 8, 1025, '2025-11-28 00:18:17');
+(20, 8, 1025, '2025-11-28 00:18:17'),
+(21, 9, 1002, '2025-12-01 22:49:18'),
+(22, 9, 1001, '2025-12-01 22:49:28');
 
 --
 -- 转储表的索引
@@ -447,6 +482,12 @@ ALTER TABLE `items`
   ADD KEY `idx_items_category` (`categoryId`);
 
 --
+-- 表的索引 `sellerRatings`
+--
+ALTER TABLE `sellerRatings`
+  ADD PRIMARY KEY (`ratingId`);
+
+--
 -- 表的索引 `users`
 --
 ALTER TABLE `users`
@@ -470,13 +511,13 @@ ALTER TABLE `watchlist`
 -- 使用表AUTO_INCREMENT `auctions`
 --
 ALTER TABLE `auctions`
-  MODIFY `auctionId` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1063;
+  MODIFY `auctionId` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1066;
 
 --
 -- 使用表AUTO_INCREMENT `bids`
 --
 ALTER TABLE `bids`
-  MODIFY `bidId` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `bidId` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- 使用表AUTO_INCREMENT `categories`
@@ -488,25 +529,31 @@ ALTER TABLE `categories`
 -- 使用表AUTO_INCREMENT `images`
 --
 ALTER TABLE `images`
-  MODIFY `imageId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=88;
+  MODIFY `imageId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=93;
 
 --
 -- 使用表AUTO_INCREMENT `items`
 --
 ALTER TABLE `items`
-  MODIFY `itemId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2062;
+  MODIFY `itemId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2064;
+
+--
+-- 使用表AUTO_INCREMENT `sellerRatings`
+--
+ALTER TABLE `sellerRatings`
+  MODIFY `ratingId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- 使用表AUTO_INCREMENT `users`
 --
 ALTER TABLE `users`
-  MODIFY `userId` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `userId` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- 使用表AUTO_INCREMENT `watchlist`
 --
 ALTER TABLE `watchlist`
-  MODIFY `watchId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `watchId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- 限制导出的表
@@ -551,12 +598,3 @@ COMMIT;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 
-CREATE TABLE sellerRatings (
-    ratingId INT AUTO_INCREMENT PRIMARY KEY,
-    sellerId INT NOT NULL,   
-    raterId INT NOT NULL, 
-    rating TINYINT UNSIGNED NOT NULL,  
-    comment TEXT NULL,
-    auctionId INT NOT NULL,
-    createdAt DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
-);
