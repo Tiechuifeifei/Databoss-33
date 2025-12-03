@@ -37,13 +37,13 @@ function sendEmail($to, $subject, $body)
     $logMsg  = "----\nTo: {$to}\nSubject: {$subject}\n\n{$body}\n\n";
     file_put_contents($logFile, $logMsg, FILE_APPEND);
 
-    $smtpHost    = 'smtp.gmail.com';
-    $smtpPort    = 587;
-    $smtpUser    = 'ninjaboss1707@gmail.com';
-    $smtpPass    = 'imuirngouskdmtaj';
-    $smtpSecure  = 'tls';
+    $smtpHost = 'smtp.gmail.com';
+    $smtpPort = 587;
+    $smtpUser = 'ninjaboss1707@gmail.com';
+    $smtpPass = 'imuirngouskdmtaj';
+    $smtpSecure = 'tls';
     $fromAddress = 'ninjaboss1707@gmail.com';
-    $fromName    = 'Auction Website';
+    $fromName = 'Auction Website';
 
     $autoload = __DIR__ . '/vendor/autoload.php';
     if (!file_exists($autoload)) {
@@ -56,17 +56,17 @@ function sendEmail($to, $subject, $body)
 
     try {
         $mail->isSMTP();
-        $mail->Host       = $smtpHost;
-        $mail->SMTPAuth   = true;
-        $mail->Username   = $smtpUser;
-        $mail->Password   = $smtpPass;
-        $mail->SMTPSecure = $smtpSecure;
-        $mail->Port       = (int)$smtpPort;
-        $mail->CharSet    = 'UTF-8';
+        $mail->Host = $smtpHost;
+        $mail->SMTPAuth = true;
+        $mail->Username = $smtpUser;
+        $mail->Password= $smtpPass;
+        $mail->SMTPSecure= $smtpSecure;
+        $mail->Port = (int)$smtpPort;
+        $mail->CharSet = 'UTF-8';
         $mail->setFrom($fromAddress, $fromName);
         $mail->addAddress($to);
         $mail->Subject = $subject;
-        $mail->Body    = $body;
+        $mail->Body = $body;
         $mail->isHTML(false);
 
         $mail->send();
@@ -101,16 +101,16 @@ function print_listing_li($auctionId, $title, $desc, $price, $num_bids, $endTime
 
     
     if ($status === 'scheduled') {
-        $interval  = $now->diff($startTime);
+        $interval= $now->diff($startTime);
         $time_text = "Starts in " . display_time_remaining($interval);
-        $badge     = "<span class='badge badge-schedule'>Not started</span>";
+        $badge = "<span class='badge badge-schedule'>Not started</span>";
     } elseif ($status === 'running') {
-        $interval  = $now->diff($endTime);
+        $interval= $now->diff($endTime);
         $time_text = display_time_remaining($interval) . " remaining";
-        $badge     = "<span class='badge badge-running'>Running</span>";
+        $badge = "<span class='badge badge-running'>Running</span>";
     } else {
         $time_text = "Auction ended";
-        $badge     = "<span class='badge badge-ended'>Ended</span>";
+        $badge = "<span class='badge badge-ended'>Ended</span>";
     }
 
     $bid_word = ($num_bids == 1) ? "bid" : "bids";
@@ -162,3 +162,4 @@ function print_listing_li($auctionId, $title, $desc, $price, $num_bids, $endTime
 
     <?php
 }
+
