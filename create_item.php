@@ -61,7 +61,7 @@ if (isset($_POST["uploadImage"]) && $itemId) {
             $ext = strtolower(pathinfo($images["name"][$i], PATHINFO_EXTENSION));
             if (!in_array($ext, $allowed)) continue;
 
-            // 限制 3 张
+            
             if (countImagesByItemId($itemId) >= 3) break;
 
             $targetDir = "uploads/";
