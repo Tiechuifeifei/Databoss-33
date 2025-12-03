@@ -9,7 +9,7 @@
   <?php unset($_SESSION['error_msg']); ?>
 <?php endif; ?>
 
-<!-- YH: below codes added to show the error message  -->
+<!-- below codes added to show the error message  -->
 <?php if (!empty($_SESSION['error_msg'])): ?>
   <div class="alert alert-danger my-3">
     <?= htmlspecialchars($_SESSION['error_msg']) ?>
@@ -130,5 +130,6 @@ function checkAge() {
 }
 dob.addEventListener('change', checkAge);
 </script>
+
 
 <?php include_once("footer.php")?>
