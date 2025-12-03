@@ -11,10 +11,10 @@ if ($_SERVER["REQUEST_METHOD"] !== "POST") {
     die("Invalid request.");
 }
 
-// DB connection
+//DB connection
 $db = get_db_connection();
 
-// Get POST values
+//Get POST values
 $itemId       = intval($_POST['itemId']);
 $oldAuctionId = intval($_POST['oldAuctionId']);   
 $startPrice   = floatval($_POST['startPrice']);
