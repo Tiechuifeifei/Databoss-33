@@ -19,7 +19,7 @@ if (!$sellerId) {
     exit;
 }
 
-//Connect DB
+
 $db = get_db_connection();
 
 //Fetch Seller Info (use $sellerId)
