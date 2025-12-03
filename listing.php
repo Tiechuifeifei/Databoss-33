@@ -262,10 +262,8 @@ $isWatching = $userId ? isInWatchlist($userId, $auctionId) : false;
 
 <?php endif; ?>
 
-
-
 </div>
-
 </div>
 </div>
 
+<?php include_once "footer.php"; ?>
