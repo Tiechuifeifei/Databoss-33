@@ -7,7 +7,7 @@ require_once 'process_registration.php';
 
 
 <?php
-// 显示所有错误（非常重要）
+
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
@@ -18,7 +18,7 @@ $db = get_db_connection();
 
 echo "<h2>Database Connection OK</h2>";
 
-// --- 测试用户数据 ---
+
 $userName = "TestUser_" . rand(1000, 9999);
 $userEmail = "test" . rand(1000, 9999) . "@example.com";
 $userPassword = "123456"; 
@@ -33,7 +33,7 @@ $userStreet      = "Test Street";
 $userCity        = "London";
 $userPostcode    = "E1 1AA";
 
-// 插入语句（和 process_registration.php 一致）
+
 $sql = "
     INSERT INTO users (
         userName, userEmail, userPassword, userRole,
