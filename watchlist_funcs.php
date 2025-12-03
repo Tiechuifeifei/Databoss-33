@@ -21,7 +21,7 @@ if (session_status() === PHP_SESSION_NONE) {
 }
 
 
-// 1. Add to watchlist
+// 1.Add to watchlist
 function addToWatchlist($userId, $auctionId) {
 
     $db = get_db_connection();
@@ -44,8 +44,7 @@ function addToWatchlist($userId, $auctionId) {
 
 
 
-// 2. View watchlist —— 查看关注列表
-
+// 2.View watchlist
 function viewWatchlistByUser($userId)
 {
     $db = get_db_connection();
@@ -150,4 +149,5 @@ function isInWatchlist($userId, $auctionId)
     return $exists;
 }
 ?>
+
 
