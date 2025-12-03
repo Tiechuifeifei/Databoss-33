@@ -18,7 +18,7 @@ if (!$auction) {
     die("Auction not found");
 }
 
-// 权限验证
+
 if (!isset($_SESSION['userId']) || $_SESSION['userId'] != $auction['sellerId']) {
     die("You are not allowed to re-list this item.");
 }
