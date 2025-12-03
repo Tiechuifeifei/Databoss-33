@@ -31,7 +31,7 @@ $startTime    = $_POST['startTime'];
 $endTime      = $_POST['endTime'];
 
 //Check image existence
-$db = get_db_connection();   // ← MUST HAVE THIS
+$db = get_db_connection(); 
 
 $stmt = $db->prepare("SELECT COUNT(*) as cnt 
                       FROM images 
@@ -95,7 +95,7 @@ if (!empty($errors)) {
     echo "</ul>";
     echo "</div>";
 
-    // Add return button
+    //Add return button
     echo "<a class='btn-link-style' href='create_auction.php?itemId=$itemId'
     style='justify-content:center;'>
             Go back to Create Auction</a>";
