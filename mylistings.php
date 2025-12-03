@@ -16,7 +16,6 @@ if (!$userId) {
 $db = get_db_connection();
 
 // Join auctions with items to get item names
-// YH DEBUG: sellerID is in item table, not in auction table.
 $sql = "
     SELECT 
         a.auctionId,
@@ -42,7 +41,7 @@ $stmt->execute();
 $rs = $stmt->get_result();
 ?>
 
-<!-- YH DEBUG: we need to use auctionID in the mylisting page instead of itemID -->
+
 <div class="container mt-4 mylistings-page">
     <h3 class="mylistings-title">My listings</h3>
 
@@ -55,12 +54,12 @@ $rs = $stmt->get_result();
             <?php while ($row = $rs->fetch_assoc()): ?>
                 <?php
                     $auctionId = (int)$row['auctionId'];
-                    $itemId    = (int)$row['itemId'];
-                    $itemName  = h($row['itemName']);
-                    $status    = (string)$row['auctionStatus'];
-                    $endTime   = new DateTime($row['auctionEndTime']);
-                    $start     = (float)$row['startPrice'];
-                    $topPrice  = (float)$row['topPrice'];
+                    $itemId= (int)$row['itemId'];
+                    $itemName= h($row['itemName']);
+                    $status= (string)$row['auctionStatus'];
+                    $endTime= new DateTime($row['auctionEndTime']);
+                    $start = (float)$row['startPrice'];
+                    $topPrice = (float)$row['topPrice'];
                 ?>
 
                 <li class="list-group-item d-flex justify-content-between align-items-center mylistings-item">
@@ -89,4 +88,5 @@ $rs = $stmt->get_result();
 
 <?php
 $stmt->close();
+
 include __DIR__ . '/footer.php';
