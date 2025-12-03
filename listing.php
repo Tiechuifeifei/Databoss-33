@@ -132,15 +132,18 @@ $isWatching = $userId ? isInWatchlist($userId, $auctionId) : false;
 <?php $status = $auction['auctionStatus']; ?>
 
 <div class="mb-3">
-    <?php if (!$userId): ?>
-        <a href="login.php" class="watch-btn watch-btn-outline">Login to watch</a>
-    <?php elseif (!$isWatching): ?>
+<?php if ($userId): ?>
+
+    <?php if (!$isWatching): ?>
         <a href="watchlist_add.php?auctionId=<?= $auctionId ?>" 
            class="bid-btn">♡ Add to Watchlist</a>
     <?php else: ?>
         <a href="watchlist_remove.php?auctionId=<?= $auctionId ?>" 
            class="bid-btn">♥ Remove</a>
     <?php endif; ?>
+
+<?php endif; ?>
+
 </div>
 
 
