@@ -4,17 +4,17 @@ require_once 'auction_functions.php';
 require_once 'bid_functions.php';
 require_once 'watchlist_funcs.php';
 
-// Check login
+
 $userId = $_SESSION['userId'] ?? null;
 if (!$userId) {
     header("Location: login.php");
     exit;
 }
 
-//Connect DB
+
 $db = get_db_connection();
 
-//Fetch User Info
+
 $sql = "SELECT * FROM users WHERE userId = ?";
 $stmt = $db->prepare($sql);
 $stmt->bind_param("i", $userId);
@@ -144,7 +144,7 @@ $watchlist = viewWatchlistByUser($userId);
     <?php foreach ($bids as $b): ?>
 
         <?php
-        // === SAME LOGIC AS mybids.php ===
+    
         $auctionId  = (int)$b['auctionId'];
         $itemId     = (int)$b['itemId'];
         $itemName   = $b['itemName'];
@@ -154,7 +154,6 @@ $watchlist = viewWatchlistByUser($userId);
         $endTime    = $b['auctionEndTime'];
         $startPrice = (float)$b['startPrice'];
 
-        // find the current highest bid for this auction
         $highestRow = getHighestBidForAuction($auctionId);
 
         if ($highestRow) {
@@ -331,7 +330,7 @@ document.addEventListener('DOMContentLoaded', function () {
     var rateModal = document.getElementById('rateSellerModal');
     if (!rateModal) return;
 
-    // When the modal is about to be shown, fill in auction + seller info
+    //When the modal is about to be shown, fill in auction + seller info
     $('#rateSellerModal').on('show.bs.modal', function (event) {
         var button = event.relatedTarget;
         if (!button) return;
@@ -346,17 +345,17 @@ document.addEventListener('DOMContentLoaded', function () {
         document.getElementById('rateSellerItem').textContent   = "Item: " + itemName;
         document.getElementById('rateSellerSeller').textContent = "Seller: " + sellerName;
 
-        // Clear previous rating selection
+        //Clear previous rating selection
         const stars = document.querySelectorAll("#starRating .star");
         const ratingValue = document.getElementById("ratingValue");
         stars.forEach(function (s) { s.classList.remove('selected'); });
         ratingValue.value = '';
 
-        // Clear comment
+        //Clear comment
         document.getElementById('rateSellerComment').value = "";
     });
 
-    // Star rating logic
+    //Star rating logic
     const stars = document.querySelectorAll("#starRating .star");
     const ratingValue = document.getElementById("ratingValue");
     let selected = 0;
@@ -389,7 +388,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
-    // Prevent submitting without selecting a rating
+    //Prevent submitting without selecting a rating
     var form = document.querySelector('#rateSellerModal form');
     form.addEventListener('submit', function (e) {
         console.log("Submitting rating with:", {
