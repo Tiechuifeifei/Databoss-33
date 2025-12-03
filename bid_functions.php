@@ -1,52 +1,59 @@
 <?php
 require_once 'utilities.php';
 //***********************************************************************************************************************
-//bids_functions.php:
+// bids_functions.php:
 //***********************************************************************************************************************
 // 5 Core Functions:
 //
-// 1. Get Highest Bid For Auction
-//    Returns the highest bid for a specific auction (or null if there is no bids)
-// 
-// 2. Get Bids By Auction
-//    "Auction's View": Users can view all the bids for an auction.
-// 
-// 3. Get Bids By User
-//    "Buyer's View": Basically "my bids" function, buyers can view all bids placed by themsleves, with related item & auction info.
-// 
-// 4. View Bids On My Auctions
-//    "Seller's View": Sellers can view all bids placed on his/her auctions.
-// 
-// 5. Place Bid
-//    Allows a buyer to place a bid on an auction item, but with multiple validation checks.
+//  1. Get Highest Bid For Auction
+//     Returns the highest bid for a specific auction (or null if there are no bids).
+//
+//  2. Get Bids By Auction
+//     "Auction's View": Users can view all bids placed on a specific auction.
+//
+//  3. Get Bids By User
+//     "Buyer's View": Shows all bids placed by a buyer, including item & auction info.
+//
+//  4. View Bids On My Auctions
+//     "Seller's View": Sellers can view all bids placed on their auctions.
+//
+//  5. Place Bid
+//     Allows a logged-in buyer to place a bid on an auction item,
+//     with multiple validation checks (see list below).
 //***********************************************************************************************************************
-// 7 Validations:
+// 9 Validations:
 //
-// 1. Auction existence check:
-//    Users cannot bid if the auction does not exist.
+//  1. Login check (must be logged in):
+//     Only logged-in users can place bids. This is the second-layer protection
+//     in addition to place_bid.php.
 //
-// 2. Prevent self-bidding:
-//    Sellers cannot place bids on their own auctions.
+//  2. Auction existence check:
+//     Users cannot bid if the auction does not exist.
 //
-// 3. Auction status checks:
-//    Users cannot place a bid on cancelled, scheduled, or already-ended auctions.
+//  3. Prevent self-bidding:
+//     Sellers cannot place bids on their own auctions.
 //
-// 4. Minimum bid requirement (no existing bids):
-//    The first bid must be strictly higher than the starting price set by the seller.
+//  4. Auction status checks:
+//     Users cannot bid on cancelled, scheduled, or already-ended auctions.
 //
-// 5. Minimum bid requirement (with existing bids):
-//    Any new bid must be strictly higher than the current highest bid (no fixed increment).
+//  5. Minimum bid requirement (no existing bids):
+//     The first bid must be strictly higher than the starting price set by the seller.
 //
-// 6. Basic input validation:
-//    Users cannot place a bid that is less than or equal to £0.00 (will also check the non-numeric values too)
+//  6. Minimum bid requirement (with existing bids):
+//     Any new bid must be strictly higher than the current highest bid.
 //
-// 7. Basic anti-spam rule:
-//    The current highest bidder cannot place another bid on the same auction.
+//  7. Basic input validation:
+//     Users cannot place a bid≤£0.00 (this also checks non-numeric input).
 //
-// 8. Reminder for user before bidding (soft validation):
-//    Please double-check your bid amount before submitting to avoid typo errors.
-//    Please confirm your decision carefully, as bids cannot be cancelled or withdrawn.
+//  8. Basic anti-spam rule:
+//     The current highest bidder cannot place another bid on the same auction.
+//
+//  9. Soft reminder (non-blocking):
+//     Please double-check your bid amount and confirm carefully.
+//     Bids cannot be cancelled or withdrawn.
 //***********************************************************************************************************************
+
+
 
     
 // 1. Get Highest Bid For Auction: 
@@ -54,7 +61,6 @@ require_once 'utilities.php';
 
 function getHighestBidForAuction($auctionId)
 {
-//build the connection with database
 $db = get_db_connection();
 
 $sql = "
@@ -80,15 +86,11 @@ $sql = "
     $stmt -> execute();
     $result = $stmt -> get_result();
     $row = $result -> fetch_assoc();
-
-//not necessary, but better to have it；also,close MUST before the return!!
     $stmt -> close();
 
-//没有出价的话，就返回 null 值。
     if (!$row) {
         return null;
     }
-    //不空的话，就返回数组。
     return $row;
 }
 
@@ -99,7 +101,6 @@ $sql = "
 // "Auction's View" - to check all bid/bids in an auction.
 function getBidsByAuctionId($auctionId)
 {
-
     $db = get_db_connection();
     $sql = "
         SELECT 
@@ -109,7 +110,7 @@ function getBidsByAuctionId($auctionId)
         JOIN users AS u ON b.buyerId = u.userId
         WHERE b.auctionId = ?
         ORDER BY b.bidPrice DESC, b.bidTime ASC
-    ";// "ordered by time" must be written in sql, better not to rely on front side.
+    ";
 
     $stmt = $db -> prepare($sql);
 
@@ -207,9 +208,7 @@ ORDER BY
     FIELD(a.auctionStatus, 'running', 'scheduled', 'ended', 'cancelled'),
     a.auctionStartTime DESC,
     b.bidTime DESC
-"; // ORDER BY 这样做可以有“状态优先级”，和Buyer's view一致。
-
-// if there is no value, then return an empty array for user, avoid show error.
+";
 $stmt = $db -> prepare($sql);
     
 $stmt -> bind_param("i", $sellerId);
@@ -219,10 +218,8 @@ $rows = [];
 while ($line = $result -> fetch_assoc()) {
     $rows[] = $line;
 }
-    //always remember close BEFORE return
 $stmt -> close();
 
-// 9) return array 返回数组 (maybe empty)
 return $rows;
 }
 
@@ -232,25 +229,36 @@ return $rows;
 // 5. Place Bid: 
 //    A user(buyer) to place a bid on an item in an auction.
 // How it works:
-// 1) Validate bid price (> 0).
-// 2) Load auction info and check existence / seller / timing / status.
-// 3) Apply bidding rules:
+// 1) Validate login status (buyer must be logged in).
+// 2) Validate bid price (> 0).
+// 3) Load auction info and check existence / seller / timing / status.
+// 4) Apply bidding rules:
 //    - First bid must be > start price.
 //    - Current highest bidder cannot bid again.
 //    - New bid must be > current highest bid.
 //    - Seller cannot bid on own auction.
-// 4) Insert the bid if all checks pass and return a result array.
+// 5) Insert the bid if all checks pass and return a result array.
 
 function placeBid($buyerId, $auctionId, $bidPrice)
 {
-// 1)Validate bid price>0 before everything
+    //0) users must register and logedin first
+    if (empty($buyerId)) {
+        return [
+            "success" => false,
+            "message" => "Sorry, you are not user yet, you must be logged in to place a bid."
+        ];
+    }
+
+    // 1)Validate bid price>0 before everything
     if ($bidPrice <= 0) { 
         return [
             "success" => false,
             "message" => "Sorry, your bid amount must be higher than £0.00."
         ];
     }
+
     $db = get_db_connection();
+
 
 // 2)Check auction's status, like:exsistence/start price/status etc.
 $sqlAuction = "
@@ -270,47 +278,44 @@ $stmtAuction = $db->prepare($sqlAuction);
 $stmtAuction -> bind_param("i", $auctionId);
 $stmtAuction -> execute();
 $resultAuction = $stmtAuction -> get_result();
-$auctionRow    = $resultAuction -> fetch_assoc();
-$stmtAuction   -> close();
+$auctionRow = $resultAuction -> fetch_assoc();
+$stmtAuction -> close();
 
-    // (2.1)Auction must exist, otherwise return reminder. 拍卖必须要存在，否则提示不存在然后返回。
+    // (2.1)Auction must exist, otherwise return reminder.
     if (!$auctionRow) {
         return [
             "success" => false,
             "message" => "Sorry, this auction does not exist."
         ];
     }
-        // Check the if there is a startPrice, avoid error. 检查起拍价格是不是存在，避免报错。
+        // Check the if there is a startPrice, avoid error
     $startPrice = isset($auctionRow["startPrice"]) 
                   ? (float)$auctionRow["startPrice"] 
                   : 0.0;
-        // SellerId for self-bidding validation later. 拿到seller的ID，为后面身份检查做准备。
-    $sellerId         = (int)$auctionRow["sellerId"];
-        // get the time for time-based auction check later 保留开始和结束时间，一会判断拍卖的“未开始”和“已结束”。
+        // SellerId for self-bidding validation later
+    $sellerId = (int)$auctionRow["sellerId"];
+        // get the time for time-based auction check later.
     $auctionStartTime = $auctionRow["auctionStartTime"];
-    $auctionEndTime   = $auctionRow["auctionEndTime"];
-        // Use null if auctionStatus is missing or null. 如果有auctionStatus，就用！如果没有status，那就用null!
-        // "??"是null合并运算符号：if the value on left side not exist or is null, then use the value on right side.
-        // 这样写其实等同于if (isset($auctionRow["auctionStatus"])) {$auctionStatus = $auctionRow["auctionStatus"];} else {$auctionStatus = null;}
-    $auctionStatus    = $auctionRow["auctionStatus"] ?? null; 
+    $auctionEndTime = $auctionRow["auctionEndTime"];
+    $auctionStatus = $auctionRow["auctionStatus"] ?? null; 
         // get the current time for time-validation later.
     $nowTimestamp     = time();
 
-    // (2.2) Seller cannot bid on his/her own auction, return a reminder禁止卖家给自己的拍卖出价
+    // (2.2) Seller cannot bid on his/her own auction, return a reminder
     if ((int)$buyerId === $sellerId) {
         return [
             "success" => false,
             "message" => "Sorry, you cannot place a bid on your own auction."
         ];
     }
-    // (2.3) if auction has been cancelled, return reminder 如果拍卖已被手动取消，禁止任何人再出价
+    // (2.3) if auction has been cancelled, return reminder
     if ($auctionStatus === 'cancelled') {
         return [
             "success" => false,
             "message" => "Sorry, this auction is not available for bidding anymore."
         ];
     }
-    // (2.4) cannot bid if auction not started yet then return reminder拍卖如果显示的schedule，也不能出价
+    // (2.4) cannot bid if auction not started yet then return reminder
     if (!empty($auctionStartTime)) {
         $startTimestamp = strtotime($auctionStartTime);
         if ($nowTimestamp < $startTimestamp) {
@@ -320,7 +325,7 @@ $stmtAuction   -> close();
             ];
         }
     }
-    // (2.5) Auction already ended, return reminder. 拍卖已结束，不允许再出价
+    // (2.5) Auction already ended, return reminder.
     if (!empty($auctionEndTime)) {
         $endTimestamp = strtotime($auctionEndTime);
         if ($nowTimestamp >= $endTimestamp) {
@@ -368,22 +373,16 @@ if ($currentHighest === null) {
         ];
     }
 }
-
-
-
-//Insert the new bid into bids table 把新的出价插入导入bids表
     $sql = "
     INSERT INTO bids (auctionId, buyerId, bidPrice, bidTime)
     VALUES (?, ?, ?, NOW())";
 
 
     $stmt = $db -> prepare($sql);
-// "iid" is an arguments list, representing VALUE(?, ?, ?)"
+
     $stmt -> bind_param("iid", $auctionId, $buyerId, $bidPrice);
     $result = $stmt->execute();
 
-//if success, get the new bidId created by database(AUTO_INCREMENT)
-// REMEMBER insert_id means get the lastest ID of the last insert operation, doesn't mean insert an ID etc.
     $newBidId = $db -> insert_id;
     
     $stmt -> close();
