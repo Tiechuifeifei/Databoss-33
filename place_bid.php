@@ -10,19 +10,18 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-$buyerId = $_SESSION['userId'] ?? null;
-if (!$buyerId) {
-    header("Location: login.php?loginError=" . urlencode("Please log in to place a bid."));
-    exit;
-}
-
-
 $auctionId = isset($_POST['auctionId']) ? (int)$_POST['auctionId'] : 0;
 $itemId    = isset($_POST['itemId'])    ? (int)$_POST['itemId']    : 0;
 $bidPrice  = $_POST['bidPrice'] ?? null;
 
 $redirectItemId = $itemId ?: $auctionId;
 
+
+$buyerId = $_SESSION['userId'] ?? null;
+if (!$buyerId) {
+header("Location: listing.php?itemId={$redirectItemId}&auctionId={$auctionId}&error=" . urlencode("Please log in before placing a bid."));
+    exit;
+}
 
 if ($auctionId <= 0 || $bidPrice === null || $bidPrice === '' || !is_numeric($bidPrice)) {
     $msg = "Invalid bid input.";
