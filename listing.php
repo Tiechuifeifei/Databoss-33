@@ -258,24 +258,33 @@ $isWatching = $userId ? isInWatchlist($userId, $auctionId) : false;
 
     <p class="auction-info-line">Current bid: £<?= number_format($currentPrice,2) ?></p>
 
-    <?php if ($userId == $auction['sellerId']): ?>
-        <p class="auction-info-line text-warning">You are the seller and cannot bid.</p>
-    <?php else: ?>
+    <?php if (!$userId): ?>
+        <p class="auction-info-line text-warning">
+            Please log in before placing a bid.
+        </p>
+        <a href="login.php" class="btn bid-btn mt-2">Login</a>
 
+    <?php elseif ($userId == $auction['sellerId']): ?>
+        <p class="auction-info-line text-warning">You are the seller and cannot bid.</p>
+
+    <?php else: ?>
         <p class="bid-note">• Please double-check that your bid amount is correct before submitting.</p>
         <p class="bid-note">• Please confirm your decision carefully, as bids cannot be cancelled or withdrawn.</p>
 
         <form method="POST" action="place_bid.php" class="mt-2">
             <input type="hidden" name="auctionId" value="<?= $auctionId ?>">
+            <input type="hidden" name="itemId"    value="<?= $itemId ?>">
+
             <div class="bid-input-wrap">
-            <span class="input-group-text">£</span>
-            <input type="number" name="bidPrice" class="form-control" step="0.01" required>
+                <span class="input-group-text">£</span>
+                <input type="number" name="bidPrice" class="form-control" step="0.01" required>
             </div>
             <button class="btn bid-btn mt-2">Place bid</button>
         </form>
     <?php endif; ?>
 
 <?php endif; ?>
+
 
 
 
