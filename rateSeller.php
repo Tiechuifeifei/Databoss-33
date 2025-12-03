@@ -2,18 +2,18 @@
 require_once 'utilities.php';
 session_start();
 
-// If not logged in, redirect to login
+//If not logged in, redirect to login
 if (!isset($_SESSION['userId'])) {
     header("Location: login.php");
     exit;
 }
 
-$userId   = (int)$_SESSION['userId'];
+$userId = (int)$_SESSION['userId'];
 $auctionId = isset($_POST['auctionId']) ? (int)$_POST['auctionId'] : 0;
-$rating    = isset($_POST['rating']) ? (int)$_POST['rating'] : 0;
-$comment   = isset($_POST['comment']) ? trim($_POST['comment']) : '';
+$rating= isset($_POST['rating']) ? (int)$_POST['rating'] : 0;
+$comment= isset($_POST['comment']) ? trim($_POST['comment']) : '';
 
-// Basic validation
+//Basic validation
 if ($auctionId <= 0 || $rating < 1 || $rating > 5) {
     header("Location: profile.php?rated_error=1");
     exit;
@@ -21,7 +21,7 @@ if ($auctionId <= 0 || $rating < 1 || $rating > 5) {
 
 $db = get_db_connection();
 
-// 1. Get sellerId for this auction
+//1.Get sellerId for this auction
 $sqlSeller = "
     SELECT i.sellerId
     FROM auctions a
@@ -30,16 +30,16 @@ $sqlSeller = "
     LIMIT 1
 ";
 
-$stmt = $db->prepare($sqlSeller);
+$stmt=$db->prepare($sqlSeller);
 if (!$stmt) {
-    // optional: log $db->error
+
     header("Location: profile.php?rated_error=2");
     exit;
 }
 
 $stmt->bind_param("i", $auctionId);
 $stmt->execute();
-$res = $stmt->get_result()->fetch_assoc();
+$res=$stmt->get_result()->fetch_assoc();
 $stmt->close();
 
 if (!$res) {
@@ -49,7 +49,7 @@ if (!$res) {
 
 $sellerId = (int)$res['sellerId'];
 
-// 2. Insert rating (with comment)
+//2.Insert rating (with comment)
 $sqlInsert = "
     INSERT INTO sellerRatings (sellerId, raterId, rating, auctionId, comment)
     VALUES (?, ?, ?, ?, ?)
@@ -64,7 +64,7 @@ if (!$stmt) {
 $stmt->bind_param("iiiis", $sellerId, $userId, $rating, $auctionId, $comment);
 
 if (!$stmt->execute()) {
-    // optional: log $stmt->error
+
     $stmt->close();
     header("Location: profile.php?rated_error=5");
     exit;
@@ -72,6 +72,6 @@ if (!$stmt->execute()) {
 
 $stmt->close();
 
-// Done – back to profile with success message
+//Done, back to profile with success message
 header("Location: profile.php?rated_success=1");
 exit;
