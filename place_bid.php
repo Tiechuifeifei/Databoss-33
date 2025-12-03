@@ -10,14 +10,14 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-$auctionId = isset($_POST['auctionId']) ? (int)$_POST['auctionId'] : 0;
-$itemId    = isset($_POST['itemId'])    ? (int)$_POST['itemId']    : 0;
-$bidPrice  = $_POST['bidPrice'] ?? null;
+$auctionId=isset($_POST['auctionId']) ? (int)$_POST['auctionId'] : 0;
+$itemId = isset($_POST['itemId'])    ? (int)$_POST['itemId']    : 0;
+$bidPrice=$_POST['bidPrice'] ?? null;
 
-$redirectItemId = $itemId ?: $auctionId;
+$redirectItemId=$itemId ?: $auctionId;
 
 
-$buyerId = $_SESSION['userId'] ?? null;
+$buyerId=$_SESSION['userId'] ?? null;
 if (!$buyerId) {
 header("Location: listing.php?itemId={$redirectItemId}&auctionId={$auctionId}&error=" . urlencode("Please log in before placing a bid."));
     exit;
@@ -32,7 +32,7 @@ if ($auctionId <= 0 || $bidPrice === null || $bidPrice === '' || !is_numeric($bi
 $bidPrice = (float)$bidPrice;
 
 
-$result = placeBid($buyerId, $auctionId, $bidPrice);
+$result=placeBid($buyerId, $auctionId, $bidPrice);
 
 if ($result['success']) {
     header("Location: listing.php?itemId={$redirectItemId}&auctionId={$auctionId}&success=bid");
@@ -41,3 +41,4 @@ if ($result['success']) {
 }
 
 exit;
+
