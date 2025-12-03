@@ -44,7 +44,7 @@ $auctions[$aid] = [
 'auctionEndTime'=> $line['auctionEndTime'],
 'startPrice'=> (float)$line['startPrice'],
 'winningBidId'=> isset($line['winningBidId']) ? (int)$line['winningBidId'] : null,
-'bids'=> [], //这一场拍卖下面所有的出价
+'bids'=> [], //all bids under this auction
 ];
 }
 
@@ -54,7 +54,7 @@ if (!empty($line['bidId'])){
 $auctions[$aid]['bids'][] = [
 'bidId' => (int)$line['bidId'],
 'buyerId' => (int)$line['buyerId'],
-'buyerName' => $line['userName'],   //来自users表
+'buyerName' => $line['userName'], 
 'bidPrice' => (float)$line['bidPrice'],
 'bidTime' => $line['bidTime'],
 ];
@@ -149,7 +149,7 @@ $bidCount = !empty($auction['bids']) ? count($auction['bids']) : 0;
 </small>
 
 <?php
-// show the winner and winning bid if auction finished
+//show the winner and winning bid if auction finished
 if ($statusRaw === 'ended'){
 if ($bidCount > 0){
 echo "<br><small class='text-success'><strong>Winner:</strong> ".h($winnerName)." &nbsp;|&nbsp; <strong>Final price:</strong> £".number_format($currentPrice,2)."</small>";
