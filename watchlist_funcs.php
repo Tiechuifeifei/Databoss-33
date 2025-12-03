@@ -3,9 +3,9 @@
 // watchlist_funcs.php
 // ************************************************************************************
 // Watchlist has 3 functions
-// 1) add_to_watchlist —— 把某个auction加到关注列表里
-// 2) view_watchlist —— 查看我当前关注了哪些auctions
-// 3) remove_from_watchlist —— 从关注列表里删掉某个auction
+// 1) add_to_watchlist
+// 2) view_watchlist
+// 3) remove_from_watchlist
 //
 // What's in the watchlist table:
 // - watchId          INT(11) NOT NULL,
@@ -16,8 +16,6 @@
 
 require_once 'utilities.php';
 
-// open the session first, otherwise can't get userId
-// 记得先把 session 打开，不然拿不到 userId
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
@@ -130,9 +128,7 @@ return "removed_success";
 }
 
 
-//Leo debug, add one more fucntion "isInWatchList()":
-
-//4. Check if auction is in user's watchlist
+//4. Check if auction is in user's watchlist to avoid add the same auction again
 function isInWatchlist($userId, $auctionId)
 {
     $db = get_db_connection();
@@ -154,3 +150,4 @@ function isInWatchlist($userId, $auctionId)
     return $exists;
 }
 ?>
+
