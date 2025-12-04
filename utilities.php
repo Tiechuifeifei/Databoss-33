@@ -6,10 +6,6 @@ date_default_timezone_set('Europe/London');
 
 require __DIR__ . DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR . 'autoload.php';
 
-
-$dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
-$dotenv->load();
-
 error_reporting(E_ALL);
 ini_set('display_errors', '1');
 
