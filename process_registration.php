@@ -27,9 +27,6 @@ $userStreet               = trim($_POST['userStreet'] ?? '');
 $userCity                 = trim($_POST['userCity'] ?? '');
 $userPostcode             = trim($_POST['userPostcode'] ?? '');
 
-// everyone is a buyer by default
-$userRole = 'buyer';
-
 //input check
 if ($userName === '') back_with_msg('Username is required.');
 if (!filter_var($userEmail, FILTER_VALIDATE_EMAIL)) back_with_msg('Invalid email format.');
@@ -77,17 +74,16 @@ $hash = password_hash($userPassword, PASSWORD_DEFAULT);
 
 $stmt = $db->prepare("
     INSERT INTO users (
-        userName, userEmail, userPassword, userRole,
+        userName, userEmail, userPassword,
         userPhoneNumber, userDob, userHouseNo, userStreet, userCity, userPostcode
     )
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
 ");
 $stmt->bind_param(
-    'ssssssssss',
+    'sssssssss',
     $userName,
     $userEmail,
     $hash,
-    $userRole,
     $userPhoneNumber,
     $userDob,
     $userHouseNo,
@@ -106,7 +102,6 @@ $stmt->close();
 // login 
 $_SESSION['userId']       = $userId;
 $_SESSION['userName'] = $userName;
-$_SESSION['userRole']     = $userRole;
 
 header('Location: browse.php');
 exit;

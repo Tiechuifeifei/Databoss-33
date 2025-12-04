@@ -382,7 +382,6 @@ CREATE TABLE `users` (
   `userEmail` varchar(255) NOT NULL,
   `userPassword` varchar(255) NOT NULL,
   `createdAt` datetime DEFAULT current_timestamp(),
-  `userRole` varchar(20) NOT NULL DEFAULT 'buyer',
   `userPhoneNumber` varchar(50) DEFAULT NULL,
   `userDob` date DEFAULT NULL,
   `userHouseNo` varchar(50) DEFAULT NULL,
