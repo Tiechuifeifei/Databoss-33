@@ -103,10 +103,3 @@ Frontend (HTML/CSS/JS) → Backend (PHP) → Database (MySQL).
 
 > Both groups are **full-stack** within their modules.  
 > The project emphasizes backend logic (PHP + MySQL) with interactive frontend components for a complete user experience.
-
-## Folder Structure
-
-The project follows a modular structure separating backend (PHP logic), database scripts, frontend assets, and documentation.  
-Each group is responsible for a clear subset of folders as indicated below.
-
-```
