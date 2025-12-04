@@ -213,3 +213,2421 @@ Regards,
 Auction Website
 
 Sent: mekialkhan1707@gmail.com | Subject: Your auction has ended: dfsa
+----
+To: ninjabosss1707@gmail.com
+Subject: Your auction has ended: afsdasfdafsdafad
+
+Hi ninjaafdsa,
+
+Your auction for 'afsdasfdafsdafad' has ended, but there was no winning bid.
+You may wish to relist the item.
+
+Regards,
+Auction Website
+
+PHPMailer Error: SMTP Error: Could not authenticate. | Exception: SMTP Error: Could not authenticate.
+----
+To: mekialkhan1707@gmail.com
+Subject: Your auction has ended: gfsds
+
+Hi Ninja1707,
+
+Your auction for 'gfsds' has ended, but there was no winning bid.
+You may wish to relist the item.
+
+Regards,
+Auction Website
+
+PHPMailer Error: SMTP Error: Could not authenticate. | Exception: SMTP Error: Could not authenticate.
+----
+To: mekialkhan1707@gmail.com
+Subject: Your auction has ended: fasdafdsafddsafddsafsda
+
+Hi Ninja1707,
+
+Your auction for 'fasdafdsafddsafddsafsda' has ended, but there was no winning bid.
+You may wish to relist the item.
+
+Regards,
+Auction Website
+
+PHPMailer Error: SMTP Error: Could not authenticate. | Exception: SMTP Error: Could not authenticate.
+----
+To: mekialkhan1707@gmail.com
+Subject: Your auction has ended: fdsa
+
+Hi Ninja1707,
+
+Your auction for 'fdsa' has ended, but there was no winning bid.
+You may wish to relist the item.
+
+Regards,
+Auction Website
+
+PHPMailer Error: SMTP Error: Could not authenticate. | Exception: SMTP Error: Could not authenticate.
+----
+To: ninjaboss1707@gmail.com
+Subject: You won the auction: fsadsada
+
+Hi ninja,
+
+Congratulations! You have won the auction for 'fsadsada'.
+Final price: £5.00
+
+Please log in to your account to view the details.
+
+Regards,
+Auction Website
+
+PHPMailer Error: SMTP Error: Could not authenticate. | Exception: SMTP Error: Could not authenticate.
+----
+To: mekialkhan1707@gmail.com
+Subject: Your auction has ended: fsadsada
+
+Hi Ninja1707,
+
+Your auction for 'fsadsada' has ended and a buyer has won the item.
+Final price: £5.00
+
+Please log in to your account to see the winner's details.
+
+Regards,
+Auction Website
+
+PHPMailer Error: SMTP Error: Could not authenticate. | Exception: SMTP Error: Could not authenticate.
+----
+To: ninjaboss1707@gmail.com
+Subject: Your auction has ended: rwte
+
+Hi ninja,
+
+Your auction for 'rwte' has ended, but there was no winning bid.
+You may wish to relist the item.
+
+Regards,
+Auction Website
+
+PHPMailer Error: SMTP Error: Could not authenticate. | Exception: SMTP Error: Could not authenticate.
+----
+To: ninjaboss1707@gmail.com
+Subject: You won the auction: e
+
+Hi ninja,
+
+Congratulations! You have won the auction for 'e'.
+Final price: £90.00
+
+Please log in to your account to view the details.
+
+Regards,
+Auction Website
+
+PHPMailer Error: SMTP Error: Could not authenticate. | Exception: SMTP Error: Could not authenticate.
+----
+To: mekialkhan1707@gmail.com
+Subject: Your auction has ended: e
+
+Hi Ninja1707,
+
+Your auction for 'e' has ended and a buyer has won the item.
+Final price: £90.00
+
+Please log in to your account to see the winner's details.
+
+Regards,
+Auction Website
+
+PHPMailer Error: SMTP Error: Could not authenticate. | Exception: SMTP Error: Could not authenticate.
+----
+To: ninjaboss1707@gmail.com
+Subject: You won the auction: fsda
+
+Hi ninja,
+
+Congratulations! You have won the auction for 'fsda'.
+Final price: £4.00
+
+Please log in to your account to view the details.
+
+Regards,
+Auction Website
+
+PHPMailer Error: SMTP Error: Could not authenticate. | Exception: SMTP Error: Could not authenticate.
+----
+To: mekialkhan1707@gmail.com
+Subject: Your auction has ended: fsda
+
+Hi Ninja1707,
+
+Your auction for 'fsda' has ended and a buyer has won the item.
+Final price: £4.00
+
+Please log in to your account to see the winner's details.
+
+Regards,
+Auction Website
+
+PHPMailer Error: SMTP Error: Could not authenticate. | Exception: SMTP Error: Could not authenticate.
+----
+To: ninjaboss1707@gmail.com
+Subject: You won the auction: sssss
+
+Hi ninja,
+
+Congratulations! You have won the auction for 'sssss'.
+Final price: £5.00
+
+Please log in to your account to view the details.
+
+Regards,
+Auction Website
+
+PHPMailer Error: SMTP Error: Could not authenticate. | Exception: SMTP Error: Could not authenticate.
+----
+To: mekialkhan1707@gmail.com
+Subject: Your auction has ended: sssss
+
+Hi Ninja1707,
+
+Your auction for 'sssss' has ended and a buyer has won the item.
+Final price: £5.00
+
+Please log in to your account to see the winner's details.
+
+Regards,
+Auction Website
+
+PHPMailer Error: SMTP Error: Could not authenticate. | Exception: SMTP Error: Could not authenticate.
+----
+To: ninjaboss1707@gmail.com
+Subject: You won the auction: dfsa
+
+Hi ninja,
+
+Congratulations! You have won the auction for 'dfsa'.
+Final price: £44.00
+
+Please log in to your account to view the details.
+
+Regards,
+Auction Website
+
+PHPMailer Error: SMTP Error: Could not authenticate. | Exception: SMTP Error: Could not authenticate.
+----
+To: mekialkhan1707@gmail.com
+Subject: Your auction has ended: dfsa
+
+Hi Ninja1707,
+
+Your auction for 'dfsa' has ended and a buyer has won the item.
+Final price: £44.00
+
+Please log in to your account to see the winner's details.
+
+Regards,
+Auction Website
+
+PHPMailer Error: SMTP Error: Could not authenticate. | Exception: SMTP Error: Could not authenticate.
+----
+To: itahiuchih3391@gmail.com
+Subject: Your auction has ended: MY GAMBIT
+
+Hi nazahx,
+
+Your auction for 'MY GAMBIT' has ended, but there was no winning bid.
+You may wish to relist the item.
+
+Regards,
+Auction Website
+
+PHPMailer Error: SMTP Error: Could not authenticate. | Exception: SMTP Error: Could not authenticate.
+----
+To: ninjabosss1707@gmail.com
+Subject: Your auction has ended: afsdasfdafsdafad
+
+Hi ninjaafdsa,
+
+Your auction for 'afsdasfdafsdafad' has ended, but there was no winning bid.
+You may wish to relist the item.
+
+Regards,
+Auction Website
+
+PHPMailer Error: SMTP Error: Could not authenticate. | Exception: SMTP Error: Could not authenticate.
+----
+To: mekialkhan1707@gmail.com
+Subject: Your auction has ended: gfsds
+
+Hi Ninja1707,
+
+Your auction for 'gfsds' has ended, but there was no winning bid.
+You may wish to relist the item.
+
+Regards,
+Auction Website
+
+PHPMailer Error: SMTP Error: Could not authenticate. | Exception: SMTP Error: Could not authenticate.
+----
+To: mekialkhan1707@gmail.com
+Subject: Your auction has ended: fasdafdsafddsafddsafsda
+
+Hi Ninja1707,
+
+Your auction for 'fasdafdsafddsafddsafsda' has ended, but there was no winning bid.
+You may wish to relist the item.
+
+Regards,
+Auction Website
+
+PHPMailer Error: SMTP Error: Could not authenticate. | Exception: SMTP Error: Could not authenticate.
+----
+To: mekialkhan1707@gmail.com
+Subject: Your auction has ended: fdsa
+
+Hi Ninja1707,
+
+Your auction for 'fdsa' has ended, but there was no winning bid.
+You may wish to relist the item.
+
+Regards,
+Auction Website
+
+PHPMailer Error: SMTP Error: Could not authenticate. | Exception: SMTP Error: Could not authenticate.
+----
+To: ninjaboss1707@gmail.com
+Subject: You won the auction: fsadsada
+
+Hi ninja,
+
+Congratulations! You have won the auction for 'fsadsada'.
+Final price: £5.00
+
+Please log in to your account to view the details.
+
+Regards,
+Auction Website
+
+PHPMailer Error: SMTP Error: Could not authenticate. | Exception: SMTP Error: Could not authenticate.
+----
+To: mekialkhan1707@gmail.com
+Subject: Your auction has ended: fsadsada
+
+Hi Ninja1707,
+
+Your auction for 'fsadsada' has ended and a buyer has won the item.
+Final price: £5.00
+
+Please log in to your account to see the winner's details.
+
+Regards,
+Auction Website
+
+PHPMailer Error: SMTP Error: Could not authenticate. | Exception: SMTP Error: Could not authenticate.
+----
+To: ninjaboss1707@gmail.com
+Subject: Your auction has ended: rwte
+
+Hi ninja,
+
+Your auction for 'rwte' has ended, but there was no winning bid.
+You may wish to relist the item.
+
+Regards,
+Auction Website
+
+PHPMailer Error: SMTP Error: Could not authenticate. | Exception: SMTP Error: Could not authenticate.
+----
+To: ninjaboss1707@gmail.com
+Subject: You won the auction: e
+
+Hi ninja,
+
+Congratulations! You have won the auction for 'e'.
+Final price: £90.00
+
+Please log in to your account to view the details.
+
+Regards,
+Auction Website
+
+PHPMailer Error: SMTP Error: Could not authenticate. | Exception: SMTP Error: Could not authenticate.
+----
+To: mekialkhan1707@gmail.com
+Subject: Your auction has ended: e
+
+Hi Ninja1707,
+
+Your auction for 'e' has ended and a buyer has won the item.
+Final price: £90.00
+
+Please log in to your account to see the winner's details.
+
+Regards,
+Auction Website
+
+PHPMailer Error: SMTP Error: Could not authenticate. | Exception: SMTP Error: Could not authenticate.
+----
+To: ninjaboss1707@gmail.com
+Subject: You won the auction: fsda
+
+Hi ninja,
+
+Congratulations! You have won the auction for 'fsda'.
+Final price: £4.00
+
+Please log in to your account to view the details.
+
+Regards,
+Auction Website
+
+PHPMailer Error: SMTP Error: Could not authenticate. | Exception: SMTP Error: Could not authenticate.
+----
+To: mekialkhan1707@gmail.com
+Subject: Your auction has ended: fsda
+
+Hi Ninja1707,
+
+Your auction for 'fsda' has ended and a buyer has won the item.
+Final price: £4.00
+
+Please log in to your account to see the winner's details.
+
+Regards,
+Auction Website
+
+PHPMailer Error: SMTP Error: Could not authenticate. | Exception: SMTP Error: Could not authenticate.
+----
+To: ninjaboss1707@gmail.com
+Subject: You won the auction: sssss
+
+Hi ninja,
+
+Congratulations! You have won the auction for 'sssss'.
+Final price: £5.00
+
+Please log in to your account to view the details.
+
+Regards,
+Auction Website
+
+PHPMailer Error: SMTP Error: Could not authenticate. | Exception: SMTP Error: Could not authenticate.
+----
+To: mekialkhan1707@gmail.com
+Subject: Your auction has ended: sssss
+
+Hi Ninja1707,
+
+Your auction for 'sssss' has ended and a buyer has won the item.
+Final price: £5.00
+
+Please log in to your account to see the winner's details.
+
+Regards,
+Auction Website
+
+PHPMailer Error: SMTP Error: Could not authenticate. | Exception: SMTP Error: Could not authenticate.
+----
+To: ninjaboss1707@gmail.com
+Subject: You won the auction: dfsa
+
+Hi ninja,
+
+Congratulations! You have won the auction for 'dfsa'.
+Final price: £44.00
+
+Please log in to your account to view the details.
+
+Regards,
+Auction Website
+
+PHPMailer Error: SMTP Error: Could not authenticate. | Exception: SMTP Error: Could not authenticate.
+----
+To: mekialkhan1707@gmail.com
+Subject: Your auction has ended: dfsa
+
+Hi Ninja1707,
+
+Your auction for 'dfsa' has ended and a buyer has won the item.
+Final price: £44.00
+
+Please log in to your account to see the winner's details.
+
+Regards,
+Auction Website
+
+PHPMailer Error: SMTP Error: Could not authenticate. | Exception: SMTP Error: Could not authenticate.
+----
+To: itahiuchih3391@gmail.com
+Subject: Your auction has ended: MY GAMBIT
+
+Hi nazahx,
+
+Your auction for 'MY GAMBIT' has ended, but there was no winning bid.
+You may wish to relist the item.
+
+Regards,
+Auction Website
+
+PHPMailer Error: SMTP Error: Could not authenticate. | Exception: SMTP Error: Could not authenticate.
+----
+To: ninjabosss1707@gmail.com
+Subject: Your auction has ended: afsdasfdafsdafad
+
+Hi ninjaafdsa,
+
+Your auction for 'afsdasfdafsdafad' has ended, but there was no winning bid.
+You may wish to relist the item.
+
+Regards,
+Auction Website
+
+PHPMailer Error: SMTP Error: Could not authenticate. | Exception: SMTP Error: Could not authenticate.
+----
+To: mekialkhan1707@gmail.com
+Subject: Your auction has ended: gfsds
+
+Hi Ninja1707,
+
+Your auction for 'gfsds' has ended, but there was no winning bid.
+You may wish to relist the item.
+
+Regards,
+Auction Website
+
+PHPMailer Error: SMTP Error: Could not authenticate. | Exception: SMTP Error: Could not authenticate.
+----
+To: mekialkhan1707@gmail.com
+Subject: Your auction has ended: fasdafdsafddsafddsafsda
+
+Hi Ninja1707,
+
+Your auction for 'fasdafdsafddsafddsafsda' has ended, but there was no winning bid.
+You may wish to relist the item.
+
+Regards,
+Auction Website
+
+PHPMailer Error: SMTP Error: Could not authenticate. | Exception: SMTP Error: Could not authenticate.
+----
+To: mekialkhan1707@gmail.com
+Subject: Your auction has ended: fdsa
+
+Hi Ninja1707,
+
+Your auction for 'fdsa' has ended, but there was no winning bid.
+You may wish to relist the item.
+
+Regards,
+Auction Website
+
+PHPMailer Error: SMTP Error: Could not authenticate. | Exception: SMTP Error: Could not authenticate.
+----
+To: ninjaboss1707@gmail.com
+Subject: You won the auction: fsadsada
+
+Hi ninja,
+
+Congratulations! You have won the auction for 'fsadsada'.
+Final price: £5.00
+
+Please log in to your account to view the details.
+
+Regards,
+Auction Website
+
+PHPMailer Error: SMTP Error: Could not authenticate. | Exception: SMTP Error: Could not authenticate.
+----
+To: mekialkhan1707@gmail.com
+Subject: Your auction has ended: fsadsada
+
+Hi Ninja1707,
+
+Your auction for 'fsadsada' has ended and a buyer has won the item.
+Final price: £5.00
+
+Please log in to your account to see the winner's details.
+
+Regards,
+Auction Website
+
+PHPMailer Error: SMTP Error: Could not authenticate. | Exception: SMTP Error: Could not authenticate.
+----
+To: ninjaboss1707@gmail.com
+Subject: Your auction has ended: rwte
+
+Hi ninja,
+
+Your auction for 'rwte' has ended, but there was no winning bid.
+You may wish to relist the item.
+
+Regards,
+Auction Website
+
+PHPMailer Error: SMTP Error: Could not authenticate. | Exception: SMTP Error: Could not authenticate.
+----
+To: ninjaboss1707@gmail.com
+Subject: You won the auction: e
+
+Hi ninja,
+
+Congratulations! You have won the auction for 'e'.
+Final price: £90.00
+
+Please log in to your account to view the details.
+
+Regards,
+Auction Website
+
+PHPMailer Error: SMTP Error: Could not authenticate. | Exception: SMTP Error: Could not authenticate.
+----
+To: mekialkhan1707@gmail.com
+Subject: Your auction has ended: e
+
+Hi Ninja1707,
+
+Your auction for 'e' has ended and a buyer has won the item.
+Final price: £90.00
+
+Please log in to your account to see the winner's details.
+
+Regards,
+Auction Website
+
+PHPMailer Error: SMTP Error: Could not authenticate. | Exception: SMTP Error: Could not authenticate.
+----
+To: ninjaboss1707@gmail.com
+Subject: You won the auction: fsda
+
+Hi ninja,
+
+Congratulations! You have won the auction for 'fsda'.
+Final price: £4.00
+
+Please log in to your account to view the details.
+
+Regards,
+Auction Website
+
+PHPMailer Error: SMTP Error: Could not authenticate. | Exception: SMTP Error: Could not authenticate.
+----
+To: mekialkhan1707@gmail.com
+Subject: Your auction has ended: fsda
+
+Hi Ninja1707,
+
+Your auction for 'fsda' has ended and a buyer has won the item.
+Final price: £4.00
+
+Please log in to your account to see the winner's details.
+
+Regards,
+Auction Website
+
+PHPMailer Error: SMTP Error: Could not authenticate. | Exception: SMTP Error: Could not authenticate.
+----
+To: ninjaboss1707@gmail.com
+Subject: You won the auction: sssss
+
+Hi ninja,
+
+Congratulations! You have won the auction for 'sssss'.
+Final price: £5.00
+
+Please log in to your account to view the details.
+
+Regards,
+Auction Website
+
+PHPMailer Error: SMTP Error: Could not authenticate. | Exception: SMTP Error: Could not authenticate.
+----
+To: mekialkhan1707@gmail.com
+Subject: Your auction has ended: sssss
+
+Hi Ninja1707,
+
+Your auction for 'sssss' has ended and a buyer has won the item.
+Final price: £5.00
+
+Please log in to your account to see the winner's details.
+
+Regards,
+Auction Website
+
+PHPMailer Error: SMTP Error: Could not authenticate. | Exception: SMTP Error: Could not authenticate.
+----
+To: ninjaboss1707@gmail.com
+Subject: You won the auction: dfsa
+
+Hi ninja,
+
+Congratulations! You have won the auction for 'dfsa'.
+Final price: £44.00
+
+Please log in to your account to view the details.
+
+Regards,
+Auction Website
+
+PHPMailer Error: SMTP Error: Could not authenticate. | Exception: SMTP Error: Could not authenticate.
+----
+To: mekialkhan1707@gmail.com
+Subject: Your auction has ended: dfsa
+
+Hi Ninja1707,
+
+Your auction for 'dfsa' has ended and a buyer has won the item.
+Final price: £44.00
+
+Please log in to your account to see the winner's details.
+
+Regards,
+Auction Website
+
+PHPMailer Error: SMTP Error: Could not authenticate. | Exception: SMTP Error: Could not authenticate.
+----
+To: itahiuchih3391@gmail.com
+Subject: Your auction has ended: MY GAMBIT
+
+Hi nazahx,
+
+Your auction for 'MY GAMBIT' has ended, but there was no winning bid.
+You may wish to relist the item.
+
+Regards,
+Auction Website
+
+PHPMailer Error: SMTP Error: Could not authenticate. | Exception: SMTP Error: Could not authenticate.
+----
+To: ninjabosss1707@gmail.com
+Subject: Your auction has ended: afsdasfdafsdafad
+
+Hi ninjaafdsa,
+
+Your auction for 'afsdasfdafsdafad' has ended, but there was no winning bid.
+You may wish to relist the item.
+
+Regards,
+Auction Website
+
+PHPMailer Error: SMTP Error: Could not authenticate. | Exception: SMTP Error: Could not authenticate.
+----
+To: mekialkhan1707@gmail.com
+Subject: Your auction has ended: gfsds
+
+Hi Ninja1707,
+
+Your auction for 'gfsds' has ended, but there was no winning bid.
+You may wish to relist the item.
+
+Regards,
+Auction Website
+
+PHPMailer Error: SMTP Error: Could not authenticate. | Exception: SMTP Error: Could not authenticate.
+----
+To: mekialkhan1707@gmail.com
+Subject: Your auction has ended: fasdafdsafddsafddsafsda
+
+Hi Ninja1707,
+
+Your auction for 'fasdafdsafddsafddsafsda' has ended, but there was no winning bid.
+You may wish to relist the item.
+
+Regards,
+Auction Website
+
+PHPMailer Error: SMTP Error: Could not authenticate. | Exception: SMTP Error: Could not authenticate.
+----
+To: mekialkhan1707@gmail.com
+Subject: Your auction has ended: fdsa
+
+Hi Ninja1707,
+
+Your auction for 'fdsa' has ended, but there was no winning bid.
+You may wish to relist the item.
+
+Regards,
+Auction Website
+
+PHPMailer Error: SMTP Error: Could not authenticate. | Exception: SMTP Error: Could not authenticate.
+----
+To: ninjaboss1707@gmail.com
+Subject: You won the auction: fsadsada
+
+Hi ninja,
+
+Congratulations! You have won the auction for 'fsadsada'.
+Final price: £5.00
+
+Please log in to your account to view the details.
+
+Regards,
+Auction Website
+
+PHPMailer Error: SMTP Error: Could not authenticate. | Exception: SMTP Error: Could not authenticate.
+----
+To: mekialkhan1707@gmail.com
+Subject: Your auction has ended: fsadsada
+
+Hi Ninja1707,
+
+Your auction for 'fsadsada' has ended and a buyer has won the item.
+Final price: £5.00
+
+Please log in to your account to see the winner's details.
+
+Regards,
+Auction Website
+
+PHPMailer Error: SMTP Error: Could not authenticate. | Exception: SMTP Error: Could not authenticate.
+----
+To: ninjaboss1707@gmail.com
+Subject: Your auction has ended: rwte
+
+Hi ninja,
+
+Your auction for 'rwte' has ended, but there was no winning bid.
+You may wish to relist the item.
+
+Regards,
+Auction Website
+
+PHPMailer Error: SMTP Error: Could not authenticate. | Exception: SMTP Error: Could not authenticate.
+----
+To: ninjaboss1707@gmail.com
+Subject: You won the auction: e
+
+Hi ninja,
+
+Congratulations! You have won the auction for 'e'.
+Final price: £90.00
+
+Please log in to your account to view the details.
+
+Regards,
+Auction Website
+
+PHPMailer Error: SMTP Error: Could not authenticate. | Exception: SMTP Error: Could not authenticate.
+----
+To: mekialkhan1707@gmail.com
+Subject: Your auction has ended: e
+
+Hi Ninja1707,
+
+Your auction for 'e' has ended and a buyer has won the item.
+Final price: £90.00
+
+Please log in to your account to see the winner's details.
+
+Regards,
+Auction Website
+
+PHPMailer Error: SMTP Error: Could not authenticate. | Exception: SMTP Error: Could not authenticate.
+----
+To: ninjaboss1707@gmail.com
+Subject: You won the auction: fsda
+
+Hi ninja,
+
+Congratulations! You have won the auction for 'fsda'.
+Final price: £4.00
+
+Please log in to your account to view the details.
+
+Regards,
+Auction Website
+
+PHPMailer Error: SMTP Error: Could not authenticate. | Exception: SMTP Error: Could not authenticate.
+----
+To: mekialkhan1707@gmail.com
+Subject: Your auction has ended: fsda
+
+Hi Ninja1707,
+
+Your auction for 'fsda' has ended and a buyer has won the item.
+Final price: £4.00
+
+Please log in to your account to see the winner's details.
+
+Regards,
+Auction Website
+
+PHPMailer Error: SMTP Error: Could not authenticate. | Exception: SMTP Error: Could not authenticate.
+----
+To: ninjaboss1707@gmail.com
+Subject: You won the auction: sssss
+
+Hi ninja,
+
+Congratulations! You have won the auction for 'sssss'.
+Final price: £5.00
+
+Please log in to your account to view the details.
+
+Regards,
+Auction Website
+
+PHPMailer Error: SMTP Error: Could not authenticate. | Exception: SMTP Error: Could not authenticate.
+----
+To: mekialkhan1707@gmail.com
+Subject: Your auction has ended: sssss
+
+Hi Ninja1707,
+
+Your auction for 'sssss' has ended and a buyer has won the item.
+Final price: £5.00
+
+Please log in to your account to see the winner's details.
+
+Regards,
+Auction Website
+
+PHPMailer Error: SMTP Error: Could not authenticate. | Exception: SMTP Error: Could not authenticate.
+----
+To: ninjaboss1707@gmail.com
+Subject: You won the auction: dfsa
+
+Hi ninja,
+
+Congratulations! You have won the auction for 'dfsa'.
+Final price: £44.00
+
+Please log in to your account to view the details.
+
+Regards,
+Auction Website
+
+PHPMailer Error: SMTP Error: Could not authenticate. | Exception: SMTP Error: Could not authenticate.
+----
+To: mekialkhan1707@gmail.com
+Subject: Your auction has ended: dfsa
+
+Hi Ninja1707,
+
+Your auction for 'dfsa' has ended and a buyer has won the item.
+Final price: £44.00
+
+Please log in to your account to see the winner's details.
+
+Regards,
+Auction Website
+
+PHPMailer Error: SMTP Error: Could not authenticate. | Exception: SMTP Error: Could not authenticate.
+----
+To: itahiuchih3391@gmail.com
+Subject: Your auction has ended: MY GAMBIT
+
+Hi nazahx,
+
+Your auction for 'MY GAMBIT' has ended, but there was no winning bid.
+You may wish to relist the item.
+
+Regards,
+Auction Website
+
+PHPMailer Error: SMTP Error: Could not authenticate. | Exception: SMTP Error: Could not authenticate.
+----
+To: ninjabosss1707@gmail.com
+Subject: Your auction has ended: afsdasfdafsdafad
+
+Hi ninjaafdsa,
+
+Your auction for 'afsdasfdafsdafad' has ended, but there was no winning bid.
+You may wish to relist the item.
+
+Regards,
+Auction Website
+
+PHPMailer Error: SMTP Error: Could not authenticate. | Exception: SMTP Error: Could not authenticate.
+----
+To: mekialkhan1707@gmail.com
+Subject: Your auction has ended: gfsds
+
+Hi Ninja1707,
+
+Your auction for 'gfsds' has ended, but there was no winning bid.
+You may wish to relist the item.
+
+Regards,
+Auction Website
+
+PHPMailer Error: SMTP Error: Could not authenticate. | Exception: SMTP Error: Could not authenticate.
+----
+To: mekialkhan1707@gmail.com
+Subject: Your auction has ended: fasdafdsafddsafddsafsda
+
+Hi Ninja1707,
+
+Your auction for 'fasdafdsafddsafddsafsda' has ended, but there was no winning bid.
+You may wish to relist the item.
+
+Regards,
+Auction Website
+
+PHPMailer Error: SMTP Error: Could not authenticate. | Exception: SMTP Error: Could not authenticate.
+----
+To: mekialkhan1707@gmail.com
+Subject: Your auction has ended: fdsa
+
+Hi Ninja1707,
+
+Your auction for 'fdsa' has ended, but there was no winning bid.
+You may wish to relist the item.
+
+Regards,
+Auction Website
+
+PHPMailer Error: SMTP Error: Could not authenticate. | Exception: SMTP Error: Could not authenticate.
+----
+To: ninjaboss1707@gmail.com
+Subject: You won the auction: fsadsada
+
+Hi ninja,
+
+Congratulations! You have won the auction for 'fsadsada'.
+Final price: £5.00
+
+Please log in to your account to view the details.
+
+Regards,
+Auction Website
+
+PHPMailer Error: SMTP Error: Could not authenticate. | Exception: SMTP Error: Could not authenticate.
+----
+To: mekialkhan1707@gmail.com
+Subject: Your auction has ended: fsadsada
+
+Hi Ninja1707,
+
+Your auction for 'fsadsada' has ended and a buyer has won the item.
+Final price: £5.00
+
+Please log in to your account to see the winner's details.
+
+Regards,
+Auction Website
+
+PHPMailer Error: SMTP Error: Could not authenticate. | Exception: SMTP Error: Could not authenticate.
+----
+To: ninjaboss1707@gmail.com
+Subject: Your auction has ended: rwte
+
+Hi ninja,
+
+Your auction for 'rwte' has ended, but there was no winning bid.
+You may wish to relist the item.
+
+Regards,
+Auction Website
+
+PHPMailer Error: SMTP Error: Could not authenticate. | Exception: SMTP Error: Could not authenticate.
+----
+To: ninjaboss1707@gmail.com
+Subject: You won the auction: e
+
+Hi ninja,
+
+Congratulations! You have won the auction for 'e'.
+Final price: £90.00
+
+Please log in to your account to view the details.
+
+Regards,
+Auction Website
+
+PHPMailer Error: SMTP Error: Could not authenticate. | Exception: SMTP Error: Could not authenticate.
+----
+To: mekialkhan1707@gmail.com
+Subject: Your auction has ended: e
+
+Hi Ninja1707,
+
+Your auction for 'e' has ended and a buyer has won the item.
+Final price: £90.00
+
+Please log in to your account to see the winner's details.
+
+Regards,
+Auction Website
+
+PHPMailer Error: SMTP Error: Could not authenticate. | Exception: SMTP Error: Could not authenticate.
+----
+To: ninjaboss1707@gmail.com
+Subject: You won the auction: fsda
+
+Hi ninja,
+
+Congratulations! You have won the auction for 'fsda'.
+Final price: £4.00
+
+Please log in to your account to view the details.
+
+Regards,
+Auction Website
+
+PHPMailer Error: SMTP Error: Could not authenticate. | Exception: SMTP Error: Could not authenticate.
+----
+To: mekialkhan1707@gmail.com
+Subject: Your auction has ended: fsda
+
+Hi Ninja1707,
+
+Your auction for 'fsda' has ended and a buyer has won the item.
+Final price: £4.00
+
+Please log in to your account to see the winner's details.
+
+Regards,
+Auction Website
+
+PHPMailer Error: SMTP Error: Could not authenticate. | Exception: SMTP Error: Could not authenticate.
+----
+To: ninjaboss1707@gmail.com
+Subject: You won the auction: sssss
+
+Hi ninja,
+
+Congratulations! You have won the auction for 'sssss'.
+Final price: £5.00
+
+Please log in to your account to view the details.
+
+Regards,
+Auction Website
+
+PHPMailer Error: SMTP Error: Could not authenticate. | Exception: SMTP Error: Could not authenticate.
+----
+To: mekialkhan1707@gmail.com
+Subject: Your auction has ended: sssss
+
+Hi Ninja1707,
+
+Your auction for 'sssss' has ended and a buyer has won the item.
+Final price: £5.00
+
+Please log in to your account to see the winner's details.
+
+Regards,
+Auction Website
+
+PHPMailer Error: SMTP Error: Could not authenticate. | Exception: SMTP Error: Could not authenticate.
+----
+To: ninjaboss1707@gmail.com
+Subject: You won the auction: dfsa
+
+Hi ninja,
+
+Congratulations! You have won the auction for 'dfsa'.
+Final price: £44.00
+
+Please log in to your account to view the details.
+
+Regards,
+Auction Website
+
+PHPMailer Error: SMTP Error: Could not authenticate. | Exception: SMTP Error: Could not authenticate.
+----
+To: mekialkhan1707@gmail.com
+Subject: Your auction has ended: dfsa
+
+Hi Ninja1707,
+
+Your auction for 'dfsa' has ended and a buyer has won the item.
+Final price: £44.00
+
+Please log in to your account to see the winner's details.
+
+Regards,
+Auction Website
+
+PHPMailer Error: SMTP Error: Could not authenticate. | Exception: SMTP Error: Could not authenticate.
+----
+To: itahiuchih3391@gmail.com
+Subject: Your auction has ended: MY GAMBIT
+
+Hi nazahx,
+
+Your auction for 'MY GAMBIT' has ended, but there was no winning bid.
+You may wish to relist the item.
+
+Regards,
+Auction Website
+
+PHPMailer Error: SMTP Error: Could not authenticate. | Exception: SMTP Error: Could not authenticate.
+----
+To: ninjabosss1707@gmail.com
+Subject: Your auction has ended: afsdasfdafsdafad
+
+Hi ninjaafdsa,
+
+Your auction for 'afsdasfdafsdafad' has ended, but there was no winning bid.
+You may wish to relist the item.
+
+Regards,
+Auction Website
+
+PHPMailer Error: SMTP Error: Could not authenticate. | Exception: SMTP Error: Could not authenticate.
+----
+To: mekialkhan1707@gmail.com
+Subject: Your auction has ended: gfsds
+
+Hi Ninja1707,
+
+Your auction for 'gfsds' has ended, but there was no winning bid.
+You may wish to relist the item.
+
+Regards,
+Auction Website
+
+PHPMailer Error: SMTP Error: Could not authenticate. | Exception: SMTP Error: Could not authenticate.
+----
+To: mekialkhan1707@gmail.com
+Subject: Your auction has ended: fasdafdsafddsafddsafsda
+
+Hi Ninja1707,
+
+Your auction for 'fasdafdsafddsafddsafsda' has ended, but there was no winning bid.
+You may wish to relist the item.
+
+Regards,
+Auction Website
+
+PHPMailer Error: SMTP Error: Could not authenticate. | Exception: SMTP Error: Could not authenticate.
+----
+To: mekialkhan1707@gmail.com
+Subject: Your auction has ended: fdsa
+
+Hi Ninja1707,
+
+Your auction for 'fdsa' has ended, but there was no winning bid.
+You may wish to relist the item.
+
+Regards,
+Auction Website
+
+PHPMailer Error: SMTP Error: Could not authenticate. | Exception: SMTP Error: Could not authenticate.
+----
+To: ninjaboss1707@gmail.com
+Subject: You won the auction: fsadsada
+
+Hi ninja,
+
+Congratulations! You have won the auction for 'fsadsada'.
+Final price: £5.00
+
+Please log in to your account to view the details.
+
+Regards,
+Auction Website
+
+PHPMailer Error: SMTP Error: Could not authenticate. | Exception: SMTP Error: Could not authenticate.
+----
+To: mekialkhan1707@gmail.com
+Subject: Your auction has ended: fsadsada
+
+Hi Ninja1707,
+
+Your auction for 'fsadsada' has ended and a buyer has won the item.
+Final price: £5.00
+
+Please log in to your account to see the winner's details.
+
+Regards,
+Auction Website
+
+PHPMailer Error: SMTP Error: Could not authenticate. | Exception: SMTP Error: Could not authenticate.
+----
+To: ninjaboss1707@gmail.com
+Subject: Your auction has ended: rwte
+
+Hi ninja,
+
+Your auction for 'rwte' has ended, but there was no winning bid.
+You may wish to relist the item.
+
+Regards,
+Auction Website
+
+PHPMailer Error: SMTP Error: Could not authenticate. | Exception: SMTP Error: Could not authenticate.
+----
+To: ninjaboss1707@gmail.com
+Subject: You won the auction: e
+
+Hi ninja,
+
+Congratulations! You have won the auction for 'e'.
+Final price: £90.00
+
+Please log in to your account to view the details.
+
+Regards,
+Auction Website
+
+PHPMailer Error: SMTP Error: Could not authenticate. | Exception: SMTP Error: Could not authenticate.
+----
+To: mekialkhan1707@gmail.com
+Subject: Your auction has ended: e
+
+Hi Ninja1707,
+
+Your auction for 'e' has ended and a buyer has won the item.
+Final price: £90.00
+
+Please log in to your account to see the winner's details.
+
+Regards,
+Auction Website
+
+PHPMailer Error: SMTP Error: Could not authenticate. | Exception: SMTP Error: Could not authenticate.
+----
+To: ninjaboss1707@gmail.com
+Subject: You won the auction: fsda
+
+Hi ninja,
+
+Congratulations! You have won the auction for 'fsda'.
+Final price: £4.00
+
+Please log in to your account to view the details.
+
+Regards,
+Auction Website
+
+PHPMailer Error: SMTP Error: Could not authenticate. | Exception: SMTP Error: Could not authenticate.
+----
+To: mekialkhan1707@gmail.com
+Subject: Your auction has ended: fsda
+
+Hi Ninja1707,
+
+Your auction for 'fsda' has ended and a buyer has won the item.
+Final price: £4.00
+
+Please log in to your account to see the winner's details.
+
+Regards,
+Auction Website
+
+PHPMailer Error: SMTP Error: Could not authenticate. | Exception: SMTP Error: Could not authenticate.
+----
+To: ninjaboss1707@gmail.com
+Subject: You won the auction: sssss
+
+Hi ninja,
+
+Congratulations! You have won the auction for 'sssss'.
+Final price: £5.00
+
+Please log in to your account to view the details.
+
+Regards,
+Auction Website
+
+PHPMailer Error: SMTP Error: Could not authenticate. | Exception: SMTP Error: Could not authenticate.
+----
+To: mekialkhan1707@gmail.com
+Subject: Your auction has ended: sssss
+
+Hi Ninja1707,
+
+Your auction for 'sssss' has ended and a buyer has won the item.
+Final price: £5.00
+
+Please log in to your account to see the winner's details.
+
+Regards,
+Auction Website
+
+PHPMailer Error: SMTP Error: Could not authenticate. | Exception: SMTP Error: Could not authenticate.
+----
+To: ninjaboss1707@gmail.com
+Subject: You won the auction: dfsa
+
+Hi ninja,
+
+Congratulations! You have won the auction for 'dfsa'.
+Final price: £44.00
+
+Please log in to your account to view the details.
+
+Regards,
+Auction Website
+
+PHPMailer Error: SMTP Error: Could not authenticate. | Exception: SMTP Error: Could not authenticate.
+----
+To: mekialkhan1707@gmail.com
+Subject: Your auction has ended: dfsa
+
+Hi Ninja1707,
+
+Your auction for 'dfsa' has ended and a buyer has won the item.
+Final price: £44.00
+
+Please log in to your account to see the winner's details.
+
+Regards,
+Auction Website
+
+PHPMailer Error: SMTP Error: Could not authenticate. | Exception: SMTP Error: Could not authenticate.
+----
+To: itahiuchih3391@gmail.com
+Subject: Your auction has ended: MY GAMBIT
+
+Hi nazahx,
+
+Your auction for 'MY GAMBIT' has ended, but there was no winning bid.
+You may wish to relist the item.
+
+Regards,
+Auction Website
+
+PHPMailer Error: SMTP Error: Could not authenticate. | Exception: SMTP Error: Could not authenticate.
+----
+To: ninjabosss1707@gmail.com
+Subject: Your auction has ended: afsdasfdafsdafad
+
+Hi ninjaafdsa,
+
+Your auction for 'afsdasfdafsdafad' has ended, but there was no winning bid.
+You may wish to relist the item.
+
+Regards,
+Auction Website
+
+PHPMailer Error: SMTP Error: Could not authenticate. | Exception: SMTP Error: Could not authenticate.
+----
+To: mekialkhan1707@gmail.com
+Subject: Your auction has ended: gfsds
+
+Hi Ninja1707,
+
+Your auction for 'gfsds' has ended, but there was no winning bid.
+You may wish to relist the item.
+
+Regards,
+Auction Website
+
+PHPMailer Error: SMTP Error: Could not authenticate. | Exception: SMTP Error: Could not authenticate.
+----
+To: mekialkhan1707@gmail.com
+Subject: Your auction has ended: fasdafdsafddsafddsafsda
+
+Hi Ninja1707,
+
+Your auction for 'fasdafdsafddsafddsafsda' has ended, but there was no winning bid.
+You may wish to relist the item.
+
+Regards,
+Auction Website
+
+PHPMailer Error: SMTP Error: Could not authenticate. | Exception: SMTP Error: Could not authenticate.
+----
+To: mekialkhan1707@gmail.com
+Subject: Your auction has ended: fdsa
+
+Hi Ninja1707,
+
+Your auction for 'fdsa' has ended, but there was no winning bid.
+You may wish to relist the item.
+
+Regards,
+Auction Website
+
+PHPMailer Error: SMTP Error: Could not authenticate. | Exception: SMTP Error: Could not authenticate.
+----
+To: ninjaboss1707@gmail.com
+Subject: You won the auction: fsadsada
+
+Hi ninja,
+
+Congratulations! You have won the auction for 'fsadsada'.
+Final price: £5.00
+
+Please log in to your account to view the details.
+
+Regards,
+Auction Website
+
+PHPMailer Error: SMTP Error: Could not authenticate. | Exception: SMTP Error: Could not authenticate.
+----
+To: mekialkhan1707@gmail.com
+Subject: Your auction has ended: fsadsada
+
+Hi Ninja1707,
+
+Your auction for 'fsadsada' has ended and a buyer has won the item.
+Final price: £5.00
+
+Please log in to your account to see the winner's details.
+
+Regards,
+Auction Website
+
+PHPMailer Error: SMTP Error: Could not authenticate. | Exception: SMTP Error: Could not authenticate.
+----
+To: ninjaboss1707@gmail.com
+Subject: Your auction has ended: rwte
+
+Hi ninja,
+
+Your auction for 'rwte' has ended, but there was no winning bid.
+You may wish to relist the item.
+
+Regards,
+Auction Website
+
+PHPMailer Error: SMTP Error: Could not authenticate. | Exception: SMTP Error: Could not authenticate.
+----
+To: ninjaboss1707@gmail.com
+Subject: You won the auction: e
+
+Hi ninja,
+
+Congratulations! You have won the auction for 'e'.
+Final price: £90.00
+
+Please log in to your account to view the details.
+
+Regards,
+Auction Website
+
+PHPMailer Error: SMTP Error: Could not authenticate. | Exception: SMTP Error: Could not authenticate.
+----
+To: mekialkhan1707@gmail.com
+Subject: Your auction has ended: e
+
+Hi Ninja1707,
+
+Your auction for 'e' has ended and a buyer has won the item.
+Final price: £90.00
+
+Please log in to your account to see the winner's details.
+
+Regards,
+Auction Website
+
+PHPMailer Error: SMTP Error: Could not authenticate. | Exception: SMTP Error: Could not authenticate.
+----
+To: ninjaboss1707@gmail.com
+Subject: You won the auction: fsda
+
+Hi ninja,
+
+Congratulations! You have won the auction for 'fsda'.
+Final price: £4.00
+
+Please log in to your account to view the details.
+
+Regards,
+Auction Website
+
+PHPMailer Error: SMTP Error: Could not authenticate. | Exception: SMTP Error: Could not authenticate.
+----
+To: mekialkhan1707@gmail.com
+Subject: Your auction has ended: fsda
+
+Hi Ninja1707,
+
+Your auction for 'fsda' has ended and a buyer has won the item.
+Final price: £4.00
+
+Please log in to your account to see the winner's details.
+
+Regards,
+Auction Website
+
+PHPMailer Error: SMTP Error: Could not authenticate. | Exception: SMTP Error: Could not authenticate.
+----
+To: ninjaboss1707@gmail.com
+Subject: You won the auction: sssss
+
+Hi ninja,
+
+Congratulations! You have won the auction for 'sssss'.
+Final price: £5.00
+
+Please log in to your account to view the details.
+
+Regards,
+Auction Website
+
+PHPMailer Error: SMTP Error: Could not authenticate. | Exception: SMTP Error: Could not authenticate.
+----
+To: mekialkhan1707@gmail.com
+Subject: Your auction has ended: sssss
+
+Hi Ninja1707,
+
+Your auction for 'sssss' has ended and a buyer has won the item.
+Final price: £5.00
+
+Please log in to your account to see the winner's details.
+
+Regards,
+Auction Website
+
+PHPMailer Error: SMTP Error: Could not authenticate. | Exception: SMTP Error: Could not authenticate.
+----
+To: ninjaboss1707@gmail.com
+Subject: You won the auction: dfsa
+
+Hi ninja,
+
+Congratulations! You have won the auction for 'dfsa'.
+Final price: £44.00
+
+Please log in to your account to view the details.
+
+Regards,
+Auction Website
+
+PHPMailer Error: SMTP Error: Could not authenticate. | Exception: SMTP Error: Could not authenticate.
+----
+To: mekialkhan1707@gmail.com
+Subject: Your auction has ended: dfsa
+
+Hi Ninja1707,
+
+Your auction for 'dfsa' has ended and a buyer has won the item.
+Final price: £44.00
+
+Please log in to your account to see the winner's details.
+
+Regards,
+Auction Website
+
+PHPMailer Error: SMTP Error: Could not authenticate. | Exception: SMTP Error: Could not authenticate.
+----
+To: itahiuchih3391@gmail.com
+Subject: Your auction has ended: MY GAMBIT
+
+Hi nazahx,
+
+Your auction for 'MY GAMBIT' has ended, but there was no winning bid.
+You may wish to relist the item.
+
+Regards,
+Auction Website
+
+PHPMailer Error: SMTP Error: Could not authenticate. | Exception: SMTP Error: Could not authenticate.
+----
+To: ninjabosss1707@gmail.com
+Subject: Your auction has ended: afsdasfdafsdafad
+
+Hi ninjaafdsa,
+
+Your auction for 'afsdasfdafsdafad' has ended, but there was no winning bid.
+You may wish to relist the item.
+
+Regards,
+Auction Website
+
+Sent: ninjabosss1707@gmail.com | Subject: Your auction has ended: afsdasfdafsdafad
+----
+To: mekialkhan1707@gmail.com
+Subject: Your auction has ended: gfsds
+
+Hi Ninja1707,
+
+Your auction for 'gfsds' has ended, but there was no winning bid.
+You may wish to relist the item.
+
+Regards,
+Auction Website
+
+Sent: mekialkhan1707@gmail.com | Subject: Your auction has ended: gfsds
+----
+To: mekialkhan1707@gmail.com
+Subject: Your auction has ended: fasdafdsafddsafddsafsda
+
+Hi Ninja1707,
+
+Your auction for 'fasdafdsafddsafddsafsda' has ended, but there was no winning bid.
+You may wish to relist the item.
+
+Regards,
+Auction Website
+
+Sent: mekialkhan1707@gmail.com | Subject: Your auction has ended: fasdafdsafddsafddsafsda
+----
+To: mekialkhan1707@gmail.com
+Subject: Your auction has ended: fdsa
+
+Hi Ninja1707,
+
+Your auction for 'fdsa' has ended, but there was no winning bid.
+You may wish to relist the item.
+
+Regards,
+Auction Website
+
+Sent: mekialkhan1707@gmail.com | Subject: Your auction has ended: fdsa
+----
+To: ninjaboss1707@gmail.com
+Subject: You won the auction: fsadsada
+
+Hi ninja,
+
+Congratulations! You have won the auction for 'fsadsada'.
+Final price: £5.00
+
+Please log in to your account to view the details.
+
+Regards,
+Auction Website
+
+Sent: ninjaboss1707@gmail.com | Subject: You won the auction: fsadsada
+----
+To: mekialkhan1707@gmail.com
+Subject: Your auction has ended: fsadsada
+
+Hi Ninja1707,
+
+Your auction for 'fsadsada' has ended and a buyer has won the item.
+Final price: £5.00
+
+Please log in to your account to see the winner's details.
+
+Regards,
+Auction Website
+
+Sent: mekialkhan1707@gmail.com | Subject: Your auction has ended: fsadsada
+----
+To: ninjaboss1707@gmail.com
+Subject: Your auction has ended: rwte
+
+Hi ninja,
+
+Your auction for 'rwte' has ended, but there was no winning bid.
+You may wish to relist the item.
+
+Regards,
+Auction Website
+
+Sent: ninjaboss1707@gmail.com | Subject: Your auction has ended: rwte
+----
+To: ninjaboss1707@gmail.com
+Subject: You won the auction: e
+
+Hi ninja,
+
+Congratulations! You have won the auction for 'e'.
+Final price: £90.00
+
+Please log in to your account to view the details.
+
+Regards,
+Auction Website
+
+Sent: ninjaboss1707@gmail.com | Subject: You won the auction: e
+----
+To: mekialkhan1707@gmail.com
+Subject: Your auction has ended: e
+
+Hi Ninja1707,
+
+Your auction for 'e' has ended and a buyer has won the item.
+Final price: £90.00
+
+Please log in to your account to see the winner's details.
+
+Regards,
+Auction Website
+
+Sent: mekialkhan1707@gmail.com | Subject: Your auction has ended: e
+----
+To: ninjaboss1707@gmail.com
+Subject: You won the auction: fsda
+
+Hi ninja,
+
+Congratulations! You have won the auction for 'fsda'.
+Final price: £4.00
+
+Please log in to your account to view the details.
+
+Regards,
+Auction Website
+
+Sent: ninjaboss1707@gmail.com | Subject: You won the auction: fsda
+----
+To: mekialkhan1707@gmail.com
+Subject: Your auction has ended: fsda
+
+Hi Ninja1707,
+
+Your auction for 'fsda' has ended and a buyer has won the item.
+Final price: £4.00
+
+Please log in to your account to see the winner's details.
+
+Regards,
+Auction Website
+
+Sent: mekialkhan1707@gmail.com | Subject: Your auction has ended: fsda
+----
+To: ninjaboss1707@gmail.com
+Subject: You won the auction: sssss
+
+Hi ninja,
+
+Congratulations! You have won the auction for 'sssss'.
+Final price: £5.00
+
+Please log in to your account to view the details.
+
+Regards,
+Auction Website
+
+Sent: ninjaboss1707@gmail.com | Subject: You won the auction: sssss
+----
+To: mekialkhan1707@gmail.com
+Subject: Your auction has ended: sssss
+
+Hi Ninja1707,
+
+Your auction for 'sssss' has ended and a buyer has won the item.
+Final price: £5.00
+
+Please log in to your account to see the winner's details.
+
+Regards,
+Auction Website
+
+Sent: mekialkhan1707@gmail.com | Subject: Your auction has ended: sssss
+----
+To: ninjaboss1707@gmail.com
+Subject: You won the auction: dfsa
+
+Hi ninja,
+
+Congratulations! You have won the auction for 'dfsa'.
+Final price: £44.00
+
+Please log in to your account to view the details.
+
+Regards,
+Auction Website
+
+Sent: ninjaboss1707@gmail.com | Subject: You won the auction: dfsa
+----
+To: mekialkhan1707@gmail.com
+Subject: Your auction has ended: dfsa
+
+Hi Ninja1707,
+
+Your auction for 'dfsa' has ended and a buyer has won the item.
+Final price: £44.00
+
+Please log in to your account to see the winner's details.
+
+Regards,
+Auction Website
+
+Sent: mekialkhan1707@gmail.com | Subject: Your auction has ended: dfsa
+----
+To: itahiuchih3391@gmail.com
+Subject: Your auction has ended: MY GAMBIT
+
+Hi nazahx,
+
+Your auction for 'MY GAMBIT' has ended, but there was no winning bid.
+You may wish to relist the item.
+
+Regards,
+Auction Website
+
+----
+To: ninjabosss1707@gmail.com
+Subject: Your auction has ended: afsdasfdafsdafad
+
+Hi ninjaafdsa,
+
+Your auction for 'afsdasfdafsdafad' has ended, but there was no winning bid.
+You may wish to relist the item.
+
+Regards,
+Auction Website
+
+PHPMailer Error: SMTP Error: Could not authenticate. | Exception: SMTP Error: Could not authenticate.
+----
+To: mekialkhan1707@gmail.com
+Subject: Your auction has ended: gfsds
+
+Hi Ninja1707,
+
+Your auction for 'gfsds' has ended, but there was no winning bid.
+You may wish to relist the item.
+
+Regards,
+Auction Website
+
+PHPMailer Error: SMTP Error: Could not authenticate. | Exception: SMTP Error: Could not authenticate.
+----
+To: mekialkhan1707@gmail.com
+Subject: Your auction has ended: fasdafdsafddsafddsafsda
+
+Hi Ninja1707,
+
+Your auction for 'fasdafdsafddsafddsafsda' has ended, but there was no winning bid.
+You may wish to relist the item.
+
+Regards,
+Auction Website
+
+PHPMailer Error: SMTP Error: Could not authenticate. | Exception: SMTP Error: Could not authenticate.
+----
+To: mekialkhan1707@gmail.com
+Subject: Your auction has ended: fdsa
+
+Hi Ninja1707,
+
+Your auction for 'fdsa' has ended, but there was no winning bid.
+You may wish to relist the item.
+
+Regards,
+Auction Website
+
+PHPMailer Error: SMTP Error: Could not authenticate. | Exception: SMTP Error: Could not authenticate.
+----
+To: ninjaboss1707@gmail.com
+Subject: You won the auction: fsadsada
+
+Hi ninja,
+
+Congratulations! You have won the auction for 'fsadsada'.
+Final price: £5.00
+
+Please log in to your account to view the details.
+
+Regards,
+Auction Website
+
+PHPMailer Error: SMTP Error: Could not authenticate. | Exception: SMTP Error: Could not authenticate.
+----
+To: mekialkhan1707@gmail.com
+Subject: Your auction has ended: fsadsada
+
+Hi Ninja1707,
+
+Your auction for 'fsadsada' has ended and a buyer has won the item.
+Final price: £5.00
+
+Please log in to your account to see the winner's details.
+
+Regards,
+Auction Website
+
+PHPMailer Error: SMTP Error: Could not authenticate. | Exception: SMTP Error: Could not authenticate.
+----
+To: ninjaboss1707@gmail.com
+Subject: Your auction has ended: rwte
+
+Hi ninja,
+
+Your auction for 'rwte' has ended, but there was no winning bid.
+You may wish to relist the item.
+
+Regards,
+Auction Website
+
+PHPMailer Error: SMTP Error: Could not authenticate. | Exception: SMTP Error: Could not authenticate.
+----
+To: ninjaboss1707@gmail.com
+Subject: You won the auction: e
+
+Hi ninja,
+
+Congratulations! You have won the auction for 'e'.
+Final price: £90.00
+
+Please log in to your account to view the details.
+
+Regards,
+Auction Website
+
+PHPMailer Error: SMTP Error: Could not authenticate. | Exception: SMTP Error: Could not authenticate.
+----
+To: mekialkhan1707@gmail.com
+Subject: Your auction has ended: e
+
+Hi Ninja1707,
+
+Your auction for 'e' has ended and a buyer has won the item.
+Final price: £90.00
+
+Please log in to your account to see the winner's details.
+
+Regards,
+Auction Website
+
+PHPMailer Error: SMTP Error: Could not authenticate. | Exception: SMTP Error: Could not authenticate.
+----
+To: ninjaboss1707@gmail.com
+Subject: You won the auction: fsda
+
+Hi ninja,
+
+Congratulations! You have won the auction for 'fsda'.
+Final price: £4.00
+
+Please log in to your account to view the details.
+
+Regards,
+Auction Website
+
+PHPMailer Error: SMTP Error: Could not authenticate. | Exception: SMTP Error: Could not authenticate.
+----
+To: mekialkhan1707@gmail.com
+Subject: Your auction has ended: fsda
+
+Hi Ninja1707,
+
+Your auction for 'fsda' has ended and a buyer has won the item.
+Final price: £4.00
+
+Please log in to your account to see the winner's details.
+
+Regards,
+Auction Website
+
+PHPMailer Error: SMTP Error: Could not authenticate. | Exception: SMTP Error: Could not authenticate.
+----
+To: ninjaboss1707@gmail.com
+Subject: You won the auction: sssss
+
+Hi ninja,
+
+Congratulations! You have won the auction for 'sssss'.
+Final price: £5.00
+
+Please log in to your account to view the details.
+
+Regards,
+Auction Website
+
+PHPMailer Error: SMTP Error: Could not authenticate. | Exception: SMTP Error: Could not authenticate.
+----
+To: mekialkhan1707@gmail.com
+Subject: Your auction has ended: sssss
+
+Hi Ninja1707,
+
+Your auction for 'sssss' has ended and a buyer has won the item.
+Final price: £5.00
+
+Please log in to your account to see the winner's details.
+
+Regards,
+Auction Website
+
+PHPMailer Error: SMTP Error: Could not authenticate. | Exception: SMTP Error: Could not authenticate.
+----
+To: ninjaboss1707@gmail.com
+Subject: You won the auction: dfsa
+
+Hi ninja,
+
+Congratulations! You have won the auction for 'dfsa'.
+Final price: £44.00
+
+Please log in to your account to view the details.
+
+Regards,
+Auction Website
+
+PHPMailer Error: SMTP Error: Could not authenticate. | Exception: SMTP Error: Could not authenticate.
+----
+To: mekialkhan1707@gmail.com
+Subject: Your auction has ended: dfsa
+
+Hi Ninja1707,
+
+Your auction for 'dfsa' has ended and a buyer has won the item.
+Final price: £44.00
+
+Please log in to your account to see the winner's details.
+
+Regards,
+Auction Website
+
+PHPMailer Error: SMTP Error: Could not authenticate. | Exception: SMTP Error: Could not authenticate.
+----
+To: itahiuchih3391@gmail.com
+Subject: Your auction has ended: MY GAMBIT
+
+Hi nazahx,
+
+Your auction for 'MY GAMBIT' has ended, but there was no winning bid.
+You may wish to relist the item.
+
+Regards,
+Auction Website
+
+PHPMailer Error: SMTP Error: Could not authenticate. | Exception: SMTP Error: Could not authenticate.
+----
+To: ninjabosss1707@gmail.com
+Subject: Your auction has ended: afsdasfdafsdafad
+
+Hi ninjaafdsa,
+
+Your auction for 'afsdasfdafsdafad' has ended, but there was no winning bid.
+You may wish to relist the item.
+
+Regards,
+Auction Website
+
+PHPMailer Error: SMTP Error: Could not authenticate. | Exception: SMTP Error: Could not authenticate.
+----
+To: mekialkhan1707@gmail.com
+Subject: Your auction has ended: gfsds
+
+Hi Ninja1707,
+
+Your auction for 'gfsds' has ended, but there was no winning bid.
+You may wish to relist the item.
+
+Regards,
+Auction Website
+
+PHPMailer Error: SMTP Error: Could not authenticate. | Exception: SMTP Error: Could not authenticate.
+----
+To: mekialkhan1707@gmail.com
+Subject: Your auction has ended: fasdafdsafddsafddsafsda
+
+Hi Ninja1707,
+
+Your auction for 'fasdafdsafddsafddsafsda' has ended, but there was no winning bid.
+You may wish to relist the item.
+
+Regards,
+Auction Website
+
+PHPMailer Error: SMTP Error: Could not authenticate. | Exception: SMTP Error: Could not authenticate.
+----
+To: mekialkhan1707@gmail.com
+Subject: Your auction has ended: fdsa
+
+Hi Ninja1707,
+
+Your auction for 'fdsa' has ended, but there was no winning bid.
+You may wish to relist the item.
+
+Regards,
+Auction Website
+
+PHPMailer Error: SMTP Error: Could not authenticate. | Exception: SMTP Error: Could not authenticate.
+----
+To: ninjaboss1707@gmail.com
+Subject: You won the auction: fsadsada
+
+Hi ninja,
+
+Congratulations! You have won the auction for 'fsadsada'.
+Final price: £5.00
+
+Please log in to your account to view the details.
+
+Regards,
+Auction Website
+
+PHPMailer Error: SMTP Error: Could not authenticate. | Exception: SMTP Error: Could not authenticate.
+----
+To: mekialkhan1707@gmail.com
+Subject: Your auction has ended: fsadsada
+
+Hi Ninja1707,
+
+Your auction for 'fsadsada' has ended and a buyer has won the item.
+Final price: £5.00
+
+Please log in to your account to see the winner's details.
+
+Regards,
+Auction Website
+
+PHPMailer Error: SMTP Error: Could not authenticate. | Exception: SMTP Error: Could not authenticate.
+----
+To: ninjaboss1707@gmail.com
+Subject: Your auction has ended: rwte
+
+Hi ninja,
+
+Your auction for 'rwte' has ended, but there was no winning bid.
+You may wish to relist the item.
+
+Regards,
+Auction Website
+
+PHPMailer Error: SMTP Error: Could not authenticate. | Exception: SMTP Error: Could not authenticate.
+----
+To: ninjaboss1707@gmail.com
+Subject: You won the auction: e
+
+Hi ninja,
+
+Congratulations! You have won the auction for 'e'.
+Final price: £90.00
+
+Please log in to your account to view the details.
+
+Regards,
+Auction Website
+
+PHPMailer Error: SMTP Error: Could not authenticate. | Exception: SMTP Error: Could not authenticate.
+----
+To: mekialkhan1707@gmail.com
+Subject: Your auction has ended: e
+
+Hi Ninja1707,
+
+Your auction for 'e' has ended and a buyer has won the item.
+Final price: £90.00
+
+Please log in to your account to see the winner's details.
+
+Regards,
+Auction Website
+
+PHPMailer Error: SMTP Error: Could not authenticate. | Exception: SMTP Error: Could not authenticate.
+----
+To: ninjaboss1707@gmail.com
+Subject: You won the auction: fsda
+
+Hi ninja,
+
+Congratulations! You have won the auction for 'fsda'.
+Final price: £4.00
+
+Please log in to your account to view the details.
+
+Regards,
+Auction Website
+
+PHPMailer Error: SMTP Error: Could not authenticate. | Exception: SMTP Error: Could not authenticate.
+----
+To: mekialkhan1707@gmail.com
+Subject: Your auction has ended: fsda
+
+Hi Ninja1707,
+
+Your auction for 'fsda' has ended and a buyer has won the item.
+Final price: £4.00
+
+Please log in to your account to see the winner's details.
+
+Regards,
+Auction Website
+
+PHPMailer Error: SMTP Error: Could not authenticate. | Exception: SMTP Error: Could not authenticate.
+----
+To: ninjaboss1707@gmail.com
+Subject: You won the auction: sssss
+
+Hi ninja,
+
+Congratulations! You have won the auction for 'sssss'.
+Final price: £5.00
+
+Please log in to your account to view the details.
+
+Regards,
+Auction Website
+
+PHPMailer Error: SMTP Error: Could not authenticate. | Exception: SMTP Error: Could not authenticate.
+----
+To: mekialkhan1707@gmail.com
+Subject: Your auction has ended: sssss
+
+Hi Ninja1707,
+
+Your auction for 'sssss' has ended and a buyer has won the item.
+Final price: £5.00
+
+Please log in to your account to see the winner's details.
+
+Regards,
+Auction Website
+
+PHPMailer Error: SMTP Error: Could not authenticate. | Exception: SMTP Error: Could not authenticate.
+----
+To: ninjaboss1707@gmail.com
+Subject: You won the auction: dfsa
+
+Hi ninja,
+
+Congratulations! You have won the auction for 'dfsa'.
+Final price: £44.00
+
+Please log in to your account to view the details.
+
+Regards,
+Auction Website
+
+PHPMailer Error: SMTP Error: Could not authenticate. | Exception: SMTP Error: Could not authenticate.
+----
+To: mekialkhan1707@gmail.com
+Subject: Your auction has ended: dfsa
+
+Hi Ninja1707,
+
+Your auction for 'dfsa' has ended and a buyer has won the item.
+Final price: £44.00
+
+Please log in to your account to see the winner's details.
+
+Regards,
+Auction Website
+
+PHPMailer Error: SMTP Error: Could not authenticate. | Exception: SMTP Error: Could not authenticate.
+----
+To: itahiuchih3391@gmail.com
+Subject: Your auction has ended: MY GAMBIT
+
+Hi nazahx,
+
+Your auction for 'MY GAMBIT' has ended, but there was no winning bid.
+You may wish to relist the item.
+
+Regards,
+Auction Website
+
+PHPMailer Error: SMTP Error: Could not authenticate. | Exception: SMTP Error: Could not authenticate.
+----
+To: ninjabosss1707@gmail.com
+Subject: Your auction has ended: afsdasfdafsdafad
+
+Hi ninjaafdsa,
+
+Your auction for 'afsdasfdafsdafad' has ended, but there was no winning bid.
+You may wish to relist the item.
+
+Regards,
+Auction Website
+
+Sent: ninjabosss1707@gmail.com | Subject: Your auction has ended: afsdasfdafsdafad
+----
+To: mekialkhan1707@gmail.com
+Subject: Your auction has ended: gfsds
+
+Hi Ninja1707,
+
+Your auction for 'gfsds' has ended, but there was no winning bid.
+You may wish to relist the item.
+
+Regards,
+Auction Website
+
+Sent: mekialkhan1707@gmail.com | Subject: Your auction has ended: gfsds
+----
+To: mekialkhan1707@gmail.com
+Subject: Your auction has ended: fasdafdsafddsafddsafsda
+
+Hi Ninja1707,
+
+Your auction for 'fasdafdsafddsafddsafsda' has ended, but there was no winning bid.
+You may wish to relist the item.
+
+Regards,
+Auction Website
+
+Sent: mekialkhan1707@gmail.com | Subject: Your auction has ended: fasdafdsafddsafddsafsda
+----
+To: mekialkhan1707@gmail.com
+Subject: Your auction has ended: fdsa
+
+Hi Ninja1707,
+
+Your auction for 'fdsa' has ended, but there was no winning bid.
+You may wish to relist the item.
+
+Regards,
+Auction Website
+
+Sent: mekialkhan1707@gmail.com | Subject: Your auction has ended: fdsa
+----
+To: ninjaboss1707@gmail.com
+Subject: You won the auction: fsadsada
+
+Hi ninja,
+
+Congratulations! You have won the auction for 'fsadsada'.
+Final price: £5.00
+
+Please log in to your account to view the details.
+
+Regards,
+Auction Website
+
+Sent: ninjaboss1707@gmail.com | Subject: You won the auction: fsadsada
+----
+To: mekialkhan1707@gmail.com
+Subject: Your auction has ended: fsadsada
+
+Hi Ninja1707,
+
+Your auction for 'fsadsada' has ended and a buyer has won the item.
+Final price: £5.00
+
+Please log in to your account to see the winner's details.
+
+Regards,
+Auction Website
+
+Sent: mekialkhan1707@gmail.com | Subject: Your auction has ended: fsadsada
+----
+To: ninjaboss1707@gmail.com
+Subject: Your auction has ended: rwte
+
+Hi ninja,
+
+Your auction for 'rwte' has ended, but there was no winning bid.
+You may wish to relist the item.
+
+Regards,
+Auction Website
+
+Sent: ninjaboss1707@gmail.com | Subject: Your auction has ended: rwte
+----
+To: ninjaboss1707@gmail.com
+Subject: You won the auction: e
+
+Hi ninja,
+
+Congratulations! You have won the auction for 'e'.
+Final price: £90.00
+
+Please log in to your account to view the details.
+
+Regards,
+Auction Website
+
+Sent: ninjaboss1707@gmail.com | Subject: You won the auction: e
+----
+To: mekialkhan1707@gmail.com
+Subject: Your auction has ended: e
+
+Hi Ninja1707,
+
+Your auction for 'e' has ended and a buyer has won the item.
+Final price: £90.00
+
+Please log in to your account to see the winner's details.
+
+Regards,
+Auction Website
+
+Sent: mekialkhan1707@gmail.com | Subject: Your auction has ended: e
+----
+To: ninjaboss1707@gmail.com
+Subject: You won the auction: fsda
+
+Hi ninja,
+
+Congratulations! You have won the auction for 'fsda'.
+Final price: £4.00
+
+Please log in to your account to view the details.
+
+Regards,
+Auction Website
+

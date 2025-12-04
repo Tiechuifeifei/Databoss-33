@@ -1,0 +1,391 @@
+==== refresh_all_auctions started at 2025-12-04 14:15:24 ====
+Checking auction 1036 at 2025-12-04 14:15:24
+  refreshAuctionStatus returned: 'ended'
+closeAuctionIfEnded: endAuction called for auction 1036
+endAuction called for auction 1036
+notifyAuctionEnded called for auction 1036
+  closeAuctionIfEnded: Auction closed (ended).
+Checking auction 1037 at 2025-12-04 14:15:24
+  refreshAuctionStatus returned: 'ended'
+closeAuctionIfEnded: endAuction called for auction 1037
+endAuction called for auction 1037
+notifyAuctionEnded called for auction 1037
+  closeAuctionIfEnded: Auction closed (ended).
+Checking auction 1038 at 2025-12-04 14:15:25
+  refreshAuctionStatus returned: 'ended'
+closeAuctionIfEnded: endAuction called for auction 1038
+endAuction called for auction 1038
+notifyAuctionEnded called for auction 1038
+  closeAuctionIfEnded: Auction closed (ended).
+Checking auction 1039 at 2025-12-04 14:15:26
+  refreshAuctionStatus returned: 'ended'
+closeAuctionIfEnded: endAuction called for auction 1039
+endAuction called for auction 1039
+notifyAuctionEnded called for auction 1039
+  closeAuctionIfEnded: Auction closed (ended).
+Checking auction 1040 at 2025-12-04 14:15:26
+  refreshAuctionStatus returned: 'ended'
+closeAuctionIfEnded: endAuction called for auction 1040
+endAuction called for auction 1040
+notifyAuctionEnded called for auction 1040
+  closeAuctionIfEnded: Auction closed (ended).
+Checking auction 1041 at 2025-12-04 14:15:27
+  refreshAuctionStatus returned: 'running'
+closeAuctionIfEnded: endAuction called for auction 1041
+endAuction called for auction 1041
+notifyAuctionEnded called for auction 1041
+  closeAuctionIfEnded: Auction closed (ended).
+Checking auction 1043 at 2025-12-04 14:15:28
+  refreshAuctionStatus returned: 'ended'
+closeAuctionIfEnded: endAuction called for auction 1043
+endAuction called for auction 1043
+notifyAuctionEnded called for auction 1043
+  closeAuctionIfEnded: Auction closed (ended).
+Checking auction 1044 at 2025-12-04 14:15:29
+  refreshAuctionStatus returned: 'ended'
+closeAuctionIfEnded: endAuction called for auction 1044
+endAuction called for auction 1044
+notifyAuctionEnded called for auction 1044
+  closeAuctionIfEnded: Auction closed (ended).
+Checking auction 1045 at 2025-12-04 14:15:30
+  refreshAuctionStatus returned: 'ended'
+closeAuctionIfEnded: endAuction called for auction 1045
+endAuction called for auction 1045
+notifyAuctionEnded called for auction 1045
+  closeAuctionIfEnded: Auction closed (ended).
+Checking auction 1046 at 2025-12-04 14:15:31
+  refreshAuctionStatus returned: 'ended'
+closeAuctionIfEnded: endAuction called for auction 1046
+endAuction called for auction 1046
+notifyAuctionEnded called for auction 1046
+  closeAuctionIfEnded: Auction closed (ended).
+Checking auction 1047 at 2025-12-04 14:15:32
+  refreshAuctionStatus returned: 'ended'
+closeAuctionIfEnded: endAuction called for auction 1047
+endAuction called for auction 1047
+notifyAuctionEnded called for auction 1047
+  closeAuctionIfEnded: Auction closed (ended).
+All auctions checked: 11. Auctions processed as ended in this run: 11.
+==== refresh_all_auctions finished at 2025-12-04 14:15:33 ====
+
+closeAuctionIfEnded: endAuction called for auction 1036
+endAuction called for auction 1036
+notifyAuctionEnded called for auction 1036
+closeAuctionIfEnded: endAuction called for auction 1037
+endAuction called for auction 1037
+notifyAuctionEnded called for auction 1037
+closeAuctionIfEnded: endAuction called for auction 1038
+endAuction called for auction 1038
+notifyAuctionEnded called for auction 1038
+closeAuctionIfEnded: endAuction called for auction 1039
+endAuction called for auction 1039
+notifyAuctionEnded called for auction 1039
+closeAuctionIfEnded: endAuction called for auction 1040
+endAuction called for auction 1040
+notifyAuctionEnded called for auction 1040
+closeAuctionIfEnded: endAuction called for auction 1041
+endAuction called for auction 1041
+notifyAuctionEnded called for auction 1041
+closeAuctionIfEnded: endAuction called for auction 1043
+endAuction called for auction 1043
+notifyAuctionEnded called for auction 1043
+closeAuctionIfEnded: endAuction called for auction 1044
+endAuction called for auction 1044
+notifyAuctionEnded called for auction 1044
+closeAuctionIfEnded: endAuction called for auction 1045
+endAuction called for auction 1045
+notifyAuctionEnded called for auction 1045
+closeAuctionIfEnded: endAuction called for auction 1046
+endAuction called for auction 1046
+notifyAuctionEnded called for auction 1046
+closeAuctionIfEnded: endAuction called for auction 1047
+endAuction called for auction 1047
+notifyAuctionEnded called for auction 1047
+closeAuctionIfEnded: endAuction called for auction 1036
+endAuction called for auction 1036
+notifyAuctionEnded called for auction 1036
+closeAuctionIfEnded: endAuction called for auction 1037
+endAuction called for auction 1037
+notifyAuctionEnded called for auction 1037
+closeAuctionIfEnded: endAuction called for auction 1038
+endAuction called for auction 1038
+notifyAuctionEnded called for auction 1038
+closeAuctionIfEnded: endAuction called for auction 1039
+endAuction called for auction 1039
+notifyAuctionEnded called for auction 1039
+closeAuctionIfEnded: endAuction called for auction 1040
+endAuction called for auction 1040
+notifyAuctionEnded called for auction 1040
+closeAuctionIfEnded: endAuction called for auction 1041
+endAuction called for auction 1041
+notifyAuctionEnded called for auction 1041
+closeAuctionIfEnded: endAuction called for auction 1043
+endAuction called for auction 1043
+notifyAuctionEnded called for auction 1043
+closeAuctionIfEnded: endAuction called for auction 1044
+endAuction called for auction 1044
+notifyAuctionEnded called for auction 1044
+closeAuctionIfEnded: endAuction called for auction 1045
+endAuction called for auction 1045
+notifyAuctionEnded called for auction 1045
+closeAuctionIfEnded: endAuction called for auction 1046
+endAuction called for auction 1046
+notifyAuctionEnded called for auction 1046
+closeAuctionIfEnded: endAuction called for auction 1047
+endAuction called for auction 1047
+notifyAuctionEnded called for auction 1047
+closeAuctionIfEnded: endAuction called for auction 1036
+endAuction called for auction 1036
+notifyAuctionEnded called for auction 1036
+closeAuctionIfEnded: endAuction called for auction 1037
+endAuction called for auction 1037
+notifyAuctionEnded called for auction 1037
+closeAuctionIfEnded: endAuction called for auction 1038
+endAuction called for auction 1038
+notifyAuctionEnded called for auction 1038
+closeAuctionIfEnded: endAuction called for auction 1039
+endAuction called for auction 1039
+notifyAuctionEnded called for auction 1039
+closeAuctionIfEnded: endAuction called for auction 1040
+endAuction called for auction 1040
+notifyAuctionEnded called for auction 1040
+closeAuctionIfEnded: endAuction called for auction 1041
+endAuction called for auction 1041
+notifyAuctionEnded called for auction 1041
+closeAuctionIfEnded: endAuction called for auction 1043
+endAuction called for auction 1043
+notifyAuctionEnded called for auction 1043
+closeAuctionIfEnded: endAuction called for auction 1044
+endAuction called for auction 1044
+notifyAuctionEnded called for auction 1044
+closeAuctionIfEnded: endAuction called for auction 1045
+endAuction called for auction 1045
+notifyAuctionEnded called for auction 1045
+closeAuctionIfEnded: endAuction called for auction 1046
+endAuction called for auction 1046
+notifyAuctionEnded called for auction 1046
+closeAuctionIfEnded: endAuction called for auction 1047
+endAuction called for auction 1047
+notifyAuctionEnded called for auction 1047
+closeAuctionIfEnded: endAuction called for auction 1036
+endAuction called for auction 1036
+notifyAuctionEnded called for auction 1036
+closeAuctionIfEnded: endAuction called for auction 1037
+endAuction called for auction 1037
+notifyAuctionEnded called for auction 1037
+closeAuctionIfEnded: endAuction called for auction 1038
+endAuction called for auction 1038
+notifyAuctionEnded called for auction 1038
+closeAuctionIfEnded: endAuction called for auction 1039
+endAuction called for auction 1039
+notifyAuctionEnded called for auction 1039
+closeAuctionIfEnded: endAuction called for auction 1040
+endAuction called for auction 1040
+notifyAuctionEnded called for auction 1040
+closeAuctionIfEnded: endAuction called for auction 1041
+endAuction called for auction 1041
+notifyAuctionEnded called for auction 1041
+closeAuctionIfEnded: endAuction called for auction 1043
+endAuction called for auction 1043
+notifyAuctionEnded called for auction 1043
+closeAuctionIfEnded: endAuction called for auction 1044
+endAuction called for auction 1044
+notifyAuctionEnded called for auction 1044
+closeAuctionIfEnded: endAuction called for auction 1045
+endAuction called for auction 1045
+notifyAuctionEnded called for auction 1045
+closeAuctionIfEnded: endAuction called for auction 1046
+endAuction called for auction 1046
+notifyAuctionEnded called for auction 1046
+closeAuctionIfEnded: endAuction called for auction 1047
+endAuction called for auction 1047
+notifyAuctionEnded called for auction 1047
+closeAuctionIfEnded: endAuction called for auction 1036
+endAuction called for auction 1036
+notifyAuctionEnded called for auction 1036
+closeAuctionIfEnded: endAuction called for auction 1037
+endAuction called for auction 1037
+notifyAuctionEnded called for auction 1037
+closeAuctionIfEnded: endAuction called for auction 1038
+endAuction called for auction 1038
+notifyAuctionEnded called for auction 1038
+closeAuctionIfEnded: endAuction called for auction 1039
+endAuction called for auction 1039
+notifyAuctionEnded called for auction 1039
+closeAuctionIfEnded: endAuction called for auction 1040
+endAuction called for auction 1040
+notifyAuctionEnded called for auction 1040
+closeAuctionIfEnded: endAuction called for auction 1041
+endAuction called for auction 1041
+notifyAuctionEnded called for auction 1041
+closeAuctionIfEnded: endAuction called for auction 1043
+endAuction called for auction 1043
+notifyAuctionEnded called for auction 1043
+closeAuctionIfEnded: endAuction called for auction 1044
+endAuction called for auction 1044
+notifyAuctionEnded called for auction 1044
+closeAuctionIfEnded: endAuction called for auction 1045
+endAuction called for auction 1045
+notifyAuctionEnded called for auction 1045
+closeAuctionIfEnded: endAuction called for auction 1046
+endAuction called for auction 1046
+notifyAuctionEnded called for auction 1046
+closeAuctionIfEnded: endAuction called for auction 1047
+endAuction called for auction 1047
+notifyAuctionEnded called for auction 1047
+closeAuctionIfEnded: endAuction called for auction 1036
+endAuction called for auction 1036
+notifyAuctionEnded called for auction 1036
+closeAuctionIfEnded: endAuction called for auction 1037
+endAuction called for auction 1037
+notifyAuctionEnded called for auction 1037
+closeAuctionIfEnded: endAuction called for auction 1038
+endAuction called for auction 1038
+notifyAuctionEnded called for auction 1038
+closeAuctionIfEnded: endAuction called for auction 1039
+endAuction called for auction 1039
+notifyAuctionEnded called for auction 1039
+closeAuctionIfEnded: endAuction called for auction 1040
+endAuction called for auction 1040
+notifyAuctionEnded called for auction 1040
+closeAuctionIfEnded: endAuction called for auction 1041
+endAuction called for auction 1041
+notifyAuctionEnded called for auction 1041
+closeAuctionIfEnded: endAuction called for auction 1043
+endAuction called for auction 1043
+notifyAuctionEnded called for auction 1043
+closeAuctionIfEnded: endAuction called for auction 1044
+endAuction called for auction 1044
+notifyAuctionEnded called for auction 1044
+closeAuctionIfEnded: endAuction called for auction 1045
+endAuction called for auction 1045
+notifyAuctionEnded called for auction 1045
+closeAuctionIfEnded: endAuction called for auction 1046
+endAuction called for auction 1046
+notifyAuctionEnded called for auction 1046
+closeAuctionIfEnded: endAuction called for auction 1047
+endAuction called for auction 1047
+notifyAuctionEnded called for auction 1047
+closeAuctionIfEnded: endAuction called for auction 1036
+endAuction called for auction 1036
+notifyAuctionEnded called for auction 1036
+closeAuctionIfEnded: endAuction called for auction 1037
+endAuction called for auction 1037
+notifyAuctionEnded called for auction 1037
+closeAuctionIfEnded: endAuction called for auction 1038
+endAuction called for auction 1038
+notifyAuctionEnded called for auction 1038
+closeAuctionIfEnded: endAuction called for auction 1039
+endAuction called for auction 1039
+notifyAuctionEnded called for auction 1039
+closeAuctionIfEnded: endAuction called for auction 1040
+endAuction called for auction 1040
+notifyAuctionEnded called for auction 1040
+closeAuctionIfEnded: endAuction called for auction 1041
+endAuction called for auction 1041
+notifyAuctionEnded called for auction 1041
+closeAuctionIfEnded: endAuction called for auction 1043
+endAuction called for auction 1043
+notifyAuctionEnded called for auction 1043
+closeAuctionIfEnded: endAuction called for auction 1044
+endAuction called for auction 1044
+notifyAuctionEnded called for auction 1044
+closeAuctionIfEnded: endAuction called for auction 1045
+endAuction called for auction 1045
+notifyAuctionEnded called for auction 1045
+closeAuctionIfEnded: endAuction called for auction 1046
+endAuction called for auction 1046
+notifyAuctionEnded called for auction 1046
+closeAuctionIfEnded: endAuction called for auction 1047
+endAuction called for auction 1047
+notifyAuctionEnded called for auction 1047
+closeAuctionIfEnded: endAuction called for auction 1036
+endAuction called for auction 1036
+notifyAuctionEnded called for auction 1036
+closeAuctionIfEnded: endAuction called for auction 1037
+endAuction called for auction 1037
+notifyAuctionEnded called for auction 1037
+closeAuctionIfEnded: endAuction called for auction 1038
+endAuction called for auction 1038
+notifyAuctionEnded called for auction 1038
+closeAuctionIfEnded: endAuction called for auction 1039
+endAuction called for auction 1039
+notifyAuctionEnded called for auction 1039
+closeAuctionIfEnded: endAuction called for auction 1040
+endAuction called for auction 1040
+notifyAuctionEnded called for auction 1040
+closeAuctionIfEnded: endAuction called for auction 1041
+endAuction called for auction 1041
+notifyAuctionEnded called for auction 1041
+closeAuctionIfEnded: endAuction called for auction 1043
+endAuction called for auction 1043
+notifyAuctionEnded called for auction 1043
+closeAuctionIfEnded: endAuction called for auction 1044
+endAuction called for auction 1044
+notifyAuctionEnded called for auction 1044
+closeAuctionIfEnded: endAuction called for auction 1045
+endAuction called for auction 1045
+notifyAuctionEnded called for auction 1045
+closeAuctionIfEnded: endAuction called for auction 1046
+endAuction called for auction 1046
+notifyAuctionEnded called for auction 1046
+closeAuctionIfEnded: endAuction called for auction 1047
+endAuction called for auction 1047
+notifyAuctionEnded called for auction 1047
+closeAuctionIfEnded: endAuction called for auction 1036
+endAuction called for auction 1036
+notifyAuctionEnded called for auction 1036
+closeAuctionIfEnded: endAuction called for auction 1037
+endAuction called for auction 1037
+notifyAuctionEnded called for auction 1037
+closeAuctionIfEnded: endAuction called for auction 1038
+endAuction called for auction 1038
+notifyAuctionEnded called for auction 1038
+closeAuctionIfEnded: endAuction called for auction 1039
+endAuction called for auction 1039
+notifyAuctionEnded called for auction 1039
+closeAuctionIfEnded: endAuction called for auction 1040
+endAuction called for auction 1040
+notifyAuctionEnded called for auction 1040
+closeAuctionIfEnded: endAuction called for auction 1041
+endAuction called for auction 1041
+notifyAuctionEnded called for auction 1041
+closeAuctionIfEnded: endAuction called for auction 1043
+endAuction called for auction 1043
+notifyAuctionEnded called for auction 1043
+closeAuctionIfEnded: endAuction called for auction 1044
+endAuction called for auction 1044
+notifyAuctionEnded called for auction 1044
+closeAuctionIfEnded: endAuction called for auction 1045
+endAuction called for auction 1045
+notifyAuctionEnded called for auction 1045
+closeAuctionIfEnded: endAuction called for auction 1046
+endAuction called for auction 1046
+notifyAuctionEnded called for auction 1046
+closeAuctionIfEnded: endAuction called for auction 1047
+endAuction called for auction 1047
+notifyAuctionEnded called for auction 1047
+closeAuctionIfEnded: endAuction called for auction 1036
+endAuction called for auction 1036
+notifyAuctionEnded called for auction 1036
+closeAuctionIfEnded: endAuction called for auction 1037
+endAuction called for auction 1037
+notifyAuctionEnded called for auction 1037
+closeAuctionIfEnded: endAuction called for auction 1038
+endAuction called for auction 1038
+notifyAuctionEnded called for auction 1038
+closeAuctionIfEnded: endAuction called for auction 1039
+endAuction called for auction 1039
+notifyAuctionEnded called for auction 1039
+closeAuctionIfEnded: endAuction called for auction 1040
+endAuction called for auction 1040
+notifyAuctionEnded called for auction 1040
+closeAuctionIfEnded: endAuction called for auction 1041
+endAuction called for auction 1041
+notifyAuctionEnded called for auction 1041
+closeAuctionIfEnded: endAuction called for auction 1043
+endAuction called for auction 1043
+notifyAuctionEnded called for auction 1043
+closeAuctionIfEnded: endAuction called for auction 1044
+endAuction called for auction 1044
+notifyAuctionEnded called for auction 1044

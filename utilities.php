@@ -1,10 +1,14 @@
 <link rel="stylesheet" href="css/custom_2.css">
-
 <?php
 
 date_default_timezone_set('Europe/London');
 
 require __DIR__ . DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR . 'autoload.php';
+require __DIR__ . '/vendor/autoload.php';
+
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
+$dotenv->load();
+
 
 error_reporting(E_ALL);
 ini_set('display_errors', '1');
@@ -28,18 +32,19 @@ function get_db_connection(): mysqli {
 
 function sendEmail($to, $subject, $body)
 {
-
     $logFile = __DIR__ . '/email_log.txt';
     $logMsg  = "----\nTo: {$to}\nSubject: {$subject}\n\n{$body}\n\n";
     file_put_contents($logFile, $logMsg, FILE_APPEND);
 
-    $smtpHost = 'smtp.gmail.com';
-    $smtpPort = 587;
-    $smtpUser = 'ninjaboss1707@gmail.com';
-    $smtpPass = 'imuirngouskdmtaj';
-    $smtpSecure = 'tls';
-    $fromAddress = 'ninjaboss1707@gmail.com';
-    $fromName = 'Auction Website';
+    // Load from environment
+    $smtpHost    = $_ENV['SMTP_HOST'];
+    $smtpPort    = $_ENV['SMTP_PORT'];
+    $smtpUser    = $_ENV['SMTP_USER'];
+    $smtpPass    = $_ENV['SMTP_PASS'];
+    $smtpSecure  = $_ENV['SMTP_SECURE'];
+    $fromAddress = $_ENV['FROM_ADDRESS'];
+    $fromName    = $_ENV['FROM_NAME'];
+
 
     $autoload = __DIR__ . '/vendor/autoload.php';
     if (!file_exists($autoload)) {
@@ -52,21 +57,20 @@ function sendEmail($to, $subject, $body)
 
     try {
         $mail->isSMTP();
-        $mail->Host = $smtpHost;
-        $mail->SMTPAuth = true;
-        $mail->Username = $smtpUser;
-        $mail->Password= $smtpPass;
-        $mail->SMTPSecure= $smtpSecure;
-        $mail->Port = (int)$smtpPort;
-        $mail->CharSet = 'UTF-8';
+        $mail->Host       = $smtpHost;
+        $mail->SMTPAuth   = true;
+        $mail->Username   = $smtpUser;
+        $mail->Password   = $smtpPass;
+        $mail->SMTPSecure = $smtpSecure;
+        $mail->Port       = (int)$smtpPort;
+        $mail->CharSet    = 'UTF-8';
         $mail->setFrom($fromAddress, $fromName);
         $mail->addAddress($to);
-        $mail->Subject = $subject;
-        $mail->Body = $body;
+        $mail->Subject    = $subject;
+        $mail->Body       = $body;
         $mail->isHTML(false);
 
         $mail->send();
-
         file_put_contents($logFile, "Sent: {$to} | Subject: {$subject}\n", FILE_APPEND);
         return true;
     } catch (Exception $e) {
@@ -75,6 +79,7 @@ function sendEmail($to, $subject, $body)
         return false;
     }
 }
+
 
 
 function h(?string $s): string {
