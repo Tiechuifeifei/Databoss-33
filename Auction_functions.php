@@ -11,8 +11,8 @@ require_once(__DIR__ . '/utilities.php');
 | This file contains all auction-related backend logic:
 | - 1. create a new auction 
 | - 2. get the auction details
-| - 3. search for the active auction -for browse ！！！
-| - 4. get the current highest price - for bid!!!
+| - 3. search for the active auction -for browse
+| - 4. get the current highest price - for bid
 | - 5. update auctionstatus automatically 
 | - 6. get the remaining time - call utilities.php 
 | - 7. all listing - for item
@@ -28,7 +28,7 @@ require_once(__DIR__ . '/utilities.php');
 
 //  AUCTION FUNCTIONS
 
-// 1. 创建新的 auction（item 上传后）/create auction after the item is uploaded 
+// 1.create auction after the item is uploaded 
 function createAuction($itemId, $startPrice, $reservePrice, $startTime, $endTime) {
     global $conn;  
 
@@ -36,7 +36,7 @@ function createAuction($itemId, $startPrice, $reservePrice, $startTime, $endTime
             (itemId, startPrice, reservedPrice, auctionStartTime, auctionEndTime, auctionStatus)
             VALUES (?, ?, ?, ?, ?, 'scheduled')";
 // NOTE: This itemId is temporary for testing.
-// After the Item module is implemented, itemId will be obtained from createItem(). 对接itemid 从createitem中
+// After the Item module is implemented, itemId will be obtained from createItem().
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("iddss", 
         $itemId, 
@@ -47,12 +47,11 @@ function createAuction($itemId, $startPrice, $reservePrice, $startTime, $endTime
     );
     
     $stmt->execute();
-    return $stmt->insert_id;   // mysqli 的 lastInsertId
+    return $stmt->insert_id; 
 }
 
-// 2. 获取某个 auction 的详情（browse.php / listing.php 用）/////
-// Get auction detail including joined item info.
-//TODO: After item team completes createItem(), integrate dynamic itemId.// join item的表格，调用itemid
+// 2.Get auction detail including joined item info.
+
 function getAuctionById($auctionId) {
     global $conn; 
         $sql = "
@@ -88,7 +87,7 @@ function getAuctionById($auctionId) {
     }
     
 
-// 3. 查询所有 active auction（browse 用）
+// 3.Check active auction
 function getActiveAuctions() {
     global $conn;
 
@@ -127,8 +126,7 @@ function getActiveAuctions() {
 }
 
 
-// 4. 更新auction当前价格（被bid模块调用）
-// call from bid module
+// 4. call for bid module
 function getCurrentHighestPrice($auctionId) {
     global $conn;
 
@@ -141,10 +139,10 @@ function getCurrentHighestPrice($auctionId) {
     $stmt->execute();
     $result = $stmt->get_result()->fetch_assoc();
 
-    // 如果没人出价，返回起拍价 if there is no bid, then go back to the start price 
+    //if there is no bid, then go back to the start price 
     if ($result['highestPrice'] === null) {
 
-        // 查起拍价serch for the startprice
+        // serch for the startprice
         $sql2 = "SELECT startPrice FROM auctions WHERE auctionId = ?";
         $stmt2 = $conn->prepare($sql2);
         $stmt2->bind_param("i", $auctionId);
@@ -157,12 +155,11 @@ function getCurrentHighestPrice($auctionId) {
     return $result['highestPrice'];
 }
 
-// update auctionstatus automatically 
-// 5. 自动根据时间刷新auction状态，并返回是否已经结束
+// 5. update auctionstatus automatically 
 function refreshAuctionStatus($auctionId) {
     global $conn;
 
-    // 1. Get timeline + current status + itemId
+    // 1.Get timeline + current status + itemId
     $sql = "
         SELECT auctionStartTime, auctionEndTime, auctionStatus, itemId
         FROM auctions
@@ -241,7 +238,6 @@ function refreshAuctionStatus($auctionId) {
 
 
 // 6. get the remaining time: call utilities.php
-// 获取某个auction的剩余时间
 // interact with utilities.php
 function getRemainingTime($auctionId) {
     global $conn;
@@ -260,20 +256,19 @@ function getRemainingTime($auctionId) {
     $end_time = new DateTime($row['auctionEndTime']);
     $now = new DateTime();
 
-    // if ended 
+    //if ended 
     if ($now >= $end_time) {
         return "Auction ended";
     }
 
-    // count the remaining time
+    //count the remaining time
     $interval = $now->diff($end_time);
     return display_time_remaining($interval);  // from utilities.php
 }
 
 
 
-// 7. 获取某个用户创建的所有拍卖（用于“我的拍卖”）
-// call from item
+// 7.call from item
 
 function getAuctionsByUser($userId) {
     global $conn;
@@ -308,7 +303,6 @@ function getAuctionsByUser($userId) {
 }
 
 //8. endAuctions -- update the auction when it ends
-//8. endAuctions -- update the auction when it ends
 function endAuction($auctionId) {
     file_put_contents(__DIR__ . '/auction_email_debug.txt', "endAuction called for auction {$auctionId}\n", FILE_APPEND);
 
@@ -316,7 +310,7 @@ function endAuction($auctionId) {
 
     $auctionId = (int)$auctionId;
 
-    // 1. Get highest bid (id + price)
+    // 1.Get highest bid (id + price)
     $sql = "SELECT bidId, bidPrice
             FROM bids
             WHERE auctionId = ?
@@ -328,7 +322,7 @@ function endAuction($auctionId) {
     $highestBid = $stmt->get_result()->fetch_assoc();
     $stmt->close();
 
-    // 2. Get itemId for status update
+    // 2.Get itemId for status update
     $sql_item = "SELECT itemId FROM auctions WHERE auctionId = ?";
     $stmt_item = $conn->prepare($sql_item);
     $stmt_item->bind_param("i", $auctionId);
@@ -337,12 +331,12 @@ function endAuction($auctionId) {
     $stmt_item->close();
 
     if (!$rowItem) {
-        return; // auction not found
+        return; //auction not found
     }
     $itemId = $rowItem['itemId'];
 
     if ($highestBid) {
-        // 3. Update sold price + winning bid
+        // 3.Update sold price + winning bid
         $sql2 = "UPDATE auctions
                  SET soldPrice = ?, winningBidId = ?
                  WHERE auctionId = ?";
@@ -356,7 +350,7 @@ function endAuction($auctionId) {
         $stmt2->execute();
         $stmt2->close();
 
-        // 4. Update item to sold
+        // 4.Update item to sold
         updateItemStatus($itemId, "sold");
 
     } else {
@@ -369,16 +363,16 @@ function endAuction($auctionId) {
         $stmt3->execute();
         $stmt3->close();
 
-        // No winner → item inactive
+        //No winner → item inactive
         updateItemStatus($itemId, "inactive");
     }
 
-    // 5. NOW send emails (after DB is correct)
+    //5.NOW send emails (after DB is correct)
     notifyAuctionEnded($auctionId);
 }
 
 
-// 9. Close auction only if ended
+// 9.Close auction only if ended
 function closeAuctionIfEnded($auctionId) {
     // refresh auction status (updates DB if needed)
     $ended = refreshAuctionStatus($auctionId);
@@ -394,7 +388,7 @@ function closeAuctionIfEnded($auctionId) {
 }
 
 
-// 10. cancel auction 
+// 10.cancel auction 
 function cancelAuction($auctionId, $itemId) {
     global $conn;
 
@@ -420,7 +414,7 @@ function cancelAuction($auctionId, $itemId) {
     return $stmt2->execute();
 }
 
-//12. YH: get auction by itemId and we can get auctionId by link to itemid, I wrote in one file but I too tired to find it. I am pretty sure I wrote it. 
+//12.get auction by itemId
 function getAuctionByItemId($itemId) {
     global $conn;
     $sql = "SELECT * FROM auctions WHERE itemId = ? LIMIT 1";
@@ -430,7 +424,7 @@ function getAuctionByItemId($itemId) {
     return $stmt->get_result()->fetch_assoc();
 }
 
-//13. refresh all auctions
+//13.refresh all auctions
 function refreshAllAuctions() {
     global $conn;
 
@@ -477,7 +471,7 @@ function notifyAuctionEnded($auctionId)
     $db = get_db_connection();
     $auctionId = (int)$auctionId;
 
-    // 1. Get auction + item + seller info + winner info (if any)
+    // 1.Get auction + item + seller info + winner info (if any)
     $sqlAuction = "
         SELECT 
             a.auctionId,
@@ -502,7 +496,7 @@ function notifyAuctionEnded($auctionId)
     $stmt->close();
 
     if (!$auctionRow) {
-        return; // auction not found, nothing to notify
+        return; //auction not found, nothing to notify
     }
 
     $itemName     = $auctionRow['itemName'];
@@ -512,7 +506,7 @@ function notifyAuctionEnded($auctionId)
     $soldPrice    = $auctionRow['soldPrice'];
     $winningBidId = $auctionRow['winningBidId'];
 
-    // 2. Get winner info, if there is a winner
+    // 2.Get winner info, if there is a winner
     $winnerId   = null;
     $winnerName = null;
     $winnerEmail= null;
@@ -544,7 +538,7 @@ function notifyAuctionEnded($auctionId)
         }
     }
 
-    // 3. Get all distinct bidders for this auction
+    // 3.Get all distinct bidders for this auction
     $sqlBidders = "
         SELECT DISTINCT 
             u.userId,
@@ -561,18 +555,18 @@ function notifyAuctionEnded($auctionId)
     $biddersRes = $stmt->get_result();
     $stmt->close();
 
-    // 4. Notify each bidder if they won or not
+    // 4.Notify each bidder if they won or not
     while ($row = $biddersRes->fetch_assoc()) {
         $bidderId    = (int)$row['userId'];
         $bidderName  = $row['userName'];
         $bidderEmail = $row['userEmail'];
 
         if (!filter_var($bidderEmail, FILTER_VALIDATE_EMAIL)) {
-            continue; // skip weird emails
+            continue; //skip weird emails
         }
 
         if (!is_null($winnerId) && $bidderId === $winnerId) {
-            // Winner email
+            //Winner email
             $subject = "You won the auction: {$itemName}";
             $body = "Hi {$bidderName},\n\n"
                   . "Congratulations! You have won the auction for '{$itemName}'.\n";
@@ -585,7 +579,7 @@ function notifyAuctionEnded($auctionId)
                    . "Regards,\nAuction Website";
 
         } else {
-            // Non-winner email
+            //Non-winner email
             $subject = "Auction ended: {$itemName}";
             $body = "Hi {$bidderName},\n\n"
                   . "The auction for '{$itemName}' has now ended.\n";
@@ -603,7 +597,7 @@ function notifyAuctionEnded($auctionId)
         sendEmail($bidderEmail, $subject, $body);
     }
 
-    // 5. Email seller a summary
+    // 5.Email seller a summary
     if (filter_var($sellerEmail, FILTER_VALIDATE_EMAIL)) {
         $subject = "Your auction has ended: {$itemName}";
 
