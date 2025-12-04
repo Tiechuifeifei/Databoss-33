@@ -4,17 +4,17 @@ require_once 'auction_functions.php';
 require_once 'bid_functions.php';
 require_once 'watchlist_funcs.php';
 
-
+// Check login
 $userId = $_SESSION['userId'] ?? null;
 if (!$userId) {
     header("Location: login.php");
     exit;
 }
 
-
+//Connect DB
 $db = get_db_connection();
 
-
+//Fetch User Info
 $sql = "SELECT * FROM users WHERE userId = ?";
 $stmt = $db->prepare($sql);
 $stmt->bind_param("i", $userId);
@@ -144,7 +144,7 @@ $watchlist = viewWatchlistByUser($userId);
     <?php foreach ($bids as $b): ?>
 
         <?php
-    
+
         $auctionId  = (int)$b['auctionId'];
         $itemId     = (int)$b['itemId'];
         $itemName   = $b['itemName'];
@@ -154,6 +154,7 @@ $watchlist = viewWatchlistByUser($userId);
         $endTime    = $b['auctionEndTime'];
         $startPrice = (float)$b['startPrice'];
 
+        // find the current highest bid for this auction
         $highestRow = getHighestBidForAuction($auctionId);
 
         if ($highestRow) {
@@ -178,21 +179,25 @@ $watchlist = viewWatchlistByUser($userId);
         if ($status === 'ended') {
             if ($highestRow) {
                 if ($isHighest) {
-                    $winnerText = '<span class="text-success"><strong>Congratulations! You won this auction.</strong></span>';
+                    $winnerText = '<span class="text-success" style="color:green; font-weight:200;">
+                    Congratulations! You won this auction.</span>';
                 } else {
-                    $winnerText = '<span class="text-muted">Unfortunately, another buyer won this auction.</span>';
+                    $winnerText = '<span style="font-weight:200; color:grey">Unfortunately, another buyer won this auction.</span>';
                 }
             } else {
-                $winnerText = '<span class="text-muted">Auction ended with no bids.</span>';
+                $winnerText = '<span style="font-weight:200; color:grey">Auction ended with no bids.</span>';
             }
         }
         ?>
 
-            <div class="card p-3 mb-2">
-                <h5><?= h($itemName) ?></h5>
-                <p>Seller: <a href="seller_profile.php?sellerId=<?= (int)$b['sellerId'] ?>"><?= h($b['sellerName']) ?></a></p>
-                <p>Your Bid: £<?= h(number_format($yourBid, 2)) ?></p>
-                <p>Status: <strong><?= h($status) ?></strong></p>
+            <div class="card p-3 mb-3 bid-card">
+                <h5 style="font-family:monospace,'Monaco'; letter-spacing: -1px;"
+                ><?= h($itemName) ?></h5>
+                <p style="font-weight:200;"
+                >Seller: <a style="color:grey; text-decoration:underline;"
+                 href="seller_profile.php?sellerId=<?= (int)$b['sellerId'] ?>"><?= h($b['sellerName']) ?></a></p>
+                <p style="font-weight:200;">Your Bid: £<?= h(number_format($yourBid, 2)) ?></p>
+                <p style="font-weight:200;">Status: <?= h($status) ?></p>
 
 
             
@@ -256,11 +261,13 @@ $watchlist = viewWatchlistByUser($userId);
 <h4 class="mt-5 profile-section-title"> My Watchlist</h4>
 
 <?php if (empty($watchlist)): ?>
-    <p class="profile-message">No items in your watchlist.</p>
+    <p class="profile-message" style="font-family:monospace,'Monaco'; letter-spacing: -1px;"
+    >No items in your watchlist.</p>
 <?php else: ?>
     <?php foreach ($watchlist as $w): ?>
         <div class="card p-3 mb-2">
-            <h5><?= h($w['itemName']) ?></h5>
+            <h5 style="font-family:monospace,'Monaco; letter-spacing:-1px"
+            ><?= h($w['itemName']) ?></h5>
             <p class="porfile-info">Status: <?= h($w['auctionStatus']) ?></p>
 
             <a class="profile-btn" 
@@ -284,7 +291,8 @@ $watchlist = viewWatchlistByUser($userId);
     <div class="modal-content">
       <form method="POST" action="rateSeller.php">
         <div class="modal-header">
-          <h5 class="modal-title" id="rateSellerLabel">Rate seller</h5>
+          <h5 class="modal-title" id="rateSellerLabel" style="font-famly:monospace,'Monaco';
+          letter-spacing: -1px">Rate seller</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span> <!-- For Bootstrap 4 -->
           </button>
@@ -297,7 +305,8 @@ $watchlist = viewWatchlistByUser($userId);
 
           <!-- Star Rating -->
           <div class="mb-3">
-            <label class="form-label"><strong>Your Rating:</strong></label>
+            <label class="form-label" style="font-family: monospace, 'Monaco';
+            letter-spacing:-1px;">Your Rating:</label>
 
             <div id="starRating" class="star-rating">
               <span class="star" data-value="1">★</span>
@@ -312,13 +321,18 @@ $watchlist = viewWatchlistByUser($userId);
 
           <!-- Comment -->
           <div class="mb-3">
-            <label for="rateSellerComment" class="form-label"><strong>Comment (optional):</strong></label>
+            <label for="rateSellerComment" class="form-label"
+            style="font-family=monospace,'Monaco'; letter-spacing:-1px;">Comment (optional):</label>
             <textarea name="comment" id="rateSellerComment" class="form-control" rows="3"></textarea>
           </div>
         </div>
         <div class="modal-footer">
-          <button type="submit" class="btn btn-success">Submit Rating</button>
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+          <button type="submit" class="btn btn-success"
+          style="border:none; border-radius: 0; background-color: black;
+          font-weight:200; text-transform: uppercase;">Submit Rating</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal"
+          style="background-color: grey; font-weight:200;
+          text-transform:uppercase; border-radius: 0;border:none;">Cancel</button>
         </div>
       </form>
     </div>
@@ -330,7 +344,7 @@ document.addEventListener('DOMContentLoaded', function () {
     var rateModal = document.getElementById('rateSellerModal');
     if (!rateModal) return;
 
-    //When the modal is about to be shown, fill in auction + seller info
+    // When the modal is about to be shown, fill in auction + seller info
     $('#rateSellerModal').on('show.bs.modal', function (event) {
         var button = event.relatedTarget;
         if (!button) return;
@@ -345,17 +359,17 @@ document.addEventListener('DOMContentLoaded', function () {
         document.getElementById('rateSellerItem').textContent   = "Item: " + itemName;
         document.getElementById('rateSellerSeller').textContent = "Seller: " + sellerName;
 
-        //Clear previous rating selection
+        // Clear previous rating selection
         const stars = document.querySelectorAll("#starRating .star");
         const ratingValue = document.getElementById("ratingValue");
         stars.forEach(function (s) { s.classList.remove('selected'); });
         ratingValue.value = '';
 
-        //Clear comment
+        // Clear comment
         document.getElementById('rateSellerComment').value = "";
     });
 
-    //Star rating logic
+    // Star rating logic
     const stars = document.querySelectorAll("#starRating .star");
     const ratingValue = document.getElementById("ratingValue");
     let selected = 0;
@@ -388,7 +402,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
-    //Prevent submitting without selecting a rating
+    // Prevent submitting without selecting a rating
     var form = document.querySelector('#rateSellerModal form');
     form.addEventListener('submit', function (e) {
         console.log("Submitting rating with:", {
