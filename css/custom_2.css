@@ -926,8 +926,15 @@
     }
 
     .mybids-table tbody td{
-        background:white;
-        font-weight:200;
+        white-space: normal;
+        word-wrap: break-word;
+        word-break: break-word;
+        vertical-align: middle; 
+    }
+
+    .mybids-cell-text {
+    padding-top: 8px;
+    padding-bottom: 8px;
     }
 
     /*CSS for mylistings.php*/
