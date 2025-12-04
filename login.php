@@ -13,13 +13,13 @@ $redirect = $_POST['redirect']     ?? 'browse.php';
 
 //return to original page if error
 function redirect_with_error(string $redirect, string $message): void {
-    // 确保有 ? / & 正确拼接参数
+
     $sep = (strpos($redirect, '?') === false) ? '?' : '&';
     header("Location: {$redirect}{$sep}loginError=" . urlencode($message));
     exit();
 }
 
-//
+
 if (!filter_var($email, FILTER_VALIDATE_EMAIL) || $password === '') {
     redirect_with_error($redirect, 'Invalid login credentials.');
 }

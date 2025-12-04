@@ -27,7 +27,7 @@ if ($item['itemStatus'] !== 'inactive')
 
 
 // =========================================================
-// SAVE TEXT INFO（仅保存 item 信息，不处理图片）
+// SAVE TEXT INFO
 // =========================================================
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['save_item_info'])) {
 
@@ -39,7 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['save_item_info'])) {
         $_POST['itemCondition']
     );
 
-    // 保存完返回我的列表
+
     header("Location: mylistings.php?updated=1");
     exit;
 }
@@ -59,7 +59,7 @@ include("header.php");
     <?php endif; ?>
 
     <!-- =========================================================
-         A. 上面这个 form 只负责文字信息（有 id="itemForm"）
+           A.
     ========================================================= -->
     <form id="itemForm" method="POST">
 
@@ -102,13 +102,13 @@ include("header.php");
             </div>
         </div>
 
-        <!-- 这里不放按钮了，只是文字表单本身 -->
+        <!-- no button -->
     </form>
 
     <hr class="my-4">
 
     <!-- =========================================================
-         B. 当前图片（显示 / 设置主图 / 删除）
+         B.
     ========================================================= -->
     <h4 class="edit-label">Current Images</h4>
 
@@ -149,7 +149,7 @@ include("header.php");
     <hr class="my-4">
 
     <!-- =========================================================
-         C. 上传图片（单独 form，发到 upload_image.php）
+         C. 
     ========================================================= -->
     <h4 class="edit-label">Upload New Images (max 3)</h4>
 
@@ -168,8 +168,7 @@ include("header.php");
     </form>
 
     <!-- =========================================================
-         D. 最底部的 SAVE 按钮（实际提交的是上面的 itemForm）
-         通过 form="itemForm" 关联到第一个 form
+         D. 
     ========================================================= -->
     <div class="edit-actions mt-5">
         <button

@@ -57,7 +57,7 @@ require_once 'utilities.php';
 
     
 // 1. Get Highest Bid For Auction: 
-//    Returns the highest bid for a specific auction (or null if there is no bids)
+// Returns the highest bid for a specific auction (or null if there is no bids)
 
 function getHighestBidForAuction($auctionId)
 {
@@ -129,7 +129,7 @@ function getBidsByAuctionId($auctionId)
 
 
 // 3. Get Bids By User: 
-//    "Buyer's View" - basically "all my bids", a user(buyer) to check all his/her bid/bids.
+// "Buyer's View" - basically "all my bids", a user(buyer) to check all his/her bid/bids.
 
 function getBidsByUser($userId)
 {
@@ -173,7 +173,7 @@ function getBidsByUser($userId)
 }
 
 // 4. View Bids On My Auctions:
-//    "Seller's View" - a user(seller) can view all bids that are placed on his/her auction/auctions.  
+// "Seller's View" - a user(seller) can view all bids that are placed on his/her auction/auctions.  
 
 function viewBidsOnMyAuctions($sellerId)
 {
@@ -241,7 +241,7 @@ return $rows;
 
 function placeBid($buyerId, $auctionId, $bidPrice)
 {
-    //0) users must register and logedin first
+    //0)users must register and logedin first
     if (empty($buyerId)) {
         return [
             "success" => false,
@@ -249,7 +249,7 @@ function placeBid($buyerId, $auctionId, $bidPrice)
         ];
     }
 
-    // 1)Validate bid price>0 before everything
+    //1)Validate bid price>0 before everything
     if ($bidPrice <= 0) { 
         return [
             "success" => false,
@@ -260,7 +260,7 @@ function placeBid($buyerId, $auctionId, $bidPrice)
     $db = get_db_connection();
 
 
-// 2)Check auction's status, like:exsistence/start price/status etc.
+//2) Check auction's status, like:exsistence/start price/status etc.
 $sqlAuction = "
     SELECT 
         i.sellerId,
@@ -281,41 +281,44 @@ $resultAuction = $stmtAuction -> get_result();
 $auctionRow = $resultAuction -> fetch_assoc();
 $stmtAuction -> close();
 
-    // (2.1)Auction must exist, otherwise return reminder.
+    //(2.1)Auction must exist, otherwise return reminder.
     if (!$auctionRow) {
         return [
             "success" => false,
             "message" => "Sorry, this auction does not exist."
         ];
     }
-        // Check the if there is a startPrice, avoid error
+        //Check the if there is a startPrice, avoid error
     $startPrice = isset($auctionRow["startPrice"]) 
                   ? (float)$auctionRow["startPrice"] 
                   : 0.0;
-        // SellerId for self-bidding validation later
+    
+        //SellerId for self-bidding validation later
     $sellerId = (int)$auctionRow["sellerId"];
-        // get the time for time-based auction check later.
+    
+        //get the time for time-based auction check later.
     $auctionStartTime = $auctionRow["auctionStartTime"];
     $auctionEndTime = $auctionRow["auctionEndTime"];
     $auctionStatus = $auctionRow["auctionStatus"] ?? null; 
-        // get the current time for time-validation later.
+    
+        //get the current time for time-validation later.
     $nowTimestamp     = time();
 
-    // (2.2) Seller cannot bid on his/her own auction, return a reminder
+    //(2.2)Seller cannot bid on his/her own auction, return a reminder
     if ((int)$buyerId === $sellerId) {
         return [
             "success" => false,
             "message" => "Sorry, you cannot place a bid on your own auction."
         ];
     }
-    // (2.3) if auction has been cancelled, return reminder
+    //(2.3)if auction has been cancelled, return reminder
     if ($auctionStatus === 'cancelled') {
         return [
             "success" => false,
             "message" => "Sorry, this auction is not available for bidding anymore."
         ];
     }
-    // (2.4) cannot bid if auction not started yet then return reminder
+    //(2.4)cannot bid if auction not started yet then return reminder
     if (!empty($auctionStartTime)) {
         $startTimestamp = strtotime($auctionStartTime);
         if ($nowTimestamp < $startTimestamp) {
@@ -325,7 +328,7 @@ $stmtAuction -> close();
             ];
         }
     }
-    // (2.5) Auction already ended, return reminder.
+    //(2.5)Auction already ended, return reminder.
     if (!empty($auctionEndTime)) {
         $endTimestamp = strtotime($auctionEndTime);
         if ($nowTimestamp >= $endTimestamp) {
@@ -337,10 +340,10 @@ $stmtAuction -> close();
     }
 
 
-// 3)Get the Current highest bid for bid validations later. 
+//3) Get the Current highest bid for bid validations later. 
 $currentHighest = getHighestBidForAuction($auctionId);
 
-// (3.1)first bid must higher than starting price if there is no existing bids
+//(3.1)first bid must higher than starting price if there is no existing bids
 
 if ($currentHighest === null) {
 
@@ -357,7 +360,7 @@ if ($currentHighest === null) {
     $currentHighestPrice = (float)$currentHighest["bidPrice"];
     $currentHighestBuyer = (int)$currentHighest["buyerId"];
 
-    // (3.2)highest bidder can’t bid again,avoid double-bidding or spam.
+    //(3.2)highest bidder can’t bid again,avoid double-bidding or spam.
     if ($currentHighestBuyer === (int)$buyerId) {
         return [
             "success" => false,
@@ -365,7 +368,7 @@ if ($currentHighest === null) {
         ];
     }
 
-    // (3.3) bid must be higher than the current highest bid, if there is/are bid/bids already.
+    //(3.3)bid must be higher than the current highest bid, if there is/are bid/bids already.
     if ($bidPrice <= $currentHighestPrice) {
         return [
             "success" => false,

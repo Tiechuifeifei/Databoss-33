@@ -6,18 +6,18 @@ require_once("db_connect.php");
 | ITEM FUNCTIONS
 |--------------------------------------------------------------------------
 | This file contains all Item-related backend logic:
-| - 1. create item 第一个
-| - 2/3 fetch item 第二个，第三个（找到seller）
-| - update item 第四个
-| - update status (inactive, active and sold) 第五个
-| - search bar 第六个
+| - 1. create item
+| - 2/3 fetch item
+| - update item
+| - update status (inactive, active and sold)
+| - search bar
 | - images related functions --- seperate file named started with Image_
 | - 7/. get item status
 |---------------------------------------------------------------------------
 */
 
 
-// 1. Create a new item (default itemStatus = 'inactive') 新建
+// 1. Create a new item (default itemStatus = 'inactive')
 
 function createItem($itemName, $itemDescription, $sellerId, $categoryId, $itemCondition) {
     global $conn;
@@ -38,7 +38,7 @@ function createItem($itemName, $itemDescription, $sellerId, $categoryId, $itemCo
     }
 }
 
-// 2. Get item details by itemId(根据itemid查看item，单个item) 这个是lisitng 拍卖详情页需要的东西，auction也需要这个来知道item的具体信息
+// 2. Get item details by itemId
 
 function getItemById($itemId) {
     global $conn;
@@ -52,7 +52,7 @@ function getItemById($itemId) {
 }
 
 
-// 3. Get all items uploaded by a seller = 查看用户上传的所有items
+// 3. Get all items uploaded by a seller
 
 function getItemsBySeller($sellerId) {
     global $conn;
@@ -72,7 +72,7 @@ function getItemsBySeller($sellerId) {
 }
 
 
-// 4. Update item details 更新
+// 4. Update item details
 
 function updateItem($itemId, $itemName, $itemDescription, $categoryId, $itemCondition) {
     global $conn;
@@ -91,7 +91,7 @@ function updateItem($itemId, $itemName, $itemDescription, $categoryId, $itemCond
 
 
 
-// 5. Update item status (inactive / active / sold / withdrawn) 和auction是呼应的状态
+// 5. Update item status (inactive / active / sold / withdrawn)
 function updateItemStatus($itemId, $newStatus) {
     global $conn;
 
@@ -102,7 +102,7 @@ function updateItemStatus($itemId, $newStatus) {
     return $stmt->execute();
 }
 
-// 6. search bar
+// 6.search bar
 function searchItems($keyword) {
     global $conn;
 
@@ -124,7 +124,6 @@ function searchItems($keyword) {
 }
 
 //7. get item
-// 7. Get item status by itemId —— 用于判断是否允许编辑
 function getItemStatus($itemId) {
     global $conn;
 

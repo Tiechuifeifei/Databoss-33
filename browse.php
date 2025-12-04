@@ -46,7 +46,7 @@ refreshAllAuctions();
                             $sql="SELECT * FROM categories";
                             $result=mysqli_query($conn,$sql);
                             while ($row = mysqli_fetch_assoc($result)) {
-                                refreshAuctionStatus($row['auctionId']); // 保留了你的函数调用
+                                refreshAuctionStatus($row['auctionId']);
                                 echo '<option value="' . $row['categoryId'] . '">' . htmlspecialchars($row['categoryName']) . '</option>';
                             }
                         }
@@ -82,7 +82,7 @@ refreshAllAuctions();
 </div>
 
 <?php
-  // Deal with keywords search situations(if user haven't enter anything)
+  //Deal with keywords search situations(if user haven't enter anything)
   if (!isset($_GET['keyword'])) {
     $keyword = "";
   }
@@ -90,7 +90,7 @@ refreshAllAuctions();
     $keyword = $_GET['keyword'];
   }
 
-// Deal with category filter situations
+//Deal with category filter situations
   if (!isset($_GET['cat'])) {
     $category="all";
   }
@@ -98,7 +98,7 @@ refreshAllAuctions();
     $category = $_GET['cat'];
   }
   
-// Deal with order_by situations, default order is by date
+//Deal with order_by situations, default order is by date
   if (!isset($_GET['order_by'])) {
     $ordering = "date";
   }
@@ -113,7 +113,7 @@ refreshAllAuctions();
     $curr_page = $_GET['page'];
   }
 
- // This is base sql to make foundamental sql
+ //This is base sql to make foundamental sql
      $base_sql = "
      FROM items i
      JOIN auctions a ON i.itemId=a.itemId
@@ -124,21 +124,20 @@ refreshAllAuctions();
 
      $base_sql .= " AND a.auctionStatus IN ('scheduled', 'running', 'ended')";
 
-     // This is keyword search sql query
+     //This is keyword search sql query
      if ($keyword !==""){
       $safe_kw = "%" . $conn->real_escape_string($keyword) . "%";
       $base_sql .= " AND (i.itemName LIKE '$safe_kw' OR i.itemDescription LIKE '$safe_kw')";
      }
 
-     // This is category filter sql query
+     //This is category filter sql query
      if ($category !== "all") {
       $base_sql .= " AND i.categoryId= ".intval($category);
      }
   
-  /* PROFESSOR'S COMMENTS: For the purposes of pagination, it would also be helpful to know the
-     total number of results that satisfy the above query */
+
     
-  // This is for counting numbers of items in single page
+  //This is for counting numbers of items in single page
   $sql_count = "SELECT COUNT(*) AS total " . $base_sql;
   $count_result = mysqli_query($conn, $sql_count);
   $row_count = mysqli_fetch_assoc($count_result);
@@ -149,7 +148,6 @@ refreshAllAuctions();
   $offset = ($curr_page - 1) * $results_per_page;
 
   // This is for order query
-  // YH DEBUG: we use auctionId instead of itemId
 
   $sql_item = "
   SELECT
@@ -208,10 +206,10 @@ refreshAllAuctions();
     $highestBid = getHighestBidForAuction($auction_id);
 
     if ($row["auctionStatus"] === 'ended') {
-        // No bids at all, hide
+        //No bids at all, hide
         if (!$highestBid) continue;
 
-        // Has bids but below reserved price, hide
+        //Has bids but below reserved price, hide
         if ($highestBid['bidPrice'] < $row['startPrice']) continue;
     }
     
@@ -219,10 +217,10 @@ refreshAllAuctions();
     //find the highest bid
     $highestBid = getHighestBidForAuction($auction_id);
 
-    // find the final price 
+    //find the final price 
     $price = $highestBid ? $highestBid['bidPrice'] : $row["startPrice"];
 
-    // find the winner
+    //find the winner
     $winnerName = null;
     if ($highestBid) {
         $winnerId = $highestBid['buyerId'];
@@ -252,20 +250,17 @@ refreshAllAuctions();
   );
   
 }
-// YH DEBUG: we use auctionId instead of itemId
-// YH: display differently among different auction status
 
   ?>
 
 </ul>
 
-<!--PROFESSOR'S COMMENTS: Pagination for results listings -->
+
 <nav aria-label="Search results pages" class="mt-5 browse-pagination">
   <ul class="pagination justify-content-center">
   
 <?php
 
-  // PROFESSOR'S COMMENT: Copy any currently-set GET variables to the URL.
   $querystring = "";
   foreach ($_GET as $key => $value) {
     if ($key != "page") {
@@ -290,17 +285,17 @@ refreshAllAuctions();
     
   for ($i = $low_page; $i <= $high_page; $i++) {
     if ($i == $curr_page) {
-      // PROFESSOR'S COMMENTS: Highlight the link
+
       echo('
     <li class="page-item active">');
     }
     else {
-      // PROFESSOR'S COMMENTS: Non-highlighted link
+
       echo('
     <li class="page-item">');
     }
     
-    //PROFESSOR'S COMMENTS: Do this in any case
+
     echo('
       <a class="page-link" href="browse.php?' . $querystring . 'page=' . $i . '">' . $i . '</a>
     </li>');
@@ -322,6 +317,7 @@ refreshAllAuctions();
 
 
 </div>
+
 
 
 

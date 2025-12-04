@@ -3,14 +3,14 @@
 date_default_timezone_set("Europe/London");
 
 $host = 'localhost';
-$dbname = 'auction_website';   // 数据库名称 name
+$dbname = 'auction_website';
 $username = 'root';
-$password = '';               // XAMPP 
+$password = '';
 
-// create mysqli connections 
+//create mysqli connections 
 $conn = new mysqli($host, $username, $password, $dbname);
 
-// check if connected correctly
+//check if connected correctly
 if ($conn->connect_error) {
     die("Database connection failed: " . $conn->connect_error);
 }

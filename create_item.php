@@ -8,6 +8,7 @@ if (session_status() === PHP_SESSION_NONE) session_start();
 require_once("db_connect.php");
 require_once("image_functions.php");
 require_once("Item_function.php");
+include_once("header.php");
 
 // If item already exists
 $itemId = isset($_GET["itemId"]) ? intval($_GET["itemId"]) : null;
@@ -61,7 +62,6 @@ if (isset($_POST["uploadImage"]) && $itemId) {
             $ext = strtolower(pathinfo($images["name"][$i], PATHINFO_EXTENSION));
             if (!in_array($ext, $allowed)) continue;
 
-            // 限制 3 张
             if (countImagesByItemId($itemId) >= 3) break;
 
             $targetDir = "uploads/";
@@ -248,6 +248,6 @@ if (isset($_GET["setPrimary"]) && $itemId) {
 </div>
 
 <?php endif; ?>
-<?php include "footer.php" ?>
+<?php include_once "footer.php" ?>
 </body>
 </html>

@@ -12,7 +12,7 @@ require_once "bid_functions.php";
 
 session_start();
 
-$itemId    = $_GET['itemId'] ?? ($_GET['item_id'] ?? null);
+$itemId= $_GET['itemId'] ?? ($_GET['item_id'] ?? null);
 $auctionId = $_GET['auctionId'] ?? null;
 
 if ($auctionId && !$itemId) {
@@ -52,12 +52,12 @@ if (!$item) {
 }
 
 $startPrice = (float)$auction['startPrice'];
-$endTime    = new DateTime($auction['auctionEndTime']);
-$startTime  = new DateTime($auction['auctionStartTime']);
-$now        = new DateTime();
+$endTime = new DateTime($auction['auctionEndTime']);
+$startTime = new DateTime($auction['auctionStartTime']);
+$now = new DateTime();
 
 $primaryImage = getPrimaryImage($itemId);
-$allImages    = getImagesByItemId($itemId);
+$allImages = getImagesByItemId($itemId);
 
 $highestBid = getHighestBidForAuction($auctionId);
 $bidHistory = getBidsByAuctionId($auctionId);
@@ -68,8 +68,8 @@ include_once "header.php";
 
 $reservePrice = isset($auction['reservedPrice']) ? (float)$auction['reservedPrice'] : 0.0;
 
-$hasHighestBid   = !empty($highestBid);
-$isUnsuccessful  = false;
+$hasHighestBid = !empty($highestBid);
+$isUnsuccessful = false;
 
 //No bids
 if (!$hasHighestBid) {
@@ -267,3 +267,4 @@ $isWatching = $userId ? isInWatchlist($userId, $auctionId) : false;
 </div>
 
 <?php include_once "footer.php"; ?>
+

@@ -7,8 +7,6 @@ if (session_status() === PHP_SESSION_NONE) {
 }
 
 
-//YH: DEBUG: this page should not include header.php//
-//YH: I deleted the header and updated below function.
 function back_with_msg(string $msg) {
     $_SESSION['error_msg'] = $msg;
     header("Location: register.php");
@@ -58,7 +56,7 @@ if ($res && $res->num_rows > 0) {
 }
 $stmt->close();
 
-// Username uniqueness
+//Username uniqueness
 $stmt = $db->prepare("SELECT userId FROM users WHERE userName = ? LIMIT 1");
 $stmt->bind_param('s', $userName);
 $stmt->execute();
@@ -99,9 +97,10 @@ if (!$stmt->execute()) {
 $userId = $stmt->insert_id;
 $stmt->close();
 
-// login 
+//login 
 $_SESSION['userId']       = $userId;
 $_SESSION['userName'] = $userName;
 
 header('Location: browse.php');
 exit;
+
